@@ -14,6 +14,24 @@ const Search = () => {
     dateFrom: '',
     dateTo: '',
   });
+  const [availableTickers, setAvailableTickers] = useState<string[]>([]);
+
+  // Fetch available tickers on component mount
+  React.useEffect(() => {
+    const fetchAvailableTickers = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/transcripts/count');
+        const data = await response.json();
+        if (data.tickers) {
+          setAvailableTickers(data.tickers.sort());
+        }
+      } catch (error) {
+        console.error('Failed to fetch available tickers:', error);
+      }
+    };
+    
+    fetchAvailableTickers();
+  }, []);
 
   const copyToClipboard = async (transcriptId: string, ticker: string, year: number, quarter: number) => {
     try {
@@ -240,18 +258,22 @@ const Search = () => {
           <h3 className="text-lg font-semibold mb-3">Advanced Filters</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label htmlFor="tickers" className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Tickers (comma-separated)
               </label>
               <input
-                id="tickers"
                 type="text"
                 value={filters.tickers}
-                onChange={(e) => setFilters(prev => ({ ...prev, tickers: e.target.value }))}
-                placeholder="AAPL, MSFT, GOOGL"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                onChange={(e) => setFilters({ ...filters, tickers: e.target.value })}
+                placeholder="e.g., NVDA, GOOGL, TPR"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled={loading}
               />
+              {availableTickers.length > 0 && (
+                <p className="text-xs text-gray-500 mt-1">
+                  Available: {availableTickers.join(', ')}
+                </p>
+              )}
             </div>
 
             <div>

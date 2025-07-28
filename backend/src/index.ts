@@ -421,7 +421,9 @@ app.post('/api/search', async (req, res) => {
       
       // Apply filters
       if (filters.tickers && filters.tickers.length > 0) {
-        if (!filters.tickers.includes(transcript.ticker)) continue;
+        // Make ticker filtering case-insensitive
+        const filterTickers = filters.tickers.map((t: string) => t.toLowerCase());
+        if (!filterTickers.includes(transcript.ticker.toLowerCase())) continue;
       }
       if (filters.years && filters.years.length > 0) {
         if (!filters.years.includes(transcript.year)) continue;
