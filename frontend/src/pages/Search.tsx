@@ -15,6 +15,29 @@ const Search = () => {
     dateTo: '',
   });
 
+  const copyToClipboard = async (transcriptId: string, ticker: string, year: number, quarter: number) => {
+    try {
+      // First, get the full transcript from the backend
+      const response = await fetch(`http://localhost:3001/api/transcripts/${transcriptId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch full transcript');
+      }
+      
+      const transcriptData = await response.json();
+      const fullText = transcriptData.fullTranscript || transcriptData.transcript || '';
+      
+      if (!fullText) {
+        throw new Error('No transcript text found');
+      }
+
+      await navigator.clipboard.writeText(fullText);
+      alert(`✅ ${ticker.toUpperCase()} ${year} Q${quarter} transcript copied to clipboard (${fullText.length.toLocaleString()} characters)`);
+    } catch (err) {
+      console.error('Copy failed:', err);
+      alert(`❌ Failed to copy transcript: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    }
+  };
+
   const handleSearch = async () => {
     if (!query.trim()) {
       toast('Please enter a search query', 'error');
@@ -322,7 +345,14 @@ const Search = () => {
                           </p>
                         )}
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 items-center">
+                        <button
+                          onClick={() => copyToClipboard(result.id, result.ticker, result.year, result.quarter)}
+                          className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+                          title="Copy full transcript to clipboard"
+                        >
+                          📋
+                        </button>
                         {result.relevanceScore && (
                           <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
                             Score: {(result.relevanceScore * 100).toFixed(0)}%

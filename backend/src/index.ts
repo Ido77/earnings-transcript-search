@@ -505,7 +505,7 @@ app.post('/api/search', async (req, res) => {
   }
 });
 
-// Get cached transcripts count
+// Get cached transcripts count (must be before the dynamic :id route)
 app.get('/api/transcripts/count', (req, res) => {
   const cacheStats = {
     total: transcriptCache.size,
@@ -518,6 +518,43 @@ app.get('/api/transcripts/count', (req, res) => {
   };
   
   res.json(cacheStats);
+});
+
+// Get individual transcript by ID
+app.get('/api/transcripts/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    if (!transcriptCache.has(id)) {
+      return res.status(404).json({ error: 'Transcript not found' });
+    }
+    
+    const transcript = transcriptCache.get(id);
+    
+    logger.info('Transcript retrieved for copy', {
+      id,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      length: transcript.fullTranscript.length,
+    });
+    
+    res.json({
+      id: transcript.id,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      fullTranscript: transcript.fullTranscript,
+      callDate: transcript.callDate,
+      length: transcript.fullTranscript.length,
+    });
+  } catch (error) {
+    logger.error('Error retrieving transcript', { 
+      id: req.params.id,
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+    res.status(500).json({ error: 'Failed to retrieve transcript' });
+  }
 });
 
 // Basic error handling
