@@ -319,6 +319,18 @@ app.post('/api/jobs/:jobId/resume', asyncHandler(async (req, res) => {
   res.json({ message: 'Job resumed successfully', jobId });
 }));
 
+// Cancel job
+app.post('/api/jobs/:jobId/cancel', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const cancelled = jobManager.cancelJob(jobId);
+
+  if (!cancelled) {
+    return res.status(400).json({ error: 'Job cannot be cancelled (not running/pending or not found)' });
+  }
+
+  res.json({ message: 'Job cancelled successfully', jobId });
+}));
+
 // Get all jobs (admin endpoint)
 app.get('/api/jobs', asyncHandler(async (req, res) => {
   const jobs = jobManager.getAllJobs();

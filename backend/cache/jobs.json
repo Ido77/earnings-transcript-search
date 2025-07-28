@@ -1,6 +1,6 @@
 {
-  "65244e81-6197-4ed9-9f1c-b816c36c026f": {
-    "id": "65244e81-6197-4ed9-9f1c-b816c36c026f",
+  "9b516787-d0fa-443f-b8ca-5f65011dcb93": {
+    "id": "9b516787-d0fa-443f-b8ca-5f65011dcb93",
     "status": "completed",
     "tickers": [
       "aapl",
@@ -20,7 +20,15 @@
         "aapl",
         "aapl",
         "aapl",
-        "aapl"
+        "aapl",
+        "msft",
+        "msft",
+        "msft",
+        "msft",
+        "googl",
+        "googl",
+        "googl",
+        "googl"
       ]
     },
     "results": [
@@ -65,80 +73,88 @@
         "skipped": true
       },
       {
-        "ticker": "msft",
-        "year": "2025",
-        "quarter": "3",
+        "ticker": "MSFT",
+        "year": 2025,
+        "quarter": 3,
         "status": "success",
         "transcriptLength": 48866,
         "transcriptId": "msft-2025-Q3",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "msft",
-        "year": "2025",
-        "quarter": "2",
+        "ticker": "MSFT",
+        "year": 2025,
+        "quarter": 2,
         "status": "success",
         "transcriptLength": 52937,
         "transcriptId": "msft-2025-Q2",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "msft",
-        "year": "2025",
-        "quarter": "1",
+        "ticker": "MSFT",
+        "year": 2025,
+        "quarter": 1,
         "status": "success",
         "transcriptLength": 55876,
         "transcriptId": "msft-2025-Q1",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "msft",
-        "year": "2024",
-        "quarter": "4",
+        "ticker": "MSFT",
+        "year": 2024,
+        "quarter": 4,
         "status": "success",
         "transcriptLength": 53305,
         "transcriptId": "msft-2024-Q4",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
         "ticker": "GOOGL",
-        "year": "2025",
-        "quarter": "2",
+        "year": 2025,
+        "quarter": 2,
         "status": "success",
         "transcriptLength": 50614,
         "transcriptId": "googl-2025-Q2",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "googl",
-        "year": "2025",
-        "quarter": "1",
+        "ticker": "GOOGL",
+        "year": 2025,
+        "quarter": 1,
         "status": "success",
         "transcriptLength": 49898,
         "transcriptId": "googl-2025-Q1",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "googl",
-        "year": "2024",
-        "quarter": "4",
+        "ticker": "GOOGL",
+        "year": 2024,
+        "quarter": 4,
         "status": "success",
         "transcriptLength": 53083,
         "transcriptId": "googl-2024-Q4",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       },
       {
-        "ticker": "googl",
-        "year": "2024",
-        "quarter": "3",
+        "ticker": "GOOGL",
+        "year": 2024,
+        "quarter": 3,
         "status": "success",
         "transcriptLength": 56645,
         "transcriptId": "googl-2024-Q3",
-        "storage": "memory"
+        "storage": "cached",
+        "skipped": true
       }
     ],
-    "createdAt": "2025-07-28T23:38:14.337Z",
-    "startedAt": "2025-07-28T23:38:14.338Z",
-    "completedAt": "2025-07-28T23:38:33.358Z"
+    "createdAt": "2025-07-28T23:40:39.562Z",
+    "startedAt": "2025-07-28T23:40:39.565Z",
+    "completedAt": "2025-07-28T23:40:47.588Z"
   }
 }

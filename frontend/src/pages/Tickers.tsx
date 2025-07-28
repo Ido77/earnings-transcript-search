@@ -136,112 +136,102 @@ const Tickers = () => {
     setIsProcessing(true);
     setResults(null);
 
-    // Check for existing progress and resume
-    let startIndex = 0;
-    if (progress.processed.length > 0 || progress.failed.length > 0 || progress.skipped.length > 0) {
-      startIndex = progress.processed.length + progress.failed.length + progress.skipped.length;
-      setProgressLog(prev => [...prev, `🔄 Resuming from ticker ${startIndex + 1}/${tickerList.length}`]);
-    }
-
-    const allResults: any[] = [];
-    let successCount = progress.processed.length;
-    let failedCount = progress.failed.length;
-    let skippedCount = progress.skipped.length;
-
     try {
-      for (let i = startIndex; i < tickerList.length; i++) {
-        const ticker = tickerList[i];
-        
-        // Update progress
-        const newProgress = {
-          ...progress,
-          current: i + 1,
-          total: tickerList.length,
-          currentTicker: ticker
-        };
-        setProgress(newProgress);
-        saveProgress(newProgress);
-
-        setProgressLog(prev => [...prev, `⏳ Processing ${ticker} (${i + 1}/${tickerList.length})`]);
-
-        try {
-          const response = await fetch('http://localhost:3001/api/tickers/bulk-fetch', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tickers: [ticker] }),
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          allResults.push(...data.results);
-
-          // Update counters based on results
-          data.results.forEach((result: any) => {
-            if (result.status === 'success') {
-              if (result.skipped) {
-                skippedCount++;
-                newProgress.skipped.push(ticker);
-                setProgressLog(prev => [...prev, `⏭️ ${ticker} - Already cached`]);
-              } else {
-                successCount++;
-                newProgress.processed.push(ticker);
-                setProgressLog(prev => [...prev, `✅ ${ticker} - ${result.transcriptLength?.toLocaleString()} characters`]);
-              }
-            } else {
-              failedCount++;
-              newProgress.failed.push(ticker);
-              setProgressLog(prev => [...prev, `❌ ${ticker} - ${result.error || 'Failed'}`]);
-            }
-          });
-
-          setProgress(newProgress);
-          saveProgress(newProgress);
-
-          // Small delay to prevent overwhelming the API
-          await new Promise(resolve => setTimeout(resolve, 100));
-
-        } catch (error) {
-          failedCount++;
-          const newProgress = {
-            ...progress,
-            failed: [...progress.failed, ticker]
-          };
-          setProgress(newProgress);
-          saveProgress(newProgress);
-          
-          setProgressLog(prev => [...prev, `❌ ${ticker} - ${error instanceof Error ? error.message : 'Unknown error'}`]);
-          console.error(`Error processing ${ticker}:`, error);
-        }
-      }
-
-      // Final results
-      setResults({
-        results: allResults,
-        summary: {
-          total: tickerList.length,
-          successful: successCount,
-          failed: failedCount,
-          skipped: skippedCount
+      // Create ONE bulk job with ALL tickers (not individual jobs)
+      const response = await fetch('http://localhost:3001/api/jobs/bulk-fetch', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        executionTime: 0
+        body: JSON.stringify({ tickers: tickerList }), // Send all tickers in one request
       });
 
-      setProgressLog(prev => [...prev, `🎉 Completed! ${successCount} successful, ${skippedCount} skipped, ${failedCount} failed`]);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create bulk job');
+      }
+
+      const jobData = await response.json();
       
-      // Clear progress after successful completion
-      localStorage.removeItem('bulk-fetch-progress');
+      // Store job ID for progress tracking
+      const jobId = jobData.jobId;
       
-      toast(`Completed processing ${tickerList.length} tickers`, 'success');
+      setProgress({
+        current: 0,
+        total: tickerList.length,
+        currentTicker: '',
+        processed: [],
+        failed: [],
+        skipped: []
+      });
+
+      setProgressLog([`🚀 Created bulk job ${jobId} for ${tickerList.length} tickers`]);
+
+      // Poll for progress updates
+      const pollProgress = async () => {
+        try {
+          const progressResponse = await fetch(`http://localhost:3001/api/jobs/${jobId}/progress`);
+          
+          if (!progressResponse.ok) {
+            throw new Error('Failed to fetch progress');
+          }
+
+          const progressData = await progressResponse.json();
+          
+          setProgress(progressData.progress);
+          
+          if (progressData.progress.currentTicker) {
+            setProgressLog(prev => [...prev.slice(-20), // Keep last 20 logs
+              `⏳ Processing ${progressData.progress.currentTicker.toUpperCase()} (${progressData.progress.current}/${progressData.progress.total})`
+            ]);
+          }
+
+          // Check if job is complete
+          if (progressData.status === 'completed') {
+            setProgressLog(prev => [...prev, 
+              `🎉 Job completed! ${progressData.progress.processed.length} processed, ${progressData.progress.failed.length} failed, ${progressData.progress.skipped.length} skipped`
+            ]);
+            
+            setResults({
+              results: [], // We don't get detailed results from progress endpoint
+              summary: {
+                total: progressData.progress.total,
+                successful: progressData.progress.processed.length,
+                failed: progressData.progress.failed.length,
+                skipped: progressData.progress.skipped.length
+              },
+              executionTime: 0
+            });
+
+            setIsProcessing(false);
+            clearInterval(progressInterval);
+            toast(`Job completed! ${progressData.progress.processed.length} tickers processed successfully`, 'success');
+            
+          } else if (progressData.status === 'failed') {
+            setProgressLog(prev => [...prev, `❌ Job failed: ${progressData.error || 'Unknown error'}`]);
+            setIsProcessing(false);
+            clearInterval(progressInterval);
+            toast('Job failed', 'error');
+          }
+          
+        } catch (error) {
+          console.error('Error polling progress:', error);
+          setProgressLog(prev => [...prev, `⚠️ Failed to get progress update: ${error instanceof Error ? error.message : 'Unknown error'}`]);
+        }
+      };
+
+      // Start polling every 2 seconds
+      const progressInterval = setInterval(pollProgress, 2000);
+      
+      // Initial progress check
+      pollProgress();
+
+      toast(`Background job created with ID: ${jobId}`, 'success');
 
     } catch (error) {
       console.error('Bulk fetch error:', error);
-      toast('Bulk fetch failed. Progress saved for resumption.', 'error');
-    } finally {
+      setProgressLog(prev => [...prev, `❌ Failed to create job: ${error instanceof Error ? error.message : 'Unknown error'}`]);
+      toast('Failed to create bulk fetch job. ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
       setIsProcessing(false);
     }
   };

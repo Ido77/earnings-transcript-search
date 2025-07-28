@@ -309,6 +309,23 @@ export class JobManager extends EventEmitter {
   }
 
   /**
+   * Cancel a running job
+   */
+  cancelJob(jobId: string): boolean {
+    const job = this.jobs.get(jobId);
+    if (!job || (job.status !== 'running' && job.status !== 'pending')) return false;
+
+    job.status = 'failed';
+    job.error = 'Job cancelled by user';
+    job.completedAt = new Date();
+    this.activeJobs.delete(jobId);
+    this.saveJobsToFile();
+    
+    logger.info('Background job cancelled', { jobId });
+    return true;
+  }
+
+  /**
    * Load jobs from file on startup
    */
   private loadJobsFromFile(): void {
