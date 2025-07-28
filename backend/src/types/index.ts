@@ -72,11 +72,14 @@ export type BulkFetchRequest = z.infer<typeof BulkFetchRequestSchema>;
 
 export interface BulkFetchResult {
   ticker: string;
-  year: number;
-  quarter: number;
-  status: 'success' | 'failed' | 'skipped';
-  error?: string;
+  year?: number;
+  quarter?: number;
+  status: 'success' | 'failed' | 'skipped' | 'not_available';
+  transcriptLength?: number;
   transcriptId?: string;
+  storage?: 'database' | 'memory' | 'cached' | 'memory_fallback';
+  error?: string;
+  skipped?: boolean;
 }
 
 export interface BulkFetchResponse {
@@ -88,6 +91,34 @@ export interface BulkFetchResponse {
     skipped: number;
   };
   executionTime: number;
+}
+
+// Job system types
+export interface BulkFetchJob {
+  id: string;
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'paused';
+  tickers: string[];
+  progress: {
+    current: number;
+    total: number;
+    currentTicker?: string;
+    processed: string[];
+    failed: string[];
+    skipped: string[];
+  };
+  results: BulkFetchResult[];
+  createdAt: Date;
+  startedAt?: Date;
+  completedAt?: Date;
+  error?: string;
+}
+
+export interface JobProgress {
+  jobId: string;
+  status: BulkFetchJob['status'];
+  progress: BulkFetchJob['progress'];
+  estimatedTimeRemaining?: number;
+  lastUpdate: Date;
 }
 
 // Statistics types

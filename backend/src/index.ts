@@ -17,7 +17,9 @@ import path from 'path';
 import { config } from '@/config/config';
 import { logger } from '@/config/logger';
 import { prisma } from '@/config/database';
+import { asyncHandler } from '@/utils/asyncHandler';
 import { apiNinjasService } from '@/services/apiNinjas';
+import { JobManager } from '@/services/jobManager';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
@@ -95,6 +97,31 @@ const saveCacheToFile = (cache: Map<string, any>): void => {
 // Initialize persistent cache
 const transcriptCache = loadCacheFromFile();
 
+// Initialize job manager
+const jobManager = new JobManager(transcriptCache);
+
+// Listen for job progress events
+jobManager.on('progress', ({ jobId, job }) => {
+  logger.info('Job progress update', {
+    jobId,
+    progress: `${job.progress.current}/${job.progress.total}`,
+    currentTicker: job.progress.currentTicker,
+    processed: job.progress.processed.length,
+    failed: job.progress.failed.length,
+    skipped: job.progress.skipped.length
+  });
+});
+
+jobManager.on('completed', ({ jobId, job }) => {
+  logger.info('Job completed successfully', {
+    jobId,
+    total: job.tickers.length,
+    processed: job.progress.processed.length,
+    failed: job.progress.failed.length,
+    skipped: job.progress.skipped.length
+  });
+});
+
 const app = express();
 
 // Trust proxy (important for rate limiting and IP detection)
@@ -163,7 +190,18 @@ app.get('/health', (req, res) => {
     environment: config.nodeEnv,
     version: '1.0.0',
     mode: config.apiNinjas.isDemo ? 'demo' : 'production',
-    apiKeyStatus: config.apiNinjas.key === 'demo_key_for_development' ? 'demo' : 'real',
+    apiKeyStatus: config.apiNinjas.isDemo ? 'demo' : 'real',
+    cacheSize: transcriptCache.size,
+  });
+});
+
+// Simple debug endpoint
+app.get('/debug', (req, res) => {
+  res.json({
+    message: 'Debug endpoint working',
+    timestamp: new Date().toISOString(),
+    cacheSize: transcriptCache.size,
+    memory: process.memoryUsage(),
   });
 });
 
@@ -183,239 +221,107 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!', timestamp: new Date().toISOString() });
 });
 
-app.post('/api/tickers/bulk-fetch', async (req, res) => {
-  try {
-    const { tickers } = req.body;
-    
-    if (!tickers || !Array.isArray(tickers)) {
-      return res.status(400).json({ error: 'Tickers array is required' });
-    }
+// Bulk fetch transcripts endpoint (DEPRECATED - keeping for compatibility)
+app.post('/api/tickers/bulk-fetch', asyncHandler(async (req, res) => {
+  const { tickers: rawTickers } = req.body;
+  const tickers = Array.isArray(rawTickers) ? rawTickers.map((t: string) => t.trim().toLowerCase()).filter(Boolean) : [];
 
-    logger.info('Bulk fetch request received', { tickers, mode: config.apiNinjas.isDemo ? 'demo' : 'production' });
-
-    const results = [];
-    const startTime = Date.now();
-
-    // Fetch transcripts for latest available quarters (try 2025, 2024, 2023, etc.)
-    const quartersToTry = [
-      { year: 2025, quarter: 4 },  // Q4 2025 (newest)
-      { year: 2025, quarter: 3 },  // Q3 2025
-      { year: 2025, quarter: 2 },  // Q2 2025
-      { year: 2025, quarter: 1 },  // Q1 2025
-      { year: 2024, quarter: 4 },  // Q4 2024
-      { year: 2024, quarter: 3 },  // Q3 2024
-      { year: 2024, quarter: 2 },  // Q2 2024
-      { year: 2024, quarter: 1 },  // Q1 2024
-      { year: 2023, quarter: 4 },  // Q4 2023
-      { year: 2023, quarter: 3 },  // Q3 2023
-      { year: 2023, quarter: 2 },  // Q2 2023
-      { year: 2023, quarter: 1 },  // Q1 2023
-    ];
-
-    for (const ticker of tickers) {
-      logger.info('Fetching latest transcripts for ticker', { ticker });
-      
-      try {
-        const fetchedTranscripts = [];
-        
-        // Try quarters one by one until we get 4 successful transcripts
-        for (const quarter of quartersToTry) {
-          if (fetchedTranscripts.length >= 4) break; // Stop after 4 successful fetches
-          
-          // Check if this transcript is already in cache
-          const cacheKey = `${ticker.toLowerCase()}-${quarter.year}-Q${quarter.quarter}`;
-          if (transcriptCache.has(cacheKey)) {
-            const cachedTranscript = transcriptCache.get(cacheKey);
-            logger.info('Transcript already cached, skipping fetch', {
-              ticker,
-              year: quarter.year,
-              quarter: quarter.quarter,
-              cacheKey,
-              length: cachedTranscript.fullTranscript.length,
-            });
-            
-            // Add to results as "skipped" but successful
-            results.push({
-              ticker: ticker.toUpperCase(),
-              year: quarter.year,
-              quarter: quarter.quarter,
-              status: 'success',
-              transcriptLength: cachedTranscript.fullTranscript.length,
-              transcriptId: cacheKey,
-              storage: 'cached',
-              skipped: true,
-            });
-            
-            fetchedTranscripts.push({
-              ticker: ticker.toLowerCase(),
-              year: quarter.year,
-              quarter: quarter.quarter,
-              transcript: cachedTranscript.fullTranscript,
-              date: cachedTranscript.callDate,
-            });
-            continue;
-          }
-          
-          try {
-            const transcript = await apiNinjasService.fetchTranscript(ticker, quarter.year, quarter.quarter);
-            
-            if (transcript) {
-              fetchedTranscripts.push(transcript);
-              logger.info('Latest transcript found', {
-                ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                length: transcript.transcript.length,
-                position: fetchedTranscripts.length,
-              });
-            }
-          } catch (error) {
-            // Continue to next quarter if this one fails
-            logger.debug('Quarter not available, trying next', {
-              ticker,
-              year: quarter.year,
-              quarter: quarter.quarter,
-            });
-          }
-        }
-        
-        // Process the successfully fetched transcripts
-        for (const transcript of fetchedTranscripts) {
-          if (transcript) {
-            // Store in memory cache for search functionality
-            const cacheKey = `${transcript.ticker}-${transcript.year}-Q${transcript.quarter}`;
-            transcriptCache.set(cacheKey, {
-              id: cacheKey,
-              ticker: transcript.ticker,
-              companyName: `${transcript.ticker} Inc.`,
-              year: transcript.year,
-              quarter: transcript.quarter,
-              callDate: transcript.date || `${transcript.year}-${transcript.quarter * 3}-15`,
-              fullTranscript: transcript.transcript,
-              transcriptJson: {
-                ticker: transcript.ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                date: transcript.date,
-                transcript: transcript.transcript,
-                fetchedAt: new Date().toISOString(),
-              },
-            });
-
-            // Save cache to file for persistence
-            saveCacheToFile(transcriptCache);
-
-            // Try to store in database (might fail due to permissions)
-            try {
-              const transcriptRecord = await prisma.transcript.create({
-                data: {
-                  ticker: transcript.ticker,
-                  year: transcript.year,
-                  quarter: transcript.quarter,
-                  callDate: new Date(transcript.date || `${transcript.year}-${transcript.quarter * 3}-15`),
-                  fullTranscript: transcript.transcript,
-                  transcriptJson: {
-                    ticker: transcript.ticker,
-                    year: transcript.year,
-                    quarter: transcript.quarter,
-                    date: transcript.date,
-                    transcript: transcript.transcript,
-                    fetchedAt: new Date().toISOString(),
-                  },
-                },
-              });
-              
-              results.push({
-                ticker: transcript.ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                status: 'success',
-                transcriptLength: transcript.transcript.length,
-                transcriptId: transcriptRecord.id,
-                storage: 'database',
-              });
-              
-              logger.info('Transcript stored successfully in database', {
-                ticker: transcript.ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                length: transcript.transcript.length,
-                id: transcriptRecord.id,
-              });
-            } catch (dbError: any) {
-              // Database failed, but we have it in memory cache
-              logger.info('Stored in memory cache (database unavailable)', {
-                ticker: transcript.ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                length: transcript.transcript.length,
-                cacheKey,
-              });
-              
-              results.push({
-                ticker: transcript.ticker,
-                year: transcript.year,
-                quarter: transcript.quarter,
-                status: 'success',
-                transcriptLength: transcript.transcript.length,
-                transcriptId: cacheKey,
-                storage: 'memory',
-              });
-            }
-          }
-        }
-        
-        // If no transcripts were found for this ticker
-        if (fetchedTranscripts.length === 0) {
-          results.push({
-            ticker: ticker.toUpperCase(),
-            status: 'not_available',
-            error: 'No transcript data available for any recent quarters',
-          });
-        }
-      } catch (error) {
-        logger.error('Error fetching transcripts for ticker', {
-          ticker,
-          error: error instanceof Error ? error.message : 'Unknown error',
-        });
-        
-        results.push({
-          ticker: ticker.toUpperCase(),
-          status: 'failed',
-          error: error instanceof Error ? error.message : 'Unknown error',
-        });
-      }
-    }
-
-    const executionTime = Date.now() - startTime;
-    const successful = results.filter(r => r.status === 'success').length;
-    const failed = results.filter(r => r.status === 'failed').length;
-    const notAvailable = results.filter(r => r.status === 'not_available').length;
-
-    logger.info('Bulk fetch completed', {
-      total: results.length,
-      successful,
-      failed,
-      notAvailable,
-      executionTime,
-    });
-
-    res.json({
-      results,
-      summary: {
-        total: results.length,
-        successful,
-        failed,
-        notAvailable,
-        skipped: results.filter(r => r.skipped).length,
-      },
-      executionTime,
-    });
-  } catch (error) {
-    logger.error('Bulk fetch error', { error });
-    res.status(500).json({ error: 'Internal server error' });
+  if (tickers.length === 0) {
+    return res.status(400).json({ error: 'No tickers provided' });
   }
-});
+
+  // Create background job instead of processing synchronously
+  const jobId = jobManager.createBulkFetchJob(tickers);
+
+  res.json({
+    message: 'Background job created successfully',
+    jobId,
+    status: 'pending',
+    tickerCount: tickers.length,
+    note: 'Use /api/jobs/{jobId}/progress to monitor progress'
+  });
+}));
+
+// Create background job endpoint
+app.post('/api/jobs/bulk-fetch', asyncHandler(async (req, res) => {
+  const { tickers: rawTickers } = req.body;
+  const tickers = Array.isArray(rawTickers) ? rawTickers.map((t: string) => t.trim().toLowerCase()).filter(Boolean) : [];
+
+  if (tickers.length === 0) {
+    return res.status(400).json({ error: 'No tickers provided' });
+  }
+
+  const jobId = jobManager.createBulkFetchJob(tickers);
+
+  res.json({
+    message: 'Background job created successfully',
+    jobId,
+    status: 'pending',
+    tickerCount: tickers.length,
+    estimatedTime: `${Math.ceil(tickers.length * 2 / 60)} minutes`,
+    endpoints: {
+      progress: `/api/jobs/${jobId}/progress`,
+      pause: `/api/jobs/${jobId}/pause`,
+      resume: `/api/jobs/${jobId}/resume`
+    }
+  });
+}));
+
+// Get job progress
+app.get('/api/jobs/:jobId/progress', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const progress = jobManager.getJobProgress(jobId);
+
+  if (!progress) {
+    return res.status(404).json({ error: 'Job not found' });
+  }
+
+  res.json(progress);
+}));
+
+// Pause job
+app.post('/api/jobs/:jobId/pause', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const paused = jobManager.pauseJob(jobId);
+
+  if (!paused) {
+    return res.status(400).json({ error: 'Job cannot be paused (not running or not found)' });
+  }
+
+  res.json({ message: 'Job paused successfully', jobId });
+}));
+
+// Resume job
+app.post('/api/jobs/:jobId/resume', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  const resumed = jobManager.resumeJob(jobId);
+
+  if (!resumed) {
+    return res.status(400).json({ error: 'Job cannot be resumed (not paused or not found)' });
+  }
+
+  res.json({ message: 'Job resumed successfully', jobId });
+}));
+
+// Get all jobs (admin endpoint)
+app.get('/api/jobs', asyncHandler(async (req, res) => {
+  const jobs = jobManager.getAllJobs();
+  res.json({
+    jobs: jobs.map(job => ({
+      id: job.id,
+      status: job.status,
+      tickerCount: job.tickers.length,
+      progress: `${job.progress.current}/${job.progress.total}`,
+      processed: job.progress.processed.length,
+      failed: job.progress.failed.length,
+      skipped: job.progress.skipped.length,
+      createdAt: job.createdAt,
+      startedAt: job.startedAt,
+      completedAt: job.completedAt,
+      currentTicker: job.progress.currentTicker
+    }))
+  });
+}));
 
 // Search endpoint that works with memory cache
 app.post('/api/search', async (req, res) => {
