@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transcript {
+  id               String   @id @default(uuid())
+  ticker           String   @db.VarChar(10)
+  companyName      String?  @map("company_name") @db.VarChar(255)
+  year             Int
+  quarter          Int
+  callDate         DateTime? @map("call_date") @db.Date
+  fullTranscript   String   @map("full_transcript") @db.Text
+  transcriptJson   Json     @map("transcript_json") @db.JsonB
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  // Ensure uniqueness per ticker/year/quarter combination
+  @@unique([ticker, year, quarter])
+  @@map("transcripts")
+}
+
+model Company {
+  id           String @id @default(uuid())
+  ticker       String @unique @db.VarChar(10)
+  name         String @db.VarChar(255)
+  sector       String? @db.VarChar(100)
+  industry     String? @db.VarChar(100)
+  marketCap    BigInt? @map("market_cap")
+  isActive     Boolean @default(true) @map("is_active")
+  lastFetched  DateTime? @map("last_fetched")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("companies")
+}
+
+model SearchLog {
+  id          String   @id @default(uuid())
+  query       String   @db.Text
+  filters     Json?    @db.JsonB
+  resultCount Int      @map("result_count")
+  executionTime Int    @map("execution_time") // in milliseconds
+  userAgent   String?  @map("user_agent") @db.Text
+  ipAddress   String?  @map("ip_address") @db.VarChar(45)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("search_logs")
+}
+
+model FetchJob {
+  id           String   @id @default(uuid())
+  ticker       String   @db.VarChar(10)
+  year         Int
+  quarter      Int
+  status       JobStatus @default(PENDING)
+  errorMessage String?  @map("error_message") @db.Text
+  attempts     Int      @default(0)
+  maxAttempts  Int      @default(3) @map("max_attempts")
+  scheduledAt  DateTime @map("scheduled_at")
+  startedAt    DateTime? @map("started_at")
+  completedAt  DateTime? @map("completed_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([ticker, year, quarter])
+  @@map("fetch_jobs")
+}
+
+enum JobStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  SKIPPED
+} 

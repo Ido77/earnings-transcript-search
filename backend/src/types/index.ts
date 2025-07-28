@@ -1,0 +1,187 @@
+import { z } from 'zod';
+
+// API Ninjas response types
+export interface ApiNinjasTranscriptResponse {
+  ticker: string;
+  quarter: number;
+  year: number;
+  date: string;
+  transcript: string;
+}
+
+// Quarter calculation types
+export interface Quarter {
+  year: number;
+  quarter: number;
+}
+
+export interface QuarterRange {
+  startYear: number;
+  startQuarter: number;
+  endYear: number;
+  endQuarter: number;
+}
+
+// Search related types
+export const SearchFiltersSchema = z.object({
+  tickers: z.array(z.string()).optional(),
+  years: z.array(z.number()).optional(),
+  quarters: z.array(z.number().min(1).max(4)).optional(),
+  dateFrom: z.string().datetime().optional(),
+  dateTo: z.string().datetime().optional(),
+  speakers: z.array(z.string()).optional(),
+  limit: z.number().min(1).max(100).default(20),
+  offset: z.number().min(0).default(0),
+});
+
+export type SearchFilters = z.infer<typeof SearchFiltersSchema>;
+
+export interface SearchResult {
+  id: string;
+  ticker: string;
+  companyName: string | null;
+  year: number;
+  quarter: number;
+  callDate: Date | null;
+  snippet: string;
+  relevanceScore?: number;
+  matchCount: number;
+}
+
+export interface SearchResponse {
+  results: SearchResult[];
+  total: number;
+  page: number;
+  limit: number;
+  executionTime: number;
+  query: string;
+  filters: SearchFilters;
+}
+
+// Bulk fetch types
+export const BulkFetchRequestSchema = z.object({
+  tickers: z.array(z.string().min(1).max(10)).min(1).max(100),
+  quarters: z.array(z.object({
+    year: z.number().min(2000).max(2030),
+    quarter: z.number().min(1).max(4),
+  })).optional(),
+  forceRefresh: z.boolean().default(false),
+});
+
+export type BulkFetchRequest = z.infer<typeof BulkFetchRequestSchema>;
+
+export interface BulkFetchResult {
+  ticker: string;
+  year: number;
+  quarter: number;
+  status: 'success' | 'failed' | 'skipped';
+  error?: string;
+  transcriptId?: string;
+}
+
+export interface BulkFetchResponse {
+  results: BulkFetchResult[];
+  summary: {
+    total: number;
+    successful: number;
+    failed: number;
+    skipped: number;
+  };
+  executionTime: number;
+}
+
+// Statistics types
+export interface TranscriptStats {
+  totalTranscripts: number;
+  uniqueTickers: number;
+  dateRange: {
+    earliest: Date | null;
+    latest: Date | null;
+  };
+  quarterDistribution: Record<string, number>;
+  topTickers: Array<{
+    ticker: string;
+    count: number;
+    companyName?: string;
+  }>;
+}
+
+export interface SearchStats {
+  totalSearches: number;
+  averageExecutionTime: number;
+  topQueries: Array<{
+    query: string;
+    count: number;
+    averageResults: number;
+  }>;
+  queryTypeDistribution: {
+    keyword: number;
+    regex: number;
+    filtered: number;
+  };
+}
+
+// Transcript parsing types
+export interface TranscriptSpeaker {
+  name: string;
+  role?: string;
+  company?: string;
+}
+
+export interface TranscriptSegment {
+  speaker: TranscriptSpeaker;
+  text: string;
+  timestamp?: string;
+  type?: 'presentation' | 'qa' | 'operator';
+}
+
+export interface ParsedTranscript {
+  metadata: {
+    ticker: string;
+    companyName?: string;
+    quarter: number;
+    year: number;
+    date?: string;
+    participantCount?: number;
+  };
+  segments: TranscriptSegment[];
+  fullText: string;
+}
+
+// Error types
+export interface ApiError {
+  code: string;
+  message: string;
+  details?: Record<string, unknown>;
+  stack?: string;
+}
+
+export class AppError extends Error {
+  public readonly statusCode: number;
+  public readonly code: string;
+  public readonly isOperational: boolean;
+
+  constructor(
+    message: string,
+    statusCode: number = 500,
+    code: string = 'INTERNAL_ERROR',
+    isOperational: boolean = true
+  ) {
+    super(message);
+    this.statusCode = statusCode;
+    this.code = code;
+    this.isOperational = isOperational;
+
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+// Express request extensions
+declare global {
+  namespace Express {
+    interface Request {
+      requestId?: string;
+      startTime?: number;
+    }
+  }
+} 
