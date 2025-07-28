@@ -13,12 +13,13 @@ export class ApiNinjasService {
     this.isDemo = config.apiNinjas.isDemo;
     
     this.client = axios.create({
-      baseURL: config.apiNinjas.baseUrl,
-      timeout: config.api.timeoutMs,
+      baseURL: 'https://api.api-ninjas.com/v1',
       headers: {
         'X-Api-Key': config.apiNinjas.key,
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'Earnings-Transcript-Search/1.0.0',
       },
+      timeout: 15000, // 15 second timeout
     });
 
     // Add request interceptor for rate limiting
@@ -142,6 +143,29 @@ Upgrade to API Ninjas Premium to fetch actual earnings call transcripts.
    * Fetch earnings call transcript for a specific ticker and quarter
    */
   async fetchTranscript(
+    ticker: string,
+    year: number,
+    quarter: number
+  ): Promise<ApiNinjasTranscriptResponse | null> {
+    // Wrap the actual fetch in a timeout promise
+    return Promise.race([
+      this._fetchTranscriptInternal(ticker, year, quarter),
+      new Promise<null>((_, reject) => 
+        setTimeout(() => reject(new Error('API request timeout')), 20000) // 20 second overall timeout
+      )
+    ]).catch(async (error) => {
+      if (error.message === 'API request timeout') {
+        logger.warn('API request timed out, falling back to demo data', { ticker, year, quarter });
+        return this.generateDemoTranscript(ticker, year, quarter);
+      }
+      throw error;
+    });
+  }
+
+  /**
+   * Internal fetch method (original implementation)
+   */
+  private async _fetchTranscriptInternal(
     ticker: string,
     year: number,
     quarter: number

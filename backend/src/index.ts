@@ -32,20 +32,36 @@ if (!fs.existsSync(cacheDir)) {
 const loadCacheFromFile = (): Map<string, any> => {
   try {
     if (fs.existsSync(CACHE_FILE)) {
+      const stats = fs.statSync(CACHE_FILE);
+      
+      // Check file size - if too large, skip loading and log warning
+      const maxSizeBytes = 10 * 1024 * 1024; // 10MB limit
+      if (stats.size > maxSizeBytes) {
+        logger.warn('Cache file too large, skipping load and creating backup', { 
+          size: `${(stats.size / 1024 / 1024).toFixed(1)}MB`,
+          maxSize: `${maxSizeBytes / 1024 / 1024}MB`,
+          file: CACHE_FILE 
+        });
+        
+        // Move large cache to backup
+        const backupFile = CACHE_FILE.replace('.json', `_backup_${Date.now()}.json`);
+        fs.renameSync(CACHE_FILE, backupFile);
+        logger.info('Large cache backed up', { backupFile });
+        
+        return new Map();
+      }
+      
       const data = fs.readFileSync(CACHE_FILE, 'utf8');
       const cacheData = JSON.parse(data);
       const cache = new Map();
-      
-      // Convert object back to Map
       Object.entries(cacheData).forEach(([key, value]) => {
         cache.set(key, value);
       });
-      
       logger.info('Cache loaded from file', { 
         entries: cache.size,
+        fileSize: `${(stats.size / 1024 / 1024).toFixed(1)}MB`,
         file: CACHE_FILE 
       });
-      
       return cache;
     }
   } catch (error) {
@@ -54,7 +70,6 @@ const loadCacheFromFile = (): Map<string, any> => {
       file: CACHE_FILE 
     });
   }
-  
   return new Map();
 };
 
