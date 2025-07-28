@@ -11,14 +11,74 @@ import helmet from 'helmet';
 import compression from 'compression';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import fs from 'fs';
+import path from 'path';
 
 import { config } from '@/config/config';
 import { logger } from '@/config/logger';
 import { prisma } from '@/config/database';
 import { apiNinjasService } from '@/services/apiNinjas';
 
-// In-memory storage for transcripts (since database has permission issues)
-const transcriptCache = new Map<string, any>();
+// File-based persistent cache
+const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
+
+// Ensure cache directory exists
+const cacheDir = path.dirname(CACHE_FILE);
+if (!fs.existsSync(cacheDir)) {
+  fs.mkdirSync(cacheDir, { recursive: true });
+}
+
+// Load cache from file on startup
+const loadCacheFromFile = (): Map<string, any> => {
+  try {
+    if (fs.existsSync(CACHE_FILE)) {
+      const data = fs.readFileSync(CACHE_FILE, 'utf8');
+      const cacheData = JSON.parse(data);
+      const cache = new Map();
+      
+      // Convert object back to Map
+      Object.entries(cacheData).forEach(([key, value]) => {
+        cache.set(key, value);
+      });
+      
+      logger.info('Cache loaded from file', { 
+        entries: cache.size,
+        file: CACHE_FILE 
+      });
+      
+      return cache;
+    }
+  } catch (error) {
+    logger.error('Failed to load cache from file', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      file: CACHE_FILE 
+    });
+  }
+  
+  return new Map();
+};
+
+// Save cache to file
+const saveCacheToFile = (cache: Map<string, any>): void => {
+  try {
+    // Convert Map to object for JSON serialization
+    const cacheData = Object.fromEntries(cache.entries());
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(cacheData, null, 2));
+    
+    logger.info('Cache saved to file', { 
+      entries: cache.size,
+      file: CACHE_FILE 
+    });
+  } catch (error) {
+    logger.error('Failed to save cache to file', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      file: CACHE_FILE 
+    });
+  }
+};
+
+// Initialize persistent cache
+const transcriptCache = loadCacheFromFile();
 
 const app = express();
 
@@ -192,6 +252,9 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
                 fetchedAt: new Date().toISOString(),
               },
             });
+
+            // Save cache to file for persistence
+            saveCacheToFile(transcriptCache);
 
             // Try to store in database (might fail due to permissions)
             try {
@@ -397,11 +460,17 @@ app.post('/api/search', async (req, res) => {
 
 // Get cached transcripts count
 app.get('/api/transcripts/count', (req, res) => {
-  res.json({
+  const cacheStats = {
     total: transcriptCache.size,
     tickers: [...new Set([...transcriptCache.values()].map(t => t.ticker))],
     cached: true,
-  });
+    persistent: true,
+    cacheFile: CACHE_FILE,
+    fileExists: fs.existsSync(CACHE_FILE),
+    entries: [...transcriptCache.keys()].sort()
+  };
+  
+  res.json(cacheStats);
 });
 
 // Basic error handling
@@ -415,25 +484,42 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Graceful shutdown
-process.on('SIGTERM', async () => {
-  logger.info('SIGTERM received, shutting down gracefully');
-  await prisma.$disconnect();
-  process.exit(0);
-});
-
-process.on('SIGINT', async () => {
-  logger.info('SIGINT received, shutting down gracefully');
-  await prisma.$disconnect();
-  process.exit(0);
-});
-
 // Start server
-const port = config.port;
-app.listen(port, () => {
-  logger.info(`🚀 Server running on port ${port} in ${config.nodeEnv} mode`);
-  logger.info(`📝 API documentation available at http://localhost:${port}/health`);
-  logger.info(`🎯 Demo mode: ${config.apiNinjas.isDemo}`);
+const server = app.listen(config.port, () => {
+  logger.info(`🚀 Server running on port ${config.port} in ${config.nodeEnv} mode`, {
+    service: 'transcript-search-api',
+    environment: config.nodeEnv,
+  });
+  logger.info(`📝 API documentation available at http://localhost:${config.port}/health`, {
+    service: 'transcript-search-api',
+    environment: config.nodeEnv,
+  });
+  logger.info(`🎯 Demo mode: ${config.apiNinjas.isDemo}`, {
+    service: 'transcript-search-api',
+    environment: config.nodeEnv,
+  });
 });
+
+// Graceful shutdown
+const gracefulShutdown = (signal: string) => {
+  logger.info(`${signal} received, shutting down gracefully`, {
+    service: 'transcript-search-api',
+    environment: config.nodeEnv,
+  });
+
+  // Save cache before shutdown
+  saveCacheToFile(transcriptCache);
+  
+  server.close(() => {
+    logger.info('HTTP server closed');
+    prisma.$disconnect().then(() => {
+      logger.info('Database connection closed');
+      process.exit(0);
+    });
+  });
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 export default app; 
