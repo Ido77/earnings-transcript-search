@@ -12,6 +12,7 @@ export class JobManager extends EventEmitter {
   private jobs = new Map<string, BulkFetchJob>();
   private activeJobs = new Set<string>();
   private transcriptCache: Map<string, any>;
+  private maxConcurrentJobs = 1; // Only allow 1 job at a time
 
   constructor(transcriptCache: Map<string, any>) {
     super();
@@ -24,6 +25,15 @@ export class JobManager extends EventEmitter {
    * Create a new bulk fetch job
    */
   createBulkFetchJob(tickers: string[]): string {
+    // Check if there are already running jobs
+    const runningJobs = Array.from(this.jobs.values()).filter(
+      job => job.status === 'running' || job.status === 'pending'
+    );
+
+    if (runningJobs.length >= this.maxConcurrentJobs) {
+      throw new Error(`Cannot create job: ${runningJobs.length} jobs already running. Please wait for completion or use existing job.`);
+    }
+
     const jobId = uuidv4();
     const job: BulkFetchJob = {
       id: jobId,
@@ -46,7 +56,8 @@ export class JobManager extends EventEmitter {
     logger.info('Background job created', {
       jobId,
       tickerCount: tickers.length,
-      status: job.status
+      status: job.status,
+      activeJobs: this.activeJobs.size
     });
 
     // Start processing immediately (non-blocking)
@@ -197,7 +208,7 @@ export class JobManager extends EventEmitter {
             }
 
             // Small delay to prevent API overload
-            await new Promise(resolve => setTimeout(resolve, 200));
+            await new Promise(resolve => setTimeout(resolve, 500)); // Increased from 200ms to 500ms
           }
 
           if (fetchedTranscripts.length === 0) {
@@ -234,6 +245,11 @@ export class JobManager extends EventEmitter {
         if (!currentJob || currentJob.status === 'paused') {
           logger.info('Background job paused', { jobId });
           return;
+        }
+
+        // Longer delay between tickers to respect API limits
+        if (i < job.tickers.length - 1) { // Don't delay after the last ticker
+          await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second between tickers
         }
       }
 
@@ -357,5 +373,27 @@ export class JobManager extends EventEmitter {
         setImmediate(() => this.processJob(job.id));
       });
     }
+  }
+
+  /**
+   * Clear completed and failed jobs
+   */
+  clearCompletedJobs(): number {
+    const completedJobs = Array.from(this.jobs.values()).filter(
+      job => job.status === 'completed' || job.status === 'failed'
+    );
+
+    completedJobs.forEach(job => {
+      this.jobs.delete(job.id);
+    });
+
+    this.saveJobsToFile();
+    
+    logger.info('Cleared completed jobs', { 
+      count: completedJobs.length,
+      remaining: this.jobs.size
+    });
+
+    return completedJobs.length;
   }
 } 

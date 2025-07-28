@@ -251,19 +251,35 @@ app.post('/api/jobs/bulk-fetch', asyncHandler(async (req, res) => {
     return res.status(400).json({ error: 'No tickers provided' });
   }
 
-  const jobId = jobManager.createBulkFetchJob(tickers);
+  try {
+    const jobId = jobManager.createBulkFetchJob(tickers);
 
-  res.json({
-    message: 'Background job created successfully',
-    jobId,
-    status: 'pending',
-    tickerCount: tickers.length,
-    estimatedTime: `${Math.ceil(tickers.length * 2 / 60)} minutes`,
-    endpoints: {
-      progress: `/api/jobs/${jobId}/progress`,
-      pause: `/api/jobs/${jobId}/pause`,
-      resume: `/api/jobs/${jobId}/resume`
-    }
+    res.json({
+      message: 'Background job created successfully',
+      jobId,
+      status: 'pending',
+      tickerCount: tickers.length,
+      estimatedTime: `${Math.ceil(tickers.length * 2 / 60)} minutes`,
+      endpoints: {
+        progress: `/api/jobs/${jobId}/progress`,
+        pause: `/api/jobs/${jobId}/pause`,
+        resume: `/api/jobs/${jobId}/resume`
+      }
+    });
+  } catch (error) {
+    res.status(400).json({ 
+      error: error instanceof Error ? error.message : 'Failed to create job',
+      suggestion: 'Wait for current job to complete or check /api/jobs for active jobs'
+    });
+  }
+}));
+
+// Clear completed jobs
+app.delete('/api/jobs/completed', asyncHandler(async (req, res) => {
+  const clearedCount = jobManager.clearCompletedJobs();
+  res.json({ 
+    message: `Cleared ${clearedCount} completed jobs`,
+    clearedCount 
   });
 }));
 
