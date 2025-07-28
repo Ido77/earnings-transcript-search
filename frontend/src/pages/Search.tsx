@@ -6,6 +6,7 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [searchType, setSearchType] = useState<'keyword' | 'regex' | 'fuzzy'>('keyword');
+  const [sortBy, setSortBy] = useState<'relevance' | 'date'>('relevance');
   const [filters, setFilters] = useState({
     tickers: '',
     years: '',
@@ -58,9 +59,10 @@ const Search = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: query.trim(),
+          query,
           filters: searchFilters,
           highlight: true,
+          sortBy,
         }),
       });
 
@@ -159,23 +161,34 @@ const Search = () => {
             />
           </div>
 
-          {/* Search Type */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Search Type</label>
-            <div className="flex gap-4">
-              {(['keyword', 'regex', 'fuzzy'] as const).map((type) => (
-                <label key={type} className="flex items-center">
-                  <input
-                    type="radio"
-                    value={type}
-                    checked={searchType === type}
-                    onChange={(e) => setSearchType(e.target.value as any)}
-                    className="mr-2"
-                    disabled={loading}
-                  />
-                  <span className="capitalize">{type}</span>
-                </label>
-              ))}
+          <div className="flex gap-4 mb-4">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Search Type
+              </label>
+              <select
+                value={searchType}
+                onChange={(e) => setSearchType(e.target.value as 'keyword' | 'regex' | 'fuzzy')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="keyword">Keyword</option>
+                <option value="regex">Regex</option>
+                <option value="fuzzy">Fuzzy</option>
+              </select>
+            </div>
+            
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Sort By
+              </label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as 'relevance' | 'date')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="relevance">Relevance</option>
+                <option value="date">Date (Most Recent)</option>
+              </select>
             </div>
           </div>
 

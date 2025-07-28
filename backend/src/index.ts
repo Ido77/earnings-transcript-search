@@ -207,6 +207,40 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
         for (const quarter of quartersToTry) {
           if (fetchedTranscripts.length >= 4) break; // Stop after 4 successful fetches
           
+          // Check if this transcript is already in cache
+          const cacheKey = `${ticker.toLowerCase()}-${quarter.year}-Q${quarter.quarter}`;
+          if (transcriptCache.has(cacheKey)) {
+            const cachedTranscript = transcriptCache.get(cacheKey);
+            logger.info('Transcript already cached, skipping fetch', {
+              ticker,
+              year: quarter.year,
+              quarter: quarter.quarter,
+              cacheKey,
+              length: cachedTranscript.fullTranscript.length,
+            });
+            
+            // Add to results as "skipped" but successful
+            results.push({
+              ticker: ticker.toUpperCase(),
+              year: quarter.year,
+              quarter: quarter.quarter,
+              status: 'success',
+              transcriptLength: cachedTranscript.fullTranscript.length,
+              transcriptId: cacheKey,
+              storage: 'cached',
+              skipped: true,
+            });
+            
+            fetchedTranscripts.push({
+              ticker: ticker.toLowerCase(),
+              year: quarter.year,
+              quarter: quarter.quarter,
+              transcript: cachedTranscript.fullTranscript,
+              date: cachedTranscript.callDate,
+            });
+            continue;
+          }
+          
           try {
             const transcript = await apiNinjasService.fetchTranscript(ticker, quarter.year, quarter.quarter);
             
@@ -358,7 +392,7 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
         successful,
         failed,
         notAvailable,
-        skipped: 0,
+        skipped: results.filter(r => r.skipped).length,
       },
       executionTime,
     });
@@ -371,7 +405,7 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
 // Search endpoint that works with memory cache
 app.post('/api/search', async (req, res) => {
   try {
-    const { query, filters = {}, highlight = true } = req.body;
+    const { query, filters = {}, highlight = true, sortBy = 'relevance' } = req.body;
     
     if (!query || typeof query !== 'string') {
       return res.status(400).json({ error: 'Query is required' });
@@ -426,8 +460,19 @@ app.post('/api/search', async (req, res) => {
       }
     }
 
-    // Sort by relevance score (highest first)
-    results.sort((a, b) => b.relevanceScore - a.relevanceScore);
+    // Sort results based on sortBy parameter
+    if (sortBy === 'date') {
+      // Sort by year (desc) then quarter (desc) for most recent first
+      results.sort((a, b) => {
+        if (a.year !== b.year) {
+          return b.year - a.year; // Most recent year first
+        }
+        return b.quarter - a.quarter; // Most recent quarter first
+      });
+    } else {
+      // Default: sort by relevance score (highest first)
+      results.sort((a, b) => b.relevanceScore - a.relevanceScore);
+    }
 
     // Apply pagination
     const limit = filters.limit || 20;
@@ -438,6 +483,7 @@ app.post('/api/search', async (req, res) => {
 
     logger.info('Search completed', {
       query,
+      sortBy,
       totalResults: results.length,
       returnedResults: paginatedResults.length,
       executionTime,
@@ -451,6 +497,7 @@ app.post('/api/search', async (req, res) => {
       executionTime,
       query,
       filters,
+      sortBy,
     });
   } catch (error) {
     logger.error('Search error', { error });
