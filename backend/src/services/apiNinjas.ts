@@ -8,6 +8,8 @@ export class ApiNinjasService {
   private requestCount: number = 0;
   private lastRequestTime: number = 0;
   private isDemo: boolean;
+  private requestQueue: Array<() => Promise<void>> = [];
+  private processingQueue: boolean = false;
 
   constructor() {
     this.isDemo = config.apiNinjas.isDemo;
@@ -19,7 +21,22 @@ export class ApiNinjasService {
         'Accept': 'application/json',
         'User-Agent': 'Earnings-Transcript-Search/1.0.0',
       },
-      timeout: 15000, // 15 second timeout
+      timeout: 6000, // Reduced timeout to 6 seconds for faster processing
+      // Add connection pooling for better performance
+      httpAgent: new (require('http').Agent)({
+        keepAlive: true,
+        maxSockets: 100, // Increased from 50
+        maxFreeSockets: 50, // Increased from 25
+        timeout: 60000,
+        freeSocketTimeout: 30000,
+      }),
+      httpsAgent: new (require('https').Agent)({
+        keepAlive: true,
+        maxSockets: 100, // Increased from 50
+        maxFreeSockets: 50, // Increased from 25
+        timeout: 60000,
+        freeSocketTimeout: 30000,
+      }),
     });
 
     // Add request interceptor for rate limiting
@@ -58,7 +75,10 @@ export class ApiNinjasService {
   private async enforceRateLimit(): Promise<void> {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequestTime;
-    const minInterval = 1000 / 10; // 10 requests per second max
+    
+    // Ultra-aggressive rate limiting for maximum speed
+    // Allow more requests per second since we're processing in parallel
+    const minInterval = 1000 / 100; // 100 requests per second instead of 50
 
     if (timeSinceLastRequest < minInterval) {
       const waitTime = minInterval - timeSinceLastRequest;
@@ -66,7 +86,7 @@ export class ApiNinjasService {
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
 
-    this.lastRequestTime = Date.now();
+    this.lastRequestTime = now;
     this.requestCount++;
   }
 

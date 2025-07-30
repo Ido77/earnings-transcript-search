@@ -7,7 +7,7 @@ const configSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   
   // Database configuration
-  DATABASE_URL: z.string().default('postgresql://dev:dev@localhost:5432/transcript_db'),
+  DATABASE_URL: z.string().default('postgresql://postgres:postgres@localhost:5432/transcript_db'),
   
   // API configuration
   API_NINJAS_KEY: z.string().min(1, 'API key is required'),
