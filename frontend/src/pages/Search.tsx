@@ -1,26 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from '@/components/ui/toaster';
 
 const Search = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Initialize state from URL params and localStorage
+  const [query, setQuery] = useState(() => {
+    const urlQuery = searchParams.get('q') || '';
+    const savedQuery = localStorage.getItem('searchQuery') || '';
+    return urlQuery || savedQuery;
+  });
+  
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [results, setResults] = useState<any>(null);
-  const [searchType, setSearchType] = useState<'keyword' | 'phrase' | 'regex' | 'fuzzy'>('keyword');
-  const [sortBy, setSortBy] = useState<'relevance' | 'date'>('relevance');
+  const [results, setResults] = useState<any>(() => {
+    const savedResults = localStorage.getItem('searchResults');
+    return savedResults ? JSON.parse(savedResults) : null;
+  });
+  
+  const [searchType, setSearchType] = useState<'keyword' | 'phrase' | 'regex' | 'fuzzy'>(() => {
+    const savedType = localStorage.getItem('searchType') as 'keyword' | 'phrase' | 'regex' | 'fuzzy';
+    return savedType || 'keyword';
+  });
+  
+  const [sortBy, setSortBy] = useState<'relevance' | 'date'>(() => {
+    const savedSort = localStorage.getItem('searchSortBy') as 'relevance' | 'date';
+    return savedSort || 'relevance';
+  });
+  
   const [currentPage, setCurrentPage] = useState(1);
-  const [keywordRequirements, setKeywordRequirements] = useState<{[key: string]: boolean}>({});
-  const [filters, setFilters] = useState({
-    tickers: '',
-    years: '',
-    quarters: '',
-    dateFrom: '',
-    dateTo: '',
+  const [keywordRequirements, setKeywordRequirements] = useState<{[key: string]: boolean}>(() => {
+    const saved = localStorage.getItem('searchKeywordRequirements');
+    return saved ? JSON.parse(saved) : {};
+  });
+  
+  const [filters, setFilters] = useState(() => {
+    const savedFilters = localStorage.getItem('searchFilters');
+    return savedFilters ? JSON.parse(savedFilters) : {
+      tickers: '',
+      years: '',
+      quarters: '',
+      dateFrom: '',
+      dateTo: '',
+    };
   });
   const [availableTickers, setAvailableTickers] = useState<Array<{ticker: string, companyName: string}>>([]);
   const [tickerSuggestions, setTickerSuggestions] = useState<Array<{ticker: string, companyName: string}>>([]);
+
+  // Save state to localStorage and update URL
+  const saveSearchState = (newQuery?: string, newResults?: any, newType?: string, newSort?: string, newFilters?: any, newKeywordReqs?: any) => {
+    const queryToSave = newQuery !== undefined ? newQuery : query;
+    const resultsToSave = newResults !== undefined ? newResults : results;
+    const typeToSave = newType !== undefined ? newType : searchType;
+    const sortToSave = newSort !== undefined ? newSort : sortBy;
+    const filtersToSave = newFilters !== undefined ? newFilters : filters;
+    const keywordReqsToSave = newKeywordReqs !== undefined ? newKeywordReqs : keywordRequirements;
+
+    // Save to localStorage
+    localStorage.setItem('searchQuery', queryToSave);
+    localStorage.setItem('searchResults', JSON.stringify(resultsToSave));
+    localStorage.setItem('searchType', typeToSave);
+    localStorage.setItem('searchSortBy', sortToSave);
+    localStorage.setItem('searchFilters', JSON.stringify(filtersToSave));
+    localStorage.setItem('searchKeywordRequirements', JSON.stringify(keywordReqsToSave));
+
+    // Update URL parameters
+    const newSearchParams = new URLSearchParams();
+    if (queryToSave) newSearchParams.set('q', queryToSave);
+    if (typeToSave !== 'keyword') newSearchParams.set('type', typeToSave);
+    if (sortToSave !== 'relevance') newSearchParams.set('sort', sortToSave);
+    setSearchParams(newSearchParams);
+  };
 
   // Load available tickers with company names
   React.useEffect(() => {
@@ -45,6 +97,24 @@ const Search = () => {
     };
     
     loadTickers();
+  }, []);
+
+  // Save state when search parameters change
+  React.useEffect(() => {
+    if (query || results) {
+      saveSearchState();
+    }
+  }, [query, searchType, sortBy, filters, keywordRequirements]);
+
+  // Auto-search when returning to page with saved query
+  React.useEffect(() => {
+    const savedQuery = localStorage.getItem('searchQuery');
+    const savedResults = localStorage.getItem('searchResults');
+    
+    if (savedQuery && !savedResults && !loading) {
+      // If we have a saved query but no results, perform the search
+      handleSearch();
+    }
   }, []);
 
   // Filter ticker suggestions based on input
@@ -215,6 +285,9 @@ const Search = () => {
       setResults(data);
       setCurrentPage(1); // Reset page to 1 after new search
       
+      // Save search state
+      saveSearchState(query, data, searchType, sortBy, filters, keywordRequirements);
+      
       toast(
         `Found ${data.total} results in ${data.executionTime}ms`, 
         'success'
@@ -350,6 +423,17 @@ const Search = () => {
       dateTo: '',
     });
     setCurrentPage(1); // Reset page to 1 when clearing filters
+    
+    // Clear localStorage
+    localStorage.removeItem('searchQuery');
+    localStorage.removeItem('searchResults');
+    localStorage.removeItem('searchType');
+    localStorage.removeItem('searchSortBy');
+    localStorage.removeItem('searchFilters');
+    localStorage.removeItem('searchKeywordRequirements');
+    
+    // Clear URL parameters
+    setSearchParams({});
   };
 
   const handleResultClick = (result: any) => {
