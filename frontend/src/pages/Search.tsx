@@ -48,6 +48,9 @@ const Search = () => {
   });
   const [availableTickers, setAvailableTickers] = useState<Array<{ticker: string, companyName: string}>>([]);
   const [tickerSuggestions, setTickerSuggestions] = useState<Array<{ticker: string, companyName: string}>>([]);
+  const [summarizing, setSummarizing] = useState<string | null>(null);
+  const [summaries, setSummaries] = useState<{[key: string]: string}>({});
+  const [ollamaStatus, setOllamaStatus] = useState<{available: boolean, model?: string}>({available: false});
 
   // Save state to localStorage and update URL
   const saveSearchState = (newQuery?: string, newResults?: any, newType?: string, newSort?: string, newFilters?: any, newKeywordReqs?: any) => {
@@ -74,7 +77,7 @@ const Search = () => {
     setSearchParams(newSearchParams);
   };
 
-  // Load available tickers with company names
+  // Load available tickers with company names and check Ollama status
   React.useEffect(() => {
     const loadTickers = async () => {
       try {
@@ -95,8 +98,21 @@ const Search = () => {
         console.error('Failed to load enhanced ticker list:', error);
       }
     };
+
+    const checkOllamaStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/ollama/health');
+        if (response.ok) {
+          const status = await response.json();
+          setOllamaStatus(status);
+        }
+      } catch (error) {
+        console.error('Failed to check Ollama status:', error);
+      }
+    };
     
     loadTickers();
+    checkOllamaStatus();
   }, []);
 
   // Save state when search parameters change
@@ -161,6 +177,44 @@ const Search = () => {
     } catch (err) {
       console.error('Copy failed:', err);
       alert(`❌ Failed to copy transcript: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    }
+  };
+
+  const summarizeTranscript = async (transcriptId: string, ticker: string, year: number, quarter: number) => {
+    if (summarizing === transcriptId) return; // Prevent double-clicking
+    
+    setSummarizing(transcriptId);
+    
+    try {
+      const response = await fetch(`http://localhost:3001/api/transcripts/${transcriptId}/summarize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchQuery: query // Pass the search query for context
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to generate summary');
+      }
+      
+      const data = await response.json();
+      
+      setSummaries(prev => ({
+        ...prev,
+        [transcriptId]: data.summary
+      }));
+      
+      toast(`AI summary created for ${ticker} ${year} Q${quarter}`, 'success');
+      
+    } catch (error) {
+      console.error('Error generating summary:', error);
+      toast(error instanceof Error ? error.message : "Failed to generate summary.", 'error');
+    } finally {
+      setSummarizing(null);
     }
   };
 
@@ -527,7 +581,7 @@ const Search = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <button
               onClick={handleSearch}
               disabled={loading || loadingMore || !query.trim()}
@@ -543,6 +597,14 @@ const Search = () => {
             >
               Clear
             </button>
+
+            {/* Ollama Status Indicator */}
+            <div className="flex items-center gap-2 text-sm">
+              <span className={`w-2 h-2 rounded-full ${ollamaStatus.available ? 'bg-green-500' : 'bg-red-500'}`}></span>
+              <span className="text-gray-600 dark:text-gray-400">
+                {ollamaStatus.available ? `AI Summary (${ollamaStatus.model})` : 'AI Summary (Unavailable)'}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -692,6 +754,17 @@ const Search = () => {
                         >
                           📋
                         </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            summarizeTranscript(result.id, result.ticker, result.year, result.quarter);
+                          }}
+                          disabled={summarizing === result.id}
+                          className="px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1 disabled:opacity-50"
+                          title="Generate AI summary"
+                        >
+                          {summarizing === result.id ? '🤖...' : '🤖'}
+                        </button>
                         {result.relevanceScore && (
                           <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
                             Score: {(result.relevanceScore * 100).toFixed(0)}%
@@ -727,6 +800,19 @@ const Search = () => {
                     <div className="text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-600 p-3 rounded border-l-4 border-blue-500">
                       <div dangerouslySetInnerHTML={{ __html: result.snippet }} />
                     </div>
+                    
+                    {/* AI Summary */}
+                    {summaries[result.id] && (
+                      <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-green-600 dark:text-green-400 font-medium">🤖 AI Summary</span>
+                          <span className="text-xs text-gray-500">Generated with Ollama</span>
+                        </div>
+                        <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                          {summaries[result.id]}
+                        </div>
+                      </div>
+                    )}
                     
                     {/* Click indicator */}
                     <div className="mt-3 text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1">

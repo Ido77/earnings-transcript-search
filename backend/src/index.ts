@@ -23,6 +23,7 @@ import { JobManager } from '@/services/jobManager';
 import { EnhancedJobManager } from '@/services/enhancedJobManager';
 import tickersRouter from '@/routes/tickers';
 import { transcriptService } from '@/services/transcriptService';
+import { ollamaService } from '@/services/ollamaService';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
@@ -1143,6 +1144,75 @@ app.get('/api/transcripts/:id', (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve transcript' });
   }
 });
+
+// Summarize transcript using Ollama
+app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { searchQuery } = req.body;
+  
+  if (!transcriptCache.has(id)) {
+    return res.status(404).json({ error: 'Transcript not found' });
+  }
+  
+  const transcript = transcriptCache.get(id);
+  
+  logger.info('Generating summary for transcript', {
+    id,
+    ticker: transcript.ticker,
+    year: transcript.year,
+    quarter: transcript.quarter,
+    searchQuery: searchQuery || 'none'
+  });
+  
+  try {
+    // Check if Ollama is available
+    const healthCheck = await ollamaService.healthCheck();
+    if (!healthCheck.available) {
+      return res.status(503).json({
+        error: 'Ollama service unavailable',
+        details: healthCheck.error
+      });
+    }
+    
+    const summary = await ollamaService.summarizeTranscript(
+      transcript.ticker,
+      `${transcript.year}Q${transcript.quarter}`,
+      transcript.fullTranscript,
+      searchQuery
+    );
+    
+    res.json({
+      success: true,
+      summary,
+      model: healthCheck.model,
+      ticker: transcript.ticker,
+      quarter: `${transcript.year}Q${transcript.quarter}`,
+      searchQuery: searchQuery || null
+    });
+    
+  } catch (error) {
+    logger.error('Failed to generate summary', {
+      id,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to generate summary',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
+// Get Ollama health status
+app.get('/api/ollama/health', asyncHandler(async (req, res) => {
+  const healthCheck = await ollamaService.healthCheck();
+  
+  res.json({
+    available: healthCheck.available,
+    model: healthCheck.model,
+    error: healthCheck.error
+  });
+}));
 
 // Helper function to get last four quarters using generalized approach
 const getLastFourQuarters = (ticker?: string) => {

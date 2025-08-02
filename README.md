@@ -62,13 +62,14 @@ tran_analysis/
 ## 📋 Features
 
 ### ✅ Implemented
-- [ ] Ticker management and bulk fetching
-- [ ] PostgreSQL database with full-text search
-- [ ] Modern React UI with Tailwind CSS
-- [ ] Real-time search with debouncing
-- [ ] Advanced filtering and regex support
-- [ ] Export functionality
-- [ ] Dark/light mode toggle
+- [x] Ticker management and bulk fetching
+- [x] PostgreSQL database with full-text search
+- [x] Modern React UI with Tailwind CSS
+- [x] Real-time search with debouncing
+- [x] Advanced filtering and regex support
+- [x] AI-powered transcript summarization with Ollama
+- [x] Copy to clipboard functionality
+- [x] Dark/light mode toggle
 
 ### 🔄 In Progress
 - Setting up core infrastructure...
@@ -90,7 +91,24 @@ npm run build         # Build for production
 - `GET /api/transcripts/search` - Search with keywords/regex
 - `GET /api/transcripts/:ticker` - Get all transcripts for ticker
 - `POST /api/transcripts/refresh` - Refresh specific transcripts
+- `POST /api/transcripts/:id/summarize` - Generate AI summary of transcript
+- `GET /api/ollama/health` - Check Ollama service status
 - `GET /api/stats` - System statistics
+
+### AI Summarization with Ollama
+The system includes AI-powered transcript summarization using Ollama (local LLM):
+
+1. **Install Ollama**: Download from [ollama.ai](https://ollama.ai)
+2. **Pull a model**: `ollama pull deepseek-r1:latest`
+3. **Start Ollama**: `ollama serve`
+4. **Use in UI**: Click the 🤖 button next to search results to generate summaries
+
+The AI summaries focus on:
+- Key financial metrics and performance highlights
+- Strategic initiatives and business updates
+- Management's outlook and guidance
+- Important announcements or changes
+- Risk factors or challenges mentioned
 
 ## 📊 Expected Performance
 - **Search Response**: <500ms for keyword searches
