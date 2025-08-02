@@ -7,13 +7,16 @@ import { apiNinjasService } from './apiNinjas';
 import { BulkFetchJob, BulkFetchResult, JobProgress } from '@/types';
 
 const JOBS_FILE = path.join(__dirname, '../../cache/jobs.json');
+const CHECKPOINT_FILE = path.join(__dirname, '../../cache/checkpoint.json');
 
 export class EnhancedJobManager extends EventEmitter {
   private jobs = new Map<string, BulkFetchJob>();
   private activeJobs = new Set<string>();
   private transcriptCache: Map<string, any>;
   private maxConcurrentJobs = 1;
-  private maxConcurrentRequests = 3; // Reduced from 10 to avoid rate limiting
+  private maxConcurrentWorkers = 5; // Parallel workers like Python project
+  private batchSize = 20; // Process tickers in batches
+  private batchDelay = 5000; // 5 seconds between batches (like Python project)
 
   constructor(transcriptCache: Map<string, any>) {
     super();
@@ -71,6 +74,169 @@ export class EnhancedJobManager extends EventEmitter {
   }
 
   /**
+   * Load checkpoint from file (like Python project)
+   */
+  private loadCheckpoint(jobId: string): { processed: string[], results: any[] } {
+    const checkpointFile = path.join(__dirname, `../../cache/checkpoint_${jobId}.json`);
+    if (fs.existsSync(checkpointFile)) {
+      try {
+        const checkpoint = JSON.parse(fs.readFileSync(checkpointFile, 'utf8'));
+        logger.info(`Loaded checkpoint for job ${jobId} with ${checkpoint.processed.length} processed tickers`);
+        return checkpoint;
+      } catch (error) {
+        logger.error(`Error loading checkpoint for job ${jobId}:`, error);
+      }
+    }
+    return { processed: [], results: [] };
+  }
+
+  /**
+   * Save checkpoint to file (like Python project)
+   */
+  private saveCheckpoint(jobId: string, processed: string[], results: any[]): void {
+    const checkpointFile = path.join(__dirname, `../../cache/checkpoint_${jobId}.json`);
+    try {
+      const checkpoint = {
+        processed,
+        results,
+        lastUpdated: new Date().toISOString()
+      };
+      fs.writeFileSync(checkpointFile, JSON.stringify(checkpoint, null, 2));
+      logger.debug(`Saved checkpoint for job ${jobId} with ${processed.length} processed tickers`);
+    } catch (error) {
+      logger.error(`Error saving checkpoint for job ${jobId}:`, error);
+    }
+  }
+
+  /**
+   * Fetch transcript for a single ticker with retry logic (like Python project)
+   */
+  private async fetchTranscriptForTicker(
+    ticker: string, 
+    quarters: Array<{ year: number; quarter: number }>,
+    maxRetries: number = 5
+  ): Promise<{ success: boolean; message: string; transcript?: any; quarter?: any }> {
+    const startTime = Date.now();
+    
+    // Try each quarter in order until we find a transcript
+    for (const quarter of quarters) {
+      const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
+      
+      // Check if already in cache
+      if (this.transcriptCache.has(cacheKey)) {
+        const elapsedTime = (Date.now() - startTime) / 1000;
+        return {
+          success: true,
+          message: `Found in cache (took ${elapsedTime.toFixed(2)}s)`,
+          transcript: this.transcriptCache.get(cacheKey),
+          quarter
+        };
+      }
+
+      // Retry logic with exponential backoff (like Python project)
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          // Add delay between attempts
+          if (attempt > 0) {
+            const backoffTime = Math.pow(2, attempt) * 1000; // Exponential backoff
+            await new Promise(resolve => setTimeout(resolve, backoffTime));
+          }
+
+          const transcript = await apiNinjasService.fetchTranscript(
+            ticker,
+            quarter.year,
+            quarter.quarter
+          );
+
+          if (transcript && transcript.transcript) {
+            const transcriptData = {
+              ticker,
+              year: quarter.year,
+              quarter: quarter.quarter,
+              callDate: transcript.date,
+              fullTranscript: transcript.transcript,
+              companyName: `${ticker} Inc.`
+            };
+            
+            this.transcriptCache.set(cacheKey, transcriptData);
+            const elapsedTime = (Date.now() - startTime) / 1000;
+            
+            return {
+              success: true,
+              message: `Successfully fetched ${quarter.year}Q${quarter.quarter} (took ${elapsedTime.toFixed(2)}s)`,
+              transcript: transcriptData,
+              quarter
+            };
+          }
+          
+          // No transcript for this quarter, try next quarter
+          break;
+          
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          
+          // Handle rate limiting specifically
+          if (errorMessage.includes('rate limit') || errorMessage.includes('429')) {
+            logger.warn(`Rate limit for ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}`);
+            if (attempt < maxRetries - 1) {
+              continue; // Retry with backoff
+            }
+          }
+          
+          logger.debug(`Failed to fetch ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}:`, errorMessage);
+          
+          if (attempt === maxRetries - 1) {
+            // Last attempt failed, try next quarter
+            break;
+          }
+        }
+      }
+    }
+    
+    const elapsedTime = (Date.now() - startTime) / 1000;
+    return {
+      success: false,
+      message: `No transcript found for any quarter (took ${elapsedTime.toFixed(2)}s)`
+    };
+  }
+
+  /**
+   * Process a batch of tickers in parallel (like Python project)
+   */
+  private async processBatch(
+    tickers: string[], 
+    quarters: Array<{ year: number; quarter: number }>,
+    jobId: string
+  ): Promise<Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }>> {
+    const results: Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }> = [];
+    
+    // Process tickers in parallel with limited concurrency
+    const batchPromises = tickers.map(async (ticker) => {
+      const result = await this.fetchTranscriptForTicker(ticker, quarters);
+      return { ticker, ...result };
+    });
+    
+    // Use Promise.allSettled to handle failures gracefully
+    const settledResults = await Promise.allSettled(batchPromises);
+    
+    for (let i = 0; i < settledResults.length; i++) {
+      const settled = settledResults[i];
+      if (settled.status === 'fulfilled') {
+        results.push(settled.value);
+      } else {
+        // Handle rejected promises
+        results.push({
+          ticker: tickers[i],
+          success: false,
+          message: `Exception: ${settled.reason?.message || 'Unknown error'}`
+        });
+      }
+    }
+    
+    return results;
+  }
+
+  /**
    * Create a bulk fetch job from file content
    */
   createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 1): string {
@@ -104,30 +270,32 @@ export class EnhancedJobManager extends EventEmitter {
       tickers,
       quarters,
       status: 'pending',
+      createdAt: new Date(),
       progress: {
         current: 0,
-        total: tickers.length * quarters.length,
+        total: tickers.length,
+        currentTicker: '',
         processed: [],
         failed: [],
-        skipped: [],
-        currentTicker: ''
+        skipped: []
       },
-      results: [],
-      createdAt: new Date()
+      results: []
     };
 
     this.jobs.set(jobId, job);
     this.saveJobsToFile();
     
-    // Start processing if no other jobs are running
-    this.processNextJob();
-    
-    logger.info('Created bulk fetch job from file', {
+    logger.info('Created bulk fetch job', {
       jobId,
       tickerCount: tickers.length,
       quarterCount: quarters.length,
-      totalTasks: job.progress.total
+      totalTasks
     });
+
+    // Start processing if no other jobs are running
+    if (this.activeJobs.size === 0) {
+      this.processNextJob();
+    }
 
     return jobId;
   }
@@ -163,176 +331,51 @@ export class EnhancedJobManager extends EventEmitter {
       const totalTickers = job.tickers.length;
       const quarters = job.quarters || [];
 
-      for (let tickerIndex = job.progress.current; tickerIndex < totalTickers; tickerIndex++) {
-        // Check if job was cancelled
-        const currentJob = this.jobs.get(jobId);
-        if (!currentJob || currentJob.status === 'cancelled') {
-          break;
-        }
+      // Load checkpoint for the job
+      const { processed, results } = this.loadCheckpoint(jobId);
+      const remainingTickers = job.tickers.filter(t => !processed.includes(t));
 
-        // Check if job was paused
-        if (currentJob.status === 'paused') {
-          // Wait until resumed
-          while (currentJob.status === 'paused') {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const updatedJob = this.jobs.get(jobId);
-            if (!updatedJob || updatedJob.status === 'cancelled') {
-              return;
-            }
-          }
-        }
-
-        const ticker = job.tickers[tickerIndex];
-        job.progress.currentTicker = ticker;
-
-        // Process quarters for this ticker sequentially, starting from most recent
-        // Stop when we find a transcript to avoid unnecessary API calls
-        let foundTranscript = false;
-        for (const quarter of quarters) {
-          const currentJobState = this.jobs.get(jobId);
-          if (!currentJobState || currentJobState.status === 'cancelled') {
-            break;
-          }
-
-          const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
-          
-          // Check if already in cache
-          if (this.transcriptCache.has(cacheKey)) {
-            job.progress.skipped.push(ticker); // Store ticker name instead of cache key
-            foundTranscript = true;
-            break; // Found a transcript, no need to try other quarters
-          }
-
-          try {
-            // Add a small delay between API calls to avoid rate limiting
-            await new Promise(resolve => setTimeout(resolve, 500));
-            
-            const transcript = await apiNinjasService.fetchTranscript(
-              ticker,
-              quarter.year,
-              quarter.quarter
-            );
-
-            if (transcript && transcript.transcript) {
-              this.transcriptCache.set(cacheKey, {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter,
-                callDate: transcript.date,
-                fullTranscript: transcript.transcript,
-                companyName: `${ticker} Inc.`
-              });
-              
-              job.progress.processed.push(ticker); // Store ticker name instead of cache key
-              foundTranscript = true;
-              logger.info('Successfully fetched transcript', {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter
-              });
-              break; // Found a transcript, no need to try other quarters
-            } else {
-              // No transcript for this quarter, continue to next quarter
-              logger.debug('No transcript found for quarter', {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter
-              });
-            }
-          } catch (error) {
-            logger.error('Failed to fetch transcript', {
-              ticker,
-              year: quarter.year,
-              quarter: quarter.quarter,
-              error: error instanceof Error ? error.message : 'Unknown error'
-            });
-            
-            // Add retry logic for transient errors
-            if (error instanceof Error && error.message.includes('rate limit')) {
-              logger.info('Rate limit detected, waiting longer before retry', { ticker });
-              await new Promise(resolve => setTimeout(resolve, 2000));
-            }
-            // Continue to next quarter on error
-          }
-        }
-
-        // If no transcript found for any quarter, try a retry with longer delays
-        if (!foundTranscript) {
-          logger.warn('No transcript found for any quarter, attempting retry with longer delays', { ticker });
-          
-          // Retry with longer delays for potentially rate-limited requests
-          let retryFoundTranscript = false;
-          for (const quarter of quarters) {
-            const currentJobState = this.jobs.get(jobId);
-            if (!currentJobState || currentJobState.status === 'cancelled') {
-              break;
-            }
-
-            const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
-            
-            // Check if already in cache (might have been added by another process)
-            if (this.transcriptCache.has(cacheKey)) {
-              job.progress.skipped.push(ticker);
-              retryFoundTranscript = true;
-              logger.info('Found transcript in cache during retry', { ticker, quarter: `${quarter.year}-Q${quarter.quarter}` });
-              break;
-            }
-
-            try {
-              // Longer delay for retry attempts
-              await new Promise(resolve => setTimeout(resolve, 2000));
-              
-              const transcript = await apiNinjasService.fetchTranscript(
-                ticker,
-                quarter.year,
-                quarter.quarter
-              );
-
-              if (transcript && transcript.transcript) {
-                this.transcriptCache.set(cacheKey, {
-                  ticker,
-                  year: quarter.year,
-                  quarter: quarter.quarter,
-                  callDate: transcript.date,
-                  fullTranscript: transcript.transcript,
-                  companyName: `${ticker} Inc.`
-                });
-                
-                job.progress.processed.push(ticker);
-                retryFoundTranscript = true;
-                logger.info('Successfully fetched transcript on retry', {
-                  ticker,
-                  year: quarter.year,
-                  quarter: quarter.quarter
-                });
-                break;
-              }
-            } catch (error) {
-              logger.debug('Retry attempt failed', {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter,
-                error: error instanceof Error ? error.message : 'Unknown error'
-              });
-            }
-          }
-          
-          // If still no transcript found after retry, mark as failed
-          if (!retryFoundTranscript) {
-            job.progress.failed.push(ticker);
-            logger.warn('No transcript found for any quarter after retry', { ticker });
-          }
-        }
-        
-        job.progress.current = tickerIndex + 1;
+      if (remainingTickers.length === 0) {
+        logger.info(`All tickers for job ${jobId} already processed. Marking as completed.`);
+        job.status = 'completed';
+        job.completedAt = new Date();
+        this.activeJobs.delete(jobId);
         this.saveJobsToFile();
-        this.emit('progress', { jobId, job });
-        
-        // Add a delay between processing different tickers to avoid overwhelming the API
-        if (tickerIndex < totalTickers - 1) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        }
+        this.emit('completed', { jobId, job });
+        this.processNextJob();
+        return;
       }
+
+      // Process remaining tickers in batches
+      const batchPromises: Promise<Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }>>[] = [];
+      for (let i = 0; i < remainingTickers.length; i += this.batchSize) {
+        const batchTickers = remainingTickers.slice(i, i + this.batchSize);
+        batchPromises.push(this.processBatch(batchTickers, quarters, jobId));
+      }
+
+      const allBatchResults = await Promise.all(batchPromises);
+      const allResults = allBatchResults.flat();
+
+      // Save checkpoint after each batch
+      this.saveCheckpoint(jobId, processed.concat(allResults.filter(r => r.success).map(r => r.ticker)), allResults);
+
+      // Update job progress and results
+      job.progress.processed = processed.concat(allResults.filter(r => r.success).map(r => r.ticker));
+      job.progress.failed = allResults.filter(r => !r.success).map(r => r.ticker);
+      job.progress.skipped = allResults.filter(r => r.message.includes('Found in cache')).map(r => r.ticker);
+      job.progress.current = processed.length + allResults.filter(r => r.success).length;
+      job.progress.total = totalTickers;
+      job.results = allResults.map(result => ({
+        ticker: result.ticker,
+        status: result.success ? 'success' : 'failed',
+        message: result.message,
+        year: result.quarter?.year,
+        quarter: result.quarter?.quarter,
+        transcriptLength: result.transcript?.fullTranscript?.length || 0
+      }));
+      
+      this.saveJobsToFile();
+      this.emit('progress', { jobId, job });
 
       // Mark job as completed
       job.status = 'completed';
