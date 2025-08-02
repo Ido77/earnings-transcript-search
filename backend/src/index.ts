@@ -864,22 +864,22 @@ app.post('/api/search', async (req, res) => {
               snippet = snippet.replace(highlightPattern, '<mark>$1</mark>');
             }
 
-            results.push({
-              id: `${transcript.ticker}-${transcript.year}-Q${transcript.quarter}`,
-              ticker: transcript.ticker,
-              companyName: transcript.companyName,
-              year: transcript.year,
-              quarter: transcript.quarter,
-              callDate: transcript.callDate,
-              snippet: snippet,
-              relevanceScore: matches.length / transcript.fullTranscript.length * 1000,
-              totalMatchCount: matches.length,
-              keywordMatches: [{
-                keyword: phrase,
-                matchCount: matches.length,
-                score: matches.length / transcript.fullTranscript.length * 1000
-              }],
-            });
+                    results.push({
+          id: cacheKey,
+          ticker: transcript.ticker,
+          companyName: transcript.companyName,
+          year: transcript.year,
+          quarter: transcript.quarter,
+          callDate: transcript.callDate,
+          snippet: snippet,
+          relevanceScore: matches.length / transcript.fullTranscript.length * 1000,
+          totalMatchCount: matches.length,
+          keywordMatches: [{
+            keyword: phrase,
+            matchCount: matches.length,
+            score: matches.length / transcript.fullTranscript.length * 1000
+          }],
+        });
           }
         }
       }
@@ -1016,7 +1016,7 @@ app.post('/api/search', async (req, res) => {
         }
 
         results.push({
-          id: `${transcript.ticker}-${transcript.year}-Q${transcript.quarter}`,
+          id: cacheKey,
           ticker: transcript.ticker,
           companyName: transcript.companyName,
           year: transcript.year,

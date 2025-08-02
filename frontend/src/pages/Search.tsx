@@ -296,41 +296,9 @@ const Search = () => {
       console.error('Search error:', error);
       toast('Search failed. Check console for details.', 'error');
       
-      // For demo purposes, show mock search results
-      const mockResults = {
-        results: [
-          {
-            id: 'demo-1',
-            ticker: 'AAPL',
-            companyName: 'Apple Inc.',
-            year: 2023,
-            quarter: 4,
-            callDate: '2023-11-02',
-            snippet: `We're pleased to report strong quarterly results with revenue growth driven by ${query}...`,
-            relevanceScore: 0.95,
-            matchCount: 3,
-          },
-          {
-            id: 'demo-2',
-            ticker: 'MSFT',
-            companyName: 'Microsoft Corporation',
-            year: 2023,
-            quarter: 3,
-            callDate: '2023-07-25',
-            snippet: `Our cloud business continues to show momentum, with ${query} being a key driver...`,
-            relevanceScore: 0.87,
-            matchCount: 2,
-          },
-        ],
-        total: 2,
-        page: 1,
-        limit: 20,
-        executionTime: 145,
-        query,
-        filters: {},
-      };
-      setResults(mockResults);
-      toast('Showing demo search results', 'info');
+      // Show error message instead of demo results
+      toast('No transcripts found in database. Please add some transcripts first.', 'error');
+      setResults(null);
     } finally {
       setLoading(false);
     }
