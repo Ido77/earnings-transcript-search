@@ -10,7 +10,7 @@ const Tickers = () => {
   const [currentJob, setCurrentJob] = useState<any>(null);
   const [jobProgress, setJobProgress] = useState<any>(null);
   const [backgroundJobs, setBackgroundJobs] = useState<any[]>([]);
-  const [quarterCount, setQuarterCount] = useState<number>(4);
+  const [quarterCount, setQuarterCount] = useState<number>(1);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
 

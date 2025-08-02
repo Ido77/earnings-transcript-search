@@ -68,7 +68,7 @@ export const config = {
   
   // Quarter calculation settings
   quarters: {
-    lookbackQuarters: 4,
+    lookbackQuarters: 1,
     defaultQuarterLength: 3, // months
   },
   

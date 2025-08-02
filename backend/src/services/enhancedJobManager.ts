@@ -66,7 +66,7 @@ export class EnhancedJobManager extends EventEmitter {
    * This ensures we fetch quarters that are more likely to have transcripts available
    * Most companies release earnings 1-2 months after quarter end, so we start from 2 quarters ago
    */
-  private getLastNQuarters(quarterCount: number = 4): Array<{ year: number; quarter: number }> {
+  private getLastNQuarters(quarterCount: number = 1): Array<{ year: number; quarter: number }> {
     const quarters: Array<{ year: number; quarter: number }> = [];
     const now = new Date();
     const currentYear = now.getFullYear();
@@ -96,7 +96,7 @@ export class EnhancedJobManager extends EventEmitter {
   /**
    * Create a bulk fetch job from file content
    */
-  createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 4): string {
+  createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 1): string {
     const tickers = this.parseTickerFile(fileContent);
     const quarters = this.getLastNQuarters(quarterCount);
     

@@ -698,7 +698,7 @@ app.get('/api/jobs', asyncHandler(async (req, res) => {
 
 // Enhanced bulk file upload endpoints
 app.post('/api/jobs/bulk-upload', asyncHandler(async (req, res) => {
-  const { fileContent, quarterCount = 4 } = req.body;
+  const { fileContent, quarterCount = 1 } = req.body;
   
   if (!fileContent || typeof fileContent !== 'string') {
     return res.status(400).json({ error: 'File content is required' });
