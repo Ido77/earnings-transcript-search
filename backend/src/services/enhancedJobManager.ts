@@ -14,9 +14,9 @@ export class EnhancedJobManager extends EventEmitter {
   private activeJobs = new Set<string>();
   private transcriptCache: Map<string, any>;
   private maxConcurrentJobs = 1;
-  private maxConcurrentWorkers = 5; // Parallel workers like Python project
-  private batchSize = 20; // Process tickers in batches
-  private batchDelay = 5000; // 5 seconds between batches (like Python project)
+  private maxConcurrentWorkers = 3; // Reduced from 5 to avoid rate limiting
+  private batchSize = 5; // Reduced from 20 to smaller batches
+  private batchDelay = 10000; // Increased to 10 seconds between batches
 
   constructor(transcriptCache: Map<string, any>) {
     super();
@@ -26,51 +26,26 @@ export class EnhancedJobManager extends EventEmitter {
   }
 
   /**
-   * Parse ticker file content and extract tickers
+   * Parse ticker file content and extract ticker symbols
    */
   private parseTickerFile(fileContent: string): string[] {
-    // Handle both literal newlines and escaped newlines
-    let processedContent = fileContent;
-    
-    // Replace escaped newlines with actual newlines
-    processedContent = processedContent.replace(/\\n/g, '\n');
-    
-    const lines = processedContent.split('\n').filter(line => line.trim());
+    const lines = fileContent.split('\n').map(line => line.trim()).filter(line => line.length > 0);
     const tickers: string[] = [];
     
     for (const line of lines) {
-      try {
-        // Try tab-separated first, then space-separated
-        let parts = line.split('\t');
-        if (parts.length === 1) {
-          // If no tabs found, try space-separated
-          parts = line.split(/\s+/);
-        }
-        
-        if (parts.length >= 1) {
-          const ticker = parts[0].trim().toUpperCase();
-          // Only allow alphanumeric characters and dots for ticker symbols
-          const cleanTicker = ticker.replace(/[^A-Z0-9.]/g, '');
-          if (cleanTicker && cleanTicker.length > 0 && cleanTicker.length <= 10) {
-            tickers.push(cleanTicker);
-          }
-        }
-      } catch (error) {
-        logger.warn('Failed to parse ticker line', { line, error: error instanceof Error ? error.message : 'Unknown error' });
+      // Handle different formats: "TICKER", "TICKER\tCompany Name", "TICKER Company Name"
+      const parts = line.split(/[\t\s]+/);
+      const ticker = parts[0]?.toUpperCase().trim();
+      
+      if (ticker && ticker.length > 0 && ticker.length <= 10) {
+        tickers.push(ticker);
+      } else {
+        logger.warn('Skipping invalid ticker format', { line, ticker });
         continue;
       }
     }
     
     return [...new Set(tickers)]; // Remove duplicates
-  }
-
-  /**
-   * Get the last N quarters from current date using generalized approach
-   * This tries quarters in order of recency, just like the Python project
-   */
-  private getLastNQuarters(quarterCount: number = 1, ticker?: string): Array<{ year: number; quarter: number }> {
-    const { getQuartersToTryForTicker } = require('./quarterCalculator');
-    return getQuartersToTryForTicker(ticker || 'GENERAL', quarterCount);
   }
 
   /**
@@ -110,16 +85,23 @@ export class EnhancedJobManager extends EventEmitter {
 
   /**
    * Fetch transcript for a single ticker with retry logic (like Python project)
+   * OPTIMIZED: Gets quarters one at a time and stops at first non-null result
    */
   private async fetchTranscriptForTicker(
     ticker: string, 
-    quarters: Array<{ year: number; quarter: number }>,
+    maxQuartersToTry: number = 16,
     maxRetries: number = 5
   ): Promise<{ success: boolean; message: string; transcript?: any; quarter?: any }> {
     const startTime = Date.now();
+    const { getQuarterAtIndex } = require('./quarterCalculator');
     
-    // Try each quarter in order until we find a transcript
-    for (const quarter of quarters) {
+    // Try quarters one at a time until we find a transcript or run out of quarters
+    for (let quarterIndex = 0; quarterIndex < maxQuartersToTry; quarterIndex++) {
+      const quarter = getQuarterAtIndex(quarterIndex);
+      if (!quarter) {
+        break; // No more quarters available
+      }
+      
       const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
       
       // Check if already in cache
@@ -136,10 +118,13 @@ export class EnhancedJobManager extends EventEmitter {
       // Retry logic with exponential backoff (like Python project)
       for (let attempt = 0; attempt < maxRetries; attempt++) {
         try {
-          // Add delay between attempts
+          // Add delay between attempts and between API calls
           if (attempt > 0) {
             const backoffTime = Math.pow(2, attempt) * 1000; // Exponential backoff
             await new Promise(resolve => setTimeout(resolve, backoffTime));
+          } else {
+            // Add delay between API calls to avoid rate limiting
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
           }
 
           const transcript = await apiNinjasService.fetchTranscript(
@@ -201,35 +186,23 @@ export class EnhancedJobManager extends EventEmitter {
   }
 
   /**
-   * Process a batch of tickers in parallel (like Python project)
+   * Process a batch of tickers sequentially to avoid rate limiting
    */
   private async processBatch(
     tickers: string[], 
-    quarters: Array<{ year: number; quarter: number }>,
+    maxQuartersToTry: number = 16,
     jobId: string
   ): Promise<Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }>> {
     const results: Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }> = [];
     
-    // Process tickers in parallel with limited concurrency
-    const batchPromises = tickers.map(async (ticker) => {
-      const result = await this.fetchTranscriptForTicker(ticker, quarters);
-      return { ticker, ...result };
-    });
-    
-    // Use Promise.allSettled to handle failures gracefully
-    const settledResults = await Promise.allSettled(batchPromises);
-    
-    for (let i = 0; i < settledResults.length; i++) {
-      const settled = settledResults[i];
-      if (settled.status === 'fulfilled') {
-        results.push(settled.value);
-      } else {
-        // Handle rejected promises
-        results.push({
-          ticker: tickers[i],
-          success: false,
-          message: `Exception: ${settled.reason?.message || 'Unknown error'}`
-        });
+    // Process tickers sequentially to avoid rate limiting
+    for (const ticker of tickers) {
+      const result = await this.fetchTranscriptForTicker(ticker, maxQuartersToTry);
+      results.push({ ticker, ...result });
+      
+      // Add delay between tickers in the same batch
+      if (ticker !== tickers[tickers.length - 1]) {
+        await new Promise(resolve => setTimeout(resolve, 3000)); // 3 second delay between tickers
       }
     }
     
@@ -238,14 +211,10 @@ export class EnhancedJobManager extends EventEmitter {
 
   /**
    * Create a bulk fetch job from file content
+   * OPTIMIZED: No longer stores all quarters in job, just uses quarterCount
    */
-  createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 1): string {
+  createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 16): string {
     const tickers = this.parseTickerFile(fileContent);
-    
-    // For now, we'll use the first ticker to determine fiscal year offset
-    // In a more sophisticated implementation, we could handle mixed fiscal years
-    const firstTicker = tickers.length > 0 ? tickers[0] : undefined;
-    const quarters = this.getLastNQuarters(quarterCount, firstTicker);
     
     if (tickers.length === 0) {
       throw new Error('No valid tickers found in file');
@@ -259,16 +228,16 @@ export class EnhancedJobManager extends EventEmitter {
       throw new Error(`Too many tickers: ${tickers.length}. Maximum allowed is ${maxTickers}.`);
     }
     
-    const totalTasks = tickers.length * quarters.length;
+    const totalTasks = tickers.length * quarterCount;
     if (totalTasks > maxTotalTasks) {
-      throw new Error(`Too many total tasks: ${totalTasks} (${tickers.length} tickers × ${quarters.length} quarters). Maximum allowed is ${maxTotalTasks}.`);
+      throw new Error(`Too many total tasks: ${totalTasks} (${tickers.length} tickers × ${quarterCount} quarters). Maximum allowed is ${maxTotalTasks}.`);
     }
 
     const jobId = uuidv4();
     const job: BulkFetchJob = {
       id: jobId,
       tickers,
-      quarters,
+      quarters: [], // No longer needed, but keeping for backward compatibility
       status: 'pending',
       createdAt: new Date(),
       progress: {
@@ -288,7 +257,7 @@ export class EnhancedJobManager extends EventEmitter {
     logger.info('Created bulk fetch job', {
       jobId,
       tickerCount: tickers.length,
-      quarterCount: quarters.length,
+      quarterCount: quarterCount,
       totalTasks
     });
 
@@ -329,42 +298,43 @@ export class EnhancedJobManager extends EventEmitter {
       this.emit('progress', { jobId, job });
 
       const totalTickers = job.tickers.length;
-      const quarters = job.quarters || [];
+      const quarterCount = job.quarters?.length || 16; // Default to 16 if no quarters specified
 
-      // Load checkpoint for the job
-      const { processed, results } = this.loadCheckpoint(jobId);
-      const remainingTickers = job.tickers.filter(t => !processed.includes(t));
+      // Process all tickers (simplified without checkpoint for now)
+      const remainingTickers = job.tickers;
 
-      if (remainingTickers.length === 0) {
-        logger.info(`All tickers for job ${jobId} already processed. Marking as completed.`);
-        job.status = 'completed';
-        job.completedAt = new Date();
-        this.activeJobs.delete(jobId);
-        this.saveJobsToFile();
-        this.emit('completed', { jobId, job });
-        this.processNextJob();
-        return;
-      }
-
-      // Process remaining tickers in batches
-      const batchPromises: Promise<Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }>>[] = [];
+      // Process remaining tickers in batches sequentially (like Python project)
+      const allResults: Array<{ ticker: string; success: boolean; message: string; transcript?: any; quarter?: any }> = [];
+      
       for (let i = 0; i < remainingTickers.length; i += this.batchSize) {
         const batchTickers = remainingTickers.slice(i, i + this.batchSize);
-        batchPromises.push(this.processBatch(batchTickers, quarters, jobId));
+        const batchNum = Math.floor(i / this.batchSize) + 1;
+        const totalBatches = Math.ceil(remainingTickers.length / this.batchSize);
+        
+        logger.info(`Processing batch ${batchNum}/${totalBatches} (${batchTickers.length} tickers)`, { jobId });
+        
+        const batchResults = await this.processBatch(batchTickers, quarterCount, jobId);
+        allResults.push(...batchResults);
+        
+        // Update progress after each batch
+        const currentProcessed = allResults.filter(r => r.success).map(r => r.ticker);
+        job.progress.processed = currentProcessed;
+        job.progress.failed = allResults.filter(r => !r.success).map(r => r.ticker);
+        job.progress.skipped = allResults.filter(r => r.message.includes('Found in cache')).map(r => r.ticker);
+        job.progress.current = currentProcessed.length;
+        job.progress.total = totalTickers;
+        
+        this.saveJobsToFile();
+        this.emit('progress', { jobId, job });
+        
+        // Add delay between batches (except for the last batch)
+        if (i + this.batchSize < remainingTickers.length) {
+          logger.info(`Waiting ${this.batchDelay}ms before next batch...`, { jobId });
+          await new Promise(resolve => setTimeout(resolve, this.batchDelay));
+        }
       }
 
-      const allBatchResults = await Promise.all(batchPromises);
-      const allResults = allBatchResults.flat();
-
-      // Save checkpoint after each batch
-      this.saveCheckpoint(jobId, processed.concat(allResults.filter(r => r.success).map(r => r.ticker)), allResults);
-
-      // Update job progress and results
-      job.progress.processed = processed.concat(allResults.filter(r => r.success).map(r => r.ticker));
-      job.progress.failed = allResults.filter(r => !r.success).map(r => r.ticker);
-      job.progress.skipped = allResults.filter(r => r.message.includes('Found in cache')).map(r => r.ticker);
-      job.progress.current = processed.length + allResults.filter(r => r.success).length;
-      job.progress.total = totalTickers;
+      // Update final job results
       job.results = allResults.map(result => ({
         ticker: result.ticker,
         status: result.success ? 'success' : 'failed',
@@ -373,9 +343,6 @@ export class EnhancedJobManager extends EventEmitter {
         quarter: result.quarter?.quarter,
         transcriptLength: result.transcript?.fullTranscript?.length || 0
       }));
-      
-      this.saveJobsToFile();
-      this.emit('progress', { jobId, job });
 
       // Mark job as completed
       job.status = 'completed';

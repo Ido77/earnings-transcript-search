@@ -401,101 +401,118 @@ export class TranscriptService {
     limit: number;
     offset: number;
   }) {
-    const where: any = {};
+    try {
+      const where: any = {};
 
-    if (options.search) {
-      where.OR = [
-        {
-          ticker: {
-            contains: options.search.toUpperCase(),
-            mode: 'insensitive',
+      if (options.search) {
+        where.OR = [
+          {
+            ticker: {
+              contains: options.search.toUpperCase(),
+              mode: 'insensitive',
+            },
           },
-        },
-        {
-          companyName: {
-            contains: options.search,
-            mode: 'insensitive',
+          {
+            companyName: {
+              contains: options.search,
+              mode: 'insensitive',
+            },
           },
-        },
-      ];
+        ];
+      }
+
+      const [tickers, total] = await Promise.all([
+        prisma.transcript.groupBy({
+          by: ['ticker', 'companyName'],
+          where,
+          take: options.limit,
+          skip: options.offset,
+          orderBy: {
+            ticker: 'asc',
+          },
+          _count: {
+            id: true,
+          },
+        }),
+        prisma.transcript.groupBy({
+          by: ['ticker'],
+          where,
+          _count: {
+            id: true,
+          },
+        }),
+      ]);
+
+      return {
+        tickers: tickers.map(t => ({
+          ticker: t.ticker,
+          companyName: t.companyName,
+          transcriptCount: t._count.id,
+        })),
+        total: total.length,
+        page: Math.floor(options.offset / options.limit) + 1,
+        limit: options.limit,
+      };
+    } catch (error) {
+      // If database is not available, return empty result instead of crashing
+      console.warn('Database not available for getAvailableTickers, returning empty result:', error);
+      return {
+        tickers: [],
+        total: 0,
+        page: 1,
+        limit: options.limit,
+      };
     }
-
-    const [tickers, total] = await Promise.all([
-      prisma.transcript.groupBy({
-        by: ['ticker', 'companyName'],
-        where,
-        take: options.limit,
-        skip: options.offset,
-        orderBy: {
-          ticker: 'asc',
-        },
-        _count: {
-          id: true,
-        },
-      }),
-      prisma.transcript.groupBy({
-        by: ['ticker'],
-        where,
-        _count: {
-          id: true,
-        },
-      }),
-    ]);
-
-    return {
-      tickers: tickers.map(t => ({
-        ticker: t.ticker,
-        companyName: t.companyName,
-        transcriptCount: t._count.id,
-      })),
-      total: total.length,
-      page: Math.floor(options.offset / options.limit) + 1,
-      limit: options.limit,
-    };
   }
 
   /**
    * Get ticker details
    */
   async getTickerDetails(ticker: string) {
-    const tickerUpper = ticker.toUpperCase();
+    try {
+      const tickerUpper = ticker.toUpperCase();
 
-    const transcripts = await prisma.transcript.findMany({
-      where: { ticker: tickerUpper },
-      select: {
-        id: true,
-        year: true,
-        quarter: true,
-        callDate: true,
-        createdAt: true,
-      },
-      orderBy: [
-        { year: 'desc' },
-        { quarter: 'desc' },
-      ],
-    });
+      const transcripts = await prisma.transcript.findMany({
+        where: { ticker: tickerUpper },
+        select: {
+          id: true,
+          year: true,
+          quarter: true,
+          callDate: true,
+          createdAt: true,
+        },
+        orderBy: [
+          { year: 'desc' },
+          { quarter: 'desc' },
+        ],
+      });
 
-    if (transcripts.length === 0) {
+      if (transcripts.length === 0) {
+        return null;
+      }
+
+      const firstTranscript = await prisma.transcript.findFirst({
+        where: { ticker: tickerUpper },
+        select: {
+          companyName: true,
+        },
+      });
+
+      return {
+        ticker: tickerUpper,
+        companyName: firstTranscript?.companyName,
+        transcriptCount: transcripts.length,
+        quarters: transcripts,
+        dateRange: {
+          earliest: transcripts[transcripts.length - 1]?.callDate,
+          latest: transcripts[0]?.callDate,
+        },
+      };
+    } catch (error) {
+      // If database is not available, return null instead of crashing
+      console.warn('Database not available for getTickerDetails, returning null:', error);
       return null;
     }
-
-    const firstTranscript = await prisma.transcript.findFirst({
-      where: { ticker: tickerUpper },
-      select: {
-        companyName: true,
-      },
-    });
-
-    return {
-      ticker: tickerUpper,
-      companyName: firstTranscript?.companyName,
-      transcriptCount: transcripts.length,
-      quarters: transcripts,
-      dateRange: {
-        earliest: transcripts[transcripts.length - 1]?.callDate,
-        latest: transcripts[0]?.callDate,
-      },
-    };
   }
 
   /**

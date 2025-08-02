@@ -1,15 +1,4 @@
-NWPX	Northwest Pipe Company
-LSEA	Landsea Homes Corporation
-HUIZ	Huize Holding Limited
-OSK	Oshkosh Corporation
-ACDVF	Air Canada
-LUNA	Luna Innovations Incorporated
-BFST	Business First Bancshares, Inc.
-LAZR	Luminar Technologies, Inc.
-SMSOF	Samsonite International S.A.
-MKFG	Markforged Holding Corporation
-OPCH	Option Care Health, Inc.
-AONC	American Oncology Network, Inc.
-CMAX	CareMax, Inc.
-UI	Ubiquiti Inc.
-MNSO	MINISO Group Holding Limited
+NVDA
+AEHR
+TH
+HROW

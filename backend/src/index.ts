@@ -434,7 +434,7 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
         try {
           // Smart quarter strategy - try multiple recent quarters in order of likelihood
           // Different companies have different fiscal year ends, so we need to try multiple quarters
-          const quartersToTry = getLastFourQuarters(ticker).slice(0, 3);
+          const quartersToTry = getLastFourQuarters(ticker).slice(0, 16); // Try all 16 quarters like Python project
           // Process quarters sequentially to avoid rate limiting issues
           const fetchedTranscripts = [];
           for (const quarter of quartersToTry) {

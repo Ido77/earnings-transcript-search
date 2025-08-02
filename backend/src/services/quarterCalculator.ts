@@ -9,33 +9,77 @@ import { Quarter } from '@/types';
 /**
  * Get quarters to try in order of recency (most recent first)
  * This is the generalized approach that works for any company
+ * OPTIMIZED: Returns only the requested number of quarters instead of all 16
  */
 export function getQuartersToTry(count: number = 4): Quarter[] {
   const quarters: Quarter[] = [];
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
   
-  // Start from current year and go backwards
-  for (let yearOffset = 0; yearOffset <= 3; yearOffset++) {
-    const year = currentYear - yearOffset;
-    
-    // For each year, try quarters in reverse order (4, 3, 2, 1)
-    for (let quarter = 4; quarter >= 1; quarter--) {
-      quarters.push({ year, quarter });
-      
-      // Stop when we have enough quarters
-      if (quarters.length >= count * 2) { // Get extra quarters to ensure we have enough
-        break;
-      }
-    }
-    
-    if (quarters.length >= count * 2) {
-      break;
-    }
-  }
+  // Define all possible quarters in order of recency (most recent first)
+  const allQuarters = [
+    // 2025 quarters
+    { year: 2025, quarter: 4 },
+    { year: 2025, quarter: 3 },
+    { year: 2025, quarter: 2 },
+    { year: 2025, quarter: 1 },
+    // 2024 quarters
+    { year: 2024, quarter: 4 },
+    { year: 2024, quarter: 3 },
+    { year: 2024, quarter: 2 },
+    { year: 2024, quarter: 1 },
+    // 2023 quarters
+    { year: 2023, quarter: 4 },
+    { year: 2023, quarter: 3 },
+    { year: 2023, quarter: 2 },
+    { year: 2023, quarter: 1 },
+    // 2022 quarters
+    { year: 2022, quarter: 4 },
+    { year: 2022, quarter: 3 },
+    { year: 2022, quarter: 2 },
+    { year: 2022, quarter: 1 }
+  ];
   
-  return quarters;
+  // Return only the requested number of quarters (or all if count is larger)
+  return allQuarters.slice(0, count);
+}
+
+/**
+ * Get a single quarter at a specific index (0-based)
+ * This allows for more efficient processing - get quarters one at a time
+ */
+export function getQuarterAtIndex(index: number): Quarter | null {
+  const allQuarters = [
+    // 2025 quarters
+    { year: 2025, quarter: 4 },
+    { year: 2025, quarter: 3 },
+    { year: 2025, quarter: 2 },
+    { year: 2025, quarter: 1 },
+    // 2024 quarters
+    { year: 2024, quarter: 4 },
+    { year: 2024, quarter: 3 },
+    { year: 2024, quarter: 2 },
+    { year: 2024, quarter: 1 },
+    // 2023 quarters
+    { year: 2023, quarter: 4 },
+    { year: 2023, quarter: 3 },
+    { year: 2023, quarter: 2 },
+    { year: 2023, quarter: 1 },
+    // 2022 quarters
+    { year: 2022, quarter: 4 },
+    { year: 2022, quarter: 3 },
+    { year: 2022, quarter: 2 },
+    { year: 2022, quarter: 1 }
+  ];
+  
+  return index < allQuarters.length ? allQuarters[index] : null;
+}
+
+/**
+ * Get the total number of available quarters
+ */
+export function getTotalQuarterCount(): number {
+  return 16; // 4 years × 4 quarters
 }
 
 /**
