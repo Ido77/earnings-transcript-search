@@ -865,7 +865,7 @@ app.post('/api/search', async (req, res) => {
             }
 
             results.push({
-              id: transcript.id,
+              id: `${transcript.ticker}-${transcript.year}-Q${transcript.quarter}`,
               ticker: transcript.ticker,
               companyName: transcript.companyName,
               year: transcript.year,
@@ -1016,7 +1016,7 @@ app.post('/api/search', async (req, res) => {
         }
 
         results.push({
-          id: transcript.id,
+          id: `${transcript.ticker}-${transcript.year}-Q${transcript.quarter}`,
           ticker: transcript.ticker,
           companyName: transcript.companyName,
           year: transcript.year,
