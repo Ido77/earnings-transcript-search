@@ -20,6 +20,9 @@ import { prisma } from '@/config/database';
 import { asyncHandler } from '@/utils/asyncHandler';
 import { apiNinjasService } from '@/services/apiNinjas';
 import { JobManager } from '@/services/jobManager';
+import { EnhancedJobManager } from '@/services/enhancedJobManager';
+import tickersRouter from '@/routes/tickers';
+import { transcriptService } from '@/services/transcriptService';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
@@ -231,6 +234,7 @@ const transcriptCache = loadCacheFromFile();
 
 // Initialize job manager
 const jobManager = new JobManager(transcriptCache);
+const enhancedJobManager = new EnhancedJobManager(transcriptCache);
 
 // Listen for job progress events
 jobManager.on('progress', ({ jobId, job }) => {
@@ -428,37 +432,34 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
         logger.info('Fetching latest transcripts for new ticker', { ticker });
         
         try {
-          // Optimized quarter strategy - try most recent quarters first, fewer attempts
+          // Smart quarter strategy - try multiple recent quarters in order of likelihood
+          // Different companies have different fiscal year ends, so we need to try multiple quarters
           const quartersToTry = [
-            { year: 2025, quarter: 1 },  // Q1 2025 (most likely to exist)
-            { year: 2024, quarter: 4 },  // Q4 2024
+            { year: 2025, quarter: 1 },  // Q1 2025 (most recent, most likely to exist)
+            { year: 2024, quarter: 4 },  // Q4 2024 (previous quarter, very likely)
+            { year: 2024, quarter: 3 },  // Q3 2024 (fallback)
           ];
-          
           // Process quarters sequentially to avoid rate limiting issues
           const fetchedTranscripts = [];
           for (const quarter of quartersToTry) {
             try {
+              logger.info(`Fetching ${ticker} ${quarter.year} Q${quarter.quarter}...`);
               const transcript = await apiNinjasService.fetchTranscript(ticker, quarter.year, quarter.quarter);
-              
-              if (transcript && transcript.transcript && transcript.transcript.trim().length > 0) {
-                logger.info('Latest transcript found', {
-                  ticker,
-                  year: transcript.year,
-                  quarter: transcript.quarter,
-                  length: transcript.transcript.length,
+              if (transcript && transcript.transcript) {
+                fetchedTranscripts.push({
+                  ...transcript,
+                  ticker: ticker.toUpperCase(),
+                  year: quarter.year,
+                  quarter: quarter.quarter,
+                  callDate: transcript.date || `${quarter.year}-${quarter.quarter.toString().padStart(2, '0')}-01`,
+                  id: `${ticker.toUpperCase()}_${quarter.year}_Q${quarter.quarter}`,
                 });
-                fetchedTranscripts.push(transcript);
-                
-                // Stop after finding 2 transcripts to avoid rate limiting
-                if (fetchedTranscripts.length >= 2) break;
+                logger.info(`✅ Successfully fetched ${ticker} ${quarter.year} Q${quarter.quarter}`);
+                break; // Found transcript, no need to try other quarters
               }
             } catch (error) {
-              // Continue to next quarter if this one fails
-              logger.debug('Quarter not available, trying next', {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter,
-              });
+              logger.warn(`❌ Failed to fetch ${ticker} ${quarter.year} Q${quarter.quarter}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+              // Continue to next quarter if available
             }
           }
           
@@ -616,7 +617,7 @@ app.post('/api/jobs/bulk-fetch', asyncHandler(async (req, res) => {
       suggestion: 'Wait for current job to complete or check /api/jobs for active jobs'
     });
   }
-});
+}));
 
 // Clear completed jobs
 app.delete('/api/jobs/completed', asyncHandler(async (req, res) => {
@@ -695,6 +696,118 @@ app.get('/api/jobs', asyncHandler(async (req, res) => {
   });
 }));
 
+// Enhanced bulk file upload endpoints
+app.post('/api/jobs/bulk-upload', asyncHandler(async (req, res) => {
+  const { fileContent, quarterCount = 4 } = req.body;
+  
+  if (!fileContent || typeof fileContent !== 'string') {
+    return res.status(400).json({ error: 'File content is required' });
+  }
+
+  if (quarterCount && (typeof quarterCount !== 'number' || quarterCount < 1 || quarterCount > 12)) {
+    return res.status(400).json({ error: 'Quarter count must be between 1 and 12' });
+  }
+
+  try {
+    logger.info('Creating bulk upload job', { 
+      fileLength: fileContent.length,
+      quarterCount,
+      estimatedTickers: fileContent.split('\n').length
+    });
+    
+    const jobId = enhancedJobManager.createBulkFetchJobFromFile(fileContent, quarterCount);
+    
+    logger.info('Bulk upload job created successfully', { jobId });
+    
+    res.json({ 
+      message: 'Bulk upload job created successfully', 
+      jobId,
+      status: 'pending'
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    logger.error('Failed to create bulk upload job', { 
+      error: errorMessage,
+      fileLength: fileContent.length,
+      quarterCount
+    });
+    res.status(500).json({ error: errorMessage });
+  }
+}));
+
+// Enhanced job progress endpoint
+app.get('/api/jobs/:jobId/progress', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const progress = enhancedJobManager.getJobProgress(jobId);
+  
+  if (!progress) {
+    return res.status(404).json({ error: 'Job not found' });
+  }
+
+  res.json(progress);
+}));
+
+// Enhanced job control endpoints
+app.post('/api/jobs/:jobId/pause', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const paused = enhancedJobManager.pauseJob(jobId);
+  
+  if (!paused) {
+    return res.status(400).json({ error: 'Job cannot be paused (not running or not found)' });
+  }
+
+  res.json({ message: 'Job paused successfully', jobId });
+}));
+
+app.post('/api/jobs/:jobId/resume', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const resumed = enhancedJobManager.resumeJob(jobId);
+  
+  if (!resumed) {
+    return res.status(400).json({ error: 'Job cannot be resumed (not paused or not found)' });
+  }
+
+  res.json({ message: 'Job resumed successfully', jobId });
+}));
+
+app.post('/api/jobs/:jobId/cancel', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const cancelled = enhancedJobManager.cancelJob(jobId);
+  
+  if (!cancelled) {
+    return res.status(400).json({ error: 'Job cannot be cancelled (not running/pending or not found)' });
+  }
+
+  res.json({ message: 'Job cancelled successfully', jobId });
+}));
+
+// Enhanced jobs list endpoint
+app.get('/api/jobs/enhanced', asyncHandler(async (req, res) => {
+  const jobs = enhancedJobManager.getAllJobs();
+  res.json({
+    jobs: jobs.map(job => ({
+      id: job.id,
+      status: job.status,
+      tickerCount: job.tickers.length,
+      progress: `${job.progress.current}/${job.progress.total}`,
+      processed: job.progress.processed.length,
+      failed: job.progress.failed.length,
+      skipped: job.progress.skipped.length,
+      processedTickers: job.progress.processed, // Return actual ticker names
+      failedTickers: job.progress.failed, // Return actual ticker names
+      skippedTickers: job.progress.skipped, // Return actual ticker names
+      createdAt: job.createdAt,
+      startedAt: job.startedAt,
+      completedAt: job.completedAt,
+      currentTicker: job.progress.currentTicker
+    }))
+  });
+}));
+
 // Search endpoint that works with memory cache
 app.post('/api/search', async (req, res) => {
   try {
@@ -705,8 +818,129 @@ app.post('/api/search', async (req, res) => {
     }
 
     const startTime = Date.now();
-    const searchTerm = query.toLowerCase();
+    
+    // Handle phrase search differently
+    if (req.body.searchType === 'phrase') {
+      const phrase = query.trim();
+      if (!phrase) {
+        return res.status(400).json({ error: 'Phrase is required' });
+      }
+
+      const results: any[] = [];
+
+      // Create regex pattern for exact phrase matching (case insensitive)
+      const phrasePattern = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+
+      // Search through cached transcripts
+      for (const [cacheKey, transcript] of transcriptCache.entries()) {
+        const fullText = transcript.fullTranscript.toLowerCase();
+        
+        // Apply filters
+        if (filters.tickers && filters.tickers.length > 0) {
+          const filterTickers = filters.tickers.map((t: string) => t.toLowerCase());
+          if (!filterTickers.includes(transcript.ticker.toLowerCase())) continue;
+        }
+        if (filters.years && filters.years.length > 0) {
+          if (!filters.years.includes(transcript.year)) continue;
+        }
+        if (filters.quarters && filters.quarters.length > 0) {
+          if (!filters.quarters.includes(transcript.quarter)) continue;
+        }
+
+        // Check if phrase exists in transcript
+        const matches = fullText.match(phrasePattern);
+        if (matches && matches.length > 0) {
+          // Find first phrase position for snippet
+          const firstMatch = phrasePattern.exec(transcript.fullTranscript);
+          if (firstMatch) {
+            const index = firstMatch.index;
+            const start = Math.max(0, index - 100);
+            const end = Math.min(transcript.fullTranscript.length, index + 200);
+            
+            let snippet = transcript.fullTranscript.substring(start, end);
+            if (highlight) {
+              // Highlight the exact phrase
+              const highlightPattern = new RegExp(`(${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+              snippet = snippet.replace(highlightPattern, '<mark>$1</mark>');
+            }
+
+            results.push({
+              id: transcript.id,
+              ticker: transcript.ticker,
+              companyName: transcript.companyName,
+              year: transcript.year,
+              quarter: transcript.quarter,
+              callDate: transcript.callDate,
+              snippet: snippet,
+              relevanceScore: matches.length / transcript.fullTranscript.length * 1000,
+              totalMatchCount: matches.length,
+              keywordMatches: [{
+                keyword: phrase,
+                matchCount: matches.length,
+                score: matches.length / transcript.fullTranscript.length * 1000
+              }],
+            });
+          }
+        }
+      }
+
+      // Sort results based on sortBy parameter
+      if (sortBy === 'date') {
+        results.sort((a, b) => {
+          if (a.year !== b.year) {
+            return b.year - a.year;
+          }
+          return b.quarter - a.quarter;
+        });
+      } else {
+        results.sort((a, b) => b.relevanceScore - a.relevanceScore);
+      }
+
+      // Apply pagination
+      const limit = filters.limit || 20;
+      const offset = filters.offset || 0;
+      const paginatedResults = results.slice(offset, offset + limit);
+
+      const executionTime = Date.now() - startTime;
+
+      logger.info('Phrase search completed', {
+        phrase,
+        totalResults: results.length,
+        returnedResults: paginatedResults.length,
+        executionTime,
+      });
+
+      res.json({
+        results: paginatedResults,
+        total: results.length,
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        executionTime,
+        query: phrase,
+        filters,
+        sortBy,
+      });
+      return;
+    }
+    
+    // Split query into individual keywords for regular search
+    const keywords = query.split(/\s+/).map(k => k.trim().toLowerCase()).filter(k => k.length > 0);
+    
+    if (keywords.length === 0) {
+      return res.status(400).json({ error: 'At least one keyword is required' });
+    }
+
+    // Get required and optional keywords from filters
+    const requiredKeywords = filters.requiredKeywords || [];
+    const optionalKeywords = filters.optionalKeywords || [];
+
     const results: any[] = [];
+
+    // Create regex patterns with word boundaries for each keyword
+    const keywordPatterns = keywords.map(keyword => ({
+      keyword,
+      pattern: new RegExp(`\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi')
+    }));
 
     // Search through cached transcripts
     for (const [cacheKey, transcript] of transcriptCache.entries()) {
@@ -725,21 +959,61 @@ app.post('/api/search', async (req, res) => {
         if (!filters.quarters.includes(transcript.quarter)) continue;
       }
 
-      // Check if search term exists in transcript
-      if (fullText.includes(searchTerm)) {
-        // Find search term position for snippet
-        const index = fullText.indexOf(searchTerm);
-        const start = Math.max(0, index - 100);
-        const end = Math.min(transcript.fullTranscript.length, index + 200);
+      // Check if all required keywords exist in transcript
+      let allRequiredKeywordsFound = true;
+      if (requiredKeywords.length > 0) {
+        for (const requiredKeyword of requiredKeywords) {
+          const pattern = new RegExp(`\\b${requiredKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+          if (!pattern.test(transcript.fullTranscript)) {
+            allRequiredKeywordsFound = false;
+            break;
+          }
+        }
+      }
+
+      // Skip if not all required keywords are found
+      if (!allRequiredKeywordsFound) {
+        continue;
+      }
+
+      // Check keyword matches for scoring
+      const keywordMatches: any[] = [];
+      let totalMatches = 0;
+
+      for (const { keyword, pattern } of keywordPatterns) {
+        const matches = fullText.match(pattern);
+        const matchCount = matches ? matches.length : 0;
+        
+        totalMatches += matchCount;
+        
+        keywordMatches.push({
+          keyword,
+          matchCount,
+          score: matchCount / transcript.fullTranscript.length * 1000
+        });
+      }
+
+      // Find first match position for snippet
+      let firstMatchIndex = -1;
+      for (const { keyword, pattern } of keywordPatterns) {
+        const match = pattern.exec(transcript.fullTranscript);
+        if (match && (firstMatchIndex === -1 || match.index < firstMatchIndex)) {
+          firstMatchIndex = match.index;
+        }
+      }
+
+      if (firstMatchIndex !== -1) {
+        const start = Math.max(0, firstMatchIndex - 100);
+        const end = Math.min(transcript.fullTranscript.length, firstMatchIndex + 200);
         
         let snippet = transcript.fullTranscript.substring(start, end);
         if (highlight) {
-          const regex = new RegExp(`(${query})`, 'gi');
-          snippet = snippet.replace(regex, '<mark>$1</mark>');
+          // Highlight all keyword matches
+          for (const { keyword } of keywordMatches) {
+            const highlightPattern = new RegExp(`\\b(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
+            snippet = snippet.replace(highlightPattern, '<mark>$1</mark>');
+          }
         }
-
-        // Count matches
-        const matches = (fullText.match(new RegExp(searchTerm, 'g')) || []).length;
 
         results.push({
           id: transcript.id,
@@ -749,8 +1023,9 @@ app.post('/api/search', async (req, res) => {
           quarter: transcript.quarter,
           callDate: transcript.callDate,
           snippet: snippet,
-          relevanceScore: matches / transcript.fullTranscript.length * 1000,
-          matchCount: matches,
+          relevanceScore: totalMatches / transcript.fullTranscript.length * 1000,
+          totalMatchCount: totalMatches,
+          keywordMatches: keywordMatches,
         });
       }
     }
@@ -872,6 +1147,82 @@ app.get('/api/transcripts/:id', (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve transcript' });
   }
 });
+
+// Helper function to get last four quarters
+const getLastFourQuarters = () => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentQuarter = Math.floor(currentMonth / 3) + 1;
+  
+  const quarters = [];
+  for (let i = 0; i < 4; i++) {
+    const year = currentYear - Math.floor((currentQuarter - 1 - i) / 4);
+    const quarter = ((currentQuarter - 1 - i) % 4 + 4) % 4 + 1;
+    quarters.push({ year, quarter });
+  }
+  
+  return quarters;
+};
+
+// Tickers API endpoints
+app.get('/api/tickers', asyncHandler(async (req, res) => {
+  const { search, limit = 50, offset = 0 } = req.query;
+  
+  const result = await transcriptService.getAvailableTickers({
+    search: search as string | undefined,
+    limit: parseInt(limit as string),
+    offset: parseInt(offset as string),
+  });
+  
+  res.json(result);
+}));
+
+app.get('/api/tickers/:ticker', asyncHandler(async (req, res) => {
+  const { ticker } = req.params;
+  
+  if (!ticker || ticker.length > 10) {
+    return res.status(400).json({ error: 'Invalid ticker format' });
+  }
+  
+  const tickerUpper = ticker.toUpperCase();
+  const details = await transcriptService.getTickerDetails(tickerUpper);
+  
+  if (!details) {
+    return res.status(404).json({ error: 'Ticker not found' });
+  }
+  
+  res.json(details);
+}));
+
+app.post('/api/tickers/:ticker/refresh', asyncHandler(async (req, res) => {
+  const { ticker } = req.params;
+  const { quarters } = req.body;
+  
+  if (!ticker || ticker.length > 10) {
+    return res.status(400).json({ error: 'Invalid ticker format' });
+  }
+  
+  const tickerUpper = ticker.toUpperCase();
+  const quartersToRefresh = quarters || getLastFourQuarters();
+  
+  logger.info('Refreshing ticker transcripts', {
+    ticker: tickerUpper,
+    quarterCount: quartersToRefresh.length,
+  });
+  
+  const results = await transcriptService.bulkFetchTranscripts(
+    [tickerUpper],
+    quartersToRefresh,
+    true // Force refresh
+  );
+  
+  res.json({
+    ticker: tickerUpper,
+    results: results.results.filter(r => r.ticker === tickerUpper),
+    summary: results.summary,
+  });
+}));
 
 // Basic error handling
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

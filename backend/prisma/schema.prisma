@@ -19,6 +19,7 @@ model Transcript {
   callDate         DateTime? @map("call_date") @db.Date
   fullTranscript   String   @map("full_transcript") @db.Text
   transcriptJson   Json     @map("transcript_json") @db.JsonB
+  transcriptSplit  Json?    @map("transcript_split") @db.JsonB
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
 

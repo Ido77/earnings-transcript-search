@@ -49,7 +49,7 @@ export const config = {
   apiNinjas: {
     key: env.API_NINJAS_KEY,
     baseUrl: env.API_NINJAS_BASE_URL,
-    isDemo: env.API_NINJAS_KEY === 'demo_key_for_development',
+    isDemo: false, // Production mode
   },
   
   // CORS

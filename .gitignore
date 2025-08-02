@@ -11,34 +11,44 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Build outputs
-dist/
-build/
-.next/
-out/
+# Cache and temporary files
+backend/cache/
+backups/
+*.log
+logs/
 
-# IDE files
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE and editor files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS files
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Logs
-logs/
-*.log
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
 
-# Cache files (large data files)
-backend/cache/transcripts.json
-backend/cache/transcripts.json.backup.*
-backend/cache/transcripts_backup_*.json
-backend/cache/chunks/
-backend/cache/jobs.json
+# Test coverage
+coverage/
+.nyc_output/
 
 # Temporary files
+tmp/
+temp/
 *.tmp
 *.temp 

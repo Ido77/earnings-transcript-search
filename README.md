@@ -29,6 +29,11 @@ docker-compose up -d
 # Or run individually:
 npm run dev:backend  # Backend on http://localhost:3001
 npm run dev:frontend # Frontend on http://localhost:3000
+
+# Or use the convenient restart scripts:
+./restart-servers.sh     # Restart both frontend and backend
+./restart-frontend.sh    # Restart frontend only
+./check-status.sh        # Check server status
 ```
 
 3. **Initialize the database**:

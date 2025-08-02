@@ -56,7 +56,7 @@ export const errorHandler = (
         validationErrors: err.errors.map(e => ({
           field: e.path.join('.'),
           message: e.message,
-          value: e.input,
+          value: 'input' in e ? e.input : undefined,
         })),
       },
     };

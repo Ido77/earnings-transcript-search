@@ -9,6 +9,22 @@ export interface ApiNinjasTranscriptResponse {
   transcript: string;
 }
 
+// Premium transcript_split response types
+export interface ApiNinjasTranscriptSplitResponse {
+  ticker: string;
+  quarter: number;
+  year: number;
+  date: string;
+  transcript_split: TranscriptSplitSegment[];
+}
+
+export interface TranscriptSplitSegment {
+  speaker: string;
+  company?: string;
+  role?: string;
+  text: string;
+}
+
 // Quarter calculation types
 export interface Quarter {
   year: number;
@@ -96,8 +112,9 @@ export interface BulkFetchResponse {
 // Job system types
 export interface BulkFetchJob {
   id: string;
-  status: 'pending' | 'running' | 'completed' | 'failed' | 'paused';
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'paused' | 'cancelled';
   tickers: string[];
+  quarters?: Array<{ year: number; quarter: number }>;
   progress: {
     current: number;
     total: number;

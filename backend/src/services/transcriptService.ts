@@ -1,7 +1,7 @@
 import { prisma } from '@/config/database';
 import { logger } from '@/config/logger';
 import { apiNinjasService } from './apiNinjas';
-import { BulkFetchResult, BulkFetchResponse, Quarter, ParsedTranscript } from '@/types';
+import { BulkFetchRequest, BulkFetchResponse, BulkFetchResult, Quarter } from '@/types';
 import { stringify } from 'csv-stringify/sync';
 
 export class TranscriptService {
@@ -73,13 +73,14 @@ export class TranscriptService {
   }
 
   /**
-   * Fetch a single transcript
+   * Fetch a single transcript with premium transcript_split support
    */
   private async fetchSingleTranscript(
     ticker: string,
     year: number,
     quarter: number,
-    forceRefresh: boolean = false
+    forceRefresh: boolean = false,
+    usePremiumSplit: boolean = true
   ): Promise<BulkFetchResult> {
     const tickerUpper = ticker.toUpperCase();
 
@@ -112,12 +113,46 @@ export class TranscriptService {
       }
     }
 
-    // Fetch from API
-    const transcriptData = await apiNinjasService.fetchTranscript(
-      tickerUpper,
-      year,
-      quarter
-    );
+    // Try to fetch premium transcript_split first
+    let transcriptData: any = null;
+    let isPremiumSplit = false;
+
+    if (usePremiumSplit) {
+      try {
+        const splitData = await apiNinjasService.fetchTranscriptSplit(
+          tickerUpper,
+          year,
+          quarter
+        );
+        
+        if (splitData && splitData.transcript_split) {
+          transcriptData = splitData;
+          isPremiumSplit = true;
+          logger.info('Using premium transcript_split data', {
+            ticker: tickerUpper,
+            year,
+            quarter,
+            segmentCount: splitData.transcript_split.length,
+          });
+        }
+      } catch (error) {
+        logger.warn('Failed to fetch premium transcript_split, falling back to regular transcript', {
+          ticker: tickerUpper,
+          year,
+          quarter,
+          error: error instanceof Error ? error.message : 'Unknown error',
+        });
+      }
+    }
+
+    // Fall back to regular transcript if premium split failed
+    if (!transcriptData) {
+      transcriptData = await apiNinjasService.fetchTranscript(
+        tickerUpper,
+        year,
+        quarter
+      );
+    }
 
     if (!transcriptData) {
       return {
@@ -144,8 +179,22 @@ export class TranscriptService {
       }
     }
 
-    // Parse transcript into structured format
-    const parsedTranscript = this.parseTranscriptText(transcriptData.transcript);
+    // Handle different transcript formats
+    let fullTranscript: string;
+    let transcriptSplit: any = null;
+
+    if (isPremiumSplit && transcriptData.transcript_split) {
+      // Convert transcript_split to full text for storage
+      fullTranscript = transcriptData.transcript_split
+        .map((segment: any) => `${segment.speaker}${segment.role ? ` (${segment.role})` : ''}: ${segment.text}`)
+        .join('\n\n');
+      
+      transcriptSplit = transcriptData.transcript_split;
+    } else {
+      // Regular transcript format
+      fullTranscript = transcriptData.transcript || '';
+      transcriptSplit = null;
+    }
 
     // Save to database
     const savedTranscript = await prisma.transcript.upsert({
@@ -157,19 +206,17 @@ export class TranscriptService {
         },
       },
       update: {
-        fullTranscript: transcriptData.transcript,
-        transcriptJson: parsedTranscript,
+        fullTranscript,
         callDate,
         updatedAt: new Date(),
       },
       create: {
         ticker: tickerUpper,
-        companyName: parsedTranscript.metadata.companyName,
         year,
         quarter,
+        fullTranscript,
         callDate,
-        fullTranscript: transcriptData.transcript,
-        transcriptJson: parsedTranscript,
+        transcriptJson: transcriptSplit ? transcriptSplit : {},
       },
     });
 
@@ -178,7 +225,8 @@ export class TranscriptService {
       year,
       quarter,
       transcriptId: savedTranscript.id,
-      transcriptLength: transcriptData.transcript.length,
+      isPremiumSplit,
+      transcriptLength: fullTranscript.length,
     });
 
     return {
@@ -186,62 +234,28 @@ export class TranscriptService {
       year,
       quarter,
       status: 'success',
+      transcriptLength: fullTranscript.length,
       transcriptId: savedTranscript.id,
+      storage: 'database',
     };
   }
 
   /**
-   * Parse transcript text into structured format
+   * Parse transcript text into structured format (legacy method)
    */
-  private parseTranscriptText(transcriptText: string): ParsedTranscript {
-    // Basic parsing logic - can be enhanced
-    const lines = transcriptText.split('\n').filter(line => line.trim());
-    const segments: any[] = [];
-    let currentSpeaker: any = null;
-    let currentText = '';
-
-    for (const line of lines) {
-      // Check if line looks like a speaker identifier
-      const speakerMatch = line.match(/^([A-Z][a-zA-Z\s]+)(?:\s*[-–—]|\s*:|\s*\()(.*)$/);
-      
-      if (speakerMatch) {
-        // Save previous segment
-        if (currentSpeaker && currentText.trim()) {
-          segments.push({
-            speaker: currentSpeaker,
-            text: currentText.trim(),
-          });
-        }
-
-        // Start new segment
-        currentSpeaker = {
-          name: speakerMatch[1].trim(),
-        };
-        currentText = speakerMatch[2] || '';
-      } else if (currentSpeaker) {
-        // Continue current speaker's text
-        currentText += ' ' + line;
-      } else {
-        // No speaker identified yet, treat as metadata or introduction
-        currentText += line + ' ';
-      }
-    }
-
-    // Save final segment
-    if (currentSpeaker && currentText.trim()) {
-      segments.push({
-        speaker: currentSpeaker,
-        text: currentText.trim(),
-      });
-    }
-
+  private parseTranscriptText(text: string): any {
+    // This is a legacy method that's no longer used with premium transcript_split
+    // Keeping it for backward compatibility
     return {
       metadata: {
         ticker: '',
-        participantCount: segments.length,
+        companyName: '',
+        quarter: 0,
+        year: 0,
+        participantCount: 0,
       },
-      segments,
-      fullText: transcriptText,
+      segments: [],
+      fullText: text,
     };
   }
 

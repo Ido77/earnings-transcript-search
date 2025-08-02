@@ -1,21 +1,32 @@
+FOOD.TO	Goodfood Market Corp.
 AP	Ampco-Pittsburgh Corporation
+GFSA3.SA	Gafisa S.A.
 BICEY	Société BIC S.A.
 XELA	Exela Technologies, Inc.
 FSR	Fisker Inc.
 IRIX	IRIDEX Corporation
+UMI.BR	Umicore S.A.
 IMPP	Imperial Petroleum Inc.
+ROG.SW	Roche Holding AG
 CX	CEMEX, S.A.B. de C.V.
+LOG.MC	Compañía de Distribución Integral Logista Holdings, S.A.
 BODI	The Beachbody Company, Inc.
+LNR.TO	Linamar Corporation
+NOD.OL	Nordic Semiconductor ASA
+9868.HK	XPeng Inc.
 XPO	XPO Logistics, Inc.
 STLJF	Stella-Jones Inc.
 HXL	Hexcel Corporation
 AEE	Ameren Corporation
 RGP	Resources Connection, Inc.
 EGHSF	Enghouse Systems Limited
+ELUX-B.ST	AB Electrolux (publ)
 STER	Sterling Check Corp.
 INFY	Infosys Limited
 SHSP	SharpSpring, Inc.
 LOMA	Loma Negra Compañía Industrial Argentina Sociedad Anónima
+SHOP.TO	Shopify Inc.
+GLEN.L	Glencore plc
 HNI	HNI Corporation
 METC	Ramaco Resources, Inc.
 AUKNY	Auckland International Airport Limited
@@ -33,14 +44,17 @@ DKNG	DraftKings Inc.
 HAE	Haemonetics Corporation
 SWDAF	Software AG
 CUE	Cue Biopharma, Inc.
+0992.HK	Lenovo Group Limited
 ATSG	Air Transport Services Group, Inc.
 RENN	Renren Inc.
 VKTX	Viking Therapeutics, Inc.
 SGBX	Safe & Green Holdings Corp.
 LCTX	Lineage Cell Therapeutics, Inc.
+NPK.TO	Verde AgriTech Ltd
 TBRG	TruBridge, Inc.
 TPIC	TPI Composites, Inc.
 DOLE	Dole plc
+2343.HK	Pacific Basin Shipping Limited
 LRCDF	Laurentian Bank of Canada
 MDRX	Veradigm Inc.
 TGNA	TEGNA Inc.
@@ -54,6 +68,7 @@ UVE	Universal Insurance Holdings, Inc.
 ATI	ATI Inc.
 ARCB	ArcBest Corporation
 TIXT	TELUS International (Cda) Inc.
+USIM5.SA	Usinas Siderúrgicas de Minas Gerais S.A.
 AREC	American Resources Corporation
 PRTA	Prothena Corporation plc
 PHPPY	Signify N.V.
@@ -61,14 +76,19 @@ POST	Post Holdings, Inc.
 GB	Global Blue Group Holding AG
 KRUS	Kura Sushi USA, Inc.
 TACO	Berto Acquisition Corp.
+TMD.TO	Titan Medical Inc.
 PEGRF	Pennon Group Plc
 DOV	Dover Corporation
 YMM	Full Truck Alliance Co. Ltd.
 FLGC	Flora Growth Corp.
 UNRV	Unrivaled Brands, Inc.
 AMP	Ameriprise Financial, Inc.
+MPCC.OL	MPC Container Ships ASA
 LBRT	Liberty Energy Inc.
+7203.T	Toyota Motor Corporation
+6501.T	Hitachi, Ltd.
 ROK	Rockwell Automation, Inc.
+DCM.TO	DATA Communications Management Corp.
 MIXT	MiX Telematics Limited
 DGICB	Donegal Group Inc.
 MCBC	Macatawa Bank Corporation
@@ -78,15 +98,18 @@ OMAB	Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.
 SLQT	SelectQuote, Inc.
 SLHG	Skylight Health Group Inc.
 PRFT	Perficient, Inc.
+HUH1V.HE	Huhtamäki Oyj
 MPWR	Monolithic Power Systems, Inc.
 ALPMF	Astellas Pharma Inc.
 GGAL	Grupo Financiero Galicia S.A.
+SK3.IR	Smurfit Kappa Group Plc
 LYG	Lloyds Banking Group plc
 NXPRF	Nexans S.A.
 KURA	Kura Oncology, Inc.
 PEBO	Peoples Bancorp Inc.
 APEMY	Aperam S.A.
 BOXD	Boxed, Inc.
+PRY.MI	Prysmian S.p.A.
 AZEK	The AZEK Company Inc.
 RYDAF	Shell plc
 DLHC	DLH Holdings Corp.
@@ -99,9 +122,11 @@ PRAA	PRA Group, Inc.
 IHRT	iHeartMedia, Inc.
 SDXOF	Sodexo S.A.
 THRN	Thorne HealthTech, Inc.
+ADP.PA	Aeroports de Paris S.A.
 JG	Aurora Mobile Limited
 LUCK	Lucky Strike Entertainment Corporation
 CLRO	ClearOne, Inc.
+3711.TW	ASE Technology Holding Co., Ltd.
 NYXH	Nyxoah S.A.
 GENE	Genetic Technologies Limited
 APTV	Aptiv PLC
@@ -112,17 +137,21 @@ GDOT	Green Dot Corporation
 VNTRF	Venator Materials PLC
 LOWLF	Lowell Farms Inc.
 FNF	Fidelity National Financial, Inc.
+CBK.DE	Commerzbank AG
 PHX	PHX Minerals Inc.
 SCND	Scientific Industries, Inc.
+BDT.TO	Bird Construction Inc.
 GDNSF	Goodness Growth Holdings, Inc.
 CMPO	CompoSecure, Inc.
 DLTNF	Delta 9 Cannabis Inc.
 MRIN	Marin Software Incorporated
 KEYUF	Keyera Corp.
+AGF-B.TO	AGF Management Limited
 WPM	Wheaton Precious Metals Corp.
 ESALY	Eisai Co., Ltd.
 ZM	Zoom Video Communications, Inc.
 FALC	FalconStor Software, Inc.
+PSH.AS	Pershing Square Holdings, Ltd.
 DOCU	DocuSign, Inc.
 CIG	Companhia Energética de Minas Gerais
 RUSHA	Rush Enterprises, Inc.
@@ -141,9 +170,13 @@ RGA	Reinsurance Group of America, Incorporated
 BDN	Brandywine Realty Trust
 TRQ	Turquoise Hill Resources Ltd.
 SNCY	Sun Country Airlines Holdings, Inc.
+LONN.SW	Lonza Group AG
 IFCZF	Intact Financial Corporation
 ONXXF	Ontex Group N.V.
 PALT	Paltalk, Inc.
+4477.T	BASE, Inc.
+4519.T	Chugai Pharmaceutical Co., Ltd.
+4543.T	Terumo Corporation
 SMTS	Sierra Metals Inc.
 POOL	Pool Corporation
 EPC	Edgewell Personal Care Company
@@ -154,6 +187,7 @@ NWHM	The New Home Company Inc.
 AMZN	Amazon.com, Inc.
 FSCO	FS Credit Opportunities Corp.
 TRS	TriMas Corporation
+GFNORTEO.MX	Grupo Financiero Banorte, S.A.B. de C.V.
 SO	The Southern Company
 APPF	AppFolio, Inc.
 SIMO	Silicon Motion Technology Corporation
@@ -169,6 +203,7 @@ FERG	Ferguson plc
 ACCD	Accolade, Inc.
 STZ	Constellation Brands, Inc.
 NET	Cloudflare, Inc.
+DTG.DE	Daimler Truck Holding AG
 ENCVF	Encavis AG
 HAYN	Haynes International, Inc.
 FLNT	Fluent, Inc.
@@ -176,6 +211,7 @@ DPZ	Domino's Pizza, Inc.
 TIPT	Tiptree Inc.
 603259.SS	WuXi AppTec Co., Ltd.
 QRTEA	Qurate Retail, Inc.
+IHG.L	InterContinental Hotels Group PLC
 ADT	ADT Inc.
 BHAT	Fujian Blue Hat Interactive Entertainment Technology Ltd.
 KNSL	Kinsale Capital Group, Inc.
@@ -185,12 +221,14 @@ GRRMF	Gerresheimer AG
 EBKOF	Erste Group Bank AG
 PHMMF	Pharma Mar, S.A.
 SPSC	SPS Commerce, Inc.
+LR.PA	Legrand S.A.
 CYBR	CyberArk Software Ltd.
 TLGPY	Telstra Group Limited
 TTNMF	Titanium Transportation Group Inc.
 AAMI	Acadian Asset Management
 NWPX	Northwest Pipe Company
 LSEA	Landsea Homes Corporation
+GRA.TO	NanoXplore Inc.
 HUIZ	Huize Holding Limited
 OSK	Oshkosh Corporation
 ACDVF	Air Canada
@@ -200,10 +238,14 @@ LAZR	Luminar Technologies, Inc.
 SMSOF	Samsonite International S.A.
 MKFG	Markforged Holding Corporation
 OPCH	Option Care Health, Inc.
+ABBN.SW	ABB Ltd
+TEF.MC	Telefónica, S.A.
+GENL.L	Genel Energy plc
 AONC	American Oncology Network, Inc.
 CMAX	CareMax, Inc.
 UI	Ubiquiti Inc.
 MNSO	MINISO Group Holding Limited
+HAUTO.OL	Höegh Autoliners ASA
 IRS	IRSA Inversiones y Representaciones Sociedad Anónima
 GWRS	Global Water Resources, Inc.
 ING	ING Groep N.V.
@@ -211,12 +253,16 @@ CNH	CNH Industrial N.V.
 BURL	Burlington Stores, Inc.
 WJXFF	Wajax Corporation
 ONIT	Onity Group Inc.
+SAP.DE	Sap Se
 ICLK	iClick Interactive Asia Group Limited
 TGSNF	Tgs Asa
 COTY	Coty Inc.
 CLCO	Cool Company Ltd.
 GLYC	GlycoMimetics, Inc.
 DEFTF	DeFi Technologies Inc.
+PST.MI	Poste Italiane S.p.A.
+7951.T	Yamaha Corporation
+CABK.MC	CaixaBank, S.A.
 AMEH	Apollo Medical Holdings, Inc.
 SXYAY	Sika AG
 ASLE	AerSale Corporation
@@ -224,7 +270,9 @@ USCB	USCB Financial Holdings, Inc.
 PXS	Pyxis Tankers Inc.
 BLNE	Eastside Distilling, Inc.
 EIFZF	Exchange Income Corporation
+PUB.PA	Publicis Groupe S.A.
 BEST	BEST Inc.
+MB.MI	Mediobanca Banca di Credito Finanziario S.p.A.
 HPURF	Hexagon Purus ASA
 BLRX	BioLineRx Ltd.
 EQGPF	EQB Inc.
@@ -232,18 +280,28 @@ PCRFF	Panasonic Holdings Corporation
 ZZHGF	ZhongAn Online P & C Insurance Co., Ltd.
 DAO	Youdao, Inc.
 ARKAF	Arkema S.A.
+8591.T	ORIX Corporation
 CDNIF	Compañía de Distribución Integral Logista Holdings, S.A.
 FUTU	Futu Holdings Limited
+CA.PA	Carrefour S.A.
+NOVN.SW	Novartis AG
 RGF	The Real Good Food Company, Inc.
+AI.TO	Atrium Mortgage Investment Corporation
 AEBZY	Anadolu Efes Biracilik ve Malt Sanayii Anonim Sirketi
 TC	TuanChe Limited
 CFXTF	Conifex Timber Inc.
+BRFS3.SA	Brf S.a.
+STMN.SW	Straumann Holding AG
 SERA	Sera Prognostics, Inc.
 ADRZF	Andritz AG
 INSE	Inspired Entertainment, Inc.
+SKG.L	Smurfit Kappa Group Plc
 WDC	Western Digital Corporation
 THTX	Theratechnologies Inc.
+SREN.SW	Swiss Re AG
 EADSF	Airbus SE
+BEZ.L	Beazley plc
+MPVD.TO	Mountain Province Diamonds Inc.
 WHF	WhiteHorse Finance, Inc.
 LCUT	Lifetime Brands, Inc.
 DTM	DT Midstream, Inc.
@@ -254,20 +312,27 @@ EMAN	eMagin Corporation
 MESA	Mesa Air Group, Inc.
 MALRF	Mineral Resources Limited
 ASPS	Altisource Portfolio Solutions S.A.
+HTL.V	Hamilton Thorne Ltd.
 WAB	Westinghouse Air Brake Technologies Corporation
 NTIOF	National Bank of Canada
+UNA.AS	Unilever PLC
 SOL	Emeren Group, Ltd.
 KULR	KULR Technology Group, Inc.
 NDSN	Nordson Corporation
 ISUNQ	iSun, Inc.
 WDS	Woodside Energy Group Ltd
 CBLL	CeriBell, Inc.
+22UA.F	BioNTech SE
 VLOUF	Vallourec S.A.
+OPT.TO	Optiva Inc.
 RAIL	FreightCar America, Inc.
+SCHP.SW	Schindler Holding AG
 DLR	Digital Realty Trust, Inc.
 FECCF	Frontera Energy Corporation
 TSLX	Sixth Street Specialty Lending, Inc.
 GH	Guardant Health, Inc.
+GIVN.SW	Givaudan S.A.
+SYR.AX	Syrah Resources Limited
 ZLAB	Zai Lab Limited
 CPHRF	Cipher Pharmaceuticals Inc.
 NOAH	Noah Holdings Limited
@@ -277,25 +342,37 @@ NTWK	NetSol Technologies, Inc.
 TTE	TotalEnergies SE
 WDGJF	John Wood Group PLC
 ARMP	Armata Pharmaceuticals, Inc.
+VNA.DE	Vonovia SE
 HPGLY	Hapag-Lloyd AG
 LPL	LG Display Co., Ltd.
 JOE	The St. Joe Company
 JDEPF	JDE Peet's N.V.
 MLSS	Milestone Scientific Inc.
+SGSN.SW	Sgs S.A.
 PSNY	Polestar Automotive Holding UK PLC
 BXP	Boston Properties, Inc.
+TOM.OL	Tomra Systems ASA
 GNSS	Genasys Inc.
 CFMS	Conformis, Inc.
+LXS.DE	Lanxess AG
 KHNGF	Kuehne + Nagel International AG
 CINF	Cincinnati Financial Corporation
 CCL	Carnival Corporation & plc
+S92.DE	SMA Solar Technology AG
+PSN.L	Persimmon Plc
+BDGI.TO	Badger Infrastructure Solutions Ltd.
 GDIFF	GDI Integrated Facility Services Inc.
 GRRR	Gorilla Technology Group Inc.
 KITT	Nauticus Robotics, Inc.
+7011.T	Mitsubishi Heavy Industries, Ltd.
 NETL	Fundamental Income Net Lease Real Estate ETF
+IGO.AX	IGO Limited
+7012.T	Kawasaki Heavy Industries, Ltd.
 SN	SharkNinja, Inc.
 BGI	Birks Group Inc.
+4755.T	Rakuten Group, Inc.
 RTC	Baijiayun Group Ltd
+T.TO	TELUS Corporation
 VOXX	VOXX International Corporation
 FSPKF	Fisher & Paykel Healthcare Corporation Limited
 TYL	Tyler Technologies, Inc.
@@ -305,18 +382,24 @@ CSX	CSX Corporation
 FINGF	Finning International Inc.
 BLGO	BioLargo, Inc.
 VSTM	Verastem, Inc.
+ZURN.SW	Zurich Insurance Group AG
 SST	System1, Inc.
+CM.TO	Canadian Imperial Bank of Commerce
 CGEAF	Cogeco Communications Inc.
 WELL	Welltower Inc.
 IVA	Inventiva S.A.
 QUIK	QuickLogic Corporation
+IVA.PA	Inventiva S.A.
 GIPR	Generation Income Properties, Inc.
 CTOWY	China Tower Corporation Limited
 CRGO	Freightos Limited Ordinary shares
 WYNN	Wynn Resorts, Limited
 EOG	EOG Resources, Inc.
 WBX	Wallbox N.V.
+ANA.MC	Acciona, S.A.
 FLR	Fluor Corporation
+GIB-A.TO	CGI Inc.
+5EA.AX	5E Advanced Materials Inc.
 WLDBF	WildBrain Ltd.
 BTTX	Better Therapeutics, Inc.
 ZONNF	Nos, S.g.p.s., S.a.
@@ -328,20 +411,25 @@ AVACF	Avance Gas Holding Ltd
 OCLCF	Oracle Corporation Japan
 NYAX	Nayax Ltd.
 LEV	The Lion Electric Company
+CCO.TO	Cameco Corporation
 SCI	Service Corporation International
 TKO	TKO Group Holdings, Inc.
 DSEY	Diversey Holdings, Ltd.
 FGRRF	Fingerprint Cards AB (publ)
+BWLK.V	Boardwalktech Software Corp.
 PSYTF	Pason Systems Inc.
 OGFGF	Origin Energy Limited
 XTRAF	Xtract One Technologies Inc.
+NCYT.L	Novacyt S.A.
 LPSN	LivePerson, Inc.
 MNTK	Montauk Renewables, Inc.
 RAIFF	Raiffeisen Bank International AG
 KBAL	Kimball International, Inc.
 EQR	Equity Residential
+CPLE6.SA	Companhia Paranaense de Energia - COPEL
 ARCVF	Arcadis N.V.
 IOBCF	Ion Beam Applications S.A.
+ENT.L	Entain Plc
 LU	Lufax Holding Ltd
 ATASF	Atlantia S.p.A.
 MMM	3M Company
@@ -359,12 +447,15 @@ EMN	Eastman Chemical Company
 LVO	LiveOne, Inc.
 TTM	Tata Motors Limited
 UNCRY	UniCredit S.p.A.
+NATU3.SA	Natura & Co Holding S.A.
 CCORF	Canaccord Genuity Group Inc.
 MSTR	MicroStrategy Incorporated
 EQBBF	EQT AB (publ)
 FND	Floor & Decor Holdings, Inc.
 GMRE	Global Medical REIT Inc.
+ESLT.TA	Elbit Systems Ltd.
 BBNX	Beta Bionics, Inc.
+DLG.L	Direct Line Insurance Group plc
 WPRT	Westport Fuel Systems Inc.
 LCSHF	Lancashire Holdings Limited
 AXFOF	Axfood AB (publ)
@@ -372,6 +463,8 @@ AER	AerCap Holdings N.V.
 UFAB	Unique Fabricating, Inc.
 TDOC	Teladoc Health, Inc.
 EVOK	Evoke Pharma, Inc.
+IDIA.SW	Idorsia Ltd
+WILC.TA	G. Willi-Food International Ltd.
 FUL	H.B. Fuller Company
 QS	QuantumScape Corporation
 NPSNY	Naspers Limited
@@ -381,9 +474,13 @@ TCLAF	Transcontinental Inc.
 GURE	Gulf Resources, Inc.
 BORR	Borr Drilling Limited
 MARK	Remark Holdings, Inc.
+EMP-A.TO	Empire Company Limited
 ICE	Intercontinental Exchange, Inc.
 AIP	Arteris, Inc.
+PTNR.TA	Partner Communications Company Ltd.
 GBCI	Glacier Bancorp, Inc.
+MDA.TO	MDA Ltd.
+PSI.TO	Pason Systems Inc.
 SDOT	Sadot Group Inc.
 ONL	Orion Properties Inc.
 AREN	The Arena Group Holdings, Inc.
@@ -392,19 +489,24 @@ HLMAF	Halma plc
 ITP	IT Tech Packaging, Inc.
 TTNDY	Techtronic Industries Company Limited
 EHMEF	goeasy Ltd.
+0K6O.L	Farfetch Limited
 NBN	Northeast Bank
 CLH	Clean Harbors, Inc.
 NEO	NeoGenomics, Inc.
 TEN	Tsakos Energy Navigation Limited
+CYAD.BR	Celyad Oncology S.A.
 CPSH	CPS Technologies Corporation
 MPAA	Motorcar Parts of America, Inc.
+CEU.TO	CES Energy Solutions Corp.
 CVLG	Covenant Logistics Group, Inc.
 FVRR	Fiverr International Ltd.
 CFB	CrossFirst Bankshares, Inc.
 BLKB	Blackbaud, Inc.
 COF	Capital One Financial Corporation
+EVGN.TA	Evogene Ltd.
 GOOGL	Alphabet Inc.
 VIPS	Vipshop Holdings Limited
+SUN.SW	Sulzer Ltd
 SCCAF	Sleep Country Canada Holdings Inc.
 PFBC	Preferred Bank
 VIV	Telefônica Brasil S.A.
@@ -416,35 +518,46 @@ WKC	World Kinect Corporation
 AIOT	PowerFleet, Inc.
 VIR	Vir Biotechnology, Inc.
 IAUX	i-80 Gold Corp.
+105560.KS	KB Financial Group Inc.
 NVRI	Enviri Corporation
 GSK	GSK plc
 KNRLF	Kontrol Technologies Corp.
+UBSG.SW	UBS Group AG
 RNGR	Ranger Energy Services, Inc.
+BLRX.TA	BioLineRx Ltd.
 LAUR	Laureate Education, Inc.
 GRCL	Gracell Biotechnologies Inc.
+FDR.MC	Fluidra, S.A.
 JD	JD.com, Inc.
 BSM	Black Stone Minerals, L.P.
+XFAB.PA	X-FAB Silicon Foundries SE
 ORA	Ormat Technologies, Inc.
 CALT	Calliditas Therapeutics AB (publ)
 ZIZTF	Zip Co Limited
+CGO.TO	Cogeco Inc.
 AFMD	Affimed N.V.
 DLAKF	Deutsche Lufthansa AG
 SAMG	Silvercrest Asset Management Group Inc.
 CCO	Clear Channel Outdoor Holdings, Inc.
 BNR	Burning Rock Biotech Limited
 EPM	Evolution Petroleum Corporation
+DRT.TO	DIRTT Environmental Solutions Ltd.
 ORAAF	Aura Minerals Inc.
 CCRN	Cross Country Healthcare, Inc.
+MGIC.TA	Magic Software Enterprises Ltd.
 SQSP	Squarespace, Inc.
 WFG	West Fraser Timber Co. Ltd.
 RMCF	Rocky Mountain Chocolate Factory, Inc.
 ATAT	Atour Lifestyle Holdings Limited
 UAL	United Airlines Holdings, Inc.
+2015.HK	Li Auto Inc.
+SBER.ME	Sberbank of Russia
 CSCO	Cisco Systems, Inc.
 MTRN	Materion Corporation
 REGI	Renewable Energy Group, Inc.
 BXS	BancorpSouth Bank
 PKX	POSCO Holdings Inc.
+SY1.DE	Symrise AG
 ITMSF	Intermap Technologies Corporation
 BHTG	Renovare Environmental, Inc.
 XFABF	X-FAB Silicon Foundries SE
@@ -452,18 +565,25 @@ RWAY	Runway Growth Finance Corp.
 XPEV	XPeng Inc.
 CERS	Cerus Corporation
 AMG	Affiliated Managers Group, Inc.
+ENTG.V	Entourage Health Corp.
+GNC.AX	GrainCorp Limited
 MCUJF	Medicure Inc.
 TSP	TuSimple Holdings Inc.
+ABEV3.SA	Ambev S.A.
 DS	Drive Shack Inc.
+ACS.MC	ACS, Actividades de Construcción y Servicios, S.A.
 NTXVF	Nexteer Automotive Group Limited
 PACB	Pacific Biosciences of California, Inc.
 BCPC	Balchem Corporation
 RPAY	Repay Holdings Corporation
+SDF.DE	K+s AG
 TTCFQ	Tattooed Chef, Inc.
 QNCX	Quince Therapeutics, Inc.
+VER.VI	Verbund AG
 CHGCF	Chugai Pharmaceutical Co., Ltd.
 HCHC	HC2 Holdings, Inc.
 PFS	Provident Financial Services, Inc.
+NFI.TO	NFI Group Inc.
 UHG	United Homes Group, Inc.
 X	United States Steel Corporation
 CSWI	CSW Industrials, Inc.
@@ -473,6 +593,7 @@ UNFI	United Natural Foods, Inc.
 GPX	GP Strategies Corporation
 DVCR	Diversicare Healthcare Services, Inc.
 ZUO	Zuora, Inc.
+7272.T	Yamaha Motor Co., Ltd.
 LMNX	Luminex Corporation
 DPW	BitNile Holdings, Inc.
 CYAD	Celyad Oncology S.A.
@@ -492,19 +613,24 @@ ECOL	US Ecology, Inc.
 LPTV	Loop Media, Inc.
 BTCM	BIT Mining Limited
 CWEN	Clearway Energy, Inc.
+RAY-A.TO	Stingray Group Inc.
 SNCE	Science 37 Holdings, Inc.
 MCO	Moody's Corporation
+WFG.TO	West Fraser Timber Co. Ltd.
 RKLB	Rocket Lab USA, Inc.
 BTMD	biote Corp.
+KRN.DE	Krones AG
 SNAX	Stryve Foods, Inc.
 TMXXF	TMX Group Limited
 ORAN	Orange S.A.
 ASPN	Aspen Aerogels, Inc.
+6702.T	Fujitsu Limited
 PRTC	PureTech Health plc
 GCTAF	Siemens Gamesa Renewable Energy, S.A.
 BEAM	Beam Therapeutics Inc.
 KUASF	Kuaishou Technology
 PAE	PAE Incorporated
+QQ.L	QinetiQ Group plc
 TWLO	Twilio Inc.
 HII	Huntington Ingalls Industries, Inc.
 BALY	Bally's Corporation
@@ -514,7 +640,9 @@ CCCS	CCC Intelligent Solutions Holdings Inc.
 RM	Regional Management Corp.
 BBQ	BBQ Holdings, Inc.
 CSLT	Castlight Health, Inc.
+ALAR.TA	Alarum Technologies Ltd.
 TIGR	UP Fintech Holding Limited
+EMA.TO	Emera Incorporated
 PHI	PLDT Inc.
 SMCI	Super Micro Computer, Inc.
 WUXIF	WuXi AppTec Co., Ltd.
@@ -525,23 +653,33 @@ AGTC	Applied Genetic Technologies Corporation
 ENVA	Enova International, Inc.
 IGXT	IntelGenx Technologies Corp.
 LBLCF	Loblaw Companies Limited
+NVX.AX	Novonix Limited
+GGBR4.SA	Gerdau S.A.
 RPAI	Retail Properties of America, Inc.
 ALEAF	Aleafia Health Inc.
 CIT	CIT Group Inc.
 OSN	Ossen Innovation Co., Ltd.
+CSW-A.TO	Corby Spirit and Wine Limited
 KRA	Kraton Corporation
 PLAY	Dave & Buster's Entertainment, Inc.
 WLK	Westlake Corporation
+4452.T	Kao Corporation
+NUMI.TO	Numinus Wellness Inc.
 SYTA	Siyata Mobile Inc.
 AHT	Ashford Hospitality Trust, Inc.
 BQ	Boqii Holding Limited
+LRE.L	Lancashire Holdings Limited
 LCID	Lucid Group, Inc.
 TRU	TransUnion
 RCUS	Arcus Biosciences, Inc.
 NYMT	New York Mortgage Trust, Inc.
 CFR	Cullen/Frost Bankers, Inc.
+BNZL.L	Bunzl plc
+HEXA-B.ST	Hexagon AB (publ)
+CBLU.V	Clear Blue Technologies International Inc.
 HBNC	Horizon Bancorp, Inc.
 SABR	Sabre Corporation
+TRP.TO	TC Energy Corporation
 EONGY	E.on Se
 AIN	Albany International Corp.
 RXN	Zurn Water Solutions Corporation
@@ -555,10 +693,13 @@ RBGPF	Reckitt Benckiser Group plc
 CLDR	Cloudera, Inc.
 PHR	Phreesia, Inc.
 MYRG	MYR Group Inc.
+NYAX.TA	Nayax Ltd.
 TUEMQ	Tuesday Morning Corporation
+7735.T	SCREEN Holdings Co., Ltd.
 LTRPA	Liberty TripAdvisor Holdings, Inc.
 NAYA	NAYA Biosciences, Inc.
 AZRE	Azure Power Global Limited
+RIO.L	Rio Tinto Group
 CGNX	Cognex Corporation
 RRGB	Red Robin Gourmet Burgers, Inc.
 FSNUF	Fresenius SE & Co. KGaA
@@ -567,6 +708,9 @@ LONE	Lonestar Resources US Inc.
 SBGSF	Schneider Electric S.E.
 WGS	GeneDx Holdings Corp.
 USAS	Americas Gold and Silver Corporation
+AKER.OL	Aker ASA
+SHL.AX	Sonic Healthcare Limited
+6301.T	Komatsu Ltd.
 ATNX	Athenex, Inc.
 ALYAF	Alithya Group Inc.
 GIII	G-III Apparel Group, Ltd.
@@ -588,22 +732,27 @@ USCR	U.S. Concrete, Inc.
 XPER	Xperi Inc.
 TKGBF	Turkiye Garanti Bankasi A.S.
 DAVA	Endava plc
+2390.HK	Zhihu Inc.
 RBBN	Ribbon Communications Inc.
 MTW	The Manitowoc Company, Inc.
 UFS	Domtar Corporation
 SBHGF	SBI Holdings, Inc.
+IVQ.TO	Invesque Inc.
 LDNXF	London Stock Exchange Group plc
+DXT.TO	Dexterra Group Inc.
 RJF	Raymond James Financial, Inc.
 KEYS	Keysight Technologies, Inc.
 FSLY	Fastly, Inc.
 RCI	Rogers Communications Inc.
 PTCT	PTC Therapeutics, Inc.
 IRDM	Iridium Communications Inc.
+6758.T	Sony Group Corporation
 SAIC	Science Applications International Corporation
 EIX	Edison International
 ABEV	Ambev S.A.
 AVXL	Anavex Life Sciences Corp.
 ALKT	Alkami Technology, Inc.
+INCR.TA	InterCure Ltd.
 SLFPF	Abrdn Plc
 SQBG	Sequential Brands Group, Inc.
 CDMGF	Icade S.A.
@@ -611,12 +760,17 @@ ADP	Automatic Data Processing, Inc.
 XLNX	Xilinx, Inc.
 VICI	VICI Properties Inc.
 IBM	International Business Machines Corporation
+WIPRO.NS	Wipro Limited
 LGDDF	Lagardere S.A.
+ROSN.ME	PJSC Rosneft Oil Company
 AUB	Atlantic Union Bankshares Corporation
 DEO	Diageo plc
+MRO.L	Melrose Industries PLC
 WASH	Washington Trust Bancorp, Inc.
 LBRDP	Liberty Broadband Corporation
 AWR	American States Water Company
+KLBN11.SA	Klabin S.A.
+ROO.L	Deliveroo plc
 SWKH	SWK Holdings Corporation
 ABMD	Abiomed, Inc.
 SJR	Shaw Communications Inc.
@@ -626,16 +780,24 @@ ITMPF	ITM Power Plc
 KNSA	Kiniksa Pharmaceuticals, Ltd.
 ZNGA	Zynga Inc.
 DISCA	Warner Bros. Discovery, Inc.
+IVN.TO	Ivanhoe Mines Ltd.
 MANU	Manchester United plc
+0788.HK	China Tower Corporation Limited
 VQSSF	VIQ Solutions Inc.
 CERN	Cerner Corporation
 BKD	Brookdale Senior Living Inc.
 VEV	Vicinity Motor Corp.
 BIIB	Biogen Inc.
+MRT-UN.TO	Morguard Real Estate Investment Trust
 AIXXF	Aixtron Se
 AXU	Alexco Resource Corp.
+FOBI.V	Fobi AI Inc.
+DRREDDY.NS	Dr. Reddy's Laboratories Limited
 INFN	Infinera Corporation
 SEMHF	Siemens Healthineers AG
+IDS.L	International Distributions Services plc
+MRE.TO	Martinrea International Inc.
+TREL-B.ST	Trelleborg AB (publ)
 EQIX	Equinix, Inc.
 CSTL	Castle Biosciences, Inc.
 BYD	Boyd Gaming Corporation
@@ -643,6 +805,7 @@ FCELB	FuelCell Energy, Inc.
 TRRSF	Trisura Group Ltd.
 NBEV	NewAge, Inc.
 EPR	EPR Properties
+UGPA3.SA	Ultrapar Participações S.A.
 IGT	International Game Technology PLC
 MYO	Myomo, Inc.
 STT	State Street Corporation
@@ -654,26 +817,33 @@ BLMN	Bloomin' Brands, Inc.
 MPFRF	Mapfre, S.A.
 TPZEF	Topaz Energy Corp.
 WLKP	Westlake Chemical Partners LP
+MER.ST	Meren Energy Inc.
 PROS	ProSight Global, Inc.
 SYNL	Synalloy Corporation
 AGS	PlayAGS, Inc.
 GNCA	Genocea Biosciences, Inc.
 PRU	Prudential Financial, Inc.
 EVRI	Everi Holdings Inc.
+SSW.JO	Sibanye Stillwater Limited
 JMP	JMP Group LLC
+KAR.AX	Karoon Energy Ltd
 VERO	Venus Concept Inc.
 SCOR	comScore, Inc.
 HNGR	Hanger, Inc.
+0001.HK	CK Hutchison Holdings Limited
 EMMS	Emmis Corporation
 LDL	Lydall, Inc.
 RBC	RBC Bearings Incorporated
 ECVT	Ecovyst Inc.
 CELP	Cypress Environmental Partners, L.P.
+QIWI.ME	QIWI plc
 HHH	Howard Hughes Holdings Inc.
 DMGGF	DMG Blockchain Solutions Inc.
 NMRK	Newmark Group, Inc.
+FEMSAUBD.MX	Fomento Económico Mexicano, S.A.B. de C.V.
 BOOT	Boot Barn Holdings, Inc.
 ERO	Ero Copper Corp.
+4704.T	Trend Micro Incorporated
 KTCC	Key Tronic Corporation
 COMS	COMSovereign Holding Corp.
 CAR	Avis Budget Group, Inc.
@@ -685,8 +855,12 @@ CHT	Chunghwa Telecom Co., Ltd.
 QSI	Quantum-Si incorporated
 ZOM	Zomedica Corp.
 SANM	Sanmina Corporation
+ADS.DE	adidas AG
+TGS.OL	Tgs Asa
+9898.HK	Weibo Corporation
 RMD	ResMed Inc.
 UCBI	United Community Banks, Inc.
+TWE.AX	Treasury Wine Estates Limited
 NEOG	Neogen Corporation
 SMG	The Scotts Miracle-Gro Company
 WEC	WEC Energy Group, Inc.
@@ -697,30 +871,42 @@ SCHL	Scholastic Corporation
 TCS	The Container Store Group, Inc.
 OWLT	Owlet, Inc.
 BLCO	Bausch + Lomb Corporation
+OUT1V.HE	Outokumpu Oyj
+VCT.L	Victrex plc
+ARG.TO	Amerigo Resources Ltd.
 ONDS	Ondas Holdings Inc.
 JETMF	Global Crossing Airlines Group Inc.
 IBP	Installed Building Products, Inc.
 MTB	M&T Bank Corporation
 PBFX	PBF Logistics LP
+ICICIBANK.NS	ICICI Bank Limited
+BHP.AX	BHP Group Limited
 DVDCF	Davide Campari-Milano N.V.
+BXB.AX	Brambles Limited
 IMCR	Immunocore Holdings plc
 LTH	Life Time Group Holdings, Inc.
+8001.T	ITOCHU Corporation
 REPYF	Repsol, S.A.
+AKRBP.OL	Aker BP ASA
 ARKO	Arko Corp.
 CHRS	Coherus BioSciences, Inc.
 XXII	22nd Century Group, Inc.
 O	Realty Income Corporation
+STLAM.MI	Stellantis N.V.
 ISUN	iSun, Inc.
 MAHMF	Mahindra & Mahindra Limited
 ARAFF	Arafura Rare Earths Limited
 WU	The Western Union Company
 ERIC	Telefonaktiebolaget LM Ericsson (publ)
 BMNM	Bimini Capital Management, Inc.
+SANB11.SA	Banco Santander (Brasil) S.A.
 FORA	Forian Inc.
 SKSBF	Skanska AB (publ)
 HUBG	Hub Group, Inc.
+M0YN.DE	Mynaric AG
 BXSL	Blackstone Secured Lending Fund
 NHIQ	NantHealth, Inc.
+SIM.CO	SimCorp A/S
 NRP	Natural Resource Partners L.P.
 ACSYF	Accsys Technologies PLC
 DRVN	Driven Brands Holdings Inc.
@@ -732,30 +918,42 @@ ALT	Altimmune, Inc.
 MMSI	Merit Medical Systems, Inc.
 MODG	Topgolf Callaway Brands Corp.
 NOVKY	Pao Novatek
+SESG.PA	Ses S.a.
+BNP.PA	BNP Paribas S.A.
+316140.KS	Woori Financial Group Inc.
 HOFT	Hooker Furnishings Corporation
+0UVX.L	Electra Battery Materials Corporation
 MPVDF	Mountain Province Diamonds Inc.
 SUNWQ	Sunworks, Inc.
+MAP.MC	Mapfre, S.A.
+A5G.IR	AIB Group plc
 PESAF	Panoro Energy ASA
 CMCSA	Comcast Corporation
 GVP	GSE Systems, Inc.
 TCTZF	Tencent Holdings Limited
+AYA.TO	Aya Gold & Silver Inc.
 UNIT	Uniti Group Inc.
 ETD	Ethan Allen Interiors Inc.
 ATKR	Atkore Inc.
+AMG.AS	AMG Advanced Metallurgical Group N.V.
 AXDX	Accelerate Diagnostics, Inc.
 AMRC	Ameresco, Inc.
+ZZZ.TO	Sleep Country Canada Holdings Inc.
 MUR	Murphy Oil Corporation
 NVGS	Navigator Holdings Ltd.
 ALSMY	Alstom S.A.
+015760.KS	Korea Electric Power Corporation
 ACMR	ACM Research, Inc.
 INFO	Harbor PanAgora Dynamic Large Cap Core ETF
 AYRWF	Ayr Wellness Inc.
 TEX	Terex Corporation
+VXTR.V	Voxtur Analytics Corp.
 NANX	Nanophase Technologies Corporation
 CRC	California Resources Corporation
 CVS	CVS Health Corporation
 GAIA	Gaia, Inc.
 ASXC	Asensus Surgical, Inc.
+TCL-A.TO	Transcontinental Inc.
 G	Genpact Limited
 SMR	NuScale Power Corporation
 INFA	Informatica Inc.
@@ -763,6 +961,7 @@ KGAUF	Kongsberg Automotive ASA
 INDV	Indivior PLC
 HYMTF	Hyundai Motor Company
 QMCO	Quantum Corporation
+ENLT.TA	Enlight Renewable Energy Ltd
 AI	C3.ai, Inc.
 CCIF	Carlyle Credit Income Fund
 LTOUF	Larsen & Toubro Limited
@@ -770,8 +969,10 @@ IVFH	Innovative Food Holdings, Inc.
 AFBOF	African Rainbow Minerals Limited
 UIHC	United Insurance Holdings Corp.
 ARQ	Arq, Inc.
+SHB-A.ST	Svenska Handelsbanken AB (publ)
 OPK	OPKO Health, Inc.
 DVA	DaVita Inc.
+INVE-B.ST	Investor AB (publ)
 GE	GE Aerospace
 MGRC	McGrath RentCorp
 EHTH	eHealth, Inc.
@@ -790,6 +991,7 @@ RS	Reliance Steel & Aluminum Co.
 RDW	Redwire Corporation
 INUV	Inuvo, Inc.
 FRTX	Fresh Tracks Therapeutics, Inc.
+BEKB.BR	N.V. Bekaert S.A.
 PRGS	Progress Software Corporation
 FIBK	First Interstate BancSystem, Inc.
 BUKS	Butler National Corporation
@@ -797,38 +999,51 @@ AGESY	ageas SA/NV
 RIG	Transocean Ltd.
 GAXYQ	Galaxy Next Generation, Inc.
 ATER	Aterian, Inc.
+ORG.AX	Origin Energy Limited
 AHEXF	Adecco Group AG
 HLTH	Cue Health Inc.
+SGM.AX	Sims Limited
 ELKEF	Elkem ASA
 HRTX	Heron Therapeutics, Inc.
 FUVV	Arcimoto, Inc.
 TLMD	SOC Telemed, Inc.
+CBA.AX	Commonwealth Bank of Australia
 F	Ford Motor Company
+WOW.AX	Woolworths Group Limited
 CRH	CRH plc
 CRWS	Crown Crafts, Inc.
 AZPN	Aspen Technology, Inc.
 PX	P10, Inc.
+X.TO	TMX Group Limited
 CASI	CASI Pharmaceuticals, Inc.
 PLMR	Palomar Holdings, Inc.
 NEU	NewMarket Corporation
 BYRN	Byrna Technologies Inc.
+ESSITY-B.ST	Essity AB (publ)
 PYPL	PayPal Holdings, Inc.
 BKRIF	Bank of Ireland Group plc
 RANJF	Randstad N.V.
 IBEX	IBEX Limited
 MMTOF	Mitsubishi Motors Corporation
 RDN	Radian Group Inc.
+MTRO.L	Metro Bank PLC
 SMRT	SmartRent, Inc.
+NIBE-B.ST	NIBE Industrier AB (publ)
+7731.T	Nikon Corporation
 CTMX	CytomX Therapeutics, Inc.
 WTER	The Alkaline Water Company Inc.
+VEDL.NS	Vedanta Limited
 NIPNF	NEC Corporation
 DBX	Dropbox, Inc.
 LEE	Lee Enterprises, Incorporated
+RMS.AX	Ramelius Resources Limited
 URI	United Rentals, Inc.
 KDDIY	KDDI Corporation
 NNWWF	The North West Company Inc.
+MELE.BR	Melexis N.V.
 FNA	Paragon 28, Inc.
 AGXXF	Agilyx ASA
+INGA.AS	ING Groep N.V.
 HST	Host Hotels & Resorts, Inc.
 ENPH	Enphase Energy, Inc.
 JBHT	J.B. Hunt Transport Services, Inc.
@@ -838,27 +1053,36 @@ JLL	Jones Lang LaSalle Incorporated
 VIVS	VivoSim Labs, Inc.
 VATE	INNOVATE Corp.
 ASR	Grupo Aeroportuario del Sureste, S. A. B. de C. V.
+GMAB.CO	Genmab A/S
 ZLDPF	Zealand Pharma A/S
 IESC	IES Holdings, Inc.
 SEM	Select Medical Holdings Corporation
 AIVAF	Aviva plc
 LODE	Comstock Inc.
+1698.HK	Tencent Music Entertainment Group
+KGX.DE	Kion Group AG
 GTM	ZoomInfo Technologies Inc.
 HTO	H2O America
+EVN.AX	Evolution Mining Limited
 MYTE	MYT Netherlands Parent B.V.
 LIFW	MSP Recovery, Inc.
 PODC	PodcastOne, Inc.
 META	Meta Platforms, Inc.
 BTE	Baytex Energy Corp.
+BOE.AX	Boss Energy Limited
 TRATF	Traton SE
 DADA	Dada Nexus Limited
+OMU.JO	Old Mutual Limited
 PCELF	PowerCell Sweden AB (publ)
 MRVI	Maravai LifeSciences Holdings, Inc.
 LAKE	Lakeland Industries, Inc.
 HLX	Helix Energy Solutions Group, Inc.
+GCL.TO	Colabor Group Inc.
 RCEL	AVITA Medical, Inc.
+TFG.L	Tetragon Financial Group Limited
 UBLXF	u-blox Holding AG
 VRBCF	Virbac S.A.
+MNDI.L	Mondi plc
 UNBLF	Unibail-Rodamco-Westfield SE
 SPCB	SuperCom Ltd.
 WYGPF	Worley Limited
@@ -866,8 +1090,11 @@ AUTL	Autolus Therapeutics plc
 PDYPY	Flutter Entertainment plc
 GPMT	Granite Point Mortgage Trust Inc.
 CMBM	Cambium Networks Corporation
+8031.T	Mitsui & Co., Ltd.
+ASSA-B.ST	ASSA ABLOY AB (publ)
 MNDJF	Mandalay Resources Corporation
 EVLV	Evolv Technologies Holdings, Inc.
+TELIA.ST	Telia Company AB (publ)
 GTN	Gray Television, Inc.
 VFS	VinFast Auto Ltd.
 ETR	Entergy Corporation
@@ -879,18 +1106,24 @@ BAFBF	Balfour Beatty plc
 ERELY	Eregli Demir ve Çelik Fabrikalari T.A.S.
 BECTY	Bechtle AG
 ULBI	Ultralife Corporation
+ALL.AX	Aristocrat Leisure Limited
+ERIC-B.ST	Telefonaktiebolaget LM Ericsson (publ)
+AXFO.ST	Axfood AB (publ)
 GMED	Globus Medical, Inc.
 BROS	Dutch Bros Inc.
 CCHBF	Coca-Cola HBC AG
+ONTEX.BR	Ontex Group N.V.
 HIPO	Hippo Holdings Inc.
 INSP	Inspire Medical Systems, Inc.
 CLCMF	Sinch AB (publ)
+PYR.TO	PyroGenesis Canada Inc.
 NYCB	New York Community Bancorp, Inc.
 EDSA	Edesa Biotech, Inc.
 BFIN	BankFinancial Corporation
 WLFC	Willis Lease Finance Corporation
 EIG	Employers Holdings, Inc.
 WNC	Wabash National Corporation
+IQE.L	IQE plc
 TMDX	TransMedics Group, Inc.
 AWH	Aspira Women's Health Inc.
 SKIN	The Beauty Health Company
@@ -901,15 +1134,19 @@ DSNY	Destiny Media Technologies Inc.
 BZLYF	Beazley plc
 EGKLF	ElringKlinger AG
 SMWB	Similarweb Ltd.
+ANN.AX	Ansell Limited
 CNPOF	RIV Capital Inc.
 PMT	PennyMac Mortgage Investment Trust
 MITK	Mitek Systems, Inc.
+SLHN.SW	Swiss Life Holding AG
 EQC	Equity Commonwealth
 AVAH	Aveanna Healthcare Holdings Inc.
 ESEA	Euroseas Ltd.
 BYDGF	Boyd Group Services Inc.
+CMIG3.SA	Companhia Energética de Minas Gerais
 KHC	The Kraft Heinz Company
 EBAY	eBay Inc.
+SECU-B.ST	Securitas AB (publ)
 SMTC	Semtech Corporation
 BROG	Brooge Energy Limited
 601318.SS	Ping An Insurance (Group) Company of China, Ltd.
@@ -917,25 +1154,38 @@ IONS	Ionis Pharmaceuticals, Inc.
 FLWPF	The Flowr Corporation
 DCPH	Deciphera Pharmaceuticals, Inc.
 AHOTF	American Hotel Income Properties REIT LP
+4568.T	Daiichi Sankyo Company, Limited
+AQN.TO	Algonquin Power & Utilities Corp.
 EVBN	Evans Bancorp, Inc.
+CANF.TA	Can-Fite BioPharma Ltd.
 CCEP	Coca-Cola Europacific Partners PLC
+STO.AX	Santos Limited
 VLY	Valley National Bancorp
 PYRGF	PyroGenesis Canada Inc.
 TDY	Teledyne Technologies Incorporated
 GTES	Gates Industrial Corporation plc
 JRONF	Jerónimo Martins, SGPS, S.A.
+CUV.AX	Clinuvel Pharmaceuticals Limited
 GILD	Gilead Sciences, Inc.
 FUPEF	Fuchs Petrolub SE
 CYH	Community Health Systems, Inc.
 CSTE	Caesarstone Ltd.
 GECC	Great Elm Capital Corp.
+ACO-X.TO	ATCO Ltd.
 ATEC	Alphatec Holdings, Inc.
 SBSW	Sibanye Stillwater Limited
+WTC.AX	WiseTech Global Limited
 HOCFF	Hochtief AG
 HOLX	Hologic, Inc.
+PME.AX	Pro Medicus Limited
+AZM.MI	Azimut Holding S.p.A.
+TCELL.IS	Turkcell Iletisim Hizmetleri A.S.
+APX.AX	Appen Limited
+IMM.AX	Immutep Limited
 STON	StoneMor Inc.
 PPSI	Pioneer Power Solutions, Inc.
 NBGIF	National Bank of Greece S.A.
+RHT.V	Reliq Health Technologies Inc.
 SBS	Companhia de Saneamento Básico do Estado de São Paulo - SABESP
 COE	China Online Education Group
 AQN	Algonquin Power & Utilities Corp.
@@ -943,7 +1193,9 @@ OCFT	OneConnect Financial Technology Co., Ltd.
 ES	Eversource Energy
 TUYA	Tuya Inc.
 PFC	Premier Financial Corp.
+PCAR3.SA	Companhia Brasileira de Distribuição
 GOGO	Gogo Inc.
+CF.TO	Canaccord Genuity Group Inc.
 ISPC	iSpecimen Inc.
 IPHYF	Innate Pharma S.A.
 GZPZF	Gaztransport & Technigaz S.A.
@@ -951,32 +1203,48 @@ GRBK	Green Brick Partners, Inc.
 IVTBF	Investment AB Latour (publ)
 CHK	Chesapeake Energy Corporation
 LTTHF	Learning Technologies Group plc
+RSG.AX	Resolute Mining Limited
 BAK	Braskem S.A.
 RHUHF	Richelieu Hardware Ltd.
 UGRO	urban-gro, Inc.
+ALO.PA	Alstom S.A.
 MTX	Minerals Technologies Inc.
+SOBI.ST	Swedish Orphan Biovitrum AB (publ)
 DRIO	DarioHealth Corp.
 CNXN	PC Connection, Inc.
 AKCCF	Aker Carbon Capture ASA
+LYC.AX	Lynas Rare Earths Limited
 NFG	National Fuel Gas Company
+ESI.TO	Ensign Energy Services Inc.
 WBK	Westpac Banking Corporation
 CPAC	Cementos Pacasmayo S.A.A.
+0R0V.L	SunPower Corporation
 ROIC	Retail Opportunity Investments Corp.
 NLST	Netlist, Inc.
 NINE	Nine Energy Service, Inc.
 XBIO	Xenetic Biosciences, Inc.
 CNMD	CONMED Corporation
+VEON.AS	VEON Ltd.
 THNPY	Technip Energies N.V.
 MNR	Mach Natural Resources LP
 USB	U.S. Bancorp
 MFON	Mobivity Holdings Corp.
+ILU.AX	Iluka Resources Limited
+BME.L	B&M European Value Retail S.A.
 IDCBY	Industrial & Commercial Bank of China Ltd.
+FLOW.AS	Flow Traders N.V.
+SINCH.ST	Sinch AB (publ)
 TGVSF	Tryg A/S
+THG.L	THG Plc
+BPT.AX	Beach Energy Limited
 CNTMF	Cansortium Inc.
+GOR.AX	Gold Road Resources Limited
 UNH	UnitedHealth Group Incorporated
+8035.T	Tokyo Electron Limited
 SASR	Sandy Spring Bancorp, Inc.
 MODV	ModivCare Inc.
 SDGR	Schrödinger, Inc.
+WES.AX	Wesfarmers Limited
 THBRF	Thunderbird Entertainment Group Inc.
 BIDU	Baidu, Inc.
 LI	Li Auto Inc.
@@ -984,8 +1252,10 @@ SFFYF	Signify N.V.
 ADCT	ADC Therapeutics S.A.
 CUTR	Cutera, Inc.
 ARVL	Arrival
+NVTK.ME	Pao Novatek
 SOBO	South Bow Corporation
 RVNC	Revance Therapeutics, Inc.
+ABN.AS	ABN AMRO Bank N.V.
 WISA	WiSA Technologies, Inc.
 SUPGF	Superior Gold Inc.
 VNNVF	Vonovia SE
@@ -996,13 +1266,18 @@ OLGPF	Olam Group Limited
 ETTYF	Essity AB (publ)
 ATLC	Atlanticus Holdings Corporation
 FXLV	F45 Training Holdings Inc.
+SWP.TO	Swiss Water Decaffeinated Coffee Inc.
 STCN	Steel Connect, Inc.
 MEI	Methode Electronics, Inc.
+EQT.AX	EQT Holdings Limited
+BSL.AX	BlueScope Steel Limited
 601288.SS	Agricultural Bank of China Limited
+ALA.TO	AltaGas Ltd.
 BSMX	Banco Santander México, S.A., Institución de Banca Múltiple, Grupo Financiero Santander México
 KIDS	OrthoPediatrics Corp.
 BA	The Boeing Company
 NNCSF	Nanosonics Limited
+NOBLE.CO	Noble Corporation Plc
 TBABF	Trelleborg AB (publ)
 HASI	Hannon Armstrong Sustainable Infrastructure Capital, Inc.
 FOJCF	Fortum Oyj
@@ -1012,40 +1287,56 @@ BC	Brunswick Corporation
 SCWX	SecureWorks Corp.
 LIQT	LiqTech International, Inc.
 TCYSF	Tecsys Inc.
+ARLN.DE	Aareal Bank AG
 OMQS	OMNIQ Corp.
+ECN.TO	ECN Capital Corp.
 PYTCF	Playtech plc
+3888.HK	Kingsoft Corporation Limited
 CAN	Canaan Inc.
 KB	KB Financial Group Inc.
 MAPIF	Mapletree Industrial Trust
+TSAT.TO	Telesat Corporation
+SAND.ST	Sandvik AB (publ)
 TISI	Team, Inc.
 SSEZF	SSE plc
+GETI-B.ST	Getinge AB (publ)
 STLA	Stellantis N.V.
 GLBS	Globus Maritime Limited
 HSAI	Hesai Group
 HLIO	Helios Technologies, Inc.
 IWSY	ImageWare Systems, Inc.
 HMY	Harmony Gold Mining Company Limited
+RBI.VI	Raiffeisen Bank International AG
 CTRA	Coterra Energy Inc.
 HYFM	Hydrofarm Holdings Group, Inc.
 RELY	Remitly Global, Inc.
 LXU	LSB Industries, Inc.
+BMW.DE	Bayerische Motoren Werke AG
 CMPGF	Compass Group PLC
 ATO	Atmos Energy Corporation
+TXT.WA	Text S.A.
 RLLCF	Rolls-Royce Holdings plc
+MDP.TO	Medexus Pharmaceuticals Inc.
 FMCC	Federal Home Loan Mortgage Corporation
 AGCO	AGCO Corporation
 NWE	Northwestern Energy Group Inc
 BLNK	Blink Charging Co.
 HFFG	HF Foods Group Inc.
+DND.TO	Dye & Durham Limited
 VRT	Vertiv Holdings Co
+DN.TO	Delta 9 Cannabis Inc.
 PITAF	Poste Italiane S.p.A.
 RKWBF	Rockwool A/S
 HDIUF	ADENTRA Inc.
+SDR.L	Schroders plc
 CRIS	Curis, Inc.
 TBVPF	Thai Beverage Public Company Limited
+6752.T	Panasonic Holdings Corporation
 RWT	Redwood Trust, Inc.
 VALN	Valneva SE
+INVP.L	Investec Group
 SPHR	Sphere Entertainment Co.
+EVS.BR	EVS Broadcast Equipment S.A.
 MOMO	Hello Group Inc.
 LGMK	LogicMark, Inc.
 MYGN	Myriad Genetics, Inc.
@@ -1065,8 +1356,10 @@ LEN	Lennar Corporation
 HVT	Haverty Furniture Companies, Inc.
 SPXSF	Spirax-Sarco Engineering plc
 SREDF	Storebrand ASA
+ORSTED.CO	Ørsted A/S
 OCDGF	Ocado Group plc
 SRHGF	Shoprite Holdings Limited
+IB.V	IBC Advanced Alloys Corp.
 FNMA	Federal National Mortgage Association
 HTLF	Heartland Financial USA, Inc.
 TMICF	Trend Micro Incorporated
@@ -1077,6 +1370,7 @@ JXN	Jackson Financial Inc.
 ELUT	Elutia Inc.
 BDSI	BioDelivery Sciences International, Inc.
 THG	The Hanover Insurance Group, Inc.
+GMKN.ME	PJSC Mining and Metallurgical Company Norilsk Nickel
 SLN	Silence Therapeutics plc
 AIBGY	AIB Group plc
 BDRX	Biodexa Pharmaceuticals Plc
@@ -1088,9 +1382,12 @@ CHD	Church & Dwight Co., Inc.
 MN	Manning & Napier, Inc.
 GDS	GDS Holdings Limited
 OABI	OmniAb, Inc.
+ET.TO	Evertz Technologies Limited
 ALGT	Allegiant Travel Company
 FRTAF	freenet AG
 AYTU	Aytu BioPharma, Inc.
+TRE.MC	Técnicas Reunidas, S.A.
+CLNX.MC	Cellnex Telecom, S.A.
 ENIC	Enel Chile S.A.
 CBDHF	Hempfusion Wellness Inc.
 SPKKY	Spark New Zealand Limited
@@ -1099,10 +1396,16 @@ STAA	STAAR Surgical Company
 WS	Worthington Steel, Inc.
 BZUN	Baozun Inc.
 NTZ	Natuzzi S.p.A.
+0Y5X.L	Pentair plc
 CLEGF	Coles Group Limited
 AIMC	Altra Industrial Motion Corp.
+AGS.BR	ageas SA/NV
 TLRY	Tilray Brands, Inc.
+1913.HK	Prada S.p.A.
+URW.PA	Unibail-Rodamco-Westfield SE
 PANW	Palo Alto Networks, Inc.
+SSAB-B.ST	SSAB AB (publ)
+BRNK.DE	Branicks Group AG
 HTGMQ	HTG Molecular Diagnostics, Inc.
 VOD	Vodafone Group Public Limited Company
 MXCT	MaxCyte, Inc.
@@ -1114,25 +1417,33 @@ CYRX	Cryoport, Inc.
 GENSF	Genus plc
 DRKTF	Darktrace plc
 AGEN	Agenus Inc.
+KSI.TO	Kneat.com, Inc.
 CIA	Citizens, Inc.
+6503.T	Mitsubishi Electric Corporation
 GIGA	Giga-tronics Incorporated
 NESR	National Energy Services Reunited Corp.
+ALFA.ST	Alfa Laval Corporate AB
 BAESY	BAE Systems plc
 AADI	Aadi Bioscience, Inc.
+ETL.PA	Eutelsat Communications S.A.
 AXLA	Axcella Health Inc.
 AALBF	Aalberts N.V.
 KKKUF	Kakaku.com, Inc.
 JMIA	Jumia Technologies AG
 FREY	FREYR Battery
+ELISA.HE	Elisa Oyj
 CO	Global Cord Blood Corporation
 INNV	InnovAge Holding Corp.
 QIPT	Quipt Home Medical Corp.
+CS.TO	Capstone Copper Corp.
 QNGY	Quanergy Systems, Inc.
 TBLT	ToughBuilt Industries, Inc.
+2357.TW	ASUSTeK Computer Inc.
 PIII	P3 Health Partners Inc.
 KFRC	Kforce Inc.
 LGGNF	Legal & General Group Plc
 SNIPF	Snipp Interactive Inc.
+BICO.ST	BICO Group AB (publ)
 VISL	Vislink Technologies, Inc.
 KMX	CarMax, Inc.
 AFCG	AFC Gamma, Inc.
@@ -1143,11 +1454,17 @@ BPMC	Blueprint Medicines Corporation
 AGR	Avangrid, Inc.
 LUVU	Luvu Brands, Inc.
 SATS	EchoStar Corporation
+CWR.L	Ceres Power Holdings plc
+DIA.MI	DiaSorin S.p.A.
 ASMVF	ASMPT Limited
+TGOD.TO	The Green Organic Dutchman Holdings Ltd.
 SMTSF	Sierra Metals Inc.
+ARR.TO	Altius Renewable Royalties Corp.
+TRUL.CN	Trulieve Cannabis Corp.
 AMR	Alpha Metallurgical Resources, Inc.
 BAH	Booz Allen Hamilton Holding Corporation
 INGR	Ingredion Incorporated
+HOM-U.TO	BSR Real Estate Investment Trust
 BLX	Banco Latinoamericano de Comercio Exterior, S. A.
 VLTO	Veralto Corporation
 LICY	Li-Cycle Holdings Corp.
@@ -1155,12 +1472,15 @@ GASNF	Naturgy Energy Group, S.A.
 LHCG	LHC Group, Inc.
 PBTHF	PointsBet Holdings Limited
 TMGEF	Thermal Energy International Inc.
+TH.TO	Theratechnologies Inc.
 BHP	BHP Group Limited
 CURV	Torrid Holdings Inc.
+NTAR.CN	NexTech AR Solutions Corp.
 LSDAF	Lassonde Industries Inc.
 CREG	Smart Powerr Corp.
 BDORY	Banco do Brasil S.A.
 NMR	Nomura Holdings, Inc.
+TECO2.BA	Telecom Argentina S.A.
 SECOY	Secoo Holding Limited
 YACAF	Yancoal Australia Ltd
 AVTR	Avantor, Inc.
@@ -1171,6 +1491,7 @@ SMAR	Smartsheet Inc.
 HCXLF	Hiscox Ltd
 FIP	FTAI Infrastructure Inc.
 BLCM	Bellicum Pharmaceuticals, Inc.
+RMS.PA	Hermès International Société en commandite par actions
 OLN	Olin Corporation
 TRVN	Trevena, Inc.
 TCPC	BlackRock TCP Capital Corp.
@@ -1184,11 +1505,15 @@ HAGHY	Hensoldt AG
 RLLMF	Real Matters Inc.
 SSREY	Swiss Re AG
 NES	Nuverra Environmental Solutions, Inc.
+ARIS.TO	Aris Mining Corporation
 CONN	Conn's, Inc.
 XP	XP Inc.
 BRLT	Brilliant Earth Group, Inc.
+EQB.TO	EQB Inc.
 EPAC	Enerpac Tool Group Corp.
+CMIG4.SA	Companhia Energética de Minas Gerais
 ALFVY	Alfa Laval AB (publ)
+BAR.BR	Barco N.V.
 DCMDF	DATA Communications Management Corp.
 TKC	Turkcell Iletisim Hizmetleri A.S.
 MOND	Mondee Holdings, Inc.
@@ -1206,32 +1531,44 @@ TNGRF	Thungela Resources Limited
 NNOCF	Nanoco Group plc
 AMKBY	A.P. Møller - Mærsk A/S
 KGFHF	Kingfisher plc
+LGEN.L	Legal & General Group Plc
+FEC.TO	Frontera Energy Corporation
 OGE	OGE Energy Corp.
 NVNXF	Novonix Limited
 ENTG	Entegris, Inc.
 SGGKF	Singapore Technologies Engineering Ltd
+ZIP.AX	Zip Co Limited
 ARESF	Artis Real Estate Investment Trust
 TSE	Trinseo PLC
 NKE.NE	NIKE, Inc.
+TKA.DE	thyssenkrupp AG
 TDCX	TDCX Inc.
+BMA.BA	Banco Macro S.A.
 ALLGF	Allego N.V.
 EIGRQ	Eiger BioPharmaceuticals, Inc.
+BP.L	BP p.l.c.
+ITX.MC	Industria de Diseño Textil, S.A.
 HSBC	HSBC Holdings plc
 RSVR	Reservoir Media, Inc.
 CRVS	Corvus Pharmaceuticals, Inc.
 SSAAF	SSAB AB (publ)
 FBMS	The First Bancshares, Inc.
 NTCO	Natura &Co Holding S.A.
+9961.HK	Trip.com Group Limited
 SPNT	SiriusPoint Ltd.
 ISDR	Issuer Direct Corporation
+D05.SI	DBS Group Holdings Ltd
+ASURB.MX	Grupo Aeroportuario del Sureste, S. A. B. de C. V.
 XGN	Exagen Inc.
 ESE	ESCO Technologies Inc.
+AML.L	Aston Martin Lagonda Global Holdings plc
 NICMF	Nickel Industries Limited
 OCSL	Oaktree Specialty Lending Corporation
 MNK	Mallinckrodt plc
 LSAK	Lesaka Technologies, Inc.
 VEEE	Twin Vee Powercats Co.
 FDUS	Fidus Investment Corporation
+4005.T	Sumitomo Chemical Company, Limited
 LXFR	Luxfer Holdings PLC
 AAMC	Altisource Asset Management Corporation
 IMPM	Impac Mortgage Holdings, Inc.
@@ -1243,6 +1580,7 @@ NWN	Northwest Natural Holding Company
 LZB	La-Z-Boy Incorporated
 SLF	Sun Life Financial Inc.
 CYRN	Cyren Ltd.
+STAN.L	Standard Chartered PLC
 SQZZF	Serica Energy plc
 AAWH	Ascend Wellness Holdings, Inc.
 CVALF	Covalon Technologies Ltd.
@@ -1264,12 +1602,15 @@ FPLSF	5N Plus Inc.
 BRTX	BioRestorative Therapies, Inc.
 XIACF	Xiaomi Corporation
 PTVE	Pactiv Evergreen Inc.
+VOLARA.MX	Controladora Vuela Compañía de Aviación, S.A.B. de C.V.
 KUKE	Kuke Music Holding Limited
 MNHFF	Mayr-Melnhof Karton AG
 BYCBF	Barry Callebaut AG
+TEVA.TA	Teva Pharmaceutical Industries Limited
 KBCSF	KBC Group N.V.
 APLS	Apellis Pharmaceuticals, Inc.
 BNPQF	BNP Paribas S.A.
+CRES.BA	Cresud Sociedad Anónima, Comercial, Inmobiliaria, Financiera y Agropecuaria
 RHI	Robert Half International Inc.
 CLPR	Clipper Realty Inc.
 NXPL	NextPlat Corp
@@ -1277,28 +1618,41 @@ AAT	American Assets Trust, Inc.
 CALA	Calithera Biosciences, Inc.
 WBA	Walgreens Boots Alliance, Inc.
 NSC	Norfolk Southern Corporation
+SOLB.BR	Solvay S.A.
 NSTG	NanoString Technologies, Inc.
+NESTE.HE	Neste Oyj
 HRI	Herc Holdings Inc.
+FPH.NZ	Fisher & Paykel Healthcare Corporation Limited
 UDIRF	United Internet AG
 VLN	Valens Semiconductor Ltd.
+SPK.NZ	Spark New Zealand Limited
+GILT.TA	Gilat Satellite Networks Ltd.
+BBAS3.SA	Banco do Brasil S.A.
 VLNSF	Velan Inc.
 UHAL	U-Haul Holding Company
 MRRTY	Marfrig Global Foods S.A.
 MIRM	Mirum Pharmaceuticals, Inc.
 JBT	JBT Marel Corporation
 NFE	New Fortress Energy Inc.
+MFC.TO	Manulife Financial Corporation
 OPRA	Opera Limited
 FORR	Forrester Research, Inc.
+P911.DE	Dr. Ing. h.c. F. Porsche AG
+BPOST.BR	bpost NV/SA
 HUBS	HubSpot, Inc.
 IMMR	Immersion Corporation
 DNA	Ginkgo Bioworks Holdings, Inc.
 KKR	KKR & Co. Inc.
 FLIC	The First of Long Island Corporation
 STGW	Stagwell Inc.
+8306.T	Mitsubishi UFJ Financial Group, Inc.
 LII	Lennox International Inc.
 VIRT	Virtu Financial, Inc.
 CBDBY	Companhia Brasileira de Distribuição
+ENX.PA	Euronext N.V.
 CURI	CuriosityStream Inc.
+LSEG.L	London Stock Exchange Group plc
+SCA-A.ST	Svenska Cellulosa Aktiebolaget SCA (publ)
 CIVB	Civista Bancshares, Inc.
 BDGSF	Bank of Georgia Group PLC
 SNOA	Sonoma Pharmaceuticals, Inc.
@@ -1308,20 +1662,27 @@ RARE	Ultragenyx Pharmaceutical Inc.
 SGML	Sigma Lithium Corporation
 MDLZ	Mondelez International, Inc.
 AGO	Assured Guaranty Ltd.
+SKF-A.ST	AB SKF (publ)
 CPSI	Computer Programs and Systems, Inc.
 IMO	Imperial Oil Limited
 STAF	Staffing 360 Solutions, Inc.
+CCH.L	Coca-Cola HBC AG
 DEUZF	Deutz AG
 MDV	Modiv Inc.
+DBK.DE	Deutsche Bank AG
 JET.NE	Global Crossing Airlines Group Inc.
+FPE3.DE	Fuchs Petrolub SE
 BKYI	BIO-key International, Inc.
+FORTUM.HE	Fortum Oyj
 PAG	Penske Automotive Group, Inc.
 ELVAF	Evolva Holding S.A.
 SLVM	Sylvamo Corporation
 ENTA	Enanta Pharmaceuticals, Inc.
 SMLP	Summit Midstream Partners, LP
+0175.HK	Geely Automobile Holdings Limited
 SCFLF	Schaeffler AG
 BURBY	Burberry Group plc
+RYM.NZ	Ryman Healthcare Limited
 ASUUY	ASUSTeK Computer Inc.
 BDIMF	Black Diamond Group Limited
 PCFBF	Pacific Basin Shipping Limited
@@ -1330,11 +1691,15 @@ CVGI	Commercial Vehicle Group, Inc.
 IGIC	International General Insurance Holdings Ltd.
 CNVS	Cineverse Corp.
 GSIT	GSI Technology, Inc.
+LTG.L	Learning Technologies Group plc
 BSET	Bassett Furniture Industries, Incorporated
+1316.HK	Nexteer Automotive Group Limited
 KLRS	Kalaris Therapeutics Inc
+SLCE3.SA	SLC Agrícola S.A.
 IVTJF	Investec Group
 MUX	McEwen Mining Inc.
 PRCT	PROCEPT BioRobotics Corporation
+SRT3.DE	Sartorius AG
 S	SentinelOne, Inc.
 HNNMY	H & M Hennes & Mauritz AB (publ)
 PAGP	Plains GP Holdings, L.P.
@@ -1342,22 +1707,36 @@ CULP	Culp, Inc.
 ESTA	Establishment Labs Holdings Inc.
 KAOCF	Kao Corporation
 SEAC	SeaChange International, Inc.
+SWR.L	Smurfit Westrock Plc
 LBC	Luther Burbank Corporation
 WLY	John Wiley & Sons, Inc.
 SAR	Saratoga Investment Corp.
 NSYS	Nortech Systems Incorporated
+RR.L	Rolls-Royce Holdings plc
 AULT	Ault Alliance, Inc.
 QD	Qudian Inc.
+MUV2.DE	Münchener Rückversicherungs-Gesellschaft AG in München
+AVOL.SW	Avolta AG
 KKOYF	Kesko Oyj
 AKBLF	ALK-Abelló A/S
+CON.DE	Continental AG
+MMB.PA	Lagardere S.A.
 GPI	Group 1 Automotive, Inc.
 WPP	WPP plc
+EREGL.IS	Eregli Demir ve Çelik Fabrikalari T.A.S.
 VRNT	Verint Systems Inc.
 CMLS	Cumulus Media Inc.
 AFRM	Affirm Holdings, Inc.
+KOMB.PR	Komercní banka, a.s.
+ULVR.L	Unilever PLC
 ICLR	ICON Public Limited Company
 NTRA	Natera, Inc.
+IPH.PA	Innate Pharma S.A.
+LHA.DE	Deutsche Lufthansa AG
 SKM	SK Telecom Co.,Ltd
+VGP.BR	Vgp N.V.
+JMAT.L	Johnson Matthey Plc
+MOWI.OL	Mowi ASA
 PGNY	Progyny, Inc.
 GBNH	Greenbrook TMS Inc.
 WFAFF	Wesfarmers Limited
@@ -1366,22 +1745,31 @@ EDIT	Editas Medicine, Inc.
 TOL	Toll Brothers, Inc.
 OEC	Orion Engineered Carbons S.A.
 YY	JOYY Inc.
+IMB.L	Imperial Brands PLC
 TDS	Telephone and Data Systems, Inc.
+LDO.MI	Leonardo S.p.A.
 ALTI	AlTi Global, Inc.
 PBKOF	Pollard Banknote Limited
 SRCL	Stericycle, Inc.
 HPQ	HP Inc.
+4502.T	Takeda Pharmaceutical Company Limited
+ENGI.PA	Engie S.A.
 NNBR	NN, Inc.
+AV.L	Aviva plc
 FTAI	FTAI Aviation Ltd.
 RYCEY	Rolls-Royce Holdings plc
+ML.PA	Compagnie Générale des Établissements Michelin Société en commandite par actions
 SUPV	Grupo Supervielle S.A.
 ASAI	Sendas Distribuidora S.A.
 SHIP	Seanergy Maritime Holdings Corp.
+ENG.MC	Enagás, S.A.
 LGIH	LGI Homes, Inc.
 TLS	Telos Corporation
 IBIO	iBio, Inc.
+VBK.DE	VERBIO Vereinigte BioEnergie AG
 ALFVF	Alfa Laval Corporate AB
 SKIL	Skillsoft Corp.
+0002.HK	CLP Holdings Limited
 TWO	Two Harbors Investment Corp.
 PRDO	Perdoceo Education Corporation
 MKL	Markel Corporation
@@ -1393,17 +1781,26 @@ CSL	Carlisle Companies Incorporated
 HCI	HCI Group, Inc.
 KWHIY	Kawasaki Heavy Industries, Ltd.
 HALL	Hallmark Financial Services, Inc.
+RHM.DE	Rheinmetall AG
 CBUTF	Clear Blue Technologies International Inc.
+BRKM5.SA	Braskem S.A.
 UMC	United Microelectronics Corporation
+PRIO3.SA	Petro Rio S.A.
 WF	Woori Financial Group Inc.
+EGIE3.SA	Engie Brasil Energia S.A.
 CAVA	CAVA Group, Inc.
 LESL	Leslie's, Inc.
 ITVPF	ITV plc
 AZZ	AZZ Inc.
 NVZMF	Novozymes A/S
+ZAL.DE	Zalando SE
+EMBR3.SA	Embraer S.A.
 CAPR	Capricor Therapeutics, Inc.
+0700.HK	Tencent Holdings Limited
+PGHN.SW	Partners Group Holding AG
 TOUR	Tuniu Corporation
 ALTO	Alto Ingredients, Inc.
+BBSE3.SA	BB Seguridade Participações S.A.
 MS	Morgan Stanley
 BANC	Banc of California, Inc.
 HI	Hillenbrand, Inc.
@@ -1411,54 +1808,71 @@ PLTK	Playtika Holding Corp.
 RCRRF	Recruit Holdings Co., Ltd.
 MRK	Merck & Co., Inc.
 BN	Brookfield Corporation
+JUSH.CN	Jushi Holdings Inc.
 BHC	Bausch Health Companies Inc.
 UONE	Urban One, Inc.
 VEL	Velocity Financial, Inc.
+B3SA3.SA	B3 S.A. - Brasil, Bolsa, Balcão
 SSREF	Swiss Re AG
 RYCEF	Rolls-Royce Holdings plc
 FBIO	Fortress Biotech, Inc.
 OPAL	OPAL Fuels Inc.
 ULY	Urgent.ly Inc. Common Stock
+KOG.OL	Kongsberg Gruppen ASA
 QBTS	D-Wave Quantum Inc.
 PKOH	Park-Ohio Holdings Corp.
 KE	Kimball Electronics, Inc.
 BOX	Box, Inc.
 BSEM	BioStem Technologies, Inc.
 EVTC	EVERTEC, Inc.
+WIPRO.BO	Wipro Limited
 KVYO	Klaviyo, Inc.
 TERRF	Terna - Rete Elettrica Nazionale Società per Azioni
 VSEC	VSE Corporation
 CBOE	Cboe Global Markets, Inc.
 VOYJF	Valmet Oyj
 PRDSY	Prada S.p.A.
+BVI.PA	Bureau Veritas S.A.
 DXLG	Destination XL Group, Inc.
 JDHIF	JD Health International Inc.
 FCX	Freeport-McMoRan Inc.
 GENTF	G5 Entertainment AB (publ)
+CCU.SN	Compañía Cervecerías Unidas S.A.
 MWRK	MetaWorks Platforms, Inc.
+BARC.L	Barclays PLC
+BSANTANDER.SN	Banco Santander-Chile
 WIRE	Encore Wire Corporation
+BESI.AS	BE Semiconductor Industries N.V.
 BKFKF	P/F Bakkafrost
 ARQT	Arcutis Biotherapeutics, Inc.
 CLPBF	Coloplast A/S
 ATOM	Atomera Incorporated
 NEXPF	Nexi S.p.A.
 COIHF	Croda International Plc
+AALB.AS	Aalberts N.V.
 TCX	Tucows Inc.
 MRAM	Everspin Technologies, Inc.
 FNOXF	Fortnox AB (publ)
+AIR.NZ	Air New Zealand Limited
 CTXXF	CEMATRIX Corporation
+VID.MC	Vidrala, S.A.
 BLFY	Blue Foundry Bancorp
+ALV.V	Alvopetro Energy Ltd.
 BDSX	Biodesix, Inc.
 IQV	IQVIA Holdings Inc.
 BGC	BGC Group, Inc
 ABT	Abbott Laboratories
+LLOY.L	Lloyds Banking Group plc
 COR	Cencora, Inc.
 VGPBF	Vgp N.V.
 APH	Amphenol Corporation
 TROX	Tronox Holdings plc
 CMP	Compass Minerals International, Inc.
+OSS.V	OneSoft Solutions Inc.
 SCS	Steelcase Inc.
 HLBZF	HeidelbergCement AG
+MOGO.TO	Mogo Inc.
+SYZ.TO	Sylogist Ltd.
 CPXGF	Cineplex Inc.
 UPS	United Parcel Service, Inc.
 GMAN	Goldman Sachs Manufacturing Revolution ETF
@@ -1470,12 +1884,15 @@ LNZNF	Lenzing AG
 RYN	Rayonier Inc.
 VST	Vistra Corp.
 LYSFF	Lerøy Seafood Group ASA
+SBRY.L	J Sainsbury plc
 FDX	FedEx Corporation
 SDC	SmileDirectClub, Inc.
+MEG.TO	MEG Energy Corp.
 KT	KT Corporation
 XHR	Xenia Hotels & Resorts, Inc.
 MTN	Vail Resorts, Inc.
 RDHL	RedHill Biopharma Ltd.
+BNR.DE	Brenntag SE
 KNYJF	KONE Oyj
 LGTY	Logility Supply Chain Solutions, Inc.
 CCU	Compañía Cervecerías Unidas S.A.
@@ -1484,9 +1901,11 @@ RNW	ReNew Energy Global Plc
 KO	The Coca-Cola Company
 JNCE	Jounce Therapeutics, Inc.
 DRQ	Dril-Quip, Inc.
+IBE.MC	Iberdrola, S.A.
 LBRDA	Liberty Broadband Corporation
 HOEGF	Höegh Autoliners ASA
 VMI	Valmont Industries, Inc.
+GARAN.IS	Turkiye Garanti Bankasi A.S.
 BMA	Banco Macro S.A.
 PARA	Paramount Global
 SONM	Sonim Technologies, Inc.
@@ -1497,14 +1916,17 @@ LPX	Louisiana-Pacific Corporation
 CARS	Cars.com Inc.
 YETI	YETI Holdings, Inc.
 BMO	Bank of Montreal
+TFII.TO	TFI International Inc.
 MTDR	Matador Resources Company
 ESAB	ESAB Corporation
+DII-B.TO	Dorel Industries Inc.
 STEC	Santech Holdings Limited
 BCO	The Brink's Company
 MBII	Marrone Bio Innovations, Inc.
 BRC	Brady Corporation
 KPELF	Keppel Corporation Limited
 BOSC	B.O.S. Better Online Solutions Ltd.
+PEN.OL	Panoro Energy ASA
 MSFT	Microsoft Corporation
 PUK	Prudential plc
 CORBF	Global Cord Blood Corporation
@@ -1514,23 +1936,28 @@ MDVL	MedAvail Holdings, Inc.
 YCBD	cbdMD, Inc.
 YJ	Yunji Inc.
 SMBMF	Sembcorp Marine Ltd
+BAB.L	Babcock International Group PLC
 MATW	Matthews International Corporation
 BDC	Belden Inc.
 NUFMF	Nufarm Limited
 ASTH	Astrana Health, Inc.
 SHW	The Sherwin-Williams Company
+WDS.AX	Woodside Energy Group Ltd
 SBH	Sally Beauty Holdings, Inc.
 EGY	VAALCO Energy, Inc.
 SMFKY	Smurfit Kappa Group Plc
 PPG	PPG Industries, Inc.
 YELLQ	Yellow Corporation
+HWO.TO	High Arctic Energy Services Inc
 ADX	Adams Diversified Equity Fund, Inc.
 MP	MP Materials Corp.
 ATEN	A10 Networks, Inc.
 SR	Spire Inc.
 CTSO	Cytosorbents Corporation
 CDXC	ChromaDex Corporation
+ALSEA.MX	Alsea, S.A.B. de C.V.
 ADMA	ADMA Biologics, Inc.
+VIE.PA	Veolia Environnement S.A.
 MRKR	Marker Therapeutics, Inc.
 GMGI	Golden Matrix Group, Inc.
 USER	UserTesting, Inc.
@@ -1542,14 +1969,20 @@ FLOOF	Flower One Holdings Inc.
 CSPI	CSP Inc.
 XNET	Xunlei Limited
 SHG	Shinhan Financial Group Co., Ltd.
+IVG.MI	Iveco Group N.V.
 EONR	EON Resources Inc.
+9101.T	Nippon Yusen Kabushiki Kaisha
 POCI	Precision Optics Corporation, Inc.
+RKT.L	Reckitt Benckiser Group plc
 MSI	Motorola Solutions, Inc.
 PAM	Pampa Energía S.A.
 LKNCY	Luckin Coffee Inc.
+ALNOV.PA	Novacyt S.A.
+DPRO.CN	Draganfly Inc.
 DYNDF	Dye & Durham Limited
 NBHC	National Bank Holdings Corporation
 UIS	Unisys Corporation
+EDEN.PA	Edenred S.A.
 NOV	NOV Inc.
 CLSK	CleanSpark, Inc.
 NOW	ServiceNow, Inc.
@@ -1573,6 +2006,7 @@ SDVKF	Sandvik AB (publ)
 ASC	Ardmore Shipping Corporation
 ANSS	ANSYS, Inc.
 ENGIY	Engie S.A.
+FER.MC	Ferrovial SE
 PVH	PVH Corp.
 LAD	Lithia Motors, Inc.
 SLNG	Stabilis Solutions, Inc.
@@ -1588,9 +2022,11 @@ GWB	Great Western Bancorp, Inc.
 HP	Helmerich & Payne, Inc.
 CTLT	Catalent, Inc.
 SUZ	Suzano S.A.
+AVCT.L	Avacta Group Plc
 SEMG	EA Series Trust
 ENZ	Enzo Biochem, Inc.
 BRG	Bluerock Residential Growth REIT, Inc.
+MGLU3.SA	Magazine Luiza S.A.
 REMYF	Rémy Cointreau S.A.
 BSBR	Banco Santander (Brasil) S.A.
 HTHT	H World Group Limited
@@ -1599,44 +2035,67 @@ CANF	Can-Fite BioPharma Ltd.
 DTC	Solo Brands, Inc.
 ANYYY	Aena S.M.E., S.A.
 PDS	Precision Drilling Corporation
+VACN.SW	VAT Group AG
+CTEC.L	ConvaTec Group Plc
 EBS	Emergent BioSolutions Inc.
+EXPN.L	Experian plc
+HSBA.L	HSBC Holdings plc
 HEINY	Heineken N.V.
+LOOMIS.ST	Loomis AB (publ)
 TCNNF	Trulieve Cannabis Corp.
 SHOP	Shopify Inc.
 ONTTF	Oxford Nanopore Technologies plc
 EXPRQ	Express, Inc.
+OGI.TO	OrganiGram Holdings Inc.
 ITW	Illinois Tool Works Inc.
+GNFT.PA	Genfit S.A.
 NILSY	PJSC Mining and Metallurgical Company Norilsk Nickel
 RL	Ralph Lauren Corporation
+HYQ.DE	Hypoport SE
 TLLTF	TILT Holdings Inc.
 EVH	Evolent Health, Inc.
 PKE	Park Aerospace Corp.
+IFC.TO	Intact Financial Corporation
 PMREF	Primaris Real Estate Investment Trust
 BRCNF	Burcon NutraScience Corporation
+SF.ST	Stillfront Group AB (publ)
 STWD	Starwood Property Trust, Inc.
 BYON	Beyond, Inc.
 CVSI	CV Sciences, Inc.
+ADXN.SW	Addex Therapeutics Ltd
+1024.HK	Kuaishou Technology
 ASBFY	Associated British Foods plc
 PEG	Public Service Enterprise Group Incorporated
+BIM.PA	bioMérieux S.A.
+FFH.TO	Fairfax Financial Holdings Limited
 SNMRF	Snam S.p.A.
 CIVI	Civitas Resources, Inc.
 MCY	Mercury General Corporation
 RXRX	Recursion Pharmaceuticals, Inc.
 SXI	Standex International Corporation
 DNMR	Danimer Scientific, Inc.
+CTT.LS	CTT - Correios De Portugal, S.A.
 TGLS	Tecnoglass Inc.
+FAF.TO	Fire & Flower Holdings Corp.
 TBIO	Telesis Bio, Inc.
+DSY.PA	Dassault Systèmes SE
 TNON	Tenon Medical, Inc.
+4716.T	Oracle Corporation Japan
 LRLCF	L'Oréal S.A.
 TTI	TETRA Technologies, Inc.
+JLP.L	Jubilee Metals Group PLC
 UNF	UniFirst Corporation
 TNTFF	PostNL N.V.
 NGL	NGL Energy Partners LP
 EC	Ecopetrol S.A.
+AC.PA	Accor S.A.
+JD.L	JD Sports Fashion plc
 SIVB	SVB Financial Group
+0T8B.F	TCTM Kids IT Education Inc.
 USPH	U.S. Physical Therapy, Inc.
 WPC	W. P. Carey Inc.
 USEG	U.S. Energy Corp.
+DSY.V	Destiny Media Technologies Inc.
 OIBZQ	Oi S.A.
 ETON	Eton Pharmaceuticals, Inc.
 BRP	BRP Group, Inc.
@@ -1653,24 +2112,35 @@ TATLY	Tata Steel Limited
 VZ	Verizon Communications Inc.
 AZN	AstraZeneca PLC
 TGP	Teekay LNG Partners L.P.
+SES.TO	Secure Waste Infrastructure Corp.
 SSRM	SSR Mining Inc.
 WMB	The Williams Companies, Inc.
 TEUM	Pareteum Corporation
 VRNOF	Verano Holdings Corp.
 RLI	RLI Corp.
+BAYN.DE	Bayer AG
+DGE.L	Diageo plc
 XYZ	Block, Inc.
 PKIUF	Parkland Corporation
 AMCR	Amcor plc
 RNSDF	Renault S.A.
+OIBR3.SA	Oi S.A.
 ITPOF	Intertape Polymer Group Inc.
 SLGN	Silgan Holdings Inc.
 BMBL	Bumble Inc.
 EXK	Endeavour Silver Corp.
+SFOR.L	S4 Capital plc
+EGLX.TO	Enthusiast Gaming Holdings Inc.
 GVDBF	Givaudan S.A.
 KODK	Eastman Kodak Company
 ARMK	Aramark
+IES.L	Invinity Energy Systems plc
+SRG.MI	Snam S.p.A.
 FARO	FARO Technologies, Inc.
+GEO.TO	Geodrill Limited
+SCATC.OL	Scatec ASA
 ML	MoneyLion Inc.
+CCA.TO	Cogeco Communications Inc.
 601628.SS	China Life Insurance Company Limited
 ACOG	Alpha Cognition Inc. Common Stock
 AXON	Axon Enterprise, Inc.
@@ -1705,16 +2175,21 @@ TTEC	TTEC Holdings, Inc.
 CAAP	Corporación América Airports S.A.
 IDT	IDT Corporation
 AEXAF	Atos SE
+OPAP.AT	Organization of Football Prognostics S.A.
 CHUY	Chuy's Holdings, Inc.
 HGTY	Hagerty, Inc.
 CMC	Commercial Metals Company
 MEDS	TRxADE HEALTH, Inc.
+VOLV-A.ST	AB Volvo (publ)
 DSP	Viant Technology Inc.
 LXRX	Lexicon Pharmaceuticals, Inc.
 DY	Dycom Industries, Inc.
 ECL	Ecolab Inc.
 FNNNF	Finnair Oyj
 SUPN	Supernus Pharmaceuticals, Inc.
+ORNBV.HE	Orion Oyj
+ELE.MC	Endesa, S.A.
+PRX.AS	Prosus N.V.
 MSBI	Midland States Bancorp, Inc.
 HUSQF	Husqvarna AB (publ)
 CGAU	Centerra Gold Inc.
@@ -1723,44 +2198,57 @@ TASK	TaskUs, Inc.
 PHLT	Performant Healthcare, Inc.
 TBPH	Theravance Biopharma, Inc.
 ATS	ATS Corporation
+HUSQ-B.ST	Husqvarna AB (publ)
 YARIY	Yara International ASA
+9688.HK	Zai Lab Limited
 BTBT	Bit Digital, Inc.
 MAXN	Maxeon Solar Technologies, Ltd.
 SAIA	Saia, Inc.
 REYN	Reynolds Consumer Products Inc.
+LTM.SN	LATAM Airlines Group S.A.
 HZNP	Horizon Therapeutics Public Limited Company
 ENS	EnerSys
+EOAN.DE	E.on Se
 HES	Hess Corporation
 VERU	Veru Inc.
 EGLX	Enthusiast Gaming Holdings Inc.
 ERJ	Embraer S.A.
 HQI	HireQuest, Inc.
+GXI.DE	Gerresheimer AG
 FET	Forum Energy Technologies, Inc.
 CDE	Coeur Mining, Inc.
 CINR	Sisecam Resources LP
 GOGL	Golden Ocean Group Limited
 MTG	MGIC Investment Corporation
+9901.HK	New Oriental Education & Technology Group Inc.
 RTO	Rentokil Initial plc
 NR	Newpark Resources, Inc.
 LYFT	Lyft, Inc.
+HOLN.SW	Holcim Ltd
 FLS	Flowserve Corporation
+005380.KS	Hyundai Motor Company
 BZ	Kanzhun Limited
 AGL	Agilon Health, Inc.
+VLNS.TO	The Valens Company Inc.
 IDXG	Interpace Biosciences, Inc.
 TCON	TRACON Pharmaceuticals, Inc.
 ATY	AcuityAds Holdings Inc.
 BYND	Beyond Meat, Inc.
 XAIR	Beyond Air, Inc.
 STRA	Strategic Education, Inc.
+MIN.AX	Mineral Resources Limited
+HCG.TO	Home Capital Group Inc.
 TNISF	Técnicas Reunidas, S.A.
 FULT	Fulton Financial Corporation
 SENS	Senseonics Holdings, Inc.
 WTKWY	Wolters Kluwer N.V.
+HM-B.ST	H & M Hennes & Mauritz AB (publ)
 GLPG	Galapagos N.V.
 FNLPF	Fresnillo plc
 WILLF	Demant A/S
 LNG	Cheniere Energy, Inc.
 ZDGE	Zedge, Inc.
+6723.T	Renesas Electronics Corporation
 IMBBY	Imperial Brands PLC
 IRWD	Ironwood Pharmaceuticals, Inc.
 GEF	Greif, Inc.
@@ -1777,6 +2265,7 @@ HLLY	Holley Inc.
 IVSXF	Investor AB (publ)
 GPS	The Gap, Inc.
 CNP	CenterPoint Energy, Inc.
+ERO.TO	Ero Copper Corp.
 ELOX	Eloxx Pharmaceuticals, Inc.
 VERB	Verb Technology Company, Inc.
 KRNNF	Krones AG
@@ -1792,30 +2281,43 @@ C	Citigroup Inc.
 POR	Portland General Electric Company
 IP	International Paper Company
 KD	Kyndryl Holdings, Inc.
+HO.PA	Thales S.A.
 DAN	Dana Incorporated
 EDAP	Edap Tms S.a.
 VEOEY	Veolia Environnement S.A.
+BT-A.L	BT Group plc
 GRAB	Grab Holdings Limited
 ENG	ENGlobal Corporation
 RGS	Regis Corporation
 KEY	KeyCorp
 TRV	The Travelers Companies, Inc.
 AUPH	Aurinia Pharmaceuticals Inc.
+LIGHT.AS	Signify N.V.
+SCR.PA	SCOR Se
 FUPBY	Fuchs Petrolub SE
+5108.T	Bridgestone Corporation
+SAF.PA	Safran S.A.
 LHX	L3Harris Technologies, Inc.
 LOW	Lowe's Companies, Inc.
 IONM	Assure Holdings Corp.
 ACI	Albertsons Companies, Inc.
 MDWD	MediWound Ltd.
+ONC.TO	Oncolytics Biotech Inc.
 IDEX	Ideanomics, Inc.
 TEO	Telecom Argentina S.A.
 WM	Waste Management, Inc.
 ACR	ACRES Commercial Realty Corp.
+VOLCAR-B.ST	Volvo Car AB (publ.)
+FEVR.L	Fevertree Drinks PLC
 MG	Mistras Group, Inc.
+ATM.NZ	The a2 Milk Company Limited
 MFC	Manulife Financial Corporation
 THRY	Thryv Holdings, Inc.
+AHT.L	Ashtead Group plc
 AHR	American Healthcare REIT, Inc.
+VQS.TO	VIQ Solutions Inc.
 AG	First Majestic Silver Corp.
+1179.HK	H World Group Limited
 OFG	OFG Bancorp
 CEPU	Central Puerto S.A.
 ALG	Alamo Group Inc.
@@ -1830,6 +2332,8 @@ MRETF	Martinrea International Inc.
 PBI	Pitney Bowes Inc.
 ETSY	Etsy, Inc.
 UPLD	Upland Software, Inc.
+C38U.SI	CapitaLand Integrated Commercial Trust
+G.MI	Assicurazioni Generali S.p.A.
 ORINF	Orion Oyj
 ZS	Zscaler, Inc.
 APAM	Artisan Partners Asset Management Inc.
@@ -1840,11 +2344,16 @@ NVT	nVent Electric plc
 CCS	Century Communities, Inc.
 YTRA	Yatra Online, Inc.
 BCE	BCE Inc.
+NOKIA.HE	Nokia Oyj
+WKL.AS	Wolters Kluwer N.V.
 ABR	Arbor Realty Trust, Inc.
 NTRP	NextTrip, Inc.
 LAB	Standard BioTools Inc.
+NHY.OL	Norsk Hydro ASA
+WRT1V.HE	Wärtsilä Oyj Abp
 SU	Suncor Energy Inc.
 FER	Ferrovial SE
+EL.PA	EssilorLuxottica S.A.
 SWSDF	Swiss Life Holding AG
 AKYA	Akoya Biosciences, Inc.
 DTI	Drilling Tools International Corp.
@@ -1852,20 +2361,29 @@ KIRK	Kirkland's, Inc.
 ADM	Archer-Daniels-Midland Company
 PDM	Piedmont Office Realty Trust, Inc.
 HY	Hyster-Yale Materials Handling, Inc.
+Y92.SI	Thai Beverage Public Company Limited
+SMIN.L	Smiths Group plc
 VSAT	Viasat, Inc.
 RELL	Richardson Electronics, Ltd.
+TLS.AX	Telstra Group Limited
 HUM	Humana Inc.
 TIMB	Tim S.a.
 BBLN	Babylon Holdings Limited
 RSI	Rush Street Interactive, Inc.
 BJWTF	Beijing Enterprises Water Group Limited
+APN.JO	Aspen Pharmacare Holdings Limited
 KMT	Kennametal Inc.
 JPM	JPMorgan Chase & Co.
+ENGH.TO	Enghouse Systems Limited
 SKY	Skyline Champion Corporation
 BBD	Banco Bradesco S.A.
 GLP	Global Partners LP
+INE.TO	Innergex Renewable Energy Inc.
 COMP	Compass, Inc.
 PDD	PDD Holdings Inc.
+TCS.TO	Tecsys Inc.
+SZG.DE	Salzgitter AG
+SZLS.TO	StageZero Life Sciences Ltd.
 AY	Atlantica Sustainable Infrastructure plc
 DCBO	Docebo Inc.
 AXNX	Axonics, Inc.
@@ -1877,26 +2395,33 @@ FLUIF	Fluidra, S.A.
 NSSC	Napco Security Technologies, Inc.
 WRTBF	Wärtsilä Oyj Abp
 TLSNF	Telia Company AB (publ)
+AIM.TO	Aimia Inc.
 ABM	ABM Industries Incorporated
 PUMSY	PUMA Se
+PHIA.AS	Koninklijke Philips N.V.
 PCYG	Park City Group, Inc.
 KMPR	Kemper Corporation
 ACGBY	Agricultural Bank of China Limited
+SHP.JO	Shoprite Holdings Limited
 GOVX	GeoVax Labs, Inc.
 JOUT	Johnson Outdoors Inc.
+CXB.TO	Calibre Mining Corp.
 BRY	Berry Corporation
 UCB	United Community Banks, Inc.
 USAC	USA Compression Partners, LP
 INTZ	Intrusion Inc.
 ACIC	American Coastal Insurance Corporation
 XOMA	XOMA Royalty Corp.
+ABF.L	Associated British Foods plc
 AGX	Argan, Inc.
 ENSV	Enservco Corporation
 CGECF	Cogeco Inc.
 PLUG	Plug Power Inc.
 RBB	RBB Bancorp
 PEN	Penumbra, Inc.
+CDR.WA	CD Projekt S.A.
 LASE	Laser Photonics Corporation
+SUPV.BA	Grupo Supervielle S.A.
 SSTK	Shutterstock, Inc.
 IRMD	IRadimed Corporation
 YRD	Yiren Digital Ltd.
@@ -1912,7 +2437,9 @@ DRCT	Direct Digital Holdings, Inc.
 DG	Dollar General Corporation
 NBIX	Neurocrine Biosciences, Inc.
 SE	Sea Limited
+BTE.TO	Baytex Energy Corp.
 RYI	Ryerson Holding Corporation
+4503.T	Astellas Pharma Inc.
 WRK	WestRock Company
 OGS	ONE Gas, Inc.
 CRON	Cronos Group Inc.
@@ -1925,9 +2452,12 @@ SURG	SurgePays, Inc.
 AXP	American Express Company
 ATVI	Activision Blizzard, Inc.
 ALOT	AstroNova, Inc.
+MCG.JO	MultiChoice Group Limited
 ANNSF	Aena S.M.E., S.A.
 RVTY	Revvity, Inc.
 TGE	The Generation Essentials Group
+TTE.PA	TotalEnergies SE
+RECSI.OL	REC Silicon ASA
 PAIOF	Paion AG
 DELL	Dell Technologies Inc.
 RSGUF	Rogers Sugar Inc.
@@ -1937,23 +2467,29 @@ DXCM	DexCom, Inc.
 BIOR	Biora Therapeutics, Inc.
 XIN	Xinyuan Real Estate Co., Ltd.
 BZLFF	Bunzl plc
+BOL.ST	Boliden AB (publ)
 EFX	Equifax Inc.
 OMI	Owens & Minor, Inc.
 VRME	VerifyMe, Inc.
 TELNF	Telenor ASA
 EKTAF	Elekta AB (publ)
+FRE.DE	Fresenius SE & Co. KGaA
 FOSL	Fossil Group, Inc.
 CVX	Chevron Corporation
 SWK	Stanley Black & Decker, Inc.
 CBWTF	Auxly Cannabis Group Inc.
 IQ	iQIYI, Inc.
 CBSTF	The Cannabist Company Holdings Inc.
+RX.V	BioSyent Inc.
 TAK	Takeda Pharmaceutical Company Limited
 NU	Nu Holdings Ltd.
 ONTO	Onto Innovation Inc.
 PD	PagerDuty, Inc.
+ZEAL.CO	Zealand Pharma A/S
 CNSL	Consolidated Communications Holdings, Inc.
 APYX	Apyx Medical Corporation
+KRR.TO	Karora Resources Inc.
+FTT.TO	Finning International Inc.
 GT	The Goodyear Tire & Rubber Company
 PIPR	Piper Sandler Companies
 OXY	Occidental Petroleum Corporation
@@ -1965,17 +2501,27 @@ EDNMF	Edenred S.A.
 PII	Polaris Inc.
 PLOW	Douglas Dynamics, Inc.
 PTEN	Patterson-UTI Energy, Inc.
+OLA.TO	Orla Mining Ltd.
+ICAD.PA	Icade S.A.
 PNR	Pentair plc
 TME	Tencent Music Entertainment Group
 SLB	Schlumberger Limited
+CSAN3.SA	Cosan S.A.
+STG.CO	Scandinavian Tobacco Group A/S
+BTO.TO	B2Gold Corp.
 DKS	DICK'S Sporting Goods, Inc.
 HBB	Hamilton Beach Brands Holding Company
 GIB	CGI Inc.
+HIK.L	Hikma Pharmaceuticals PLC
 SNX	TD SYNNEX Corporation
 QTWO	Q2 Holdings, Inc.
+9698.HK	GDS Holdings Limited
 SPB	Spectrum Brands Holdings, Inc.
 CGBD	Carlyle Secured Lending, Inc.
+ITM.L	ITM Power Plc
 HRTH	Harte Hanks, Inc.
+PLZL.ME	PJSC Polyus
+2371.T	Kakaku.com, Inc.
 LQMT	Liquidmetal Technologies, Inc.
 VEDL	Vedanta Limited
 TMO	Thermo Fisher Scientific Inc.
@@ -1989,17 +2535,21 @@ MAT	Mattel, Inc.
 AACG	ATA Creativity Global
 CCM	Concord Medical Services Holdings Limited
 VEEV	Veeva Systems Inc.
+ALS.TO	Altius Minerals Corporation
 RELI	Reliance Global Group, Inc.
 VIST	Vista Energy, S.A.B. de C.V.
 TROW	T. Rowe Price Group, Inc.
+AMS.MC	Amadeus IT Group, S.A.
 ABSSF	AirBoss of America Corp.
 WOR	Worthington Industries, Inc.
 TTC	The Toro Company
+G1A.DE	GEA Group AG
 VTRS	Viatris Inc.
 NUS	Nu Skin Enterprises, Inc.
 BACHF	Bank of China Limited
 WWW	Wolverine World Wide, Inc.
 MOGO	Mogo Inc.
+WPP.L	WPP plc
 HMN	Horace Mann Educators Corporation
 CTKB	Cytek Biosciences, Inc.
 TSHA	Taysha Gene Therapies, Inc.
@@ -2008,22 +2558,31 @@ MOV	Movado Group, Inc.
 AMTM	Amentum Holdings, Inc.
 LBTSF	Almirall, S.A.
 ARHS	Arhaus, Inc.
+CPH.TO	Cipher Pharmaceuticals Inc.
+BEI.DE	Beiersdorf AG
+WEGE3.SA	Weg S.a.
+DCC.L	DCC plc
+IPCO.TO	International Petroleum Corporation
 MCW	Mister Car Wash, Inc.
 BNED	Barnes & Noble Education, Inc.
 PGPHF	Partners Group Holding AG
 PHIO	Phio Pharmaceuticals Corp.
 LE	Lands' End, Inc.
 BKCYF	Bank of Cyprus Holdings Public Limited Company
+MRG-UN.TO	Morguard North American Residential Real Estate Investment Trust
 GTIM	Good Times Restaurants Inc.
 TEF	Telefónica, S.A.
+BBOX.L	Tritax Big Box REIT plc
 KGC	Kinross Gold Corporation
 AKU	Akumin Inc.
 BKU	BankUnited, Inc.
 ATIP	ATI Physical Therapy, Inc.
+0522.HK	ASMPT Limited
 AU	AngloGold Ashanti Plc
 DOW	Dow Inc.
 BPCGF	Banco Comercial Português, S.A.
 XYL	Xylem Inc.
+TGSU2.BA	Transportadora de Gas del Sur S.A.
 ATRC	AtriCure, Inc.
 BAC	Bank of America Corporation
 GOOD	Gladstone Commercial Corporation
@@ -2031,8 +2590,12 @@ VEON	VEON Ltd.
 SNN	Smith & Nephew plc
 OMH	Ohmyhome Limited
 TENX	Tenax Therapeutics, Inc.
+JSDA.CN	Jones Soda Co.
+3659.T	NEXON Co., Ltd.
 UPXI	Upexi, Inc.
+AGN.AS	Aegon N.V.
 NEMTF	Nemetschek SE
+VET.TO	Vermilion Energy Inc.
 HWAIF	Healwell AI Inc.
 NPCE	NeuroPace, Inc.
 VIA	Via Renewables, Inc.
@@ -2041,23 +2604,30 @@ FRZA	Forza X1, Inc.
 VEXTF	Vext Science, Inc.
 RICK	RCI Hospitality Holdings, Inc.
 OPTT	Ocean Power Technologies, Inc.
+DNORD.CO	Dampskibsselskabet Norden A/S
 PFHD	Professional Holding Corp.
+EXX.JO	Exxaro Resources Limited
 AEMD	Aethlon Medical, Inc.
+6618.HK	JD Health International Inc.
 CPB	Campbell Soup Company
 CNDT	Conduent Incorporated
 SECCF	Serco Group plc
 ROIUF	Route1 Inc.
 OTLY	Oatly Group AB
 AXTA	Axalta Coating Systems Ltd.
+CSH-UN.TO	Chartwell Retirement Residences
 BLD	TopBuild Corp.
 JNPR	Juniper Networks, Inc.
 ESPR	Esperion Therapeutics, Inc.
 GHG	GreenTree Hospitality Group Ltd.
 BRX	Brixmor Property Group Inc.
+SUBC.OL	Subsea 7 S.A.
 SMSI	Smith Micro Software, Inc.
+ALCLS.PA	Cellectis S.A.
 CURN	Currency Exchange International, Corp.
 CAT	Caterpillar Inc.
 CBRL	Cracker Barrel Old Country Store, Inc.
+0696.HK	TravelSky Technology Limited
 XEL	Xcel Energy Inc.
 AUDAQ	Audacy, Inc.
 SCTL	Societal CDMO, Inc.
@@ -2072,6 +2642,8 @@ GEOS	Geospace Technologies Corporation
 MYNA	Mynaric AG
 PKKFF	Tenet Fintech Group Inc.
 CNQ	Canadian Natural Resources Limited
+HEN3.DE	Henkel AG & Co. KGaA
+VMC.V	Vicinity Motor Corp.
 CPF	Central Pacific Financial Corp.
 DBOEY	Deutsche Börse AG
 LH	Labcorp Holdings Inc.
@@ -2083,36 +2655,52 @@ RY	Royal Bank of Canada
 PFSW	PFSweb, Inc.
 DBRG	DigitalBridge Group, Inc.
 RWLK	ReWalk Robotics Ltd.
+TEMN.SW	Temenos AG
 PYYX	Pyxus International, Inc.
 MLR	Miller Industries, Inc.
+VIVT3.SA	Telefônica Brasil S.A.
 SILC	Silicom Ltd.
 CHGG	Chegg, Inc.
+OET.OL	Okeanis Eco Tankers Corp.
 FTI	TechnipFMC plc
+RCO.PA	Rémy Cointreau S.A.
 NBTX	Nanobiotix S.A.
+DHL.DE	Deutsche Post AG
+RNO.PA	Renault S.A.
 DE	Deere & Company
+HAG.DE	Hensoldt AG
 FHN	First Horizon Corporation
 EIGR	Eiger BioPharmaceuticals, Inc.
 CMCO	Columbus McKinnon Corporation
+JMT.LS	Jerónimo Martins, SGPS, S.A.
 BBIG	Vinco Ventures, Inc.
+BB.TO	BlackBerry Limited
 ENFY	Enlightify Inc.
 SOUN	SoundHound AI, Inc.
 WE	WeWork Inc.
 SNDA	Sonida Senior Living, Inc.
 MDLY	Medley Management Inc.
+DEC.L	Diversified Energy Company PLC
 EQBK	Equity Bancshares, Inc.
+RAY-B.TO	Stingray Group Inc.
 CHX	ChampionX Corporation
+NEL.OL	Nel ASA
 CIR	CIRCOR International, Inc.
 PSNL	Personalis, Inc.
+PIF.TO	Polaris Renewable Energy Inc.
 DNNGY	Ørsted A/S
 ESTC	Elastic N.V.
+SSE.L	SSE plc
 KLNG	Koil Energy Solutions, Inc.
 FAF	First American Financial Corporation
 UAMY	United States Antimony Corporation
+VK.PA	Vallourec S.A.
 ZEVY	Lightning eMotors, Inc.
 EXLS	ExlService Holdings, Inc.
 DSS	DSS, Inc.
 DAKT	Daktronics, Inc.
 LDI	loanDepot, Inc.
+WLN.PA	Worldline S.A.
 CRCT	Cricut, Inc.
 KRC	Kilroy Realty Corporation
 KFS	Kingsway Financial Services Inc.
@@ -2134,6 +2722,7 @@ ACV	Virtus Diversified Income & Convertible Fund
 MLM	Martin Marietta Materials, Inc.
 ALC	Alcon Inc.
 ICBK	County Bancorp, Inc.
+RTO.L	Rentokil Initial plc
 PFSI	PennyMac Financial Services, Inc.
 BX	Blackstone Inc.
 NLY	Annaly Capital Management, Inc.
@@ -2142,10 +2731,12 @@ BG	Bunge Global S.A.
 MC	Moelis & Company
 EXP	Eagle Materials Inc.
 PYNKF	Perimeter Medical Imaging AI, Inc.
+HTL.TO	Hamilton Thorne Ltd.
 WKHS	Workhorse Group Inc.
 BQSSF	Boss Energy Limited
 DIN	Dine Brands Global, Inc.
 CLPT	ClearPoint Neuro, Inc.
+VESTA.MX	Corporación Inmobiliaria Vesta, S.A.B. de C.V.
 PRLB	Proto Labs, Inc.
 MBXBF	Microbix Biosystems Inc.
 CHRW	C.H. Robinson Worldwide, Inc.
@@ -2165,6 +2756,7 @@ R	Ryder System, Inc.
 LDWY	Lendway, Inc.
 IMGN	ImmunoGen, Inc.
 KYYWF	Keywords Studios plc
+DMGI.V	DMG Blockchain Solutions Inc.
 ULTR	IQ Ultra Short Duration ETF
 TREX	Trex Company, Inc.
 LGO	Largo Inc.
@@ -2186,10 +2778,12 @@ NATL	NCR Atleos Corporation
 CLS	Celestica Inc.
 OUTFF	Outokumpu Oyj
 ACTG	Acacia Research Corporation
+FRU.TO	Freehold Royalties Ltd.
 ACA	Arcosa, Inc.
 CTO	CTO Realty Growth, Inc.
 CWAN	Clearwater Analytics Holdings, Inc.
 FLNC	Fluence Energy, Inc.
+ALM.MC	Almirall, S.A.
 DX	Dynex Capital, Inc.
 BEP	Brookfield Renewable Partners L.P.
 WPLCF	Wise plc
@@ -2217,6 +2811,7 @@ ARCH	Arch Resources, Inc.
 NLLSF	Nel ASA
 JRONY	Jerónimo Martins, SGPS, S.A.
 RMR	The RMR Group Inc.
+NVG.LS	The Navigator Company, S.A.
 NRDY	Nerdy, Inc.
 IEX	IDEX Corporation
 SCPL	SciPlay Corporation
@@ -2236,6 +2831,7 @@ MSP	Datto Holding Corp.
 BB	BlackBerry Limited
 PIFYF	Pine Cliff Energy Ltd.
 NSP	Insperity, Inc.
+DOCM.SW	DocMorris AG
 SFNC	Simmons First National Corporation
 HCM	HUTCHMED (China) Limited
 CPNG	Coupang, Inc.
@@ -2247,12 +2843,15 @@ EPD	Enterprise Products Partners L.P.
 UFI	Unifi, Inc.
 LKQ	LKQ Corporation
 BMRRY	B&M European Value Retail S.A.
+ACA.PA	Crédit Agricole S.A.
 SW	Smurfit Westrock Plc
 SSSS	SuRo Capital Corp.
 CPSS	Consumer Portfolio Services, Inc.
 MDALF	MDA Ltd.
+CPX.TO	Capital Power Corporation
 IRNT	IronNet, Inc.
 BUFF	Innovator Laddered Allocation Power Buffer ETF
+TEN.MI	Tenaris S.A.
 TLPPF	Telix Pharmaceuticals Limited
 DLX	Deluxe Corporation
 NVST	Envista Holdings Corp
@@ -2290,6 +2889,7 @@ HLGN	Heliogen, Inc.
 PSX	Phillips 66
 SARO	StandardAero, Inc.
 REX	REX American Resources Corporation
+PHXM.PA	PHAXIAM Therapeutics S.A.
 YELL	Yellow Corporation
 SBNY	Signature Bank
 RLJ	RLJ Lodging Trust
@@ -2307,9 +2907,12 @@ SAP	Sap Se
 SITE	SiteOne Landscape Supply, Inc.
 SMP	Standard Motor Products, Inc.
 PFMT	Performant Financial Corporation
+AH.TO	Aleafia Health Inc.
 SNAP	Snap Inc.
+AC.TO	Air Canada
 JAN	JanOne Inc.
 SPOT	Spotify Technology S.A.
+DG.PA	Vinci S.A.
 AVCTF	Avacta Group Plc
 KRMD	KORU Medical Systems, Inc.
 AZYO	Aziyo Biologics, Inc.
@@ -2325,23 +2928,32 @@ EH	EHang Holdings Limited
 SMBK	SmartFinancial, Inc.
 RDI	Reading International, Inc.
 NXE	NexGen Energy Ltd.
+SIL.TO	SilverCrest Metals Inc.
+TLKM.JK	Perusahaan Perseroan (Persero) PT Telekomunikasi Indonesia Tbk
 MSBHF	Mitsubishi Corporation
+QUIS.V	Quisitive Technology Solutions, Inc.
+VOD.JO	Vodacom Group Limited
 DB	Deutsche Bank AG
+VOW3.DE	Volkswagen AG
 INLB	Item 9 Labs Corp.
 REI	Ring Energy, Inc.
 AKAAF	Aker ASA
+DEC.PA	JCDecaux SE
 FUNFF	FansUnite Entertainment Inc.
 GNK	Genco Shipping & Trading Limited
 TNET	TriNet Group, Inc.
 KVHI	KVH Industries, Inc.
+IMO.TO	Imperial Oil Limited
 JCAP	Jefferson Capital, Inc. Common Stock
 EXAI	Exscientia plc
 TOTZF	Total Energy Services Inc.
 PLTR	Palantir Technologies Inc.
 CLVT	Clarivate Plc
+QBR-B.TO	Quebecor Inc.
 VVOS	Vivos Therapeutics, Inc.
 SF	Stifel Financial Corp.
 TACT	TransAct Technologies Incorporated
+VOD.L	Vodafone Group Public Limited Company
 HEI	HEICO Corporation
 TPCS	TechPrecision Corporation
 TPVG	TriplePoint Venture Growth BDC Corp.
@@ -2349,6 +2961,7 @@ MTUS	Metallus Inc.
 LMFA	LM Funding America, Inc.
 UGP	Ultrapar Participações S.A.
 TLF	Tandy Leather Factory, Inc.
+8604.T	Nomura Holdings, Inc.
 CRLBF	Cresco Labs Inc.
 TOI	The Oncology Institute, Inc.
 BRO	Brown & Brown, Inc.
@@ -2369,11 +2982,14 @@ TSYHY	TravelSky Technology Limited
 IBN	ICICI Bank Limited
 XPOF	Xponential Fitness, Inc.
 ZBH	Zimmer Biomet Holdings, Inc.
+BRE.MI	Brembo S.p.A.
 J	Jacobs Engineering Group Inc.
 LANV	Lanvin Group Holdings Limited
 ALRM	Alarm.com Holdings, Inc.
 RPID	Rapid Micro Biosystems, Inc.
+INTRUM.ST	Intrum AB (publ)
 AMTB	Amerant Bancorp Inc.
+TSU.TO	Trisura Group Ltd.
 FMX	Fomento Económico Mexicano, S.A.B. de C.V.
 LANC	Lancaster Colony Corporation
 AON	Aon plc
@@ -2384,11 +3000,17 @@ UBER	Uber Technologies, Inc.
 SPNE	SeaSpine Holdings Corporation
 EPOKY	Epiroc AB (publ)
 ARLO	Arlo Technologies, Inc.
+SNI.OL	Stolt-Nielsen Limited
+0293.HK	Cathay Pacific Airways Limited
 ATGE	Adtalem Global Education Inc.
+BCP.LS	Banco Comercial Português, S.A.
 NTTYY	Nippon Telegraph and Telephone Corporation
+WILD.TO	WildBrain Ltd.
 CBAT	CBAK Energy Technology, Inc.
+TPK.L	Travis Perkins plc
 WES	Western Midstream Partners, LP
 JAPAY	Japan Tobacco Inc.
+REP.MC	Repsol, S.A.
 AAPL	Apple Inc.
 DLB	Dolby Laboratories, Inc.
 TLPFF	Teleperformance SE
@@ -2397,6 +3019,7 @@ CCK	Crown Holdings, Inc.
 CDNA	CareDx, Inc
 LFMD	LifeMD, Inc.
 CL	Colgate-Palmolive Company
+FING-B.ST	Fingerprint Cards AB (publ)
 CHH	Choice Hotels International, Inc.
 CIEN	Ciena Corporation
 HGBL	Heritage Global Inc.
@@ -2410,6 +3033,7 @@ SSHPF	Vow ASA
 AHG	Akso Health Group
 CNM	Core & Main, Inc.
 THMO	ThermoGenesis Holdings, Inc.
+LKOH.ME	PJSC Lukoil
 NSKFF	Kongsberg Gruppen ASA
 OSCR	Oscar Health, Inc.
 COUR	Coursera, Inc.
@@ -2425,6 +3049,7 @@ AHC	A. H. Belo Corporation
 MOD	Modine Manufacturing Company
 CTVA	Corteva, Inc.
 CWK	Cushman & Wakefield plc
+ANZ.AX	ANZ Group Holdings Limited
 AMBR	Amber International Holding Ltd
 CXT	Crane NXT, Co.
 AMPE	Ampio Pharmaceuticals, Inc.
@@ -2432,27 +3057,37 @@ ASTL	Algoma Steel Group Inc.
 XYF	X Financial
 BARK	BARK, Inc.
 MHLD	Maiden Holdings, Ltd.
+IIP-UN.TO	InterRent Real Estate Investment Trust
 TIVC	Tivic Health Systems, Inc.
 CYD	China Yuchai International Limited
 LFST	LifeStance Health Group, Inc.
 GM	General Motors Company
 DKL	Delek Logistics Partners, LP
+FTK.DE	flatexDEGIRO AG
 OLB	The OLB Group, Inc.
+MRFG3.SA	Marfrig Global Foods S.A.
 EA	Electronic Arts Inc.
 CION	CION Investment Corporation
+UN0.DE	Uniper SE
 AJX	Great Ajax Corp.
 SDCH	SideChannel, Inc.
+KGF.L	Kingfisher plc
 VVI	Viad Corp
 FLO	Flowers Foods, Inc.
+DRX.L	Drax Group plc
 TLYS	Tilly's, Inc.
+2914.T	Japan Tobacco Inc.
 UBS	UBS Group AG
 AVTBF	Avant Brands Inc.
 SWDBF	Swedbank AB (publ)
 NKE	NIKE, Inc.
+TLX.AX	Telix Pharmaceuticals Limited
 GSL	Global Ship Lease, Inc.
+RXL.PA	Rexel S.A.
 DT	Dynatrace, Inc.
 EMRAF	Emera Incorporated
 TCOM	Trip.com Group Limited
+SRP.L	Serco Group plc
 OXSQ	Oxford Square Capital Corp.
 GCO	Genesco Inc.
 TAGOF	TAG Immobilien AG
@@ -2466,18 +3101,23 @@ VNDA	Vanda Pharmaceuticals Inc.
 ENV	Envestnet, Inc.
 YHGJ	Yunhong Green CTI Ltd.
 EGP	EastGroup Properties, Inc.
+WHA.AS	Wereldhave N.V.
+034220.KS	LG Display Co., Ltd.
 TNL	Travel + Leisure Co.
 HE	Hawaiian Electric Industries, Inc.
 ESALF	Eisai Co., Ltd.
 MCFE	McAfee Corp.
+DRW3.DE	Drägerwerk AG & Co. KGaA
 CPLG	CorePoint Lodging Inc.
 DINO	HF Sinclair Corporation
 HRL	Hormel Foods Corporation
 API	Agora, Inc.
 CHKP	Check Point Software Technologies Ltd.
 SEIC	SEI Investments Company
+GLE.PA	Société Générale S.A.
 AMCX	AMC Networks Inc.
 BABA	Alibaba Group Holding Limited
+WEED.TO	Canopy Growth Corporation
 KNF	Knife River Corporation
 IPG	The Interpublic Group of Companies, Inc.
 ENLC	EnLink Midstream, LLC
@@ -2496,17 +3136,23 @@ LYB	LyondellBasell Industries N.V.
 CSAN	Cosan S.A.
 SEDG	SolarEdge Technologies, Inc.
 KAI	Kadant Inc.
+2057.HK	ZTO Express (Cayman) Inc.
 KAR	OPENLANE, Inc.
+PKI.TO	Parkland Corporation
 YSG	Yatsen Holding Limited
 SCCO	Southern Copper Corporation
 LAW	CS Disco, Inc.
 CVGW	Calavo Growers, Inc.
 FORM	FormFactor, Inc.
+TPEIR.AT	Piraeus Financial Holdings S.A.
+SHLF.OL	Shelf Drilling, Ltd.
+WISE.L	Wise plc
 FRFHF	Fairfax Financial Holdings Limited
 AXL	American Axle & Manufacturing Holdings, Inc.
 ONEW	OneWater Marine Inc.
 XFOR	X4 Pharmaceuticals, Inc.
 SOTK	Sono-Tek Corporation
+WOR.AX	Worley Limited
 LLY	Eli Lilly and Company
 SFFLY	Schaeffler AG
 FBASF	Fibra UNO
@@ -2519,6 +3165,7 @@ LGVN	Longeveron Inc.
 MCK	McKesson Corporation
 HUBC	HUB Cyber Security Ltd.
 PETQ	PetIQ, Inc.
+RY.TO	Royal Bank of Canada
 AIG	American International Group, Inc.
 AXGN	AxoGen, Inc.
 MOS	The Mosaic Company
@@ -2530,10 +3177,13 @@ CRESY	Cresud Sociedad Anónima, Comercial, Inmobiliaria, Financiera y Agropecuar
 MRC	MRC Global Inc.
 TXNM	TXNM Energy, Inc.
 SEER	Seer, Inc.
+VOW.OL	Vow ASA
+CRDA.L	Croda International Plc
 GFL	GFL Environmental Inc.
 WSR	Whitestone REIT
 WRAP	Wrap Technologies, Inc.
 FPH	Five Point Holdings, LLC
+WIZZ.L	Wizz Air Holdings Plc
 GIFI	Gulf Island Fabrication, Inc.
 AYI	Acuity Brands, Inc.
 ODMUF	Old Mutual Limited
@@ -2549,6 +3199,7 @@ BR	Broadridge Financial Solutions, Inc.
 TPZ	Tortoise Power and Energy Infrastructure Fund, Inc.
 THR	Thermon Group Holdings, Inc.
 TFPM	Triple Flag Precious Metals Corp.
+HUT.TO	Hut 8 Mining Corp.
 DTST	Data Storage Corporation
 ESRT	Empire State Realty Trust, Inc.
 XPON	Expion360 Inc.
@@ -2561,29 +3212,38 @@ CSTM	Constellium SE
 DCOM	Dime Community Bancshares, Inc.
 SNV	Synovus Financial Corp.
 SILA	Sila Realty Trust, Inc.
+SMDS.L	DS Smith Plc
 CRARF	Crédit Agricole S.A.
 BWXT	BWX Technologies, Inc.
 LLAP	Terran Orbital Corporation
+DIS.MI	d'Amico International Shipping S.A.
 STECF	Scatec ASA
 ZGN	Ermenegildo Zegna N.V.
 KBAGF	Koninklijke BAM Groep nv
 ECO	Okeanis Eco Tankers Corp.
+Y.TO	Yellow Pages Limited
 QFIN	Qifu Technology, Inc.
 CDP	COPT Defense Properties
+NICE.TA	NICE Ltd.
 GPUS	Hyperscale Data, Inc.
 BYU	BAIYU Holdings, Inc.
 ASAN	Asana, Inc.
 TSCO	Tractor Supply Company
 BCH	Banco de Chile
+TD.TO	The Toronto-Dominion Bank
 FA	First Advantage Corporation
 GUTS	Fractyl Health, Inc. Common Stock
 MAC	The Macerich Company
 NNXPF	NanoXplore Inc.
 FNNTF	flatexDEGIRO AG
+SPX.L	Spirax-Sarco Engineering plc
+BB.PA	Société BIC S.A.
 TYGO	Tigo Energy, Inc.
 BCDA	BioCardia, Inc.
 MAGN	Magnera Corp.
+BLND.L	British Land Company Plc
 INTC	Intel Corporation
+0OHK.L	Stolt-Nielsen Limited
 RMBL	RumbleON, Inc.
 BEPC	Brookfield Renewable Corporation
 SPRU	Spruce Power Holding Corporation
@@ -2594,6 +3254,7 @@ ONB	Old National Bancorp
 SFUNY	Fang Holdings Limited
 CAE	CAE Inc.
 LXP	LXP Industrial Trust
+S32.AX	South32 Limited
 CARR	Carrier Global Corporation
 CWBR	CohBar, Inc.
 SWI	SolarWinds Corporation
@@ -2610,10 +3271,12 @@ INSW	International Seaways, Inc.
 OCUL	Ocular Therapeutix, Inc.
 BLWYF	Bellway p.l.c.
 NEXCF	NexTech AR Solutions Corp.
+0371.HK	Beijing Enterprises Water Group Limited
 GBT	Global Blood Therapeutics, Inc.
 TYG	Tortoise Energy Infrastructure Corporation
 NGVC	Natural Grocers by Vitamin Cottage, Inc.
 OR	OR Royalties Inc.
+XLY.TO	Auxly Cannabis Group Inc.
 GMINF	G Mining Ventures Corp.
 ALHC	Alignment Healthcare, Inc.
 STG	Sunlands Technology Group
@@ -2628,8 +3291,10 @@ MBWM	Mercantile Bank Corporation
 NPKI	NPK International Inc.
 BOH	Bank of Hawaii Corporation
 HRTFF	Silver Lake Ontario Inc.
+COFB.BR	Cofinimmo S.A.
 RITM	Rithm Capital Corp.
 NYT	The New York Times Company
+GDI.TO	GDI Integrated Facility Services Inc.
 OPTN	OptiNose, Inc.
 RKT	Rocket Companies, Inc.
 SCHN	Schnitzer Steel Industries, Inc.
@@ -2646,9 +3311,13 @@ UGEIF	UGE International Ltd.
 CICHY	China Construction Bank Corporation
 BIRD	Allbirds, Inc.
 MLCO	Melco Resorts & Entertainment Limited
+OSR.DE	OSRAM Licht AG
+UTDI.DE	United Internet AG
 CNGGF	Cann Group Limited
 PRI	Primerica, Inc.
+BTB-UN.TO	BTB Real Estate Investment Trust
 QGEN	Qiagen N.V.
+IMG.TO	IAMGOLD Corporation
 NURO	NeuroMetrix, Inc.
 BAX	Baxter International Inc.
 TBBK	The Bancorp, Inc.
@@ -2663,12 +3332,15 @@ SXT	Sensient Technologies Corporation
 KIO	KKR Income Opportunities Fund
 MKC	McCormick & Company, Incorporated
 SGH	SMART Global Holdings, Inc.
+SU.PA	Schneider Electric S.E.
 ZH	Zhihu Inc.
 SON	Sonoco Products Company
 BECN	Beacon Roofing Supply, Inc.
+LAS-A.TO	Lassonde Industries Inc.
 CTEV	Claritev Corporation
 KHTRF	Knight Therapeutics Inc.
 BRBR	BellRing Brands, Inc.
+MBX.TO	Microbix Biosystems Inc.
 GBX	The Greenbrier Companies, Inc.
 CPRI	Capri Holdings Limited
 NVDA	NVIDIA Corporation
@@ -2684,12 +3356,15 @@ CNTG	Centogene N.V.
 NOTE	FiscalNote Holdings, Inc.
 DFS	Discover Financial Services
 AAALF	Aareal Bank AG
+SBSP3.SA	Companhia de Saneamento Básico do Estado de São Paulo - SABESP
 RTLR	Rattler Midstream LP
 CADE	Cadence Bank
 MIMO	Airspan Networks Holdings Inc.
 CFRHF	Compagnie Financière Richemont S.A.
+DIE.BR	D'Ieteren Group S.A.
 BLUE	bluebird bio, Inc.
 U	Unity Software Inc.
+MRU.TO	Metro Inc.
 KLAC	KLA Corporation
 FANG	Diamondback Energy, Inc.
 SNES	SenesTech, Inc.
@@ -2698,6 +3373,7 @@ ALTR	Altair Engineering Inc.
 VSH	Vishay Intertechnology, Inc.
 VYX	NCR Voyix Corporation
 PTC	PTC Inc.
+JRV.AX	Jervois Global Limited
 OSW	OneSpaWorld Holdings Limited
 HESM	Hess Midstream LP
 BXC	BlueLinx Holdings Inc.
@@ -2709,12 +3385,14 @@ INTR	Inter & Co, Inc.
 BMI	Badger Meter, Inc.
 CAPMF	Capgemini SE
 DTCB	Solo Brands, Inc.
+BMN.L	Bushveld Minerals Limited
 AEG	Aegon Ltd.
 CGA	China Green Agriculture, Inc.
 PEV	Phoenix Motor Inc.
 SBSAA	Spanish Broadcasting System, Inc.
 CIHKY	China Merchants Bank Co., Ltd.
 LNZA	LanzaTech Global, Inc.
+CWB.TO	Canadian Western Bank
 KIGRY	KION Group AG
 CC	The Chemours Company
 CHWY	Chewy, Inc.
@@ -2722,6 +3400,7 @@ CCSI	Consensus Cloud Solutions, Inc.
 DYNT	Dynatronics Corporation
 MINM	Minim, Inc.
 HITI	High Tide Inc.
+ERA.PA	Eramet S.a.
 DAWN	Day One Biopharmaceuticals, Inc.
 CSGS	CSG Systems International, Inc.
 AUOTY	AUO Corporation
@@ -2745,6 +3424,7 @@ DMTKQ	DermTech, Inc.
 DV	DoubleVerify Holdings, Inc.
 EEX	Emerald Holding, Inc.
 EL	The Estée Lauder Companies Inc.
+AD.AS	Koninklijke Ahold Delhaize N.V.
 SVNLF	Svenska Handelsbanken AB (publ)
 COWN	Cowen Inc.
 ENOV	Enovis Corporation
@@ -2755,19 +3435,25 @@ NXPGF	Mobico Group Plc
 FFIC	Flushing Financial Corporation
 FIS	Fidelity National Information Services, Inc.
 PLX	Protalix BioTherapeutics, Inc.
+WEIR.L	The Weir Group PLC
 CATY	Cathay General Bancorp
 PFLT	PennantPark Floating Rate Capital Ltd.
 BRKL	Brookline Bancorp, Inc.
 FNB	F.N.B. Corporation
+APAM.AS	Aperam S.A.
 GVA	Granite Construction Incorporated
 CWBHF	Charlotte's Web Holdings, Inc.
 NTES	NetEase, Inc.
+VPK.AS	Koninklijke Vopak N.V.
+CEPU.BA	Central Puerto S.A.
 GPRE	Green Plains Inc.
 BDX	Becton, Dickinson and Company
 RGR	Sturm, Ruger & Company, Inc.
 SHWZ	Medicine Man Technologies, Inc.
 FPAFY	First Pacific Company Limited
 INVZ	Innoviz Technologies Ltd.
+PETR4.SA	Petróleo Brasileiro S.A. - Petrobras
+RIV.CN	RIV Capital Inc.
 DRNA	Dicerna Pharmaceuticals, Inc.
 SWAV	ShockWave Medical, Inc.
 PFIE	Profire Energy, Inc.
@@ -2788,6 +3474,8 @@ GV	Visionary Holdings Inc.
 BPOSF	bpost NV/SA
 HLF	Herbalife Nutrition Ltd.
 FSS	Federal Signal Corporation
+ENELCHILE.SN	Enel Chile S.A.
+AMP.MI	Amplifon S.p.A.
 ASHTF	Ashtead Group plc
 BDR	Blonder Tongue Laboratories, Inc.
 GIGM	GigaMedia Limited
@@ -2797,18 +3485,25 @@ INVX	Innovex Downhole Solutions Inc
 ATEX	Anterix Inc.
 IPI	Intrepid Potash, Inc.
 CVAC	CureVac N.V.
+MTX.DE	MTU Aero Engines AG
+7201.T	Nissan Motor Co., Ltd.
 SYRS	Syros Pharmaceuticals, Inc.
 MLFNF	Maple Leaf Foods Inc.
 LBRDK	Liberty Broadband Corporation
 FLL	Full House Resorts, Inc.
 IT	Gartner, Inc.
 SHLLF	Shelf Drilling, Ltd.
+NOS.LS	Nos, S.g.p.s., S.a.
+RAA.DE	Rational AG
 ICON	Icon Energy Corp.
 CNA	CNA Financial Corporation
+TOT.TO	Total Energy Services Inc.
 H	Hyatt Hotels Corporation
 KW	Kennedy-Wilson Holdings, Inc.
+PINK.V	Perimeter Medical Imaging AI, Inc.
 NVX	Novonix Limited
 CXBMF	Calibre Mining Corp.
+REC.MI	Recordati Industria Chimica e Farmaceutica S.p.A.
 ALIZF	Allianz SE
 IBTX	Independent Bank Group, Inc.
 TOLWF	Trican Well Service Ltd.
@@ -2816,11 +3511,16 @@ ULH	Universal Logistics Holdings, Inc.
 SNCR	Synchronoss Technologies, Inc.
 OMIC	Singular Genomics Systems, Inc.
 KFY	Korn Ferry
+SXP.TO	Supremex Inc.
+OR.PA	L'Oréal S.A.
 ABBV	AbbVie Inc.
+TIT.MI	Telecom Italia S.p.A.
+4091.T	Nippon Sanso Holdings Corporation
 AEO	American Eagle Outfitters, Inc.
 PRCH	Porch Group, Inc.
 PLAB	Photronics, Inc.
 SPRO	Spero Therapeutics, Inc.
+LABS.TO	MediPharm Labs Corp.
 TLIS	Talis Biomedical Corporation
 AKBA	Akebia Therapeutics, Inc.
 SKYT	SkyWater Technology, Inc.
@@ -2855,6 +3555,7 @@ WNDLF	Wendel
 LRCX	Lam Research Corporation
 BGCP	BGC Partners, Inc.
 GTLS	Chart Industries, Inc.
+CTC-A.TO	Canadian Tire Corporation, Limited
 AB	AllianceBernstein Holding L.P.
 RGCO	RGC Resources, Inc.
 BBGI	Beasley Broadcast Group, Inc.
@@ -2870,8 +3571,10 @@ LYSCF	Lynas Rare Earths Limited
 FFBC	First Financial Bancorp.
 PINC	Premier, Inc.
 AKAM	Akamai Technologies, Inc.
+TMV.DE	TeamViewer AG
 ACB	Aurora Cannabis Inc.
 ASML	ASML Holding N.V.
+AKSO.OL	Aker Solutions ASA
 BTU	Peabody Energy Corporation
 MBLY	Mobileye Global Inc.
 HTHIY	Hitachi, Ltd.
@@ -2886,15 +3589,18 @@ ZYME	Zymeworks Inc.
 ODP	The ODP Corporation
 PSFE	Paysafe Limited
 VBVBF	VERBIO Vereinigte BioEnergie AG
+ARCAD.AS	Arcadis N.V.
 BFRA	Biofrontera AG
 ROOT	Root, Inc.
 MX	Magnachip Semiconductor Corporation
 SAGE	Sage Therapeutics, Inc.
+CGX.TO	Cineplex Inc.
 EFXT	Enerflex Ltd.
 NDRA	ENDRA Life Sciences Inc.
 BE	Bloom Energy Corporation
 BANR	Banner Corporation
 CTLP	Cantaloupe, Inc.
+DOO.TO	BRP Inc.
 AUVI	Applied UV, Inc.
 HPP	Hudson Pacific Properties, Inc.
 AMSSY	ams-OSRAM AG
@@ -2910,12 +3616,16 @@ WWE	World Wrestling Entertainment, Inc.
 VNCE	Vince Holding Corp.
 D	Dominion Energy, Inc.
 AFYA	Afya Limited
+LAND.SW	Landis+Gyr Group AG
 APPS	Digital Turbine, Inc.
 FANH	Fanhua Inc.
 EXPGF	Experian plc
+BYD.TO	Boyd Group Services Inc.
 BELFB	Bel Fuse Inc.
 CASH	Pathward Financial, Inc.
+CHILE.SN	Banco de Chile
 PYCR	Paycor HCM, Inc.
+REI-UN.TO	RioCan Real Estate Investment Trust
 CECO	CECO Environmental Corp.
 HMCBF	Home Capital Group Inc.
 NHNCF	NAVER Corporation
@@ -2932,33 +3642,44 @@ DUO	Fangdd Network Group Ltd.
 PIRS	Pieris Pharmaceuticals, Inc.
 VERI	Veritone, Inc.
 FIVE	Five Below, Inc.
+EFX.TO	Enerflex Ltd.
+SJ.TO	Stella-Jones Inc.
 ENLAY	Enel S.p.A.
 RDFN	Redfin Corporation
 FRBA	First Bank
 QIWI	QIWI plc
 EXPE	Expedia Group, Inc.
 IAFNF	iA Financial Corporation Inc.
+MF.PA	Wendel
 ACRS	Aclaris Therapeutics, Inc.
+GFL.TO	GFL Environmental Inc.
 SUM	Summit Materials, Inc.
 QRHC	Quest Resource Holding Corporation
 ARDX	Ardelyx, Inc.
 FEIM	Frequency Electronics, Inc.
+IBAB.BR	Ion Beam Applications S.A.
 FLXS	Flexsteel Industries, Inc.
 HGV	Hilton Grand Vacations Inc.
 KARO	Karooooo Ltd.
 BLDR	Builders FirstSource, Inc.
 KPTSF	KP Tissue Inc.
 KXSCF	Kinaxis Inc.
+TUI1.DE	Tui AG
 MHGVY	Mowi ASA
 GCMG	Grosvenor Capital Management, L.P.
 CEMI	Chembio Diagnostics, Inc.
 GNTX	Gentex Corporation
 MGI	MoneyGram International, Inc.
 HBCP	Home Bancorp, Inc.
+6594.T	Nidec Corporation
 QURE	uniQure N.V.
 PLNHF	Planet 13 Holdings Inc.
+NEX.PA	Nexans S.A.
 PRPO	Precipio, Inc.
+HDFCBANK.NS	HDFC Bank Limited
 APPN	Appian Corporation
+LB.TO	Laurentian Bank of Canada
+UCG.MI	UniCredit S.p.A.
 PLNH	Planet 13 Holdings Inc.
 ETRGF	Entourage Health Corp.
 LADR	Ladder Capital Corp
@@ -2973,6 +3694,7 @@ ROKU	Roku, Inc.
 CTRN	Citi Trends, Inc.
 TPRFF	Aris Mining Corporation
 EDR	Endeavor Group Holdings, Inc.
+FSZ.TO	Fiera Capital Corporation
 CHYHY	Chr. Hansen Holding A/S
 YLWDF	Yellow Pages Limited
 LOVE	The Lovesac Company
@@ -2980,8 +3702,11 @@ LQDT	Liquidity Services, Inc.
 WSTL	Westell Technologies, Inc.
 CE	Celanese Corporation
 TBCRF	Timbercreek Financial Corp.
+DSM.AS	Koninklijke DSM N.V.
 LWAY	Lifeway Foods, Inc.
+MDF.TO	Mdf Commerce Inc.
 GRNWF	Greenlane Renewables Inc.
+TOBII.ST	Tobii AB (publ)
 MBUU	Malibu Boats, Inc.
 MEDP	Medpace Holdings, Inc.
 MQ	Marqeta, Inc.
@@ -2994,13 +3719,17 @@ DLPN	Dolphin Entertainment, Inc.
 ICCC	ImmuCell Corporation
 EVVTY	Evolution AB (publ)
 PACK	Ranpak Holdings Corp.
+PROX.BR	Proximus PLC
+TCW.TO	Trican Well Service Ltd.
 AVD	American Vanguard Corporation
+PNE.TO	Pine Cliff Energy Ltd.
 QNST	QuinStreet, Inc.
 SFM	Sprouts Farmers Market, Inc.
 NAPA	The Duckhorn Portfolio, Inc.
 RAVE	RAVE Restaurant Group, Inc.
 ZIM	ZIM Integrated Shipping Services Ltd.
 VALE	Vale S.A.
+7267.T	Honda Motor Co., Ltd.
 RDSMY	Koninklijke DSM N.V.
 STRL	Sterling Infrastructure, Inc.
 SRTS	Sensus Healthcare, Inc.
@@ -3010,20 +3739,27 @@ TRIRF	Triterras, Inc.
 ESVIF	Ensign Energy Services Inc.
 SISXF	Savaria Corporation
 HOPE	Hope Bancorp, Inc.
+YAL.AX	Yancoal Australia Ltd
 FITB	Fifth Third Bancorp
 UPST	Upstart Holdings, Inc.
+RCG.TO	RF Capital Group Inc.
 ADYEY	Adyen N.V.
+SGL.DE	SGL Carbon SE
 AVIR	Atea Pharmaceuticals, Inc.
+0013.HK	HUTCHMED (China) Limited
 HCSG	Healthcare Services Group, Inc.
 FLOW	Global X U.S. Cash Flow Kings 100 ETF
 CWT	California Water Service Group
 SGBAF	Ses S.a.
 NPNYY	Nippon Yusen Kabushiki Kaisha
+NWG.L	NatWest Group plc
 MRMD	MariMed Inc.
+CEZ.PR	CEZ, a. s.
 MPC	Marathon Petroleum Corporation
 FHSEY	First High-School Education Group Co., Ltd.
 VTRU	Vitru Limited
 PRTS	CarParts.com, Inc.
+055550.KS	Shinhan Financial Group Co., Ltd.
 LTCH	Latch, Inc.
 SNFCA	Security National Financial Corporation
 KSS	Kohl's Corporation
@@ -3048,11 +3784,18 @@ CQP	Cheniere Energy Partners, L.P.
 AVGR	Avinger, Inc.
 WEIGF	The Weir Group PLC
 HR	Healthcare Realty Trust Incorporated
+CS.PA	Axa S.A.
 ODC	Oil-Dri Corporation of America
+INFY.NS	Infosys Limited
 ARWR	Arrowhead Pharmaceuticals, Inc.
+MOLN.SW	Molecular Partners AG
 PNC	The PNC Financial Services Group, Inc.
+0656.HK	Fosun International Limited
 UNVR	Univar Solutions Inc.
 CELH	Celsius Holdings, Inc.
+MBG.DE	Mercedes-Benz Group AG
+GSY.TO	goeasy Ltd.
+CRT-UN.TO	CT Real Estate Investment Trust
 AMN	AMN Healthcare Services, Inc.
 WKSP	Worksport Ltd.
 MUFG	Mitsubishi UFJ Financial Group, Inc.
@@ -3062,6 +3805,7 @@ VBTX	Veritex Holdings, Inc.
 MPSYF	MorphoSys AG
 MRSN	Mersana Therapeutics, Inc.
 ANZGY	ANZ Group Holdings Limited
+0883.HK	CNOOC Limited
 URGN	UroGen Pharma Ltd.
 ALNY	Alnylam Pharmaceuticals, Inc.
 MGRUF	Morguard Real Estate Investment Trust
@@ -3082,6 +3826,7 @@ HOFV	Hall of Fame Resort & Entertainment Company
 AMWL	American Well Corporation
 RVMD	Revolution Medicines, Inc.
 RYHTY	Ryman Healthcare Limited
+BA.L	BAE Systems plc
 TSVT	2seventy bio, Inc.
 ACRX	AcelRx Pharmaceuticals, Inc.
 SYK	Stryker Corporation
@@ -3089,26 +3834,36 @@ XENE	Xenon Pharmaceuticals Inc.
 DIISF	Direct Line Insurance Group plc
 CMCT	Creative Media & Community Trust Corporation
 BOKF	BOK Financial Corporation
+HLE.DE	HELLA GmbH & Co. KGaA
+BNS.TO	The Bank of Nova Scotia
 BEKE	KE Holdings Inc.
 CASY	Casey's General Stores, Inc.
 PNNT	PennantPark Investment Corporation
+8473.T	SBI Holdings, Inc.
+GKP.L	Gulf Keystone Petroleum Limited
 ASYS	Amtech Systems, Inc.
 CNF	CNFinance Holdings Limited
+BAVA.CO	Bavarian Nordic A/S
 HXGCF	Hexagon Composites ASA
+SAN.MC	Banco Santander, S.A.
 CHTR	Charter Communications, Inc.
 CNOB	ConnectOne Bancorp, Inc.
 VRRM	Verra Mobility Corporation
 CRUS	Cirrus Logic, Inc.
+ZIL2.DE	ElringKlinger AG
 DIOD	Diodes Incorporated
 EVO	Evotec SE
 ADXS	Advaxis, Inc.
 EXAS	Exact Sciences Corporation
 EXTR	Extreme Networks, Inc.
 STAB	Statera Biopharma, Inc.
+MTL.TO	Mullen Group Ltd.
 SUMXF	Supremex Inc.
 APD	Air Products and Chemicals, Inc.
+A2A.MI	A2A S.p.A.
 BPYPO	Brookfield Property Partners L.P.
 TELDF	Telefónica Deutschland Holding AG
+AVCN.TO	Avicanna Inc.
 CAAS	China Automotive Systems, Inc.
 EXPI	eXp World Holdings, Inc.
 FSV	FirstService Corporation
@@ -3129,6 +3884,7 @@ AHCO	AdaptHealth Corp.
 BLND	Blend Labs, Inc.
 IAS	Integral Ad Science Holding Corp.
 ESGR	Enstar Group Limited
+SUZB3.SA	Suzano S.A.
 CRI	Carter's, Inc.
 IPAR	Inter Parfums, Inc.
 SZCRF	SCOR Se
@@ -3144,11 +3900,13 @@ EWCZ	European Wax Center, Inc.
 BWAY	BrainsWay Ltd.
 ELV	Elevance Health Inc.
 MLYS	Mineralys Therapeutics, Inc.
+WCH.DE	Wacker Chemie AG
 CPTN	Cepton, Inc.
 ISPO	Inspirato Incorporated
 PSTV	Plus Therapeutics, Inc.
 ARB	AltShares Merger Arbitrage ETF
 MKSI	MKS Inc.
+ACX.MC	Acerinox, S.A.
 MKTX	MarketAxess Holdings Inc.
 SVNDY	Seven & i Holdings Co., Ltd.
 PACW	PacWest Bancorp
@@ -3157,17 +3915,25 @@ EW	Edwards Lifesciences Corporation
 SAFE	Safehold Inc.
 IDRSF	Idorsia Ltd
 AXSM	Axsome Therapeutics, Inc.
+VRN.TO	Veren Inc.
+FM.TO	First Quantum Minerals Ltd.
 CTAS	Cintas Corporation
+3436.T	Sumco Corporation
 AEYGQ	ADDvantage Technologies Group, Inc.
 MITSF	Mitsui & Co., Ltd.
+TC.TO	Tucows Inc.
+ORK.OL	Orkla ASA
 SUMCF	Sumco Corporation
+AOI.ST	Africa Oil Corp.
 ALGM	Allegro MicroSystems, Inc.
 RES	RPC, Inc.
 ALBKY	Alpha Services and Holdings S.A.
+CVE.TO	Cenovus Energy Inc.
 RKUNY	Rakuten Group, Inc.
 PXLW	Pixelworks, Inc.
 IKTSF	Intertek Group plc
 RDUS	Radius Recycling, Inc.
+ADEN.TO	ADENTRA Inc.
 HHS	Harte Hanks, Inc.
 BDRL	Blonder Tongue Laboratories, Inc.
 AIU	Meta Data Limited
@@ -3176,6 +3942,7 @@ SPMYY	Spirent Communications plc
 MGY	Magnolia Oil & Gas Corporation
 SHCR	Sharecare, Inc.
 USM	United States Cellular Corporation
+APS.TO	Aptose Biosciences Inc.
 VGR	Vector Group Ltd.
 AGM	Federal Agricultural Mortgage Corporation
 NXRT	NexPoint Residential Trust, Inc.
@@ -3184,6 +3951,7 @@ SPMC	Sound Point Meridian Capital Inc
 KBNT	Kubient, Inc.
 BLBD	Blue Bird Corporation
 BMRC	Bank of Marin Bancorp
+4689.T	LY Corporation
 BSY	Bentley Systems, Incorporated
 ILMN	Illumina, Inc.
 CCOI	Cogent Communications Holdings, Inc.
@@ -3193,18 +3961,28 @@ YQ	17 Education & Technology Group Inc.
 REED	Reed's, Inc.
 MCD	McDonald's Corporation
 CDNS	Cadence Design Systems, Inc.
+RET-A.V	Reitmans (Canada) Limited
+MER.TO	Meren Energy Inc.
 OBDC	Blue Owl Capital Corporation
+COL.AX	Coles Group Limited
 TS	Tenaris S.A.
 GMVHF	Entain Plc
+GLPG.AS	Galapagos N.V.
 AGAE	Allied Gaming & Entertainment Inc.
+BVIC.L	Britvic plc
 LSPD	Lightspeed Commerce Inc.
+PRN.TO	Profound Medical Corp.
 NRC	National Research Corporation
+PKK.CN	Tenet Fintech Group Inc.
 SSUNF	SIGNA Sports United N.V.
 STKS	The ONE Group Hospitality, Inc.
 OPNT	Opiant Pharmaceuticals, Inc.
 CNGO	Cengage Learning Holdings II, Inc.
 PPC	Pilgrim's Pride Corporation
+ASTL.TO	Algoma Steel Group Inc.
 MDGEF	Medigene AG
+IMCC.CN	IM Cannabis Corp.
+PD.TO	Precision Drilling Corporation
 TIGO	Millicom International Cellular S.A.
 ADXN	Addex Therapeutics Ltd
 POAI	Predictive Oncology Inc.
@@ -3215,24 +3993,33 @@ CMTL	Comtech Telecommunications Corp.
 CEIX	CONSOL Energy Inc.
 SIRI	Sirius XM Holdings Inc.
 TVTX	Travere Therapeutics, Inc.
+ELET3.SA	Centrais Elétricas Brasileiras S.A. - Eletrobrás
+TBRD.V	Thunderbird Entertainment Group Inc.
+VISTAA.MX	Vista Energy, S.A.B. de C.V.
 PERF	Perfect Corp.
+RACE.MI	Ferrari N.V.
 MAN	ManpowerGroup Inc.
+YPFD.BA	YPF Sociedad Anónima
 WY	Weyerhaeuser Company
 GASS	StealthGas Inc.
 DTRUY	Daimler Truck Holding AG
 VODAF	Vodacom Group Limited
 ALE	ALLETE, Inc.
 LVLU	Lulu's Fashion Lounge Holdings, Inc.
+ALYA.TO	Alithya Group Inc.
 PRSO	Peraso Inc.
+ORBIA.MX	Orbia Advance Corporation, S.A.B. de C.V.
 FBK	FB Financial Corporation
 BRKR	Bruker Corporation
 BWEN	Broadwind, Inc.
 SDCCQ	SmileDirectClub, Inc.
 ZK	ZEEKR Intelligent Technology Holding Limited
 SNWV	SANUWAVE Health, Inc.
+BAYN.SW	Bayer AG
 CDTX	Cidara Therapeutics, Inc.
 OXM	Oxford Industries, Inc.
 DCFC	Tritium DCFC Limited
+QIPT.TO	Quipt Home Medical Corp.
 EDRY	EuroDry Ltd.
 GDEV	GDEV Inc.
 NTST	NETSTREIT Corp.
@@ -3240,7 +4027,9 @@ NIO	NIO Inc.
 IR	Ingersoll Rand Inc.
 ACM	Aecom
 DYAI	Dyadic International, Inc.
+CIA.AX	Champion Iron Limited
 OBK	Origin Bancorp, Inc.
+SPM.MI	Saipem S.p.A.
 SOHO	Sotherly Hotels Inc.
 CPRT	Copart, Inc.
 ACDC	ProFrac Holding Corp.
@@ -3251,15 +4040,18 @@ FELE	Franklin Electric Co., Inc.
 PT	Pintec Technology Holdings Limited
 CURB	Curbline Properties Corp.
 FRPH	FRP Holdings, Inc.
+BBY.L	Balfour Beatty plc
 SINT	Sintx Technologies, Inc.
 HCANF	Halo Collective Inc.
 GPLDF	Great Panther Mining Limited
 GRPN	Groupon, Inc.
+TEP.PA	Teleperformance SE
 EUTLF	Eutelsat Communications S.A.
 PRPH	ProPhase Labs, Inc.
 GYRE	Gyre Therapeutics, Inc.
 GFASY	Gafisa S.A.
 FSTX	F-star Therapeutics, Inc.
+0142.HK	First Pacific Company Limited
 CMPS	COMPASS Pathways plc
 BBVA	Banco Bilbao Vizcaya Argentaria, S.A.
 DBGI	Digital Brands Group, Inc.
@@ -3274,15 +4066,21 @@ PNW	Pinnacle West Capital Corporation
 KOS	Kosmos Energy Ltd.
 MPLN	MultiPlan Corporation
 JVA	Coffee Holding Co., Inc.
+BAS.DE	BASF Se
+NPN.JO	Naspers Limited
 LILA	Liberty Latin America Ltd.
+AGFB.BR	Agfa-Gevaert N.V.
 GNCGF	Greencore Group plc
 AMVMF	AMG Advanced Metallurgical Group N.V.
+BKT.MC	Bankinter, S.A.
 MESO	Mesoblast Limited
 CAPC	Capstone Companies, Inc.
 ACIW	ACI Worldwide, Inc.
 YTEN	Yield10 Bioscience, Inc.
 WZZAF	Wizz Air Holdings Plc
 HIVE	HIVE Blockchain Technologies Ltd.
+SBMO.AS	SBM Offshore N.V.
+BU.TO	Burcon NutraScience Corporation
 ATR	AptarGroup, Inc.
 ITOCF	ITOCHU Corporation
 KN	Knowles Corporation
@@ -3301,6 +4099,7 @@ WRLD	World Acceptance Corporation
 BKNG	Booking Holdings Inc.
 CWYUF	SmartCentres Real Estate Investment Trust
 ACXP	Acurx Pharmaceuticals, Inc.
+SEE.L	Seeing Machines Limited
 GEG	Great Elm Group, Inc.
 GLNG	Golar LNG Limited
 OLK	Olink Holding AB (publ)
@@ -3311,10 +4110,12 @@ BLTE	Belite Bio, Inc
 DOOO	BRP Inc.
 EQ	Equillium, Inc.
 CWCO	Consolidated Water Co. Ltd.
+SQM-B.SN	Sociedad Química y Minera de Chile S.A.
 CYRNQ	Cyren Ltd.
 ROAD	Construction Partners, Inc.
 EVGN	Evogene Ltd.
 TUIFF	Tui AG
+EQNR.OL	Equinor ASA
 ADC	Agree Realty Corporation
 ALKS	Alkermes plc
 TGSGY	Tgs Asa
@@ -3333,6 +4134,7 @@ OCX	OncoCyte Corporation
 ALFNF	Alfen N.V.
 AVT	Avnet, Inc.
 AMGDF	Aston Martin Lagonda Global Holdings plc
+CAE.TO	CAE Inc.
 ATOS	Atossa Therapeutics, Inc.
 CIDM	Cinedigm Corp.
 NJR	New Jersey Resources Corporation
@@ -3345,12 +4147,16 @@ CPS	Cooper-Standard Holdings Inc.
 TTAN	ServiceTitan, Inc.
 ADI	Analog Devices, Inc.
 NEE	NextEra Energy, Inc.
+1COV.DE	Covestro AG
+AKE.PA	Arkema S.A.
+TIGO-SDB.ST	Millicom International Cellular S.A.
 MIR	Mirion Technologies, Inc.
 CUK	Carnival Corporation & plc
 GMPXF	RF Capital Group Inc.
 DSRLF	DiaSorin S.p.A.
 DARE	Daré Bioscience, Inc.
 FATE	Fate Therapeutics, Inc.
+LGO.TO	Largo Inc.
 FEDU	Four Seasons Education (Cayman) Inc.
 NVO	Novo Nordisk A/S
 INGXF	Innergex Renewable Energy Inc.
@@ -3365,13 +4171,17 @@ GGR	Gogoro Inc.
 BWAGF	BAWAG Group AG
 CLMT	Calumet, Inc.
 FOLD	Amicus Therapeutics, Inc.
+BARN.SW	Barry Callebaut AG
+TECN.SW	Tecan Group AG
 OUST	Ouster, Inc.
 MET	MetLife, Inc.
 CORT	Corcept Therapeutics Incorporated
 BWA	BorgWarner Inc.
 TEAM	Atlassian Corporation
+HOT-UN.TO	American Hotel Income Properties REIT LP
 ITCI	Intra-Cellular Therapies, Inc.
 MFLTY	Missfresh Limited
+LISP.SW	Chocoladefabriken Lindt & Sprüngli AG
 DSKYF	Daiichi Sankyo Company, Limited
 SAUHF	Straumann Holding AG
 SNDR	Schneider National, Inc.
@@ -3387,6 +4197,9 @@ OGI	Organigram Global Inc.
 KMB	Kimberly-Clark Corporation
 TIO	Tingo Group, Inc.
 IAG	IAMGOLD Corporation
+LT.NS	Larsen & Toubro Limited
+EVK.DE	Evonik Industries AG
+JDEP.AS	JDE Peet's N.V.
 TMDI	Titan Medical Inc.
 ALRS	Alerus Financial Corporation
 CHE	Chemed Corporation
@@ -3407,6 +4220,7 @@ SHEL	Shell plc
 CKHUY	CK Hutchison Holdings Limited
 EQT	EQT Corporation
 CDXS	Codexis, Inc.
+DOC.V	CloudMD Software & Services Inc.
 LEG	Leggett & Platt, Incorporated
 LECO	Lincoln Electric Holdings, Inc.
 DLTH	Duluth Holdings Inc.
@@ -3436,6 +4250,7 @@ DNUT	Krispy Kreme, Inc.
 UCL	uCloudlink Group Inc.
 THGHY	THG Plc
 FROG	JFrog Ltd.
+GALP.LS	Galp Energia, SGPS, S.A.
 GDEN	Golden Entertainment, Inc.
 GTEC	Greenland Technologies Holding Corporation
 MELI	MercadoLibre, Inc.
@@ -3444,6 +4259,7 @@ FTK	Flotek Industries, Inc.
 BGAOF	Proximus PLC
 JAZZ	Jazz Pharmaceuticals plc
 JMPLF	Johnson Matthey Plc
+WIE.VI	Wienerberger AG
 ENZB	Enzo Biochem, Inc.
 MRNS	Marinus Pharmaceuticals, Inc.
 HBAN	Huntington Bancshares Incorporated
@@ -3453,23 +4269,28 @@ TATYF	Tate & Lyle plc
 TKLF	Yoshitsu Co., Ltd
 CRBG	Corebridge Financial, Inc.
 CREX	Creative Realities, Inc.
+0N08.L	Panoro Energy ASA
 TK	Teekay Corporation
 HWM	Howmet Aerospace Inc.
 EVOP	EVO Payments, Inc.
 ICUI	ICU Medical, Inc.
 PVAC	Penn Virginia Corporation
 JTKWY	Just Eat Takeaway.com N.V.
+BBTV.TO	BBTV Holdings Inc.
 BIOC	Biocept, Inc.
 AIBRF	AIB Group plc
 SC	Santander Consumer USA Holdings Inc.
+MDG1.DE	Medigene AG
 CGGYY	Viridien
 TRMLF	Tourmaline Oil Corp.
 ASX	ASE Technology Holding Co., Ltd.
+KWS.L	Keywords Studios plc
 NGG	National Grid plc
 ISO	IsoPlexis Corporation
 III	Information Services Group, Inc.
 GAXY	Galaxy Next Generation, Inc.
 TWKS	Thoughtworks Holding, Inc.
+ROMJ.V	Rubicon Organics Inc.
 UMPQ	Umpqua Holdings Corporation
 INST	Instructure Holdings, Inc.
 RYAAY	Ryanair Holdings plc
@@ -3479,16 +4300,20 @@ ATTO	Atento S.A.
 FLY	Fly Leasing Limited
 BAM	Brookfield Asset Management Ltd.
 CLI	Mack-Cali Realty Corporation
+DARK.L	Darktrace plc
 CATM	Cardtronics plc
 SGMS	Scientific Games Corporation
 INTA	Intapp, Inc.
 NDCVF	Nordic Semiconductor ASA
 VYLD	Inverse VIX Short-Term Futures ETNs due March 22 2045
 IOVA	Iovance Biotherapeutics, Inc.
+TIMS3.SA	Tim S.a.
 YHEKF	Yeahka Limited
+WBC.AX	Westpac Banking Corporation
 GNUS	Genius Brands International, Inc.
 LOGI	Logitech International S.A.
 YELP	Yelp Inc.
+VIRI.PA	Viridien
 MT	ArcelorMittal S.A.
 DPDW	Koil Energy Solutions, Inc.
 BWLLF	BW LPG Limited
@@ -3502,11 +4327,13 @@ LMAT	LeMaitre Vascular, Inc.
 UTZ	Utz Brands, Inc.
 MCHP	Microchip Technology Incorporated
 AAWW	Atlas Air Worldwide Holdings, Inc.
+8411.T	Mizuho Financial Group, Inc.
 MSLP	MusclePharm Corporation
 FVE	Five Star Senior Living Inc.
 ELP	Companhia Paranaense de Energia - COPEL
 MMMB	MamaMancini's Holdings, Inc.
 CRNX	Crinetics Pharmaceuticals, Inc.
+TKWY.AS	Just Eat Takeaway.com N.V.
 BTAI	BioXcel Therapeutics, Inc.
 ADUS	Addus HomeCare Corporation
 AMED	Amedisys, Inc.
@@ -3515,8 +4342,10 @@ ALTG	Alta Equipment Group Inc.
 CPCAY	Cathay Pacific Airways Limited
 ORGS	Orgenesis Inc.
 CODA	Coda Octopus Group, Inc.
+DR.TO	Medical Facilities Corporation
 SHOO	Steven Madden, Ltd.
 FHB	First Hawaiian, Inc.
+K.TO	Kinross Gold Corporation
 MOGU	MOGU Inc.
 AGYS	Agilysys, Inc.
 CI	The Cigna Group
@@ -3524,23 +4353,33 @@ ABSI	Absci Corporation
 IESVF	Invinity Energy Systems plc
 CATC	Cambridge Bancorp
 MXCHF	Orbia Advance Corporation, S.A.B. de C.V.
+KXS.TO	Kinaxis Inc.
 ERMAF	Eramet S.a.
 BOXL	Boxlight Corporation
 BKR	Baker Hughes Company
+WSP.TO	WSP Global Inc.
 MDIBF	Mediobanca Banca di Credito Finanziario S.p.A.
+TRN.MI	Terna - Rete Elettrica Nazionale Società per Azioni
 OILSF	Saturn Oil & Gas Inc.
 MNRO	Monro, Inc.
 ICFI	ICF International, Inc.
 FWRD	Forward Air Corporation
 COMM	CommScope Holding Company, Inc.
+0RPW.L	Janus Henderson Group plc
 AIRI	Air Industries Group
 BNDSF	Banco de Sabadell, S.A.
 UHS	Universal Health Services, Inc.
 RMAX	RE/MAX Holdings, Inc.
 HZNOF	Dexterra Group Inc.
+HNSA.ST	Hansa Biopharma AB (publ)
+SW.PA	Sodexo S.A.
+TMG.V	Thermal Energy International Inc.
+ITRK.L	Intertek Group plc
+NEO.TO	Neo Performance Materials Inc.
 CPG	Crescent Point Energy Corp.
 ON	ON Semiconductor Corporation
 NVFY	Nova LifeStyle, Inc.
+ROOT.TO	Roots Corporation
 PLUS	ePlus inc.
 MEIP	MEI Pharma, Inc.
 HLIT	Harmonic Inc.
@@ -3551,16 +4390,19 @@ AJG	Arthur J. Gallagher & Co.
 DNBBY	DNB Bank ASA
 WDFC	WD-40 Company
 SEVN	Seven Hills Realty Trust
+ENB.TO	Enbridge Inc.
 XTNT	Xtant Medical Holdings, Inc.
 IIVI	II-VI Incorporated
 NIXX	Nixxy, Inc.
 ALMFF	Altium Limited
 SMMT	Summit Therapeutics Inc.
 DGLY	Digital Ally, Inc.
+NOA.TO	North American Construction Group Ltd.
 OLLI	Ollie's Bargain Outlet Holdings, Inc.
 SESN	Sesen Bio, Inc.
 NTAP	NetApp, Inc.
 BEDU	Bright Scholar Education Holdings Limited
+MAERSK-B.CO	A.P. Møller - Mærsk A/S
 BMTX	BM Technologies, Inc.
 CGC	Canopy Growth Corporation
 EPAM	EPAM Systems, Inc.
@@ -3571,21 +4413,29 @@ ZD	Ziff Davis, Inc.
 MAPS	WM Technology, Inc.
 RYTM	Rhythm Pharmaceuticals, Inc.
 BFRI	Biofrontera Inc.
+BDI.TO	Black Diamond Group Limited
 MFCSF	Medical Facilities Corporation
 BWIN	The Baldwin Insurance Group, Inc.
+6857.T	Advantest Corporation
 ISEE	IVERIC bio, Inc.
+BN.PA	Danone S.A.
+GTG.AX	Genetic Technologies Limited
 CB	Chubb Limited
+TKO.TO	Taseko Mines Limited
 EXEL	Exelixis, Inc.
 PAGS	PagSeguro Digital Ltd.
+8766.T	Tokio Marine Holdings, Inc.
 BUD	Anheuser-Busch InBev SA/NV
 ADTN	ADTRAN Holdings, Inc.
 ABCAF	Athabasca Minerals Inc.
+CIA.TO	Champion Iron Limited
 ALGN	Align Technology, Inc.
 VINP	Vinci Partners Investments Ltd.
 IAALF	IBC Advanced Alloys Corp.
 WFCF	Where Food Comes From, Inc.
 PSO	Pearson plc
 OMCL	Omnicell, Inc.
+COV.V	Covalon Technologies Ltd.
 SBAC	SBA Communications Corporation
 EYE	National Vision Holdings, Inc.
 PBSFF	ProSiebenSat.1 Media SE
@@ -3595,15 +4445,18 @@ PRMW	Primo Water Corporation
 XOS	Xos, Inc.
 STN	Stantec Inc.
 PEGA	Pegasystems Inc.
+PAMP.BA	Pampa Energía S.A.
 FNV	Franco-Nevada Corporation
 ROG	Rogers Corporation
 PRAX	Praxis Precision Medicines, Inc.
 BANX	ArrowMark Financial Corp.
 SLE	Super League Enterprise, Inc.
+CJT.TO	Cargojet Inc.
 GNRC	Generac Holdings Inc.
 HTGM	HTG Molecular Diagnostics, Inc.
 CAJ	Canon Inc.
 SGRY	Surgery Partners, Inc.
+PCELL.ST	PowerCell Sweden AB (publ)
 MOLN	Molecular Partners AG
 AVA	Avista Corporation
 OPGN	OpGen, Inc.
@@ -3611,7 +4464,9 @@ NEON	Neonode Inc.
 PR	Permian Resources Corporation
 NERV	Minerva Neurosciences, Inc.
 NTIC	Northern Technologies International Corporation
+NG.L	National Grid plc
 DOCMF	Dr. Martens plc
+GGAL.BA	Grupo Financiero Galicia S.A.
 MRO	Marathon Oil Corporation
 BV	BrightView Holdings, Inc.
 NVEC	NVE Corporation
@@ -3620,24 +4475,36 @@ CHMI	Cherry Hill Mortgage Investment Corporation
 SAM	The Boston Beer Company, Inc.
 KEM	KraneShares Dynamic Emerging Markets Strategy ETF
 DERM	Journey Medical Corporation
+ALPHA.AT	Alpha Services and Holdings S.A.
+FTS.TO	Fortis Inc.
+AC.MX	Arca Continental, S.A.B. de C.V.
+HRX.TO	Héroux-Devtek Inc.
 FOR	Forestar Group Inc.
 ADEA	Adeia Inc.
+AP-UN.TO	Allied Properties Real Estate Investment Trust
 ORCL	Oracle Corporation
 UUUU	Energy Fuels Inc.
 NVEE	NV5 Global, Inc.
+5CV.DE	CureVac N.V.
 CEO	CNOOC Limited
+BLCO.TO	Bausch + Lomb Corporation
 TWST	Twist Bioscience Corporation
+KIMBERA.MX	Kimberly-Clark de México, S. A. B. de C. V.
 HLNE	Hamilton Lane Incorporated
 HGH	The Hartford Financial Services Group, Inc. DEB FIX/FLT 42
+9618.HK	JD.com, Inc.
 BASFY	BASF Se
 YAYO	EVmo, Inc.
 TRN	Trinity Industries, Inc.
+ASG.V	Aurora Spine Corporation
 OLED	Universal Display Corporation
 AMH	American Homes 4 Rent
+017670.KS	SK Telecom Co.,Ltd
 ARTW	Art's-Way Manufacturing Co., Inc.
 WMMVY	Wal-Mart de México, S.A.B. de C.V.
 RXT	Rackspace Technology, Inc.
 OPRX	OptimizeRx Corporation
+VBNK.TO	VersaBank
 PASG	Passage Bio, Inc.
 VNPKF	Verde AgriTech Ltd
 ACAZF	Acadian Timber Corp.
@@ -3647,6 +4514,7 @@ PRO	PROS Holdings, Inc.
 FHI	Federated Hermes, Inc.
 WHLR	Wheeler Real Estate Investment Trust, Inc.
 LNC	Lincoln National Corporation
+ARE.TO	Aecon Group Inc.
 SPRY	ARS Pharmaceuticals, Inc.
 PCTY	Paylocity Holding Corporation
 EE	Excelerate Energy, Inc.
@@ -3672,9 +4540,11 @@ QLYS	Qualys, Inc.
 RSLS	ReShape Lifesciences Inc.
 DTCBD	Solo Brands, Inc.
 MED	Medifast, Inc.
+NUF.AX	Nufarm Limited
 GATX	GATX Corporation
 FINMF	Leonardo S.p.A.
 BMY	Bristol-Myers Squibb Company
+BAMM.CN	Body and Mind Inc.
 AWRE	Aware, Inc.
 SVA	Sinovac Biotech Ltd.
 PCOR	Procore Technologies, Inc.
@@ -3682,11 +4552,14 @@ AMKR	Amkor Technology, Inc.
 VNOM	Viper Energy, Inc.
 RMBS	Rambus Inc.
 REG	Regency Centers Corporation
+CMMC.TO	Copper Mountain Mining Corporation
 ORC	Orchid Island Capital, Inc.
 HNSBF	Hansa Biopharma AB (publ)
+CAP.PA	Capgemini SE
 DFIN	Donnelley Financial Solutions, Inc.
 FCEL	FuelCell Energy, Inc.
 WIX	Wix.com Ltd.
+EN.PA	Bouygues S.A.
 SILK	Silk Road Medical, Inc
 TECH	Bio-Techne Corporation
 TTGT	TechTarget, Inc.
@@ -3704,6 +4577,7 @@ KEX	Kirby Corporation
 VLDR	Velodyne Lidar, Inc.
 FIHL	Fidelis Insurance Holdings Limited
 NDLS	Noodles & Company
+EUROB.AT	Eurobank Ergasias Services and Holdings S.A.
 SLS	SELLAS Life Sciences Group, Inc.
 MERC	Mercer International Inc.
 KBR	KBR, Inc.
@@ -3718,18 +4592,22 @@ AFL	Aflac Incorporated
 EQNR	Equinor ASA
 PDEX	Pro-Dex, Inc.
 SUBCY	Subsea 7 S.A.
+USA.TO	Americas Gold and Silver Corporation
 CHEF	The Chefs' Warehouse, Inc.
 REVG	REV Group, Inc.
 PPL	PPL Corporation
 IVZ	Invesco Ltd.
 TRAW	Traws Pharma, Inc.
+AIA.NZ	Auckland International Airport Limited
 WBD	Warner Bros. Discovery, Inc.
 JSDA	Jones Soda Co.
 TTWO	Take-Two Interactive Software, Inc.
+KEY.TO	Keyera Corp.
 URBN	Urban Outfitters, Inc.
 ARW	Arrow Electronics, Inc.
 CWST	Casella Waste Systems, Inc.
 MD	Pediatrix Medical Group, Inc.
+FTG.TO	Firan Technology Group Corporation
 XFLT	XAI Octagon Floating Rate & Alternative Income Term Trust
 MGM	MGM Resorts International
 ADPT	Adaptive Biotechnologies Corporation
@@ -3737,6 +4615,7 @@ SIDU	Sidus Space, Inc.
 ANET	Arista Networks, Inc.
 VRNA	Verona Pharma plc
 EGO	Eldorado Gold Corporation
+GEI.TO	Gibson Energy Inc.
 VLO	Valero Energy Corporation
 SNDL	SNDL Inc.
 RACE	Ferrari N.V.
@@ -3745,20 +4624,28 @@ DPMLF	Dundee Precious Metals Inc.
 ELMD	Electromed, Inc.
 MGPI	MGP Ingredients, Inc.
 SPGI	S&P Global Inc.
+6762.T	TDK Corporation
 VOLT	Volt Information Sciences, Inc.
 PRGO	Perrigo Company plc
 FRPT	Freshpet, Inc.
 NTPIF	Nam Tai Property Inc.
+TRYG.CO	Tryg A/S
 WEYS	Weyco Group, Inc.
 PFGC	Performance Food Group Company
 EVLO	Evelo Biosciences, Inc.
 ATRO	Astronics Corporation
 KR	The Kroger Co.
+MTSS.ME	Mobile TeleSystems Public Joint Stock Company
 SM	SM Energy Company
+FLY.V	FLYHT Aerospace Solutions Ltd.
 ASTVF	Austevoll Seafood ASA
 STC	Stewart Information Services Corporation
+PPL.TO	Pembina Pipeline Corporation
 HLN	Haleon plc
+SYA.AX	Sayona Mining Limited
 KNOP	KNOT Offshore Partners LP
+VLN.TO	Velan Inc.
+AF.PA	Air France-KLM S.A.
 SDA	SunCar Technology Group Inc.
 OVV	Ovintiv Inc.
 YMAB	Y-mAbs Therapeutics, Inc.
@@ -3766,14 +4653,20 @@ CLGN	CollPlant Biotechnologies Ltd.
 LASR	nLIGHT, Inc.
 NKRKF	Nokian Renkaat Oyj
 HTWSF	Helios Towers plc
+TTNM.TO	Titanium Transportation Group Inc.
 OIS	Oil States International, Inc.
+TATASTEEL.NS	Tata Steel Limited
+WTB.L	Whitbread plc
 SQM	Sociedad Química y Minera de Chile S.A.
 STNE	StoneCo Ltd.
+SPN.V	Snipp Interactive Inc.
 CJJD	China Jo-Jo Drugstores, Inc.
 PRVB	Provention Bio, Inc.
+TOU.TO	Tourmaline Oil Corp.
 CNI	Canadian National Railway Company
 EFOI	Energy Focus, Inc.
 HIW	Highwoods Properties, Inc.
+PNN.L	Pennon Group Plc
 MXL	MaxLinear, Inc.
 KINS	Kingstone Companies, Inc.
 SQNS	Sequans Communications S.A.
@@ -3781,7 +4674,9 @@ UTL	Unitil Corporation
 COOP	Mr. Cooper Group Inc.
 APG	APi Group Corporation
 HWC	Hancock Whitney Corporation
+LNZ.VI	Lenzing AG
 CVU	CPI Aerostructures, Inc.
+ELI.BR	Elia Group SA/NV
 VRE	Veris Residential, Inc.
 MRVL	Marvell Technology, Inc.
 PH	Parker-Hannifin Corporation
@@ -3789,6 +4684,7 @@ SCHW	The Charles Schwab Corporation
 JCTC	Jewett-Cameron Trading Company Ltd.
 BOMBF	Bombardier Inc.
 CSII	Cardiovascular Systems, Inc.
+ERF.PA	Eurofins Scientific SE
 HLMN	Hillman Solutions Corp.
 NIU	Niu Technologies
 AFIIQ	Armstrong Flooring, Inc.
@@ -3797,17 +4693,22 @@ VOYA	Voya Financial, Inc.
 LIVN	LivaNova PLC
 LILAK	Liberty Latin America Ltd.
 AES	The AES Corporation
+ADT1.L	Adriatic Metals PLC
 AGNC	AGNC Investment Corp.
+MPH.V	Medicure Inc.
 DMCOF	d'Amico International Shipping S.A.
+ADEN.SW	Adecco Group AG
 DXC	DXC Technology Company
 ARNC	Arconic Corporation
 GEHC	GE HealthCare Technologies Inc.
+CHP-UN.TO	Choice Properties Real Estate Investment Trust
 AGFS	AgroFresh Solutions, Inc.
 NTRS	Northern Trust Corporation
 CYAN	Cyanotech Corporation
 IOT	Samsara Inc.
 ZUMZ	Zumiez Inc.
 ITGR	Integer Holdings Corporation
+MTLRP.ME	Mechel PAO
 ALL	The Allstate Corporation
 FPI	Farmland Partners Inc.
 IMV	IMV Inc.
@@ -3816,14 +4717,17 @@ GRAL	GRAIL, Inc.
 Z	Zillow Group, Inc. Class C
 DESP	Despegar.com, Corp.
 CABO	Cable One, Inc.
+NOVO-B.CO	Novo Nordisk A/S
 DPBSF	Dampskibsselskabet Norden A/S
 BVRDF	Bureau Veritas S.A.
 MASS	908 Devices Inc.
+UMG.AS	Universal Music Group N.V.
 CVBF	CVB Financial Corp.
 SNT	Senstar Technologies Ltd.
 SYM	Symbotic Inc.
 SSNLF	Samsung Electronics Co., Ltd.
 LGIQ	Logiq, Inc.
+GRF.MC	Grifols, S.A.
 SWBI	Smith & Wesson Brands, Inc.
 OSBC	Old Second Bancorp, Inc.
 PHM	PulteGroup, Inc.
@@ -3831,18 +4735,23 @@ CRAI	CRA International, Inc.
 OTEX	Open Text Corporation
 ONON	On Holding AG
 LW	Lamb Weston Holdings, Inc.
+AXS.L	Accsys Technologies PLC
 AYASF	Aya Gold & Silver Inc.
 AMX	América Móvil, S.A.B. de C.V.
 GAME	GameSquare Holdings, Inc.
 USNZY	Usinas Siderúrgicas de Minas Gerais S.A.
+BRBY.L	Burberry Group plc
 EXPO	Exponent, Inc.
+BEI-UN.TO	Boardwalk Real Estate Investment Trust
 DHR	Danaher Corporation
 TEAD	Teads B.V.
 BSAC	Banco Santander-Chile
+ENI.MI	Eni S.p.A.
 MOH	Molina Healthcare, Inc.
 AME	AMETEK, Inc.
 RDVT	Red Violet, Inc.
 BKSY	BlackSky Technology Inc.
+POW.TO	Power Corporation of Canada
 PTN	Palatin Technologies, Inc.
 IPM	Intelligent Protection Management Corp.
 LOB	Live Oak Bancshares, Inc.
@@ -3869,12 +4778,16 @@ UEIC	Universal Electronics Inc.
 MDXG	MiMedx Group, Inc.
 ORLY	O'Reilly Automotive, Inc.
 SIGI	Selective Insurance Group, Inc.
+KER.PA	Kering S.A.
 THS	TreeHouse Foods, Inc.
 NUMIF	Numinus Wellness Inc.
 HMC	Honda Motor Co., Ltd.
+EDR.TO	Endeavour Silver Corp.
+AYR-A.CN	Ayr Wellness Inc.
 SVV	Savers Value Village, Inc.
 ANSLF	Ansell Limited
 XRX	Xerox Holdings Corporation
+CSNA3.SA	Companhia Siderúrgica Nacional
 BADFF	Badger Infrastructure Solutions Ltd.
 TCMD	Tactile Systems Technology, Inc.
 FWONA	Formula One Group
@@ -3892,9 +4805,11 @@ UNP	Union Pacific Corporation
 SBET	SharpLink Gaming Ltd.
 SKHCF	Sonic Healthcare Limited
 MA	Mastercard Incorporated
+GNC.L	Greencore Group plc
 UPBD	Upbound Group, Inc.
 DYN	Dyne Therapeutics, Inc.
 IPW	iPower Inc.
+2802.T	Ajinomoto Co., Inc.
 TREE	LendingTree, Inc.
 BEEM	Beam Global
 MHH	Mastech Digital, Inc.
@@ -3917,6 +4832,7 @@ ASM	Avino Silver & Gold Mines Ltd.
 BNTX	BioNTech SE
 GELYF	Geely Automobile Holdings Limited
 CLPS	CLPS Incorporation
+ELD.TO	Eldorado Gold Corporation
 MTSI	MACOM Technology Solutions Holdings, Inc.
 FR	First Industrial Realty Trust, Inc.
 WTCHF	WiseTech Global Limited
@@ -3927,23 +4843,34 @@ TAL	TAL Education Group
 ISRG	Intuitive Surgical, Inc.
 JAGX	Jaguar Health, Inc.
 CAG	Conagra Brands, Inc.
+4523.T	Eisai Co., Ltd.
 WHR	Whirlpool Corporation
 DVAX	Dynavax Technologies Corporation
 SEOJF	Stora Enso Oyj
+TF.TO	Timbercreek Financial Corp.
+LI.PA	Klépierre
+PEY.TO	Peyto Exploration & Development Corp.
 AMAT	Applied Materials, Inc.
 SID	Companhia Siderúrgica Nacional
+1810.HK	Xiaomi Corporation
+EXE.TO	Extendicare Inc.
+WEF.TO	Western Forest Products Inc.
 WFC	Wells Fargo & Company
+AAL.L	Anglo American plc
 SMSMY	Sims Limited
 PWR	Quanta Services, Inc.
 THLEF	Thales S.A.
 HFWA	Heritage Financial Corporation
 WTRG	Essential Utilities, Inc.
 CTIB	Yunhong CTI Ltd.
+XTC.TO	Exco Technologies Limited
+PSM.DE	ProSiebenSat.1 Media SE
 NHTC	Natural Health Trends Corp.
 TSM	Taiwan Semiconductor Manufacturing Company Limited
 SBUX	Starbucks Corporation
 LYV	Live Nation Entertainment, Inc.
 PBLA	Panbela Therapeutics, Inc.
+CP.TO	Canadian Pacific Railway Limited
 FSBC	Five Star Bancorp
 WCN	Waste Connections, Inc.
 IDXX	IDEXX Laboratories, Inc.
@@ -3954,12 +4881,16 @@ SGRP	SPAR Group, Inc.
 VMC	Vulcan Materials Company
 ATHM	Autohome Inc.
 LNW	Light & Wonder, Inc.
+6060.HK	ZhongAn Online P & C Insurance Co., Ltd.
 ASO	Academy Sports and Outdoors, Inc.
 IMUX	Immunic, Inc.
 ARCT	Arcturus Therapeutics Holdings Inc.
+DNB.OL	DNB Bank ASA
+N2IU.SI	Mapletree Pan Asia Commercial Trust
 GLT	Glatfelter Corporation
 ADAP	Adaptimmune Therapeutics plc
 NBTB	NBT Bancorp Inc.
+PRU.L	Prudential plc
 THRM	Gentherm Incorporated
 CGRN	Capstone Green Energy Corporation
 DOMO	Domo, Inc.
@@ -3968,12 +4899,14 @@ SPIR	Spire Global, Inc.
 ONTF	ON24, Inc.
 AMKAF	A.P. Møller - Mærsk A/S
 LITB	LightInTheBox Holding Co., Ltd.
+EDP.LS	EDP - Energias de Portugal, S.A.
 TXRH	Texas Roadhouse, Inc.
 OTGLF	CD Projekt S.A.
 DD	DuPont de Nemours, Inc.
 TOST	Toast, Inc.
 PINE	Alpine Income Property Trust, Inc.
 CERT	Certara, Inc.
+DOL.TO	Dollarama Inc.
 CNO	CNO Financial Group, Inc.
 FTRE	Fortrea Holdings Inc.
 ASUR	Asure Software, Inc.
@@ -4010,6 +4943,7 @@ VMEO	Vimeo, Inc.
 USDP	USD Partners LP
 HG	Hamilton Insurance Group, Ltd.
 CMPR	Cimpress plc
+BMO.TO	Bank of Montreal
 COO	The Cooper Companies, Inc.
 ARRY	Array Technologies, Inc.
 BWMX	Betterware de México, S.A.P.I. de C.V.
@@ -4017,6 +4951,8 @@ PUMP	ProPetro Holding Corp.
 TRZBF	Transat A.T. Inc.
 BBY	Best Buy Co., Inc.
 BTRS	BTRS Holdings Inc.
+XTRA.TO	Xtract One Technologies Inc.
+9988.HK	Alibaba Group Holding Limited
 TRST	TrustCo Bank Corp NY
 WMG	Warner Music Group Corp.
 NFYEF	NFI Group Inc.
@@ -4032,6 +4968,7 @@ AOMR	Angel Oak Mortgage, Inc.
 CVLT	Commvault Systems, Inc.
 ZION	Zions Bancorporation, National Association
 VCYT	Veracyte, Inc.
+9999.HK	NetEase, Inc.
 KMPH	KemPharm, Inc.
 WFRD	Weatherford International plc
 VECO	Veeco Instruments Inc.
@@ -4039,9 +4976,11 @@ AEP	American Electric Power Company, Inc.
 WLDN	Willdan Group, Inc.
 APP	AppLovin Corporation
 JAPAF	Japan Tobacco Inc.
+ATO.PA	Atos SE
 GLPEF	Galp Energia, SGPS, S.A.
 ACLLF	ATCO Ltd.
 KOD	Kodiak Sciences Inc.
+ACC.OL	Aker Carbon Capture ASA
 CATX	Perspective Therapeutics, Inc.
 RELX	RELX Plc
 MIGI	Mawson Infrastructure Group, Inc.
@@ -4053,12 +4992,15 @@ OTIS	Otis Worldwide Corporation
 HSTM	HealthStream, Inc.
 NTGR	NETGEAR, Inc.
 EVA	Enviva Inc.
+DPM.TO	Dundee Precious Metals Inc.
 ELTK	Eltek Ltd.
+BHC.TO	Bausch Health Companies Inc.
 AOIFF	Africa Oil Corp.
 WATT	Energous Corporation
 ABCL	AbCellera Biologics Inc.
 CMCL	Caledonia Mining Corporation Plc
 CSBR	Champions Oncology, Inc.
+2518.HK	Autohome Inc.
 MIDD	The Middleby Corporation
 EML	The Eastern Company
 LEAT	Leatt Corporation
@@ -4066,6 +5008,7 @@ KLIC	Kulicke and Soffa Industries, Inc.
 GDDY	GoDaddy Inc.
 EVCM	EverCommerce Inc.
 MHCUF	Flagship Communities Real Estate Investment Trust
+ITV.L	ITV plc
 SNA	Snap-on Incorporated
 KNCRF	Konecranes Plc
 APOG	Apogee Enterprises, Inc.
@@ -4081,7 +5024,9 @@ GRMN	Garmin Ltd.
 NGRRF	Nagarro SE
 LEVI	Levi Strauss & Co.
 ETWO	E2open Parent Holdings, Inc.
+DB1.DE	Deutsche Börse AG
 MASI	Masimo Corporation
+PHARM.AS	Pharming Group N.V.
 DAR	Darling Ingredients Inc.
 EYEN	Eyenovia, Inc.
 MDU	MDU Resources Group, Inc.
@@ -4113,6 +5058,7 @@ AMSF	AMERISAFE, Inc.
 ECOR	electroCore, Inc.
 NAGE	Niagen Bioscience Inc
 FLEX	Flex Ltd.
+RMV.L	Rightmove plc
 ARM	Arm Holdings plc American Depositary Shares
 NSIT	Insight Enterprises, Inc.
 TRAK	ReposiTrak, Inc.
@@ -4121,8 +5067,10 @@ LEDS	SemiLEDs Corporation
 MKGAF	MERCK Kommanditgesellschaft auf Aktien
 UGI	UGI Corporation
 EQH	Equitable Holdings, Inc.
+WJX.TO	Wajax Corporation
 LEA	Lear Corporation
 BERY	Berry Global Group, Inc.
+TSCO.L	Tesco PLC
 CTRE	CareTrust REIT, Inc.
 MCB	Metropolitan Bank Holding Corp.
 WDAY	Workday, Inc.
@@ -4149,18 +5097,24 @@ FIX	Comfort Systems USA, Inc.
 KRO	Kronos Worldwide, Inc.
 TOVX	Theriva Biologics, Inc.
 NWL	Newell Brands Inc.
+ABX.TO	Barrick Gold Corporation
 SEE	Sealed Air Corporation
 TAC	TransAlta Corporation
 IRM	Iron Mountain Incorporated
 VNT	Vontier Corporation
 CHDN	Churchill Downs Incorporated
+BAKKA.OL	P/F Bakkafrost
+MND.TO	Mandalay Resources Corporation
 GLCNF	Glencore plc
 DBVT	DBV Technologies S.A.
+ATZ.TO	Aritzia Inc.
 CPK	Chesapeake Utilities Corporation
 EVRG	Evergy, Inc.
 HSDT	Helius Medical Technologies, Inc.
+HLF.TO	High Liner Foods Incorporated
 UAA	Under Armour, Inc.
 DRI	Darden Restaurants, Inc.
+ONEX.TO	Onex Corporation
 CZMWF	Carl Zeiss Meditec AG
 DRS	Leonardo DRS, Inc.
 SPT	Sprout Social, Inc.
@@ -4190,15 +5144,20 @@ SPXCF	Singapore Exchange Limited
 COHU	Cohu, Inc.
 GEO	The GEO Group, Inc.
 DBI	Designer Brands Inc.
+EIF.TO	Exchange Income Corporation
+NA.TO	National Bank of Canada
 EPRT	Essential Properties Realty Trust, Inc.
 MANH	Manhattan Associates, Inc.
 TAP	Molson Coors Beverage Company
+0ABX.L	Barrick Gold Corporation
 SHO	Sunstone Hotel Investors, Inc.
 ABEO	Abeona Therapeutics Inc.
 ITI	Iteris, Inc.
 AROC	Archrock, Inc.
 NXT	Nextracker Inc.
 ONCY	Oncolytics Biotech Inc.
+RSW.L	Renishaw plc
+DIC.DE	DIC Asset AG
 LFC	China Life Insurance Company Limited
 SBSI	Southside Bancshares, Inc.
 NICE	NICE Ltd.
@@ -4206,6 +5165,7 @@ CNXC	Concentrix Corporation
 PHG	Koninklijke Philips N.V.
 VTYX	Ventyx Biosciences, Inc.
 NISN	Nisun International Enterprise Development Group Co., Ltd
+ASC.L	ASOS Plc
 NTLA	Intellia Therapeutics, Inc.
 NMFC	New Mountain Finance Corporation
 PRIM	Primoris Services Corporation
@@ -4215,6 +5175,7 @@ SSYS	Stratasys Ltd.
 SEI	Solaris Energy Infrastructure, Inc.
 GALT	Galectin Therapeutics Inc.
 AOUT	American Outdoor Brands, Inc.
+PTEC.L	Playtech plc
 GPC	Genuine Parts Company
 NXPI	NXP Semiconductors N.V.
 LWSCF	Sienna Senior Living Inc.
@@ -4231,6 +5192,7 @@ RNG	RingCentral, Inc.
 BBAR	Banco BBVA Argentina S.A.
 HNRG	Hallador Energy Company
 INO	Inovio Pharmaceuticals, Inc.
+2409.TW	AUO Corporation
 OS	OneStream, Inc. Class A Common Stock
 GDRX	GoodRx Holdings, Inc.
 OSPN	OneSpan Inc.
@@ -4242,6 +5204,7 @@ HL	Hecla Mining Company
 W	Wayfair Inc.
 LAWS	Lawson Products, Inc.
 PONY	Pony AI Inc. American Depositary Shares
+ATD.TO	Alimentation Couche-Tard Inc.
 PNFP	Pinnacle Financial Partners, Inc.
 FRME	First Merchants Corporation
 GMS	GMS Inc.
@@ -4249,9 +5212,11 @@ PNTG	The Pennant Group, Inc.
 GAP	The Gap, Inc.
 DDEJF	Dundee Corporation
 GLDD	Great Lakes Dredge & Dock Corporation
+NESN.SW	Nestlé S.A.
 SBT	Sterling Bancorp, Inc.
 OSIS	OSI Systems, Inc.
 ARES	Ares Management Corporation
+SIE.DE	Siemens AG
 HIMX	Himax Technologies, Inc.
 LARK	Landmark Bancorp, Inc.
 KGEI	Kolibri Global Energy Inc.
@@ -4259,12 +5224,15 @@ KTB	Kontoor Brands, Inc.
 TRNS	Transcat, Inc.
 LSXMK	The Liberty SiriusXM Group
 AIZ	Assurant, Inc.
+RCI-B.TO	Rogers Communications Inc.
 TXT	Textron Inc.
 LAND	Gladstone Land Corporation
 IHS	IHS Holding Limited
+NK.PA	Imerys S.A.
 ICL	ICL Group Ltd
 MRCY	Mercury Systems, Inc.
 XBIT	XBiotech Inc.
+AUTO.L	Auto Trader Group plc
 ABCB	Ameris Bancorp
 TFC	Truist Financial Corporation
 WTW	Willis Towers Watson Public Limited Company
@@ -4272,6 +5240,7 @@ EVER	EverQuote, Inc.
 ROIV	Roivant Sciences Ltd.
 SRRK	Scholar Rock Holding Corporation
 RPRX	Royalty Pharma plc
+KPN.AS	Koninklijke KPN N.V.
 QXO	QXO Inc
 NMRA	Neumora Therapeutics, Inc. Common Stock
 TILE	Interface, Inc.
@@ -4282,6 +5251,7 @@ IFF	International Flavors & Fragrances Inc.
 WSM	Williams-Sonoma, Inc.
 RVLV	Revolve Group, Inc.
 SLP	Simulations Plus, Inc.
+ANTO.L	Antofagasta plc
 IMPUY	Impala Platinum Holdings Limited
 TPX	Tempur Sealy International, Inc.
 EKSO	Ekso Bionics Holdings, Inc.
@@ -4313,10 +5283,13 @@ NUTX	Nutex Health, Inc.
 TRMK	Trustmark Corporation
 AMPG	AmpliTech Group, Inc.
 SRRTF	Slate Grocery REIT
+EDN.BA	Empresa Distribuidora y Comercializadora Norte Sociedad Anónima
 L	Loews Corporation
+ASAI3.SA	Sendas Distribuidora S.A.
 NRXP	NRx Pharmaceuticals, Inc.
 SRAD	Sportradar Group AG
 LAZ	Lazard Ltd
+8058.T	Mitsubishi Corporation
 TZOO	Travelzoo
 ZG	Zillow Group, Inc. Class A
 FRT	Federal Realty Investment Trust
@@ -4329,9 +5302,11 @@ WSFS	WSFS Financial Corporation
 PPBI	Pacific Premier Bancorp, Inc.
 GTY	Getty Realty Corp.
 QRVO	Qorvo, Inc.
+6098.T	Recruit Holdings Co., Ltd.
 ZBRA	Zebra Technologies Corporation
 PAAS	Pan American Silver Corp.
 MAA	Mid-America Apartment Communities, Inc.
+GN.CO	GN Store Nord A/S
 XRAY	DENTSPLY SIRONA Inc.
 IMKTA	Ingles Markets, Incorporated
 TH	Target Hospitality Corp.
@@ -4344,21 +5319,27 @@ WH	Wyndham Hotels & Resorts, Inc.
 A	Agilent Technologies, Inc.
 WEST	Westrock Coffee Company, LLC
 VYNE	VYNE Therapeutics Inc.
+TA.TO	TransAlta Corporation
 EGHT	8x8, Inc.
 EZPW	EZCORP, Inc.
+030200.KS	KT Corporation
 GRFS	Grifols, S.A.
 CMT	Core Molding Technologies, Inc.
+BAM.TO	Brookfield Asset Management Ltd.
 BHE	Benchmark Electronics, Inc.
 SKLZ	Skillz Inc.
 KLPEF	Klépierre
 FOUR	Shift4 Payments, Inc.
+OCDO.L	Ocado Group plc
 TEL	TE Connectivity Ltd.
 BCLI	Brainstorm Cell Therapeutics Inc.
 PILBF	Pilbara Minerals Limited
 FBIZ	First Business Financial Services, Inc.
 SFIX	Stitch Fix, Inc.
+DEMANT.CO	Demant A/S
 FEAM	5E Advanced Materials Inc.
 INBS	Intelligent Bio Solutions Inc.
+KRX.IR	Kingspan Group plc
 CEVA	CEVA, Inc.
 KOP	Koppers Holdings Inc.
 GEN	Gen Digital Inc.
@@ -4367,22 +5348,32 @@ CACI	CACI International Inc
 FLUT	Flutter Entertainment plc
 INTT	inTEST Corporation
 ITRI	Itron, Inc.
+9888.HK	Baidu, Inc.
 FC	Franklin Covey Co.
+005490.KS	POSCO Holdings Inc.
+IAG.TO	iA Financial Corporation Inc.
 ITUB	Itaú Unibanco Holding S.A.
 JOB	GEE Group, Inc.
+SAB.MC	Banco de Sabadell, S.A.
 FLNG	FLEX LNG Ltd.
+NTGY.MC	Naturgy Energy Group, S.A.
 AOSL	Alpha and Omega Semiconductor Limited
+APA.AX	APA Group
 AGFMF	AGF Management Limited
 ARMN	Aris Mining Corporation
 SCYX	SCYNEXIS, Inc.
+VLX.L	Volex plc
 HUT	Hut 8 Corp.
 PAYC	Paycom Software, Inc.
 ADNT	Adient plc
 CYN	Cyngn Inc.
 GLMD	Galmed Pharmaceuticals Ltd.
+035420.KS	NAVER Corporation
+KMP-UN.TO	Killam Apartment REIT
 CLDX	Celldex Therapeutics, Inc.
 KYMR	Kymera Therapeutics, Inc.
 STM	STMicroelectronics N.V.
+DBM.TO	Doman Building Materials Group Ltd.
 HAL	Halliburton Company
 DXR	Daxor Corporation
 BWMN	Bowman Consulting Group Ltd.
@@ -4392,9 +5383,12 @@ ROCK	Gibraltar Industries, Inc.
 EME	EMCOR Group, Inc.
 NOC	Northrop Grumman Corporation
 ATLKY	Atlas Copco AB
+005930.KS	Samsung Electronics Co., Ltd.
+VIV.PA	Vivendi SE
 VRA	Vera Bradley, Inc.
 OOMA	Ooma, Inc.
 EBC	Eastern Bankshares, Inc.
+SPT.L	Spirent Communications plc
 MATX	Matson, Inc.
 RILY	B. Riley Financial, Inc.
 ITRN	Ituran Location and Control Ltd.
@@ -4403,18 +5397,21 @@ SBGI	Sinclair, Inc.
 TATT	TAT Technologies Ltd.
 SEPJF	Spectris plc
 KOPN	Kopin Corporation
+7733.T	Olympus Corporation
 RGLD	Royal Gold, Inc.
 CUB	Lionheart Holdings
 KRYS	Krystal Biotech, Inc.
 ASTE	Astec Industries, Inc.
 SLM	SLM Corporation
 CLMB	Climb Global Solutions, Inc.
+SBM.AX	St Barbara Limited
 SQ	Block, Inc.
 BJ	BJ's Wholesale Club Holdings, Inc.
 IBTA	Ibotta, Inc.
 PAYX	Paychex, Inc.
 PRM	Perimeter Solutions, S.A.
 PERI	Perion Network Ltd.
+AKZA.AS	Akzo Nobel N.V.
 EHAB	Enhabit, Inc.
 INTU	Intuit Inc.
 VREX	Varex Imaging Corporation
@@ -4422,32 +5419,56 @@ CPIX	Cumberland Pharmaceuticals Inc.
 BLBX	Blackboxstocks Inc.
 AQST	Aquestive Therapeutics, Inc.
 SYBX	Synlogic, Inc.
+WPM.TO	Wheaton Precious Metals Corp.
 IDEXY	Industria de Diseño Textil, S.A.
 INSG	Inseego Corp.
+ISV.TO	Information Services Corporation
+PMZ-UN.TO	Primaris Real Estate Investment Trust
+BCE.TO	BCE Inc.
+3382.T	Seven & i Holdings Co., Ltd.
+ORA.PA	Orange S.A.
+DSG.TO	The Descartes Systems Group Inc.
+RAND.AS	Randstad N.V.
+CCL-B.TO	CCL Industries Inc.
 RGEN	Repligen Corporation
 PBH	Prestige Consumer Healthcare Inc.
+TOM2.AS	TomTom N.V.
 RAIN	Rain Enhancement Technologies Holdco Inc
+PLZ-UN.TO	Plaza Retail REIT
 FTEK	Fuel Tech, Inc.
 BCC	Boise Cascade Company
+SIS.TO	Savaria Corporation
+DIR-UN.TO	Dream Industrial Real Estate Investment Trust
+SIA.TO	Sienna Senior Living Inc.
 STBA	S&T Bancorp, Inc.
+NXR-UN.TO	Nexus Industrial REIT
+ATRL.TO	AtkinsRéalis Group Inc.
+S63.SI	Singapore Technologies Engineering Ltd
 HAFC	Hanmi Financial Corporation
 SWKS	Skyworks Solutions, Inc.
+9433.T	KDDI Corporation
 RLX	RLX Technology Inc.
+NXE.TO	NexGen Energy Ltd.
+PROT.OL	Protector Forsikring ASA
 PRA	ProAssurance Corporation
 RNMBF	Rheinmetall AG
 MTUAF	MTU Aero Engines AG
 BBW	Build-A-Bear Workshop, Inc.
 KGHPF	KGHM Polska Miedz S.A.
 GMBL	Esports Entertainment Group, Inc.
+WCP.TO	Whitecap Resources Inc.
 HKMPF	Hikma Pharmaceuticals PLC
+HOT.DE	Hochtief AG
 HYW	Hywin Holdings Ltd.
 LIEN	Chicago Atlantic BDC, Inc.
 ELS	Equity LifeStyle Properties, Inc.
 AMGN	Amgen Inc.
 WEX	WEX Inc.
 SYRA	Syra Health Corp. Class A Common Stock
+9613.T	NTT DATA Corporation
 CGNT	Cognyte Software Ltd.
 LMB	Limbach Holdings, Inc.
+6701.T	NEC Corporation
 CSW	CSW Industrials, Inc.
 WTS	Watts Water Technologies, Inc.
 NBIS	Nebius Group N.V.
@@ -4459,19 +5480,26 @@ OFS	OFS Capital Corporation
 ORRF	Orrstown Financial Services, Inc.
 SAND	Sandstorm Gold Ltd.
 PCAR	PACCAR Inc
+GSK.L	GSK plc
 AYRO	Ayro, Inc.
 OZK	Bank OZK
 SLI	Standard Lithium Ltd.
 LNN	Lindsay Corporation
+VNP.TO	5N Plus Inc.
 HZO	MarineMax, Inc.
 PESI	Perma-Fix Environmental Services, Inc.
+BAW.JO	Barloworld Limited
+CGG.PA	Cgg
 PRTH	Priority Technology Holdings, Inc.
 BRAG	Bragg Gaming Group Inc.
 KMI	Kinder Morgan, Inc.
+BAMNB.AS	Koninklijke BAM Groep nv
 BAP	Credicorp Ltd.
 SFRRF	Sandfire Resources Limited
 STLD	Steel Dynamics, Inc.
+KOA.OL	Kongsberg Automotive ASA
 FGEN	FibroGen, Inc.
+HOC.L	Hochschild Mining plc
 RCKY	Rocky Brands, Inc.
 ACNT	Ascent Industries Co.
 SLDB	Solid Biosciences Inc.
@@ -4479,6 +5507,7 @@ HOMB	Home Bancshares, Inc.
 LGCY	Legacy Education Inc.
 SY	So-Young International Inc.
 TCBI	Texas Capital Bancshares, Inc.
+TEG.DE	TAG Immobilien AG
 PECO	Phillips Edison & Company, Inc.
 TFSL	TFS Financial Corporation
 STEL	Stellar Bancorp, Inc.
@@ -4510,17 +5539,24 @@ GECFF	Gecina S.A.
 GOLF	Acushnet Holdings Corp.
 HTOO	Fusion Fuel Green PLC
 HSON	Hudson Global, Inc.
+STN.TO	Stantec Inc.
+LUG.TO	Lundin Gold Inc.
 IIIV	i3 Verticals, Inc.
 NOA	North American Construction Group Ltd.
 PENN	PENN Entertainment, Inc.
 INFU	InfuSystem Holdings, Inc.
 MEDXF	Medexus Pharmaceuticals Inc.
+TE.PA	Technip Energies N.V.
 RFIL	RF Industries, Ltd.
 SII	Sprott Inc.
+FVI.TO	Fortuna Silver Mines Inc.
+ASM.TO	Avino Silver & Gold Mines Ltd.
 KTOS	Kratos Defense & Security Solutions, Inc.
 NGVT	Ingevity Corporation
 REPX	Riley Exploration Permian, Inc.
 CRL	Charles River Laboratories International, Inc.
+LUN.TO	Lundin Mining Corporation
+SSL.TO	Sandstorm Gold Ltd.
 EM	Smart Share Global Limited
 SMBC	Southern Missouri Bancorp, Inc.
 NPWR	NET Power Inc.
@@ -4528,14 +5564,17 @@ OGN	Organon & Co.
 AORT	Artivion, Inc.
 CAH	Cardinal Health, Inc.
 TG	Tredegar Corporation
+DTE.DE	Deutsche Telekom AG
 VBNK	VersaBank
 ARR	ARMOUR Residential REIT, Inc.
 ANGO	AngioDynamics, Inc.
 ICCM	IceCure Medical Ltd
 DNB	Dun & Bradstreet Holdings, Inc.
 DASTY	Dassault Systèmes SE
+MATR.TO	Mattr Corp.
 MOVE	Movano Inc.
 BRDCY	Bridgestone Corporation
+AFX.DE	Carl Zeiss Meditec AG
 MMLP	Martin Midstream Partners L.P.
 WILC	G. Willi-Food International Ltd.
 SSKN	STRATA Skin Sciences, Inc.
@@ -4545,11 +5584,13 @@ TXN	Texas Instruments Incorporated
 DXPE	DXP Enterprises, Inc.
 SOUHY	South32 Limited
 DRRX	DURECT Corporation
+RYA.IR	Ryanair Holdings plc
 MTLS	Materialise N.V.
 DTEGY	Deutsche Telekom AG
 BLIN	Bridgeline Digital, Inc.
 CWRK	CurrencyWorks Inc.
 MVST	Microvast Holdings, Inc.
+STERV.HE	Stora Enso Oyj
 DUK	Duke Energy Corporation
 CINT	CI&T Inc
 SPFI	South Plains Financial, Inc.
@@ -4563,13 +5604,22 @@ SPH	Suburban Propane Partners, L.P.
 NRXS	NeurAxis, Inc.
 EGFEY	Eurobank Ergasias Services and Holdings S.A.
 KALA	Kala Pharmaceuticals, Inc.
+ASML.AS	ASML Holding N.V.
+S68.SI	Singapore Exchange Limited
 JYNT	The Joint Corp.
 PLL	Piedmont Lithium Inc.
 SIEGY	Siemens AG
+2412.TW	Chunghwa Telecom Co., Ltd.
 TGEN	Tecogen Inc.
 MIELY	Mitsubishi Electric Corporation
+TLEVISACPO.MX	Grupo Televisa, S.A.B.
+ETE.AT	National Bank of Greece S.A.
+9923.HK	Yeahka Limited
+EFN.TO	Element Fleet Management Corp.
 SWRAY	Swire Pacific Limited
 DDI	DoubleDown Interactive Co., Ltd.
+AMXB.MX	América Móvil, S.A.B. de C.V.
+2330.TW	Taiwan Semiconductor Manufacturing Company Limited
 TCEHY	Tencent Holdings Limited
 PDSB	PDS Biotechnology Corporation
 FSI	Flexible Solutions International, Inc.
@@ -4578,23 +5628,30 @@ CMRE	Costamare Inc.
 MYFW	First Western Financial, Inc.
 AWK	American Water Works Company, Inc.
 FTFT	Future FinTech Group Inc.
+BBAR.BA	Banco BBVA Argentina S.A.
 ESLT	Elbit Systems Ltd.
 BVNKF	Bavarian Nordic A/S
 TUSK	Mammoth Energy Services, Inc.
 DIBS	1stdibs.Com, Inc.
+IGM.TO	IGM Financial Inc.
 ADV	Advantage Solutions Inc.
 DEA	Easterly Government Properties, Inc.
+LOMA.BA	Loma Negra Compañía Industrial Argentina Sociedad Anónima
+ADW-A.TO	Andrew Peller Limited
 SSD	Simpson Manufacturing Co., Inc.
 SUUIF	Superior Plus Corp.
+UPM.HE	UPM-Kymmene Oyj
 LTC	LTC Properties, Inc.
 DANOY	Danone S.A.
 MHVYF	Mitsubishi Heavy Industries, Ltd.
+0RAR.L	Stratec SE
 CBD	Companhia Brasileira de Distribuição
 GOFPY	Organization of Football Prognostics S.A.
 MTYFF	MTY Food Group Inc.
 IIIN	Insteel Industries, Inc.
 AVAL	Grupo Aval Acciones y Valores S.A.
 GTBIF	Green Thumb Industries Inc.
+QTRH.TO	Quarterhill Inc.
 PAYS	PaySign, Inc.
 NOPMF	Neo Performance Materials Inc.
 CHRD	Chord Energy Corporation
@@ -4602,34 +5659,49 @@ INBK	First Internet Bancorp
 NKLA	Nikola Corporation
 AGESF	ageas SA/NV
 XTIA	XTI Aerospace, Inc.
+VALMT.HE	Valmet Oyj
 AUD	Audacy, Inc.
 TOELY	Tokyo Electron Limited
 RIME	Algorhythm Holdings, Inc.
 NSRGY	Nestlé S.A.
 GOTU	Gaotu Techedu Inc.
+M44U.SI	Mapletree Logistics Trust
+AAV.TO	Advantage Energy Ltd.
 KNDI	Kandi Technologies Group, Inc.
 MPTI	M-tron Industries, Inc.
 CAKE	The Cheesecake Factory Incorporated
+CAST.ST	Castellum AB (publ)
 BDNNY	Boliden AB (publ)
+GTII.CN	Green Thumb Industries Inc.
+PHNX.L	Phoenix Group Holdings plc
 SVC	Service Properties Trust
+KNEBV.HE	KONE Oyj
 GWLIF	Great-West Lifeco Inc.
+OGC.TO	OceanaGold Corporation
 CRNC	Cerence Inc.
+GOOS.TO	Canada Goose Holdings Inc.
 ONEXF	Onex Corporation
+D-UN.TO	Dream Office Real Estate Investment Trust
 BESIY	BE Semiconductor Industries N.V.
+SAAB-B.ST	Saab AB (publ)
 TPB	Turning Point Brands, Inc.
 DBD	Diebold Nixdorf, Incorporated
 PLSE	Pulse Biosciences, Inc.
 BTLCY	British Land Company Plc
 SGC	Superior Group of Companies, Inc.
+EKTA-B.ST	Elekta AB (publ)
 RWEOY	Rwe AG
 VPG	Vishay Precision Group, Inc.
 IHG	InterContinental Hotels Group PLC
 NNI	Nelnet, Inc.
+ATS.TO	ATS Corporation
 LND	BrasilAgro - Companhia Brasileira de Propriedades Agrícolas
 PUBGY	Publicis Groupe S.A.
 SSTI	SoundThinking, Inc.
 CTGO	Contango Ore, Inc.
+2018.HK	AAC Technologies Holdings Inc.
 CXAI	CXApp Inc.
+SMT.TO	Sierra Metals Inc.
 TTDKY	TDK Corporation
 LSTA	Lisata Therapeutics, Inc.
 SKFRY	AB SKF (publ)
@@ -4637,6 +5709,8 @@ QUBT	Quantum Computing, Inc.
 PSEC	Prospect Capital Corporation
 CLPHY	CLP Holdings Limited
 SMTGF	SMA Solar Technology AG
+NWC.TO	The North West Company Inc.
+SLF.TO	Sun Life Financial Inc.
 ENTX	Entera Bio Ltd.
 ACLS	Axcelis Technologies, Inc.
 NHYDY	Norsk Hydro ASA
@@ -4657,11 +5731,14 @@ ZURVY	Zurich Insurance Group AG
 IVPAF	Ivanhoe Mines Ltd.
 TVRD	Tvardi Therapeutics, Inc.
 IGIFF	IGM Financial Inc.
+0019.HK	Swire Pacific Limited
 PCSA	Processa Pharmaceuticals, Inc.
 TURN	180 Degree Capital Corp.
 GRWG	GrowGeneration Corp.
 SFTBY	SoftBank Group Corp.
+BSLN.SW	Basilea Pharmaceutica AG
 OFSTF	Carbon Streaming Corporation
+MKS.L	Marks and Spencer Group plc
 ESLOF	EssilorLuxottica S.A.
 SSY	SunLink Health Systems, Inc.
 MSM	MSC Industrial Direct Co., Inc.
@@ -4670,6 +5747,7 @@ SMEGF	Siemens Energy AG
 FUN	Six Flags Entertainment Corporation
 WINT	Windtree Therapeutics, Inc.
 TMC	TMC the metals company Inc.
+RCH.TO	Richelieu Hardware Ltd.
 RMNI	Rimini Street, Inc.
 MHO	M/I Homes, Inc.
 KNW	Know Labs, Inc.
@@ -4682,7 +5760,9 @@ HCHDF	Hochschild Mining plc
 TLTZF	Tele2 AB (publ)
 LNXSF	Lanxess AG
 TMOAF	TomTom N.V.
+ROI.V	Route1 Inc.
 RLGT	Radiant Logistics, Inc.
+NDX1.DE	Nordex SE
 CBH	Virtus Convertible & Income 2024 Target Term Fund
 TELNY	Telenor ASA
 PWCDF	Power Corporation of Canada
@@ -4692,8 +5772,10 @@ KLBAY	Klabin S.A.
 BMBLF	Brambles Limited
 UTRS	Minerva Surgical, Inc.
 CPHI	China Pharma Holdings, Inc.
+DUE.DE	Dürr AG
 IFNNY	Infineon Technologies AG
 AXAHY	Axa S.A.
+SGE.L	The Sage Group plc
 LNSR	LENSAR, Inc.
 PROSY	Prosus N.V.
 ATZAF	Aritzia Inc.
@@ -4706,15 +5788,22 @@ RHEP	Regional Health Properties, Inc.
 ZIMV	ZimVie Inc.
 OCPNF	Olympus Corporation
 UTSI	UTStarcom Holdings Corp.
+PHP.L	Primary Health Properties PLC
 SMGZY	Smiths Group plc
 ADDYY	adidas AG
+PHM.MC	Pharma Mar, S.A.
 SCMWY	Swisscom AG
 EGIEY	Engie Brasil Energia S.A.
+SPB.TO	Superior Plus Corp.
+RUS.TO	Russel Metals Inc.
+QSR.TO	Restaurant Brands International Inc.
 TMRAY	Tomra Systems ASA
 NG	NovaGold Resources Inc.
 SCBFF	Standard Chartered PLC
+RSI.TO	Rogers Sugar Inc.
 UNCFF	UniCredit S.p.A.
 SYIEF	Symrise AG
+ALFEN.AS	Alfen N.V.
 STRT	Strattec Security Corporation
 TFIN	Triumph Financial, Inc.
 TRUMF	Terumo Corporation
@@ -4728,16 +5817,22 @@ EXCOF	Exco Technologies Limited
 GEODF	Geodrill Limited
 NXST	Nexstar Media Group, Inc.
 ULCC	Frontier Group Holdings, Inc.
+EMBRAC-B.ST	Embracer Group AB (publ)
 LSF	Laird Superfood, Inc.
+FRES.L	Fresnillo plc
 MGDDF	Compagnie Générale des Établissements Michelin Société en commandite par actions
 NTOIF	Neste Oyj
 DTEGF	Deutsche Telekom AG
+KCR.HE	Konecranes Plc
 SVYSF	Solvay S.A.
 PMCUF	Pro Medicus Limited
 DPSTF	Deutsche Post AG
+3690.HK	Meituan
 QNTQF	QinetiQ Group plc
+RBW.L	Rainbow Rare Earths Limited
 PI	Impinj, Inc.
 HTLZF	Hamilton Thorne Ltd.
+MDI.TO	Major Drilling Group International Inc.
 CESDF	CES Energy Solutions Corp.
 SWZCF	Swisscom AG
 ILKAF	Iluka Resources Limited
@@ -4748,13 +5843,16 @@ INLX	Intellinetics, Inc.
 SCSC	ScanSource, Inc.
 RNA	Avidity Biosciences, Inc.
 AACAY	AAC Technologies Holdings Inc.
+UBXN.SW	u-blox Holding AG
 WHG	Westwood Holdings Group, Inc.
 AVVIY	Aviva plc
 GNGBF	Getinge AB (publ)
+SCMN.SW	Swisscom AG
 BIOYF	BioSyent Inc.
 BIOVF	Swedish Orphan Biovitrum AB (publ)
 MPNGF	Meituan
 HRNNF	Hydro One Limited
+SOON.SW	Sonova Holding AG
 RCRT	Recruiter.com Group, Inc.
 UNPRF	Uniper SE
 DRETF	Dream Office Real Estate Investment Trust
@@ -4762,6 +5860,7 @@ QBCRF	Quebecor Inc.
 DSDVF	Dsv A/S
 EVSBY	EVS Broadcast Equipment S.A.
 BFLBF	Bilfinger SE
+PSON.L	Pearson plc
 NARI	Inari Medical, Inc.
 KMBIF	Kambi Group plc
 DTSRF	Ether Capital Corporation
@@ -4769,6 +5868,7 @@ LEGIF	LEG Immobilien SE
 VIEW	View, Inc.
 BRRAY	Barloworld Limited
 IDWM	IDW Media Holdings, Inc.
+UCB.BR	Ucb S.A.
 PDLMF	Petra Diamonds Limited
 PRYMF	Prysmian S.p.A.
 HRT	HireRight Holdings Corporation
@@ -4777,25 +5877,42 @@ SPPJY	Sappi Limited
 BTGOF	BT Group plc
 HRGLF	Hargreaves Lansdown plc
 RTMVF	Rightmove plc
+0Y4Q.L	Willis Towers Watson Public Limited Company
 GLAPF	Glanbia plc
 IFNNF	Infineon Technologies AG
 CWSRF	Chartwell Retirement Residences
 TTBXF	Tritax Big Box REIT plc
+TRMD-A.CO	TORM plc
+IFX.DE	Infineon Technologies AG
 GBLI	Global Indemnity Group, LLC
 CWSFF	Cielo Waste Solutions Corp.
+ADN.TO	Acadian Timber Corp.
 VLD	Velo3D, Inc.
 YAMCF	Yamaha Corporation
 SEAT	Vivid Seats Inc.
 SOWG	Sow Good Inc.
+KNIN.SW	Kuehne + Nagel International AG
+0Z1Q.L	Manchester United plc
 CLZNF	Clariant AG
+HLN.L	Haleon plc
+MONC.MI	Moncler S.p.A.
+BOS.TO	AirBoss of America Corp.
 OCANF	OceanaGold Corporation
 GEAGF	GEA Group AG
+RWE.DE	Rwe AG
+MDNA.TO	Medicenna Therapeutics Corp.
 WOLWF	Woolworths Group Limited
+SWED-A.ST	Swedbank AB (publ)
 HCMLF	Holcim Ltd
 IMDX	Insight Molecular Diagnostics Inc.
+SAMPO.HE	Sampo Oyj
 CISS	C3is Inc.
+CGY.TO	Calian Group Ltd.
+CMC.V	Cielo Waste Solutions Corp.
+METSO.HE	Metso Oyj
 ELVA	Electrovaya Inc.
 PVCT	Provectus Biopharmaceuticals, Inc.
+BRAG.TO	Bragg Gaming Group Inc.
 RUSMF	Russel Metals Inc.
 JUBPF	Jubilee Metals Group PLC
 TIOG	Tingo Group, Inc.
@@ -4807,11 +5924,14 @@ SFES	Safeguard Scientifics, Inc.
 DIIBF	Dorel Industries Inc.
 EVTZF	Evertz Technologies Limited
 VOLAF	AB Volvo (publ)
+KESKOA.HE	Kesko Oyj
+AEP.V	Atlas Engineered Products Ltd.
 SDVKY	Sandvik AB (publ)
 PTOAF	Pieridae Energy Limited
 BCKIF	Babcock International Group PLC
 APTO	Aptose Biosciences Inc.
 PZRIF	Pizza Pizza Royalty Corp.
+VIRP.PA	Virbac S.A.
 LIVE	Live Ventures Incorporated
 AJINY	Ajinomoto Co., Inc.
 AMLX	Amylyx Pharmaceuticals, Inc.
@@ -4825,15 +5945,21 @@ BAINF	BASE, Inc.
 IDGBF	Indigo Books & Music Inc.
 DNSKF	Danske Bank A/S
 MATV	Mativ Holdings, Inc.
+DIM.PA	Sartorius Stedim Biotech S.A.
+TATE.L	Tate & Lyle plc
 688235.SS	BeiGene, Ltd.
 HWDJF	Howden Joinery Group Plc
+ENR.DE	Siemens Energy AG
 ARNGF	Argonaut Gold Inc.
 ISMAF	Indra Sistemas, S.A.
 AENT	Alliance Entertainment Holding Corporation
+SMR.AX	Stanmore Resources Limited
+HEI.DE	HeidelbergCement AG
 BRDCF	Bridgestone Corporation
 ACOPF	The a2 Milk Company Limited
 BHIL	Benson Hill, Inc.
 VZIO	VIZIO Holding Corp.
+IMP.JO	Impala Platinum Holdings Limited
 LZ	LegalZoom.com, Inc.
 SGLFF	SGL Carbon SE
 DINRF	SCREEN Holdings Co., Ltd.
@@ -4844,70 +5970,136 @@ GEGYF	Genel Energy plc
 ADWPF	Andrew Peller Limited
 BRBOF	Brembo S.p.A.
 CDOR	Condor Hospitality Trust, Inc.
+KPT.TO	KP Tissue Inc.
 CDNTF	Canadian Tire Corporation, Limited
 APEUF	Atlas Engineered Products Ltd.
+KGH.WA	KGHM Polska Miedz S.A.
 IRET	iREIT - MarketVector Quality REIT Index ETF
 USAP	Universal Stainless & Alloy Products, Inc.
+WAF.DE	Siltronic AG
 MTEK	Maris-Tech Ltd.
+AMBU-B.CO	Ambu A/S
 KGSPF	Kingspan Group plc
 ALVR	AlloVir, Inc.
+COLO-B.CO	Coloplast A/S
+NSIS-B.CO	Novozymes A/S
 CROX	Crocs, Inc.
 NEWT	Newtek Business Services Corp.
+ALK-B.CO	ALK-Abelló A/S
+DSV.CO	Dsv A/S
+EVE.SW	Evolva Holding S.A.
+PNDORA.CO	Pandora A/S
+ROCK-B.CO	Rockwool A/S
+VWS.CO	Vestas Wind Systems A/S
 SQFT	Presidio Property Trust, Inc.
 TORXF	Torex Gold Resources Inc.
+SBS.DE	Stratec SE
 ALV	Autoliv, Inc.
+POLY.ME	Polymetal International plc
+ADYEN.AS	Adyen N.V.
 YUGVF	YouGov plc
+ISP.MI	Intesa Sanpaolo S.p.A.
 GPRK	GeoPark Limited
 HXGBF	Hexagon AB (publ)
 VONOY	Vonovia SE
+8TRA.DE	Traton SE
 ARC	ARC Document Solutions, Inc.
 SYZLF	Sylogist Ltd.
+RUI.PA	Rubis
+ELK.OL	Elkem ASA
 AMIVF	Atrium Mortgage Investment Corporation
 EBR	Centrais Elétricas Brasileiras S.A. - Eletrobrás
+HLMA.L	Halma plc
+AMS.JO	Anglo American Platinum Limited
+AI.PA	L'Air Liquide S.A.
 NTTDF	NTT DATA Corporation
+LSG.OL	Lerøy Seafood Group ASA
+ENW.V	EnWave Corporation
+AIR.PA	Airbus SE
 EMBC	Embecta Corp.
+STB.OL	Storebrand ASA
 CWD	CaliberCos Inc.
+NPI.TO	Northland Power Inc.
+YAR.OL	Yara International ASA
+HWDN.L	Howden Joinery Group Plc
+BC8.DE	Bechtle AG
+VOE.VI	Voestalpine AG
+BGEO.L	Bank of Georgia Group PLC
+BWAY.TA	BrainsWay Ltd.
+HEX.OL	Hexagon Composites ASA
+HMSO.L	Hammerson plc
 HBM	Hudbay Minerals Inc.
+CEMEXCPO.MX	CEMEX, S.A.B. de C.V.
+CIX.TO	CI Financial Corp.
 RANI	Rani Therapeutics Holdings, Inc.
+ICL.TA	ICL Group Ltd
+MRL.MC	MERLIN Properties SOCIMI, S.A.
 WDH	Waterdrop Inc.
 GOEV	Canoo Inc.
+PIA.MI	Piaggio & C. S.p.A.
+GBF.DE	Bilfinger SE
 ME	23andMe Holding Co.
+CRON.TO	Cronos Group Inc.
 CWXZF	Doman Building Materials Group Ltd.
+HSX.L	Hiscox Ltd
+GTT.PA	Gaztransport & Technigaz S.A.
 NEPH	Nephros, Inc.
 GDDFF	Goodfood Market Corp.
 FRRVF	Ferrovial, S.A.
 RYAN	Ryan Specialty Holdings, Inc.
 FFAI	Faraday Future Intelligent Electric Inc.
+TRZ.TO	Transat A.T. Inc.
 AMT	American Tower Corporation
 VLPNF	Voestalpine AG
+NN.AS	NN Group N.V.
+FNTN.DE	freenet AG
 IMCC	IM Cannabis Corp.
 LEGN	Legend Biotech Corporation
+DEZ.DE	Deutz AG
 WBEV	Winc, Inc.
+NEM.DE	Nemetschek SE
 PBR	Petróleo Brasileiro S.A. - Petrobras
 KHOTF	Kahoot! ASA
+CFR.SW	Compagnie Financière Richemont S.A.
 CONE	CyrusOne Inc.
 ATMU	Atmus Filtration Technologies Inc.
+SIKA.SW	Sika AG
+AMS.SW	ams-OSRAM AG
+SOL.JO	Sasol Limited
+GL9.IR	Glanbia plc
 IFSPF	Interfor Corporation
 RCM	R1 RCM Inc.
 FOSUF	Fosun International Limited
 IPSOF	Ipsos S.A.
 FLYLF	FLYHT Aerospace Solutions Ltd.
 QTRX	Quanterix Corporation
+CLN.SW	Clariant AG
 JRVMF	Jervois Global Limited
+ORRON.ST	Orrön Energy AB (publ)
 AAVMY	ABN AMRO Bank N.V.
 KL	Kirkland Lake Gold Ltd.
 IQEPF	IQE plc
 CTKYY	CooTek (Cayman) Inc.
 EVC	Entravision Communications Corporation
 AFRAF	Air France-KLM S.A.
+SKA-B.ST	Skanska AB (publ)
 NPIFF	Northland Power Inc.
 HEPS	D-Market Elektronik Hizmetler ve Ticaret A.S.
+TEL2-B.ST	Tele2 AB (publ)
+CSGN.SW	Credit Suisse Group AG
 LTHM	Livent Corporation
 YI	111, Inc.
+VC2.SI	Olam Group Limited
+QTCOM.HE	Qt Group Oyj
 MSDL	Morgan Stanley Direct Lending Fund
+ATCO-A.ST	Atlas Copco AB
 CMCM	Cheetah Mobile Inc.
 ICLTF	GreenFirst Forest Products Inc.
+IKA.L	Ilika plc
 AWCMF	Alumina Limited
+NDA-FI.HE	Nordea Bank Abp
+WG.L	John Wood Group PLC
+BOSS.DE	Hugo Boss AG
 CHALF	Chalice Brands Ltd.
 DPSI	Decisionpoint Systems, Inc.
 JJSF	J&J Snack Foods Corp.
@@ -4918,6 +6110,7 @@ DHLGY	Deutsche Post AG
 BTCY	Biotricity, Inc.
 GOCO	GoHealth, Inc.
 WMT	Walmart Inc.
+EMG.L	Man Group Limited
 CLLKF	BICO Group AB (publ)
 WKEY	WISeKey International Holding AG
 LTM	LATAM Airlines Group S.A.
@@ -4938,6 +6131,7 @@ CNVVF	ConvaTec Group Plc
 REPYY	Repsol, S.A.
 TD	The Toronto-Dominion Bank
 SMLR	Semler Scientific, Inc.
+MTY.TO	MTY Food Group Inc.
 ALLG	Allego N.V.
 CRZBF	Commerzbank AG
 MRNA	Moderna, Inc.
@@ -4947,24 +6141,35 @@ CRRFY	Carrefour S.A.
 ESCA	Escalade, Incorporated
 NM	Navios Maritime Holdings Inc.
 PWP	Perella Weinberg Partners
+GRN.TO	Greenlane Renewables Inc.
 AMPX	Amprius Technologies, Inc.
 KSFTF	Kingsoft Corporation Limited
+BIRG.IR	Bank of Ireland Group plc
 OUKPF	Metso Oyj
+SK.PA	Seb S.A.
 NH	NantHealth, Inc.
 INCY	Incyte Corporation
 BDRBF	Bombardier Inc.
+DCC.AX	DigitalX Limited
 ORKLY	Orkla ASA
+IPN.PA	Ipsen S.A.
 AMS	American Shared Hospital Services
 MPW	Medical Properties Trust, Inc.
+FRVIA.PA	Forvia SE
 BENF	Beneficient
 CLDT	Chatham Lodging Trust
 ARVN	Arvinas, Inc.
 HOOD	Robinhood Markets, Inc.
+ONT.L	Oxford Nanopore Technologies plc
 AIJTY	Jianpu Technology Inc.
 PLBY	PLBY Group, Inc.
+BN4.SI	Keppel Corporation Limited
 SUNS	Sunrise Realty Trust, Inc.
 CCMP	CMC Materials, Inc.
 SONX	Sonendo, Inc.
+4911.T	Shiseido Company, Limited
+DRM.TO	Dream Unlimited Corp.
+CTS.TO	Converge Technology Solutions Corp.
 BIPC	Brookfield Infrastructure Corporation
 QUISF	Quisitive Technology Solutions, Inc.
 AATC	Autoscope Technologies Corporation
@@ -4977,12 +6182,14 @@ SNPTF	Sunny Optical Technology (Group) Company Limited
 RROTF	Roots Corporation
 KC	Kingsoft Cloud Holdings Limited
 ISNPY	Intesa Sanpaolo S.p.A.
+CALTX.ST	Calliditas Therapeutics AB (publ)
 KLTR	Kaltura, Inc.
 CWQXF	Castellum AB (publ)
 JKS	JinkoSolar Holding Co., Ltd.
 601398.SS	Industrial & Commercial Bank of China Ltd.
 BABYF	Else Nutrition Holdings Inc.
 XJNGF	Xinjiang Goldwind Science & Technology Co., Ltd.
+OZL.AX	OZ Minerals Limited
 EDU	New Oriental Education & Technology Group Inc.
 LMDX	LumiraDx Limited
 VNET	VNET Group, Inc.
@@ -4990,6 +6197,7 @@ KPLUY	K+s AG
 MDLM	Medley Management Inc.
 WT	WisdomTree, Inc.
 HCP	HashiCorp, Inc.
+ALV.DE	Allianz SE
 AMPH	Amphastar Pharmaceuticals, Inc.
 SEEL	Seelos Therapeutics, Inc.
 ITJTY	Intrum AB (publ)
@@ -4997,9 +6205,13 @@ RAAS	Cloopen Group Holding Limited
 NDVAF	Indiva Limited
 OPAD	Offerpad Solutions Inc.
 NEWR	New Relic, Inc.
+GUD.TO	Knight Therapeutics Inc.
 NRDXF	Nordex SE
 IVEVF	Inventiva S.A.
+PNL.AS	PostNL N.V.
 GSM	Ferroglobe PLC
+1548.HK	Genscript Biotech Corporation
+STJ.L	St. James's Place plc
 LEJUY	Leju Holdings Limited
 IMAB	I-Mab
 NRDS	NerdWallet, Inc.
@@ -5014,33 +6226,45 @@ AVCNF	Avicanna Inc.
 RXLSF	Rexel S.A.
 SPI	SPI Energy Co., Ltd.
 ZYXI	Zynex, Inc.
+AZUL4.SA	Azul S.A.
 CSIQ	Canadian Solar Inc.
 FCF	First Commonwealth Financial Corporation
 GRAM	Gold Flora Corporation
+HL.L	Hargreaves Lansdown plc
 AMBC	Ambac Financial Group, Inc.
 AGMH	AGM Group Holdings Inc.
 AIH	Aesthetic Medical International Holdings Group Limited
+KAMBI.ST	Kambi Group plc
 HLTOY	Hellenic Telecommunications Organization S.A.
 601857.SS	PetroChina Company Limited
 STVN	Stevanato Group S.p.A.
 HALO	Halozyme Therapeutics, Inc.
 EXC	Exelon Corporation
+MSB.AX	Mesoblast Limited
+7751.T	Canon Inc.
 MNARF	Morguard North American Residential Real Estate Investment Trust
+M&M.NS	Mahindra & Mahindra Limited
+KBC.BR	KBC Group N.V.
 SOIEF	Stolt-Nielsen Limited
 WTI	W&T Offshore, Inc.
 IX	ORIX Corporation
 AM	Antero Midstream Corporation
 GENT	Genter Capital Taxable Quality Intermediate ETF
 NEXOF	NEXON Co., Ltd.
+TPZ.TO	Topaz Energy Corp.
 BZH	Beazer Homes USA, Inc.
 PAVM	PAVmed Inc.
 MO	Altria Group, Inc.
 GNW	Genworth Financial, Inc.
 THLPF	Thule Group AB (publ)
+TWM.TO	Tidewater Midstream and Infrastructure Ltd.
 CNTY	Century Casinos, Inc.
 IPGP	IPG Photonics Corporation
 SOGP	Sound Group Inc.
+KMDA.TA	Kamada Ltd.
 POSAF	POSaBIT Systems Corporation
+VIG.VI	Vienna Insurance Group AG
+OMV.VI	Omv AG
 KDDIF	KDDI Corporation
 DLO	DLocal Limited
 RCDTF	Recordati Industria Chimica e Farmaceutica S.p.A.
@@ -5053,7 +6277,9 @@ LUCD	Lucid Diagnostics Inc.
 PBF	PBF Energy Inc.
 NTP	Nam Tai Property Inc.
 WHWK	Whitehawk Therapeutics Inc
+FRA.DE	Fraport AG
 BRDG	Bridge Investment Group Holdings Inc.
+EVT.DE	Evotec SE
 RTMAF	Reitmans (Canada) Limited
 SSL	Sasol Limited
 UMGNF	Universal Music Group N.V.
@@ -5082,6 +6308,7 @@ BRCC	BRC Inc.
 URG	Ur-Energy Inc.
 GBOX	GreenBox POS
 DHX	DHI Group, Inc.
+INPST.AS	InPost S.A.
 SOGO	Sogou Inc.
 SOPH	SOPHiA GENETICS S.A.
 POWW	AMMO, Inc.
@@ -5090,31 +6317,42 @@ ELMSQ	Electric Last Mile Solutions, Inc.
 ORI	Old Republic International Corporation
 CHA	Chagee Holdings Limited American Depositary Shares
 INDI	indie Semiconductor, Inc.
+2423.HK	KE Holdings Inc.
 WCC	WESCO International, Inc.
 HRC	Hill-Rom Holdings, Inc.
+ME8U.SI	Mapletree Industrial Trust
+0669.HK	Techtronic Industries Company Limited
 WD	Walker & Dunlop, Inc.
+CU.TO	Canadian Utilities Limited
 DTE	DTE Energy Company
 MITSY	Mitsui & Co., Ltd.
 NBY	NovaBay Pharmaceuticals, Inc.
 SYRE	Spyre Therapeutics, Inc.
 SOR	Source Capital, Inc.
+NTCO3.SA	Natura &Co Holding S.A.
 DSX	Diana Shipping Inc.
+KIND-SDB.ST	Kindred Group plc
 TNP	Tsakos Energy Navigation Limited
 ADRNY	Koninklijke Ahold Delhaize N.V.
 ZIP	ZipRecruiter, Inc.
+HITI.V	High Tide Inc.
 LDOS	Leidos Holdings, Inc.
 HAFN	Hafnia Limited
 SYN	Synthetic Biologics, Inc.
+FLTR.L	Flutter Entertainment plc
 NRGV	Energy Vault Holdings, Inc.
 SSLLF	Siltronic AG
 GENI	Genius Sports Limited
 PSQH	PSQ Holdings, Inc.
 TMCI	Treace Medical Concepts, Inc.
+CNQ.TO	Canadian Natural Resources Limited
+EVO.ST	Evolution AB (publ)
 CDLR	Cadeler A/S
 GTHX	G1 Therapeutics, Inc.
 FWONK	Formula One Group
 ACRE	Ares Commercial Real Estate Corporation
 AL	Air Lease Corporation
+HODL.CN	Cypherpunk Holdings Inc.
 SLRN	Acelyrin, Inc.
 BPY	Brookfield Property Partners L.P.
 KNTK	Kinetik Holdings Inc.
@@ -5129,6 +6367,7 @@ PNXGF	Phoenix Group Holdings plc
 ATYR	aTyr Pharma, Inc.
 ATUS	Altice USA, Inc.
 AKR	Acadia Realty Trust
+ADM.L	Admiral Group plc
 GIL	Gildan Activewear Inc.
 BIP	Brookfield Infrastructure Partners L.P.
 SUP	Superior Industries International, Inc.
@@ -5147,6 +6386,7 @@ PGEN	Precigen, Inc.
 HCKT	The Hackett Group, Inc.
 VMD	Viemed Healthcare, Inc.
 XWEL	XWELL, Inc.
+PUM.DE	PUMA Se
 AKZOF	Akzo Nobel N.V.
 AA	Alcoa Corporation
 COLD	Americold Realty Trust, Inc.
@@ -5154,6 +6394,7 @@ AEIS	Advanced Energy Industries, Inc.
 GAMB	Gambling.com Group Limited
 AEOXF	Aeroports de Paris S.A.
 BBSI	Barrett Business Services, Inc.
+GWO.TO	Great-West Lifeco Inc.
 LOIMF	Loomis AB (publ)
 FDP	Fresh Del Monte Produce Inc.
 SYAXF	Sayona Mining Limited
@@ -5164,6 +6405,7 @@ BALL	Ball Corporation
 WULF	TeraWulf Inc.
 LPRO	Open Lending Corporation
 SEBYF	Seb S.A.
+FLN.AX	Freelancer Limited
 PRBZF	Premium Brands Holdings Corporation
 CDRE	Cadre Holdings, Inc.
 SPWR	SunPower Corporation
@@ -5177,10 +6419,12 @@ ROL	Rollins, Inc.
 ECC	Eagle Point Credit Company Inc.
 GETY	Getty Images Holdings, Inc.
 WOW	WideOpenWest, Inc.
+CARL-B.CO	Carlsberg A/S
 INGM	Ingram Micro Holding Corporation
 AWI	Armstrong World Industries, Inc.
 NCDL	Nuveen Churchill Direct Lending Corp.
 SYNA	Synaptics Incorporated
+NWH-UN.TO	NorthWest Healthcare Properties Real Estate Investment Trust
 EAF	GrafTech International Ltd.
 RRR	Red Rock Resorts, Inc.
 GRND	Grindr Inc.
@@ -5188,25 +6432,36 @@ PBYI	Puma Biotechnology, Inc.
 SKYE	Skye Bioscience, Inc.
 SAPMF	Saipem S.p.A.
 PSMMF	Persimmon Plc
+ADCO.TO	Adcore Inc.
 ARVLF	Arrival
 GSS	Golden Star Resources Ltd.
+PBH.AX	PointsBet Holdings Limited
 LYSDY	Lynas Rare Earths Limited
+HLAG.DE	Hapag-Lloyd AG
 SYPR	Sypris Solutions, Inc.
+MFI.TO	Maple Leaf Foods Inc.
 KBCSY	KBC Group N.V.
+IDR.MC	Indra Sistemas, S.A.
 TRUE	TrueCar, Inc.
+REL.L	RELX Plc
 PWFL	PowerFleet, Inc.
 UVV	Universal Corporation
 ATNI	ATN International, Inc.
 CLBS	Caladrius Biosciences, Inc.
 NATR	Nature's Sunshine Products, Inc.
+CHR.TO	Chorus Aviation Inc.
 XNCR	Xencor, Inc.
 AMRX	Amneal Pharmaceuticals, Inc.
 BEAT	HeartBeam, Inc.
 WDOFF	Wesdome Gold Mines Ltd.
 FN	Fabrinet
+ARB.L	Argo Blockchain plc
 BLCT	BlueCity Holdings Limited
+DBV.PA	DBV Technologies S.A.
 KBH	KB Home
+CVH.BA	Cablevisión Holding S.A.
 PKG	Packaging Corporation of America
+L.TO	Loblaw Companies Limited
 TLN	Talen Energy Corporation
 GD	General Dynamics Corporation
 VRTS	Virtus Investment Partners, Inc.
@@ -5217,6 +6472,7 @@ ELEEF	Element Fleet Management Corp.
 SMC	Summit Midstream Corp.
 RDDT	Reddit, Inc.
 NA	Nano Labs Ltd
+SHEL.L	Shell plc
 ENSG	The Ensign Group, Inc.
 ELAN	Elanco Animal Health Incorporated
 IGMS	IGM Biosciences, Inc.
@@ -5225,8 +6481,11 @@ ENB	Enbridge Inc.
 FSLR	First Solar, Inc.
 SPNS	Sapiens International Corporation N.V.
 DCFCQ	Tritium DCFC Limited
+IFP.TO	Interfor Corporation
 KPLT	Katapult Holdings, Inc.
+ITUB4.SA	Itaú Unibanco Holding S.A.
 AAVVF	Advantage Energy Ltd.
+GOLL4.SA	Gol Linhas Aéreas Inteligentes S.A.
 CPXWF	Capital Power Corporation
 INMB	INmune Bio, Inc.
 CFPUF	Canfor Pulp Products Inc.
@@ -5242,6 +6501,7 @@ REAL	The RealReal, Inc.
 AMAL	Amalgamated Financial Corp.
 ACRFF	Accor S.A.
 RBSFY	Rubis
+PDX.ST	Paradox Interactive AB (publ)
 ENTR	ERShares Entrepreneur ETF
 LGL	The LGL Group, Inc.
 ENVX	Enovix Corporation
@@ -5251,6 +6511,8 @@ APTX	Aptinyx Inc.
 MTCH	Match Group, Inc.
 CAMT	Camtek Ltd.
 AHEXY	Adecco Group AG
+PDN.AX	Paladin Energy Ltd
+9432.T	Nippon Telegraph and Telephone Corporation
 CDUAF	Canadian Utilities Limited
 MEC	Mayville Engineering Company, Inc.
 PSA	Public Storage
@@ -5259,34 +6521,45 @@ DCCPF	DCC plc
 LOCO	El Pollo Loco Holdings, Inc.
 CAHPF	Evolution Mining Limited
 ARPO	Aerpio Pharmaceuticals, Inc.
+WALMEX.MX	Wal-Mart de México, S.A.B. de C.V.
 WWD	Woodward, Inc.
 DGHI	Digihost Technology Inc.
 BOWFF	Boardwalk Real Estate Investment Trust
+8150.TW	ChipMOS TECHNOLOGIES Inc.
 OTCM	OTC Markets Group Inc.
 BOLSY	B3 S.A. - Brasil, Bolsa, Balcão
+HPS-A.TO	Hammond Power Solutions Inc.
+WDO.TO	Wesdome Gold Mines Ltd.
 GJNSF	Gjensidige Forsikring ASA
+SHL.DE	Siemens Healthineers AG
 JBAXY	Julius Bär Gruppe AG
 EVOL	Symbolic Logic, Inc.
 ASTS	AST SpaceMobile, Inc.
+SOL.CN	SOL Global Investments Corp.
 FMC	FMC Corporation
+ITR.V	Integra Resources Corp.
 ARCO	Arcos Dorados Holdings Inc.
 SKYW	SkyWest, Inc.
+H.TO	Hydro One Limited
 AKA	a.k.a. Brands Holding Corp.
 NUWE	Nuwellis, Inc.
 TVPKF	Travis Perkins plc
 CHPT	ChargePoint Holdings, Inc.
 SCPH	scPharmaceuticals Inc.
+ARGX.BR	argenx SE
 ALVO	Alvotech
 BFLY	Butterfly Network, Inc.
 PEB	Pebblebrook Hotel Trust
 EURN	Euronav N.V.
 SITM	SiTime Corporation
+EDV.L	Endeavour Mining plc
 VNE	Veoneer, Inc.
 TW	Tradeweb Markets Inc.
 UPWK	Upwork Inc.
 AZTA	Azenta, Inc.
 SAPLF	Sylvania Platinum Limited
 PAHC	Phibro Animal Health Corporation
+DANSKE.CO	Danske Bank A/S
 YAHOF	LY Corporation
 TLK	Perusahaan Perseroan (Persero) PT Telekomunikasi Indonesia Tbk
 ANIK	Anika Therapeutics, Inc.
@@ -5299,6 +6572,7 @@ CSV	Carriage Services, Inc.
 TKNO	Alpha Teknova, Inc.
 AMPY	Amplify Energy Corp.
 FSM	Fortuna Silver Mines Inc.
+EVOK.L	Evoke plc
 TECK	Teck Resources Limited
 YUM	Yum! Brands, Inc.
 CART	Instacart (Maplebear Inc.)
@@ -5307,10 +6581,15 @@ BMWYY	Bayerische Motoren Werke AG
 HIG	The Hartford Financial Services Group, Inc.
 SHERF	Sherritt International Corporation
 AEM	Agnico Eagle Mines Limited
+YATRA.NS	Yatra Online Limited
 RC	Ready Capital Corporation
+TATAMOTORS.NS	Tata Motors Limited
 MLKN	MillerKnoll, Inc.
+S.TO	Sherritt International Corporation
 VIVEF	Vivendi SE
+MX.TO	Methanex Corporation
 KNTNF	K92 Mining Inc.
+SGML.V	Sigma Lithium Corporation
 FDS	FactSet Research Systems Inc.
 TSQ	Townsquare Media, Inc.
 NVRO	Nevro Corp.
@@ -5321,6 +6600,7 @@ SAFRF	Safran S.A.
 ISPR	Ispire Technology Inc.
 MICS	The Singing Machine Company, Inc.
 ZETA	Zeta Global Holdings Corp.
+ENELAM.SN	Enel Américas S.A.
 LFLY	Leafly Holdings, Inc.
 LDGYY	Landis+Gyr Group AG
 MCHX	Marchex, Inc.
@@ -5329,19 +6609,25 @@ SBCF	Seacoast Banking Corporation of Florida
 SOFI	SoFi Technologies, Inc.
 DMTK	DermTech, Inc.
 SNBR	Sleep Number Corporation
+CIEL3.SA	Cielo S.A.
 TRGP	Targa Resources Corp.
 LX	LexinFintech Holdings Ltd.
 RVYL	Ryvyl Inc.
 MCOM	Micromobility.com Inc.
+7211.T	Mitsubishi Motors Corporation
 SCPPF	S4 Capital plc
 DXF	Eason Technology Limited
 TGTX	TG Therapeutics, Inc.
 AKLI	Akili, Inc.
 CNC	Centene Corporation
+IAG.MC	International Consolidated Airlines Group S.A.
 OPSSF	Opsens Inc.
+MT.AS	ArcelorMittal S.A.
+FANS.TO	FansUnite Entertainment Inc.
 NVTS	Navitas Semiconductor Corporation
 PAC	Grupo Aeroportuario del Pacífico, S.A.B. de C.V.
 KSCP	Knightscope, Inc.
+NANO.L	Nanoco Group plc
 PLCE	The Children's Place, Inc.
 EXFO	EXFO Inc.
 JBSAY	Jbs S.a.
@@ -5354,6 +6640,8 @@ POWI	Power Integrations, Inc.
 CYTK	Cytokinetics, Incorporated
 STXS	Stereotaxis, Inc.
 CRS	Carpenter Technology Corporation
+AAF.L	Airtel Africa Plc
+LUC.TO	Lucara Diamond Corp.
 CTTAF	Continental AG
 FNLIF	First National Financial Corporation
 LUNR	Intuitive Machines, Inc.
@@ -5366,52 +6654,75 @@ OSH	Oak Street Health, Inc.
 DDOG	Datadog, Inc.
 KIN	Kindred Biosciences, Inc.
 RLGY	Realogy Holdings Corp.
+PAF.L	Pan African Resources PLC
 CPPMF	Copper Mountain Mining Corporation
+STC.TO	Sangoma Technologies Corporation
 CENX	Century Aluminum Company
 VLRS	Controladora Vuela Compañía de Aviación, S.A.B. de C.V.
 IRBT	iRobot Corporation
 MARA	Marathon Digital Holdings, Inc.
 FIVN	Five9, Inc.
+GAPB.MX	Grupo Aeroportuario del Pacífico, S.A.B. de C.V.
+REAL.TO	Real Matters Inc.
 PRKA	Parks! America, Inc.
 SBLK	Star Bulk Carriers Corp.
+INF.L	Informa plc
+CGS.AX	Cogstate Limited
 TXG	10x Genomics, Inc.
+MUX.TO	McEwen Mining Inc.
 CPE	Callon Petroleum Company
+ECV.DE	Encavis AG
 FRSH	Freshworks Inc.
 ALDX	Aldeyra Therapeutics, Inc.
+GFI.JO	Gold Fields Limited
 IRCP	IRSA Propiedades Comerciales S.A.
 SDHC	Smith Douglas Homes Corp.
 QSG	QuantaSing Group Ltd
 CNNE	Cannae Holdings, Inc.
 CRMD	CorMedix Inc.
 WSC	WillScot Holdings Corporation
+ASM.AS	ASM International N.V.
 CDRO	Codere Online Luxembourg, S.A.
 REE	REE Automotive Ltd.
 SCGLY	Société Générale S.A.
 XL	XL Fleet Corp.
+AIF.TO	Altus Group Limited
+EBS.VI	Erste Group Bank AG
 BKIMF	Bankinter, S.A.
+OCI.AS	Oci N.V.
 ATRA	Atara Biotherapeutics, Inc.
+ABDN.L	Abrdn Plc
+9984.T	SoftBank Group Corp.
 ANGI	Angi Inc.
 DLMAF	Dollarama Inc.
 SIGA	SIGA Technologies, Inc.
 LB	LandBridge Company LLC
 JBLU	JetBlue Airways Corporation
+PLS.AX	Pilbara Minerals Limited
 PAIYY	Aesthetic Medical International Holdings Group Limited
 HYMC	Hycroft Mining Holding Corporation
 CBRE	CBRE Group, Inc.
+LEG.DE	LEG Immobilien SE
 CLLS	Cellectis S.A.
 DRD	DRDGOLD Limited
 VRN	Veren Inc.
 CTT	CatchMark Timber Trust, Inc.
+OR.TO	Osisko Gold Royalties Ltd
 KRT	Karat Packaging Inc.
 CCLP	CSI Compressco LP
+PDL.L	Petra Diamonds Limited
 OLO	Olo Inc.
 ALVOF	Alvopetro Energy Ltd.
 OUT	Outfront Media Inc.
+CNE.L	Capricorn Energy PLC
+OMAB.MX	Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.
 EYESW	Second Sight Medical Products Inc
+ECOR.L	Ecora Resources PLC
 GUKYF	Gulf Keystone Petroleum Limited
 TUP	Tupperware Brands Corporation
 CMRX	Chimerix, Inc.
 AGTI	Agiliti, Inc.
+AGRO3.SA	BrasilAgro - Companhia Brasileira de Propriedades Agrícolas
 SBOW	SilverBow Resources, Inc.
 MEEC	Midwest Energy Emissions Corp.
 NVCN	Neovasc Inc.
@@ -5425,6 +6736,7 @@ TPTX	Turning Point Therapeutics, Inc.
 CNCE	Concert Pharmaceuticals, Inc.
 NGMS	NeoGames S.A.
 LJPC	La Jolla Pharmaceutical Company
+PLC.TO	Park Lawn Corporation
 ALXN	Alexion Pharmaceuticals, Inc.
 GOL	Gol Linhas Aéreas Inteligentes S.A.
 WERN	Werner Enterprises, Inc.
@@ -5436,20 +6748,28 @@ MRCC	Monroe Capital Corporation
 JOBY	Joby Aviation, Inc.
 EVFM	Evofem Biosciences, Inc.
 SGGEF	The Sage Group plc
+ARX.TO	ARC Resources Ltd.
 RIOCF	RioCan Real Estate Investment Trust
 DUOL	Duolingo, Inc.
 AAUKF	Anglo American plc
 IVAC	Intevac, Inc.
 FEYE	Mandiant, Inc.
 ORLA	Orla Mining Ltd.
+CSL.AX	CSL Limited
 SWC	Stillwater Mining Co.
+EDPR.LS	EDP Renováveis, S.A.
 USX	U.S. Xpress Enterprises, Inc.
 MBC	MasterBrand, Inc.
 ISIG	Insignia Systems, Inc.
 SVRA	Savara Inc.
+TIH.TO	Toromont Industries Ltd.
 SES	SES AI Corporation
 ARQQ	Arqit Quantum Inc.
 MNMD	Mind Medicine (MindMed) Inc.
+SFR.AX	Sandfire Resources Limited
+ASX.AX	ASX Limited
+PBL.TO	Pollard Banknote Limited
+ARI.JO	African Rainbow Minerals Limited
 SERV	Serve Robotics Inc.
 KNR.NE	Kontrol Technologies Corp.
 LSTR	Landstar System, Inc.
@@ -5470,6 +6790,7 @@ NSFDF	NXT Energy Solutions Inc.
 DEFI.NE	DeFi Technologies Inc.
 NDRBF	NIBE Industrier AB (publ)
 VWDRY	Vestas Wind Systems A/S
+BBD-B.TO	Bombardier Inc.
 AQNU	Algonquin Power & Utilities Corp.
 WAY	Waystar Holding Corp.
 DTSS	Datasea Inc.
@@ -5497,6 +6818,7 @@ RAMPF	Polaris Renewable Energy Inc.
 MGLUY	Magazine Luiza S.A.
 COGZF	Cogstate Limited
 ELMUF	Elisa Oyj
+AVNT.TO	Avant Brands Inc.
 OFIX	Orthofix Medical Inc.
 FRO	Frontline Ltd.
 STJPF	St. James's Place plc
@@ -5510,22 +6832,27 @@ CNLPL	The Connecticut Light and Power Company
 RHHBY	Roche Holding AG
 DLA	Delta Apparel, Inc.
 HMLP	Höegh LNG Partners LP
+AOI.TO	Africa Oil Corp.
 SECYF	Secure Waste Infrastructure Corp.
 UCBJF	Ucb S.A.
 BCNAF	Barco N.V.
 EUXTF	Euronext N.V.
+KOFUBL.MX	Coca-Cola FEMSA, S.A.B. de C.V.
 OAMCF	OverActive Media Corp.
 RMLRF	Ramelius Resources Limited
+CRRX.TO	CareRx Corporation
 ALPN	Alpine Immune Sciences, Inc.
 KKPNF	Koninklijke KPN N.V.
 ASOMF	ASOS Plc
 LPTH	LightPath Technologies, Inc.
 MDXH	MDxHealth S.A.
+TM17.L	Team17 Group plc
 AEGXF	Aecon Group Inc.
 RDNT	RadNet, Inc.
 PDRDF	Pernod Ricard S.A.
 STRN	Stran & Company, Inc.
 DRUNF	Dream Unlimited Corp.
+TSEM.TA	Tower Semiconductor Ltd.
 CANG	Cango Inc.
 EIHDF	Evoke plc
 OCSI	Oaktree Strategic Income Corporation
@@ -5543,19 +6870,38 @@ ACHV	Achieve Life Sciences, Inc.
 GBOOF	Grupo Financiero Banorte, S.A.B. de C.V.
 PZN	Pzena Investment Management, Inc.
 SSDOY	Shiseido Company, Limited
+NB2.DE	Northern Data AG
+BWY.L	Bellway p.l.c.
+CPR.MI	Davide Campari-Milano N.V.
 ESS	Essex Property Trust, Inc.
+RSG.L	Resolute Mining Limited
+NA9.DE	Nagarro SE
+SGRO.L	SEGRO Plc
+BC.MI	Brunello Cucinelli S.p.A.
 UE	Urban Edge Properties
 KRP	Kimbell Royalty Partners, LP
+LOGN.SW	Logitech International S.A.
+SDZ.SW	Sandoz Group AG
 HCCI	Heritage-Crystal Clean, Inc
+FNOX.ST	Fortnox AB (publ)
+TYRES.HE	Nokian Renkaat Oyj
+HEO.TO	H2O Innovation Inc.
 SPKE	Spark Energy, Inc.
+EQT.ST	EQT AB (publ)
+EPI-A.ST	Epiroc AB (publ)
+MIPS.ST	MIPS AB (publ)
 CHIC	Global X MSCI China Communication Services ETF
 WTT	Wireless Telecom Group, Inc.
 OPFI	OppFi Inc.
 HEOFF	H2O Innovation Inc.
 MCARY	Mercari, Inc.
+DRD.JO	DRDGOLD Limited
+QYOU.V	QYOU Media Inc.
 ALIM	Alimera Sciences, Inc.
 VITL	Vital Farms, Inc.
 OIG	Orbital Infrastructure Group, Inc.
+AT.TO	illumin Holdings Inc.
+ELE.V	Elemental Altus Royalties Corp.
 ILPT	Industrial Logistics Properties Trust
 CTEK	CynergisTek, Inc.
 CERE	Cerevel Therapeutics Holdings, Inc.
@@ -5574,17 +6920,21 @@ AEZS	Aeterna Zentaris Inc.
 SBRA	Sabra Health Care REIT, Inc.
 TRSWF	TransAlta Renewables Inc.
 BMRN	BioMarin Pharmaceutical Inc.
+TSND.TO	TerrAscend Corp.
 601988.SS	Bank of China Limited
 MIME	Mimecast Limited
 FORG	ForgeRock, Inc.
 KLG	WK Kellogg Co
 FFLWF	Fire & Flower Holdings Corp.
+IDG.TO	Indigo Books & Music Inc.
+GMIN.TO	G Mining Ventures Corp.
 IONQ	IonQ, Inc.
 CTRRF	CT Real Estate Investment Trust
 MRVFF	Nuvo Pharmaceuticals Inc.
 STRC	Sarcos Technology and Robotics Corporation
 ATDRY	Auto Trader Group plc
 SGI	Somnigroup International Inc
+SXS.L	Spectris plc
 NS	NuStar Energy L.P.
 AEL	American Equity Investment Life Holding Company
 AGIL	AgileThought, Inc.
@@ -5598,16 +6948,20 @@ BSQR	BSQUARE Corporation
 BBAI	BigBear.ai Holdings, Inc.
 SYX	Systemax Inc.
 NHI	National Health Investors, Inc.
+BIMBOA.MX	Grupo Bimbo, S.A.B. de C.V.
 ATC	Atotech Limited
 DASH	DoorDash, Inc.
 SAXPF	Sampo Oyj
 CPAMF	CapitaLand Integrated Commercial Trust
 NNN	National Retail Properties, Inc.
+1910.HK	Samsonite International S.A.
 LVOX	LiveVox Holdings, Inc.
 SOLO	Electrameccanica Vehicles Corp.
 BNXAF	Banxa Holdings Inc.
 LLNW	Limelight Networks, Inc.
+UGE.V	UGE International Ltd.
 SP	SP Plus Corporation
+MCRO.L	Micro Focus International plc
 MRX	Marex Group plc Ordinary Shares
 AESI	Atlas Energy Solutions Inc.
 MNDT	Mandiant, Inc.
@@ -5621,6 +6975,7 @@ AVB	AvalonBay Communities, Inc.
 HBI	Hanesbrands Inc.
 MCF	Contango Oil & Gas Company
 GIS	General Mills, Inc.
+FIA1S.HE	Finnair Oyj
 DO	Diamond Offshore Drilling, Inc.
 CVNA	Carvana Co.
 ZY	Zymergen Inc.
@@ -5629,6 +6984,7 @@ WING	Wingstop Inc.
 CLBT	Cellebrite DI Ltd.
 AEY	ADDvantage Technologies Group, Inc.
 CSTR	CapStar Financial Holdings, Inc.
+AENA.MC	Aena S.M.E., S.A.
 WORK	Slack Technologies, Inc.
 DEC	Diversified Energy Company PLC
 UUGRY	United Utilities Group PLC
@@ -5636,14 +6992,20 @@ JOAN	JOANN Inc.
 TRTC	Terra Tech Corp.
 SPRT	Support.com, Inc.
 ECOM	ChannelAdvisor Corporation
+CTX.DE	Citrix Systems, Inc.
 ONTX	Onconova Therapeutics, Inc.
 CTXS	Citrix Systems, Inc.
 BRFH	Barfresh Food Group, Inc.
+VGCX.TO	Victoria Gold Corp.
 SRT	Startek, Inc.
+AGL.AX	AGL Energy Limited
+LTR.AX	Liontown Resources Limited
 MMAT	Meta Materials Inc.
 NATI	National Instruments Corporation
 FYBR	Frontier Communications Parent, Inc.
+JHX.AX	James Hardie Industries plc
 DEI	Douglas Emmett, Inc.
+ORE.TO	Orezone Gold Corporation
 RCAT	Red Cat Holdings, Inc.
 OPI	Office Properties Income Trust
 FLT	FLEETCOR Technologies, Inc.
@@ -5654,7 +7016,9 @@ CIH	China Index Holdings Limited
 VJET	voxeljet AG
 SHCO	Soho House & Co Inc.
 TAST	Carrols Restaurant Group, Inc.
+SAP.JO	Sappi Limited
 BRSP	BrightSpire Capital, Inc.
+DNO.OL	Dno Asa
 XEC	Cimarex Energy Co.
 COUP	Coupa Software Incorporated
 IS	ironSource Ltd.
@@ -5670,6 +7034,7 @@ WFSTF	Western Forest Products Inc.
 AMC	AMC Entertainment Holdings, Inc.
 LSGOF	Land Securities Group plc
 CHEOF	Cochlear Limited
+NAN.AX	Nanosonics Limited
 PET	Wag! Group Co.
 ACET	Adicet Bio, Inc.
 QTGPF	Qt Group Oyj
@@ -5682,8 +7047,10 @@ CYBE	CyberOptics Corporation
 MGPUF	M&G plc
 BRKS	Brooks Automation, Inc.
 CPWHF	Ceres Power Holdings plc
+2382.HK	Sunny Optical Technology (Group) Company Limited
 OIIM	O2Micro International Limited
 JBARF	Julius Bär Gruppe AG
+MMK.VI	Mayr-Melnhof Karton AG
 VTXPF	Victrex plc
 RENT	Rent the Runway, Inc.
 RKLY	Rockley Photonics Holdings Limited
@@ -5706,6 +7073,7 @@ BTCT	BTC Digital Ltd.
 STZHF	Stelco Holdings Inc.
 ALYA	Alithya Group Inc.
 LNDC	Landec Corporation
+SII.TO	Sprott Inc.
 GRBMF	Grupo Bimbo, S.A.B. de C.V.
 VQS	VIQ Solutions Inc.
 SRFM	Surf Air Mobility Inc.
@@ -5718,11 +7086,14 @@ COP	ConocoPhillips
 OMF	OneMain Holdings, Inc.
 NWG	NatWest Group plc
 LSXMA	The Liberty SiriusXM Group
+2303.TW	United Microelectronics Corporation
 ACST	Acasti Pharma Inc.
 CG	The Carlyle Group Inc.
 KLC	KinderCare Learning Companies, Inc.
 APPH	AppHarvest, Inc.
+SALM.OL	SalMar ASA
 ICD	Independence Contract Drilling, Inc.
+AGAS.OL	Avance Gas Holding Ltd
 SICRF	SimCorp A/S
 AJRD	Aerojet Rocketdyne Holdings, Inc.
 PRST	Presto Automation, Inc.
@@ -5737,6 +7108,8 @@ ICAGY	International Consolidated Airlines Group S.A.
 CRKN	Crown ElectroKinetics Corp.
 DENN	Denny's Corporation
 WRD	WeRide Inc.
+AIXA.DE	Aixtron Se
+AFN.TO	Ag Growth International Inc.
 TALO	Talos Energy Inc.
 SWIM	Latham Group, Inc.
 IRT	Independence Realty Trust, Inc.
@@ -5752,11 +7125,14 @@ GHL	Greenhill & Co., Inc.
 BUR	Burford Capital Limited
 VAL	Valaris Limited
 MECVF	Mdf Commerce Inc.
+TLW.L	Tullow Oil plc
 CNNEF	Canacol Energy Ltd
 SONO	Sonos, Inc.
 CBYDF	Corby Spirit and Wine Limited
+BG.VI	BAWAG Group AG
 RBLX	Roblox Corporation
 GHLD	Guild Holdings Company
+MC.PA	LVMH Moët Hennessy - Louis Vuitton, Société Européenne
 FUV	Arcimoto, Inc.
 EARN	Ellington Residential Mortgage REIT
 AYX	Alteryx, Inc.
@@ -5766,21 +7142,28 @@ MMNFF	MedMen Enterprises Inc.
 IDEV	iShares Core MSCI International Developed Markets ETF
 AMK	AssetMark Financial Holdings, Inc.
 BKCC	BlackRock Capital Investment Corporation
+MCG.L	Mobico Group Plc
 VRDN	Viridian Therapeutics, Inc.
 SJI	South Jersey Industries, Inc.
 MGOL	MGO Global Inc. Common Stock
+SLP.L	Sylvania Platinum Limited
 CNHI	CNH Industrial N.V.
 CDL	VictoryShares US Large Cap High Div Volatility Wtd ETF
+HEIA.AS	Heineken N.V.
 ZPTA	Zapata Computing Holdings Inc. Common Stock
 TGAN	Transphorm, Inc.
 AVO	Mission Produce, Inc.
+BAER.SW	Julius Bär Gruppe AG
 BRLXF	Boralex Inc.
 ATCO	Atlas Corp.
 NOVA	Sunnova Energy International Inc.
+LATO-B.ST	Investment AB Latour (publ)
 NAAS	NaaS Technology Inc.
 CUBE	CubeSmart
+OAM.V	OverActive Media Corp.
 LMRK	Landmark Infrastructure Partners LP
 MAR	Marriott International, Inc.
+FN.TO	First National Financial Corporation
 CBAY	CymaBay Therapeutics, Inc.
 LHDX	Lucira Health, Inc.
 AVTA	Avantax, Inc.
@@ -5788,10 +7171,14 @@ OXFCF	Velocys plc
 DAY	Dayforce Inc
 ADMLF	Adriatic Metals PLC
 PAZRF	Plaza Retail REIT
+BLX.TO	Boralex Inc.
+CVX.V	CEMATRIX Corporation
 BMRPF	B&M European Value Retail S.A.
 CSOD	Cornerstone OnDemand, Inc.
+CFF.TO	Conifex Timber Inc.
 MPCMF	Mapletree Pan Asia Commercial Trust
 FOCS	Focus Financial Partners Inc.
+SLNG.CN	SLANG Worldwide Inc.
 EGIO	Edgio, Inc.
 ALJJ	ALJ Regional Holdings, Inc.
 RNWK	RealNetworks, Inc.
@@ -5799,13 +7186,18 @@ STRS	Stratus Properties Inc.
 EVTL	Vertical Aerospace Ltd.
 SLCA	U.S. Silica Holdings, Inc.
 COLFF	Colabor Group Inc.
+WIHN.SW	WISeKey International Holding AG
 DTEA	DAVIDsTEA Inc.
 GLOP-PA	GasLog Partners LP
+RENT3.SA	Localiza Rent a Car S.A.
 ASTR	Astra Space, Inc.
+FCR-UN.TO	First Capital Real Estate Investment Trust
 LUCRF	Lucara Diamond Corp.
 RLMD	Relmada Therapeutics, Inc.
 WWLNF	Worldline S.A.
 VITFF	Victoria Gold Corp.
+BATS.L	British American Tobacco p.l.c.
+CEY.L	Centamin plc
 DSKE	Daseke, Inc.
 FENC	Fennec Pharmaceuticals Inc.
 BKEP	Blueknight Energy Partners, L.P.
@@ -5813,8 +7205,10 @@ GATO	Gatos Silver, Inc.
 IIPZF	InterRent Real Estate Investment Trust
 REIT	ALPS Active REIT ETF
 ANPMF	Andean Precious Metals Corp.
+PRU.AX	Perseus Mining Limited
 CCI	Crown Castle Inc.
 EBKDY	Erste Group Bank AG
+KAHOT.OL	Kahoot! ASA
 RIVN	Rivian Automotive, Inc.
 FSP	Franklin Street Properties Corp.
 MODN	Model N, Inc.
@@ -5825,6 +7219,7 @@ CD	Chindata Group Holdings Limited
 OKLO	Oklo Inc.
 ODD	Oddity Tech Ltd.
 CVA	Covanta Holding Corporation
+TXG.TO	Torex Gold Resources Inc.
 SDPI	Superior Drilling Products, Inc.
 OHI	Omega Healthcare Investors, Inc.
 GDP	Goodrich Petroleum Corporation
@@ -5833,22 +7228,27 @@ SMED	Sharps Compliance Corp.
 TMX	Terminix Global Holdings, Inc.
 WBTN	WEBTOON Entertainment Inc. Common stock
 GENK	GEN Restaurant Group, Inc.
+NAS.OL	Norwegian Air Shuttle ASA
 KSPN	Kaspien Holdings Inc.
 FARM	Farmer Bros. Co.
 VRM	Vroom, Inc.
+CAN.AX	Cann Group Limited
 XDSL	mPhase Technologies, Inc.
 BFH	Bread Financial Holdings, Inc.
 CPT	Camden Property Trust
 CHRA	Charah Solutions, Inc.
+SN.L	Smith & Nephew plc
 PNM	PNM Resources, Inc.
 JNJ	Johnson & Johnson
 GRUB	Just Eat Takeaway.com N.V.
 ALFFF	Alfa, S. A. B. de C. V.
 SIL	Global X Silver Miners ETF
 JDSPY	JD Sports Fashion plc
+MNG.L	M&G plc
 BCEL	Atreca, Inc.
 BPMUF	Basilea Pharmaceutica AG
 PK	Park Hotels & Resorts Inc.
+RNW.TO	TransAlta Renewables Inc.
 GTE	Gran Tierra Energy Inc.
 DCTH	Delcath Systems, Inc.
 TARO	Taro Pharmaceutical Industries Ltd.
@@ -5859,6 +7259,7 @@ RCL	Royal Caribbean Cruises Ltd.
 VXTRF	Voxtur Analytics Corp.
 VSTS	Vestis Corporation
 FUFU	BitFuFu Inc.
+TOY.TO	Spin Master Corp.
 HX	Akso Health Group
 AZO	AutoZone, Inc.
 IIPR	Innovative Industrial Properties, Inc.
@@ -5871,11 +7272,15 @@ FSRD	Fast Radius, Inc.
 OWL	Blue Owl Capital Inc.
 CLSD	Clearside Biomedical, Inc.
 EPZM	Epizyme, Inc.
+S51.SI	Sembcorp Marine Ltd
 RGTI	Rigetti Computing, Inc.
 ASGN	ASGN Incorporated
 WTRH	ASAP, Inc.
+ACQ.TO	AutoCanada Inc.
 PHAR	Pharming Group N.V.
+1299.HK	AIA Group Limited
 RBOT	Vicarious Surgical Inc.
+2020.OL	2020 Bulkers Ltd.
 QADA	QAD Inc.
 FFIE	Faraday Future Intelligent Electric Inc.
 HTA	Healthcare Trust of America, Inc.
@@ -5883,13 +7288,16 @@ CCAP	Crescent Capital BDC, Inc.
 PTGX	Protagonist Therapeutics, Inc.
 NRDE	Nu Ride Inc.
 NTG	Tortoise Midstream Energy Fund, Inc.
+PFIZER.NS	Pfizer Limited
 CEZYY	CEZ, a. s.
 NVVE	Nuvve Holding Corp.
+PZA.TO	Pizza Pizza Royalty Corp.
 MTOR	Meritor, Inc.
 CLOV	Clover Health Investments, Corp.
 PNDZF	Pandora A/S
 CPTAL	Capitala Finance Corp.
 VET	Vermilion Energy Inc.
+PEA.TO	Pieridae Energy Limited
 TEVA	Teva Pharmaceutical Industries Limited
 ABL	Abacus Life, Inc.
 FFHL	Fuwei Films (Holdings) Co., Ltd.
@@ -5897,9 +7305,11 @@ PSKRF	Protector Forsikring ASA
 INVA	Innoviva, Inc.
 HCAT	Health Catalyst, Inc.
 NEP	NextEra Energy Partners, LP
+PBH.TO	Premium Brands Holdings Corporation
 LIMAF	Linamar Corporation
 RUN	Sunrun Inc.
 NSCIF	Nanalysis Scientific Corp.
+CNR.TO	Canadian National Railway Company
 SEED	Origin Agritech Limited
 FATH	Fathom Digital Manufacturing Corporation
 FLYX	flyExclusive, Inc.
@@ -5921,6 +7331,7 @@ ROSE	Rose Hill Acquisition Corporation
 DOMA	Doma Holdings Inc.
 INVH	Invitation Homes Inc.
 NWARF	Norwegian Air Shuttle ASA
+NAB.AX	National Australia Bank Limited
 AIRC	Apartment Income REIT Corp.
 ENDPQ	Endo International plc
 QYOUF	QYOU Media Inc.
@@ -5935,10 +7346,12 @@ MACE	Mace Security International, Inc.
 DHT	DHT Holdings, Inc.
 EB	Eventbrite, Inc.
 ALSSF	Alsea, S.A.B. de C.V.
+VLA.PA	Valneva SE
 SRL	Scully Royalty Ltd.
 KHRNF	Khiron Life Sciences Corp.
 AGRX	Agile Therapeutics, Inc.
 NBSE	NeuBase Therapeutics, Inc.
+TEL.OL	Telenor ASA
 CLRB	Cellectar Biosciences, Inc.
 TPTA	Terra Property Trust, Inc. 6.00
 WSKEF	WISeKey International Holding AG
@@ -5951,6 +7364,7 @@ SAVE	Spirit Airlines, Inc.
 VTMX	Corporación Inmobiliaria Vesta, S.A.B. de C.V.
 GRNT	Granite Ridge Resources, Inc
 ICG	Intchains Group Limited
+SOT-UN.TO	Slate Office REIT
 EFC	Ellington Financial Inc.
 CRTX	Cortexyme, Inc.
 NGTF	Nightfood Holdings, Inc.
@@ -5967,6 +7381,7 @@ RBT	Rubicon Technologies, Inc.
 GFS	GLOBALFOUNDRIES Inc.
 SYAAF	Syrah Resources Limited
 MNY	MoneyHero Limited Class A Ordinary Shares
+DOCS.L	Dr. Martens plc
 HRMY	Harmony Biosciences Holdings, Inc.
 SMTI	Sanara MedTech Inc.
 VG	Venture Global, Inc.
@@ -5974,6 +7389,8 @@ FBRT	Franklin BSP Realty Trust, Inc.
 GHI	Greystone Housing Impact Investors LP
 PTON	Peloton Interactive, Inc.
 SKT	Tanger Inc.
+MEL.MC	Meliá Hotels International, S.A.
+9626.HK	Bilibili Inc.
 FTDR	Frontdoor, Inc.
 GBTG	Global Business Travel Group, Inc.
 TGS	Transportadora de Gas del Sur S.A.
@@ -5986,6 +7403,7 @@ GP	GreenPower Motor Company Inc.
 SOVO	Sovos Brands, Inc.
 LUKOY	PJSC Lukoil
 GLGI	Greystone Logistics, Inc.
+GJF.OL	Gjensidige Forsikring ASA
 PMNXF	Perseus Mining Limited
 SMIZF	Meliá Hotels International, S.A.
 PHXM	PHAXIAM Therapeutics S.A.
@@ -5998,6 +7416,8 @@ AAOI	Applied Optoelectronics, Inc.
 TJX	The TJX Companies, Inc.
 STR	Sitio Royalties Corp.
 ZFOX	ZeroFox Holdings, Inc.
+SGR-UN.TO	Slate Grocery REIT
+RBL.AX	Redbubble Limited
 ADVM	Adverum Biotechnologies, Inc.
 ASND	Ascendis Pharma A/S
 ORBC	ORBCOMM Inc.
@@ -6006,25 +7426,31 @@ STIX	Semantix, Inc.
 BITF	Bitfarms Ltd.
 SND	Smart Sand, Inc.
 UNIEF	Uni-Select Inc.
+AMI.V	Athabasca Minerals Inc.
 NESRF	Northern Star Resources Limited
 HSIC	Henry Schein, Inc.
+PA8.DE	Paion AG
 SHLX	Shell Midstream Partners, L.P.
 APLD	Applied Digital Corporation
 CMG	Chipotle Mexican Grill, Inc.
 PME	Pingtan Marine Enterprise Ltd.
 HOLI	Hollysys Automation Technologies Ltd.
+AX-UN.TO	Artis Real Estate Investment Trust
 INN	Summit Hotel Properties, Inc.
 LABFF	Laboratorios Farmaceuticos Rovi, S.A.
 LNDNF	Orrön Energy AB (publ)
 COIN	Coinbase Global, Inc.
 AVDL	Avadel Pharmaceuticals plc
 PLAN	Anaplan, Inc.
+LAND.L	Land Securities Group plc
 RFP	Resolute Forest Products Inc.
 OMEX	Odyssey Marine Exploration, Inc.
 IMMP	Immutep Limited
 BSRTF	BSR Real Estate Investment Trust
+4324.T	Dentsu Group Inc.
 SB	Safe Bulkers, Inc.
 LILM	Lilium N.V.
+POLY.L	Polymetal International plc
 MAX	MediaAlpha, Inc.
 KRRGF	Karora Resources Inc.
 PAY	Paymentus Holdings, Inc.
@@ -6032,6 +7458,7 @@ LSCC	Lattice Semiconductor Corporation
 WVE	Wave Life Sciences Ltd.
 AMOT	Allied Motion Technologies Inc.
 NE	Noble Corporation Plc
+HAR.JO	Harmony Gold Mining Company Limited
 AUGX	Augmedix, Inc.
 SAWLF	Mattr Corp.
 M	Macy's, Inc.
@@ -6043,6 +7470,7 @@ SWN	Southwestern Energy Company
 SCM	Stellus Capital Investment Corporation
 FIGS	FIGS, Inc.
 NLOK	NortonLifeLock Inc.
+RI.PA	Pernod Ricard S.A.
 GXO	GXO Logistics, Inc.
 LL	LL Flooring Holdings, Inc.
 HAYW	Hayward Holdings, Inc.
@@ -6052,6 +7480,7 @@ RGLS	Regulus Therapeutics Inc.
 HPH	Highest Performances Holdings Inc.
 MLEC	Moolec Science S.A.
 HTGC	Hercules Capital, Inc.
+DMP.AX	Domino's Pizza Enterprises Limited
 NVCR	NovoCure Limited
 PGTI	PGT Innovations, Inc.
 RCMT	RCM Technologies, Inc.
@@ -6062,6 +7491,8 @@ FCPT	Four Corners Property Trust, Inc.
 GERN	Geron Corporation
 APA	APA Corporation
 PEGY	Pineapple Energy Inc.
+YOU.L	YouGov plc
+CRR-UN.TO	Crombie Real Estate Investment Trust
 INVE	Identiv, Inc.
 EXFY	Expensify, Inc.
 ROP	Roper Technologies, Inc.
@@ -6082,8 +7513,10 @@ DAIO	Data I/O Corporation
 OPRT	Oportun Financial Corporation
 SOHU	Sohu.com Limited
 OLPX	Olaplex Holdings, Inc.
+AOX.DE	alstria office REIT-AG
 MBI	MBIA Inc.
 SXC	SunCoke Energy, Inc.
+CFW.TO	Calfrac Well Services Ltd.
 CMTOY	Cementos Argos S.A.
 FTSI	FTS International, Inc.
 TRVI	Trevi Therapeutics, Inc.
@@ -6092,15 +7525,21 @@ UAN	CVR Partners, LP
 BSIG	BrightSphere Investment Group Inc.
 NLSN	Nielsen Holdings plc
 NTBL	Notable Labs, Ltd.
+CAR-UN.TO	Canadian Apartment Properties Real Estate Investment Trust
 AETUF	ARC Resources Ltd.
 PLXS	Plexus Corp.
+ENEL.MI	Enel S.p.A.
 IMVT	Immunovant, Inc.
+BBVA.MC	Banco Bilbao Vizcaya Argentaria, S.A.
 VCEL	Vericel Corporation
+MRK.DE	MERCK Kommanditgesellschaft auf Aktien
 ITRM	Iterum Therapeutics plc
 PPD	PPD, Inc.
 GRAMF	TPCO Holding Corp.
 ADMS	Adamas Pharmaceuticals, Inc.
 MONDF	Mondi plc
+CLIQ.DE	Cliq Digital AG
+G5EN.ST	G5 Entertainment AB (publ)
 SCWO	374Water, Inc.
 SNPO	Snap One Holdings Corp.
 GEV	GE Vernova Inc.
@@ -6109,8 +7548,10 @@ STI	Solidion Technology Inc.
 CMO	Capstead Mortgage Corporation
 MPZAF	MIPS AB (publ)
 PCT	PureCycle Technologies, Inc.
+STLC.TO	Stelco Holdings Inc.
 VANI	Vivani Medical, Inc.
 VXRT	Vaxart, Inc.
+SFD.TO	NXT Energy Solutions Inc.
 BLI	Berkeley Lights, Inc.
 VTEX	Vtex
 TSLA	Tesla, Inc.
@@ -6118,7 +7559,12 @@ TLPH	Talphera, Inc.
 ZTO	ZTO Express (Cayman) Inc.
 PEPG	PepGen Inc.
 OTRK	Ontrak, Inc.
+SRU-UN.TO	SmartCentres Real Estate Investment Trust
 UTHR	United Therapeutics Corporation
+CAS.TO	Cascades Inc.
+STEP.TO	STEP Energy Services Ltd.
+ABI.BR	Anheuser-Busch InBev SA/NV
+SU.TO	Suncor Energy Inc.
 GAU	Galiano Gold Inc.
 SVM	Silvercorp Metals Inc.
 WYY	WidePoint Corporation
@@ -6127,56 +7573,77 @@ TLGT	Teligent, Inc.
 PCRX	Pacira BioSciences, Inc.
 SGA	Saga Communications, Inc.
 KGS	Kodiak Gas Services, Inc.
+ROVI.MC	Laboratorios Farmaceuticos Rovi, S.A.
 ZYNE	Zynerba Pharmaceuticals, Inc.
+CUERVO.MX	Becle, S.A.B. de C.V.
 OSS	One Stop Systems, Inc.
 SAVA	Cassava Sciences, Inc.
 ATEYY	Advantest Corporation
 BFAGY	Biofrontera AG
 LENZ	LENZ Therapeutics, Inc.
+ALIV-SDB.ST	Autoliv, Inc.
 HPK	HighPeak Energy, Inc.
 ZI	ZoomInfo Technologies Inc.
+ANDR.VI	Andritz AG
 PEYUF	Peyto Exploration & Development Corp.
 IPCFF	International Petroleum Corporation
 GNE	Genie Energy Ltd.
 NJDCY	Nidec Corporation
 MNTS	Momentus Inc.
+BRE.TO	Bridgemarq Real Estate Services Inc.
+QFUEL.OL	Quantafuel ASA
 OSSIF	OneSoft Solutions Inc.
 VLVOF	Volvo Car AB (publ.)
+NCM.AX	Newcrest Mining Limited
 CYBN.NE	Cybin Inc.
 ORGN	Origin Materials, Inc.
+ARU.AX	Arafura Rare Earths Limited
 TGB	Taseko Mines Limited
 DOC	Healthpeak Properties, Inc.
+DC-A.TO	Dundee Corporation
 WEGZY	Weg S.a.
+SAP.TO	Saputo Inc.
+SHA.DE	Schaeffler AG
 LFDJF	La Française des Jeux S.A.
 BLDE	Blade Air Mobility, Inc.
 PSB	PS Business Parks, Inc.
 ANPC	AnPac Bio-Medical Science Co., Ltd.
+NEXI.MI	Nexi S.p.A.
 HRZN	Horizon Technology Finance Corporation
 SAABF	Saab AB (publ)
 CPTA	Capitala Finance Corp.
 MSON	Misonix, Inc.
+GNS.L	Genus plc
 QNTFF	Quantafuel ASA
 HLNFF	High Liner Foods Incorporated
 TRMD	TORM plc
 YALA	Yalla Group Limited
+AEFES.IS	Anadolu Efes Biracilik ve Malt Sanayii Anonim Sirketi
+ALU.AX	Altium Limited
 CATB	Catabasis Pharmaceuticals, Inc.
 KCDMY	Kimberly-Clark de México, S. A. B. de C. V.
 HYPR	Hyperfine, Inc.
+IPCO.ST	International Petroleum Corporation
 GREE	Greenidge Generation Holdings Inc.
 MGP	MGM Growth Properties LLC
+HFG.DE	HelloFresh SE
 IBDSF	Iberdrola, S.A.
 STMRF	Stanmore Resources Limited
 ATRWF	Altius Renewable Royalties Corp.
 SI	Silvergate Capital Corporation
 PULS	PGIM Ultra Short Bond ETF
 ERFSF	Eurofins Scientific SE
+CFX.TO	Canfor Pulp Products Inc.
 ACOR	Acorda Therapeutics, Inc.
 WOLTF	Wolters Kluwer N.V.
 PANL	Pangaea Logistics Solutions, Ltd.
 VUZI	Vuzix Corporation
 CFPZF	Canfor Corporation
+GFP.TO	GreenFirst Forest Products Inc.
 VSTA	Vasta Platform Limited
+NIC.AX	Nickel Industries Limited
 BDRFF	Beiersdorf AG
+EGT.V	Eguana Technologies Inc.
 ELF	e.l.f. Beauty, Inc.
 HMHC	Houghton Mifflin Harcourt Company
 TWOU	2U, Inc.
@@ -6191,12 +7658,16 @@ ADCOF	Adcore Inc.
 GFAI	Guardforce AI Co., Limited
 LBTYA	Liberty Global plc
 EAST	Eastside Distilling, Inc.
+WINE.L	Naked Wines plc
 SLRX	Salarius Pharmaceuticals, Inc.
 TSVNF	Everplay Group Plc
+AUSS.OL	Austevoll Seafood ASA
 ATUSF	Altius Minerals Corporation
 ROMJF	Rubicon Organics Inc.
 SHLS	Shoals Technologies Group, Inc.
 EGTYF	Eguana Technologies Inc.
+CADLR.OL	Cadeler A/S
+NOVR.V	Nova Royalty Corp.
 ACT	Enact Holdings, Inc.
 CHB	Global X China Biotech Innovation ETF
 CZR	Caesars Entertainment, Inc.
@@ -6213,7 +7684,9 @@ AEHL	Antelope Enterprise Holdings Limited
 HTZ	Hertz Global Holdings, Inc.
 BVN	Compañía de Minas Buenaventura S.A.A.
 AAN	The Aaron's Company, Inc.
+CNE.TO	Canacol Energy Ltd
 XONE	Bondbloxx Bloomberg One Year Target Duration US Treasury ETF
+IPS.PA	Ipsos S.A.
 SUNW	Sunworks, Inc.
 LIND	Lindblad Expeditions Holdings, Inc.
 DCT	Duck Creek Technologies, Inc.
@@ -6225,6 +7698,7 @@ BAND	Bandwidth Inc.
 GCT	GigaCloud Technology Inc.
 HAIN	The Hain Celestial Group, Inc.
 MFIC	MidCap Financial Investment Corporation
+FDJ.PA	FDJ United
 SWAG	Stran & Company, Inc.
 UWMC	UWM Holdings Corporation
 TGONF	Tetragon Financial Group Limited
@@ -6237,6 +7711,7 @@ LUXH	LuxUrban Hotels Inc.
 SBIG	SpringBig Holdings, Inc.
 PTR	PetroChina Company Limited
 BTM	Bitcoin Depot Inc.
+BABY.TO	Else Nutrition Holdings Inc.
 ZVRA	Zevra Therapeutics, Inc.
 EBIX	Ebix, Inc.
 NFLX	Netflix, Inc.
@@ -6247,6 +7722,7 @@ LZAGY	Lonza Group AG
 NETE	Net Element, Inc.
 KNBE	KnowBe4, Inc.
 ROCC	Ranger Oil Corporation
+PSK.TO	PrairieSky Royalty Ltd.
 VTS	Vitesse Energy, Inc.
 MRLN	Marlin Business Services Corp.
 VRNS	Varonis Systems, Inc.
@@ -6273,13 +7749,18 @@ ATCX	Atlas Technical Consultants, Inc.
 GRIL	Muscle Maker, Inc.
 ORZCF	Orezone Gold Corporation
 DETNF	Aker BP ASA
+NANO.PA	Nanobiotix S.A.
 ATH	Athene Holding Ltd.
 TGA	TransGlobe Energy Corporation
 AGFY	Agrify Corporation
+BBDC4.SA	Banco Bradesco S.A.
 ROT	Rotor Acquisition Corp.
+ASA.OL	Atlantic Sapphire ASA
+KNT.TO	K92 Mining Inc.
 CRMT	America's Car-Mart, Inc.
 FBIN	Fortune Brands Innovations, Inc.
 CRK	Comstock Resources, Inc.
+FUNO11.MX	Fibra UNO
 ARREF	Amerigo Resources Ltd.
 VCTR	Victory Capital Holdings, Inc.
 JRJC	China Finance Online Co. Limited
@@ -6291,11 +7772,14 @@ SCVL	Shoe Carnival, Inc.
 NVEI	Nuvei Corporation
 SIX	Six Flags Entertainment Corporation
 LOTZ	CarLotz, Inc.
+SAN.PA	Sanofi
+PXT.TO	Parex Resources Inc.
 TRMT	Tremont Mortgage Trust
 ACC	American Campus Communities, Inc.
 XLRN	Acceleron Pharma Inc.
 POYYF	Polymetal International plc
 PTLO	Portillo's Inc.
+AWC.AX	Alumina Limited
 RPT	Rithm Property Trust Inc.
 RUM	Rumble Inc.
 BTI	British American Tobacco p.l.c.
@@ -6308,10 +7792,17 @@ PFE	Pfizer Inc.
 TCBX	Third Coast Bancshares, Inc.
 FRBK	Republic First Bancorp, Inc.
 REAX	The Real Brokerage Inc.
+NST.AX	Northern Star Resources Limited
 ZVIA	Zevia PBC
 DVD	Dover Motorsports, Inc.
+ALFAA.MX	Alfa, S. A. B. de C. V.
+ANG.JO	AngloGold Ashanti Plc
 CCJ	Cameco Corporation
+APM.V	Andean Precious Metals Corp.
 NRZ	New Residential Investment Corp.
+A2M.AX	The a2 Milk Company Limited
+RRL.AX	Regis Resources Limited
+THULE.ST	Thule Group AB (publ)
 LVWR	LiveWire Group, Inc.
 NGD	New Gold Inc.
 AIQ	Global X Artificial Intelligence & Technology ETF
@@ -6320,7 +7811,9 @@ SEAS	SeaWorld Entertainment, Inc.
 AE	Adams Resources & Energy, Inc.
 SOLCF	SOL Global Investments Corp.
 DCP	DCP Midstream, LP
+UU.L	United Utilities Group PLC
 PLNT	Planet Fitness, Inc.
+VLS.L	Velocys plc
 FGH	FG Group Holdings Inc.
 TSC	TriState Capital Holdings, Inc.
 CASA	Casa Systems, Inc.
@@ -6343,6 +7836,7 @@ PGRU	PropertyGuru Limited
 SHAK	Shake Shack Inc.
 MBNKF	Metro Bank PLC
 BREUF	Bridgemarq Real Estate Services Inc.
+ITP.TO	Intertape Polymer Group Inc.
 FRGE	Forge Global Holdings, Inc.
 RWBYF	Red White & Bloom Brands Inc.
 NP	Neenah, Inc.
@@ -6356,6 +7850,7 @@ DISH	DISH Network Corporation
 CBB	Cincinnati Bell Inc.
 SSB	SouthState Corporation
 PFPT	Proofpoint, Inc.
+HR-UN.TO	H&R Real Estate Investment Trust
 SCA	Stellus Capital Investment Corporation 5.75% NT 2022
 SLGG	Super League Enterprise, Inc.
 SGIOY	Shionogi & Co., Ltd.
@@ -6363,6 +7858,7 @@ SDIG	Stronghold Digital Mining, Inc.
 ABST	Absolute Software Corporation
 PTNR	Partner Communications Company Ltd.
 AWAY	Amplify Travel Tech ETF
+VALE3.SA	Vale S.A.
 PBIO	Pressure BioSciences, Inc.
 ABTX	Allegiance Bancshares, Inc.
 YNDX	Yandex N.V.
@@ -6378,6 +7874,7 @@ CLNC	Colony Credit Real Estate, Inc.
 SLDP	Solid Power, Inc.
 SCU	Sculptor Capital Management, Inc.
 EGRX	Eagle Pharmaceuticals, Inc.
+SQZ.L	Serica Energy plc
 FLMN	Falcon Minerals Corporation
 PTALF	PetroTal Corp.
 SBRCY	Sberbank of Russia
@@ -6389,6 +7886,7 @@ FAZE	FaZe Holdings Inc.
 RIDE	Lordstown Motors Corp.
 MRAI	Marpai, Inc.
 MCG	Membership Collective Group Inc.
+COH.AX	Cochlear Limited
 MXIM	Maxim Integrated Products, Inc.
 RE	Everest Re Group, Ltd.
 TRTN	Triton International Limited
@@ -6398,11 +7896,14 @@ TWTR	Twitter, Inc. (delisted)
 FLDR	Fidelity Low Duration Bond Factor ETF
 BATRA	Atlanta Braves Holdings, Inc.
 AMFPF	Amplifon S.p.A.
+CG.TO	Centerra Gold Inc.
 NAT	Nordic American Tankers Limited
 ATSAF	ATS Corporation
+CFP.TO	Canfor Corporation
 ID	PARTS iD, Inc.
 CTK	CooTek (Cayman) Inc.
 XENT	Intersect ENT, Inc.
+ACLN.SW	Accelleron Industries AG
 ABB	ABB Ltd
 SLRC	SLR Investment Corp.
 ALK	Alaska Air Group, Inc.
@@ -6412,7 +7913,9 @@ MTAL	MAC Copper Ltd
 PKI	PerkinElmer, Inc.
 LPI	Laredo Petroleum, Inc.
 PCOM	Points.com Inc.
+OPS.TO	Opsens Inc.
 HLBZ	Helbiz, Inc.
+HTO.AT	Hellenic Telecommunications Organization S.A.
 VTLE	Vital Energy, Inc.
 PNST	Pinstripes Holdings Inc.
 UP	Wheels Up Experience Inc.
@@ -6427,22 +7930,28 @@ EVTV	Envirotech Vehicles, Inc.
 WPG	Washington Prime Group Inc.
 WEJO	Wejo Group Limited
 QTEK	QualTek Services Inc.
+STLA.MI	Stellantis N.V.
 SOBKY	SoftBank Corp.
 EFLVF	Electrovaya Inc.
 USWS	U.S. Well Services, Inc.
 LNTH	Lantheus Holdings, Inc.
 FLTDF	Flow Traders N.V.
+TGA.JO	Thungela Resources Limited
 MNOD.IL	PJSC Mining and Metallurgical Company Norilsk Nickel
 FRMO	FRMO Corporation
 COG	Cabot Oil & Gas Corporation
 PDCE	PDC Energy, Inc.
+PIPE.TO	Pipestone Energy Corp.
 RYB	RYB Education, Inc.
+4507.T	Shionogi & Co., Ltd.
 ARD	Ardagh Group S.A.
 AQMS	Aqua Metals, Inc.
 PBPB	Potbelly Corporation
 CPLP	Capital Product Partners L.P.
 PRPL	Purple Innovation, Inc.
 DREUF	Dream Industrial Real Estate Investment Trust
+HTWS.L	Helios Towers plc
+TW.L	Taylor Wimpey plc
 EP	Empire Petroleum Corporation
 CLR	Continental Resources, Inc.
 NWINF	Naked Wines plc
@@ -6450,6 +7959,7 @@ PING	Ping Identity Holding Corp.
 ITMR	Itamar Medical Ltd.
 ITCB	Itaú Corpbanca
 DLVHF	Delivery Hero SE
+CPG.L	Compass Group PLC
 AUTO	AutoWeb, Inc.
 ZEN	Zendesk, Inc.
 EVEX	Eve Holding, Inc.
@@ -6463,12 +7973,14 @@ BPFH	Boston Private Financial Holdings, Inc.
 IAA	IAA, Inc.
 GCP	GCP Applied Technologies Inc.
 FMBI	First Midwest Bancorp, Inc.
+JBSS3.SA	Jbs S.a.
 ARBE	Arbe Robotics Ltd.
 PROG	Biora Therapeutics, Inc.
 VEC	V2X, Inc.
 CHMA	Chiasma, Inc.
 IDW	IDW Media Holdings, Inc.
 TRIB	Trinity Biotech plc
+AZN.L	AstraZeneca PLC
 AMBP	Ardagh Metal Packaging S.A.
 TUEM	Tuesday Morning Corporation
 ACER	Acer Therapeutics Inc.
@@ -6476,6 +7988,7 @@ SALRF	SalMar ASA
 VNTR	Venator Materials PLC
 FLNCF	Freelancer Limited
 SANW	S&W Seed Company
+UFS.TO	Domtar Corporation
 HNST	The Honest Company, Inc.
 INVVY	Indivior PLC
 BHG	Bright Health Group, Inc.
@@ -6486,22 +7999,27 @@ OBNK	Origin Bancorp, Inc.
 ZGNX	Zogenix, Inc.
 SUMO	Sumo Logic, Inc.
 VVNT	Vivint Smart Home, Inc.
+EDF.PA	Electricité de France S.A.
 ISR	Isoray, Inc.
+SLR.MC	Solaria Energía y Medio Ambiente, S.A.
 STAR	iStar Inc.
 CBLI	Cytocom, Inc.
 TGODF	The Green Organic Dutchman Holdings Ltd.
 ENIA	Enel Américas S.A.
+BFIT.AS	Basic-Fit N.V.
 OXLC	Oxford Lane Capital Corp.
 MTBC	CareCloud, Inc.
 SBBP	Strongbridge Biopharma plc
 GRA	W. R. Grace & Co.
 BRT	BRT Apartments Corp.
 SSU	SIGNA Sports United N.V.
+PURP.L	Purplebricks Group plc
 STLFF	Stillfront Group AB (publ)
 VECT	VectivBio Holding AG
 CROMF	Crombie Real Estate Investment Trust
 NXTD	Nxt-ID, Inc.
 WWR	Westwater Resources, Inc.
+XRO.AX	Xero Limited
 SKWD	Skyward Specialty Insurance Group, Inc.
 ELMS	Electric Last Mile Solutions, Inc.
 UPH	UpHealth, Inc.
@@ -6516,14 +8034,17 @@ LBPH	Longboard Pharmaceuticals, Inc.
 AFIN	American Finance Trust, Inc.
 CXDC	China XD Plastics Company Limited
 AMRS	Amyris, Inc.
+ASP.TO	Acerus Pharmaceuticals Corporation
 PEAR	Pear Therapeutics, Inc.
 CHNG	Change Healthcare Inc.
 AGLE	Aeglea BioTherapeutics, Inc.
 ONE	Meta Data Limited
 JT	Jianpu Technology Inc.
+SJR-B.TO	Shaw Communications Inc.
 PGY	Pagaya Technologies Ltd.
 FCXXF	First Capital Real Estate Investment Trust
 WRI	Weingarten Realty Investors
+HEXO.TO	HEXO Corp.
 CURO	CURO Group Holdings Corp.
 SUNL	Sunlight Financial Holdings Inc.
 RTL	The Necessity Retail REIT, Inc.
@@ -6560,6 +8081,7 @@ VRTV	Veritiv Corporation
 OCDX	Ortho Clinical Diagnostics Holdings plc
 LQSIF	Alcanna Inc.
 APRN	Blue Apron Holdings, Inc.
+TLT.V	Theralase Technologies Inc.
 CVRX	CVRx, Inc.
 MXDHF	MDxHealth S.A.
 SIEN	Sientra, Inc.
@@ -6570,9 +8092,11 @@ HBP	Huttig Building Products, Inc.
 FPACX	FPA Crescent Fund
 NLCP	NewLake Capital Partners, Inc.
 NLS	Nautilus, Inc.
+DHER.DE	Delivery Hero SE
 NOVN	Novan, Inc.
 CRXTQ	Clarus Therapeutics Holdings, Inc.
 HRVSF	Harvest Health & Recreation Inc.
+CLIQ.TO	Alcanna Inc.
 MSGN	MSG Networks Inc.
 QUOT	Quotient Technology Inc.
 NUVA	NuVasive, Inc.
@@ -6614,6 +8138,7 @@ PEI	Pennsylvania Real Estate Investment Trust
 BPMP	BP Midstream Partners LP
 RMED	Ra Medical Systems, Inc.
 WMC	Western Asset Mortgage Capital Corporation
+KHRN.V	Khiron Life Sciences Corp.
 STSA	Satsuma Pharmaceuticals, Inc.
 NUAN	Nuance Communications, Inc.
 CEQP	Crestwood Equity Partners LP
@@ -6628,6 +8153,7 @@ STRW	Strawberry Fields REIT LLC
 FRTA	Forterra, Inc.
 FBHS	Fortune Brands Home & Security, Inc.
 USAK	USA Truck, Inc.
+888.L	888 Holdings plc
 MF	Missfresh Limited
 DISCK	Warner Bros. Discovery, Inc.
 REUN	Reunion Neuroscience Inc.
@@ -6652,8 +8178,11 @@ WISH	ContextLogic Inc.
 HT	Hersha Hospitality Trust
 XSPA	XpresSpa Group, Inc.
 QTNT	Quotient Limited
+AGLX.OL	Agilyx ASA
+4385.T	Mercari, Inc.
 WLTW	Willis Towers Watson Public Limited Company
 TRHC	Tabula Rasa HealthCare, Inc.
+9434.T	SoftBank Corp.
 IDRA	Idera Pharmaceuticals, Inc.
 CNVY	Convey Health Solutions Holdings, Inc.
 GTS	Triple-S Management Corporation
@@ -6672,6 +8201,7 @@ ANTM	Elevance Health Inc.
 KRTX	Karuna Therapeutics, Inc.
 ERYP	ERYTECH Pharma S.A.
 GOED	Polished.com Inc.
+SGRE.MC	Siemens Gamesa Renewable Energy, S.A.
 LMNL	Liminal BioSciences Inc.
 CBIO	Catalyst Biosciences, Inc.
 FMTX	Forma Therapeutics Holdings, Inc.
@@ -6706,19 +8236,24 @@ HMTV	Hemisphere Media Group, Inc.
 RUTH	Ruth's Hospitality Group, Inc.
 EMBK	Embark Technology, Inc.
 RADI	Radius Global Infrastructure, Inc.
+UNS.TO	Uni-Select Inc.
 ZEV	Lightning eMotors, Inc.
 MMAC	MMA Capital Holdings, Inc.
 CANO	Cano Health, Inc.
 CNXT	VanEck ChiNext ETF
+BACHOCOB.MX	Industrias Bachoco, S.A.B. de C.V.
 RMO	Romeo Power, Inc.
 NEX	NexTier Oilfield Solutions Inc.
 DDAIF	Mercedes-Benz Group AG
 OBSV	ObsEva S.A.
 TESS	TESSCO Technologies Incorporated
+CHR.CO	Chr. Hansen Holding A/S
 IVC	Invacare Corporation
 POLY	Plantronics, Inc.
 VORB	Virgin Orbit Holdings, Inc.
 LFG	Archaea Energy Inc.
+BNXA.V	Banxa Holdings Inc.
+SLHG.V	Skylight Health Group Inc.
 BGRY	Berkshire Grey, Inc.
 FTRP	Field Trip Health Ltd.
 CRXT	Clarus Therapeutics Holdings, Inc.
@@ -6729,7 +8264,10 @@ CBL	CBL & Associates Properties, Inc.
 POSH	Poshmark, Inc.
 BBI	Brickell Biotech, Inc.
 VYNT	Vyant Bio, Inc.
+RWB.CN	Red White & Bloom Brands Inc.
+ABC.L	Abcam plc
 WKME	WalkMe Ltd.
+MRV.TO	Nuvo Pharmaceuticals Inc.
 PRTK	Paratek Pharmaceuticals, Inc.
 CNST	Constellation Pharmaceuticals, Inc.
 ECHO	Echo Global Logistics, Inc.
@@ -6737,6 +8275,8 @@ SCON	Superconductor Technologies Inc.
 CSU	Capital Senior Living Corporation
 SELB	Selecta Biosciences, Inc.
 LAIX	LAIX Inc.
+REUN.TO	Reunion Neuroscience Inc.
+SGI.V	Superior Gold Inc.
 AVEO	AVEO Pharmaceuticals, Inc.
 TCN	Tricon Residential Inc.
 GNRS	The Greenrose Holding Company Inc.
@@ -6755,6 +8295,7 @@ EARS	Altamira Therapeutics Ltd.
 TYME	Tyme Technologies, Inc.
 ASPCF	Acerus Pharmaceuticals Corporation
 VLNS	The Valens Company Inc.
+VRNO.CN	Verano Holdings Corp.
 EMHTF	Emerald Health Therapeutics, Inc.
 HHC	The Howard Hughes Corporation
 MNTV	Momentive Global Inc.
@@ -6773,11 +8314,13 @@ OMP	Oasis Midstream Partners LP
 HFC	HF Sinclair Corporation
 ESTE	Earthstone Energy, Inc.
 CDEV	Permian Resources Corporation
+SOIL.V	Saturn Oil & Gas Inc.
 AXAS	Abraxas Petroleum Corporation
 ENRFF	Enerflex Ltd.
 EXTN	Exterran Corporation
 WBT	Welbilt, Inc.
 RAVN	Raven Industries, Inc.
+ATL.MI	Atlantia S.p.A.
 CNR	Core Natural Resources, Inc.
 OEG	Orbital Energy Group, Inc.
 SNR	New Senior Investment Group Inc.

@@ -89,7 +89,7 @@ export class StatsService {
               _count: { id: true },
               orderBy: { _count: { id: 'desc' } },
               take: 20,
-            });
+            } as any);
             break;
 
           case 'quarter':
@@ -98,7 +98,7 @@ export class StatsService {
               where: whereClause,
               _count: { id: true },
               orderBy: [{ year: 'desc' }, { quarter: 'desc' }],
-            });
+            } as any);
             break;
 
           case 'year':
@@ -107,7 +107,7 @@ export class StatsService {
               where: whereClause,
               _count: { id: true },
               orderBy: { year: 'desc' },
-            });
+            } as any);
             break;
 
           case 'month':
