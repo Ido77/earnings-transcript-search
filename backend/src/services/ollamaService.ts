@@ -57,7 +57,7 @@ export class OllamaService {
           options: {
             temperature: 0.3, // Lower temperature for more focused summaries
             top_p: 0.9,
-            num_predict: 500 // Limit response length
+            num_predict: 2000 // Much higher limit for complete structured responses
           }
         } as OllamaRequest,
         {
@@ -69,13 +69,48 @@ export class OllamaService {
       );
 
       if (response.data && response.data.response) {
+        let summary = response.data.response.trim();
+        
+        // Post-process to ensure we have all required sections
+        const requiredSections = [
+          '## Key Financial Highlights',
+          '## Strategic Initiatives',
+          '## Management Outlook',
+          '## 🎯 POSITIVE OUTLIERS & SURPRISES',
+          '## Risk Factors'
+        ];
+        
+        // Check if all sections are present
+        const missingSections = requiredSections.filter(section => !summary.includes(section));
+        
+        if (missingSections.length > 0) {
+          logger.warn('Summary missing required sections', {
+            ticker,
+            quarter,
+            missingSections,
+            summaryLength: summary.length
+          });
+          
+          // Add missing sections with placeholder content
+          missingSections.forEach(section => {
+            if (section === '## Risk Factors') {
+              summary += '\n\n## Risk Factors\n- No specific risks mentioned in the transcript';
+            } else if (section === '## 🎯 POSITIVE OUTLIERS & SURPRISES') {
+              summary += '\n\n## 🎯 POSITIVE OUTLIERS & SURPRISES\n- No specific positive outliers identified';
+            } else {
+              summary += `\n\n${section}\n- Information not available in transcript`;
+            }
+          });
+        }
+        
         logger.info('Successfully generated summary', {
           ticker,
           quarter,
-          summaryLength: response.data.response.length
+          summaryLength: summary.length,
+          missingSections: missingSections.length
         });
         
-        return response.data.response.trim();
+        return summary;
       } else {
         throw new Error('No response from Ollama');
       }
@@ -104,27 +139,45 @@ export class OllamaService {
       ? `Focus on information related to: "${searchQuery}"`
       : 'Provide a comprehensive summary of the key points discussed';
 
-    return `You are a financial analyst summarizing an earnings call transcript.
+    return `You are a financial analyst. Analyze the following earnings call transcript and create a structured summary.
 
 Company: ${ticker}
 Quarter: ${quarter}
-${searchQuery ? `Search Context: ${searchQuery}` : ''}
+${searchQuery ? `Focus on: ${searchQuery}` : ''}
 
-Please provide a concise, professional summary of this earnings call transcript. ${context}
+**CRITICAL: You MUST analyze the ACTUAL transcript below and follow this EXACT format:**
 
-Focus on:
-- Key financial metrics and performance highlights
-- Strategic initiatives and business updates
-- Management's outlook and guidance
-- Important announcements or changes
-- Risk factors or challenges mentioned
+<think>
+[Explain your analysis process and what you found in the transcript]
+</think>
 
-Keep the summary clear, factual, and business-focused. Use bullet points for key highlights.
+## Key Financial Highlights
+- [Extract 3-4 specific financial metrics from the transcript]
 
-TRANSCRIPT:
+## Strategic Initiatives  
+- [List 2-3 strategic moves mentioned in the transcript]
+
+## Management Outlook
+- [List 2-3 forward-looking statements from the transcript]
+
+## 🎯 POSITIVE OUTLIERS & SURPRISES
+- [List unexpected positive developments that beat expectations]
+
+## Risk Factors
+- [List 2-3 risks or challenges mentioned]
+
+**REQUIREMENTS:**
+- Use EXACT section headers above
+- Use bullet points (- ) for all items
+- Extract SPECIFIC information from the transcript
+- Be concrete with numbers and details
+- Do NOT make up information not in the transcript
+- IMPORTANT: After your <think> section, you MUST extract the actual information you found into the structured sections above
+
+**TRANSCRIPT TO ANALYZE:**
 ${transcriptText.substring(0, 4000)}${transcriptText.length > 4000 ? '...' : ''}
 
-SUMMARY:`;
+**YOUR ANALYSIS:**`;
   }
 
   /**

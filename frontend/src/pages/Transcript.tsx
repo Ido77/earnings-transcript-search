@@ -31,6 +31,10 @@ export default function Transcript() {
   const [highlightedTranscript, setHighlightedTranscript] = useState<string>('');
   const [highlightedSegments, setHighlightedSegments] = useState<TranscriptSegment[]>([]);
   const [viewMode, setViewMode] = useState<'split' | 'full'>('split');
+  const [summarizing, setSummarizing] = useState(false);
+  const [summary, setSummary] = useState<string>('');
+  const [summaryCacheStatus, setSummaryCacheStatus] = useState(false);
+  const [ollamaStatus, setOllamaStatus] = useState<{available: boolean, model?: string}>({available: false});
 
   const highlightQuery = searchParams.get('highlight');
   const searchType = searchParams.get('searchType');
@@ -81,6 +85,43 @@ export default function Transcript() {
 
     fetchTranscript();
   }, [id, highlightQuery, searchType]);
+
+  // Check Ollama status and load cached summaries
+  useEffect(() => {
+    const checkOllamaStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/ollama/health');
+        if (response.ok) {
+          const data = await response.json();
+          setOllamaStatus(data);
+        }
+      } catch (error) {
+        console.error('Failed to check Ollama status:', error);
+      }
+    };
+
+    const loadCachedSummary = async () => {
+      if (!id) return;
+      
+      try {
+        const response = await fetch(`http://localhost:3001/api/transcripts/${id}/summaries`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.summaries && data.summaries.length > 0) {
+            // Load the first cached summary (most recent or general)
+            const cachedSummary = data.summaries[0];
+            setSummary(cachedSummary.summary);
+            setSummaryCacheStatus(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading cached summaries:', error);
+      }
+    };
+
+    checkOllamaStatus();
+    loadCachedSummary();
+  }, [id]);
 
   const highlightSegments = (segments: TranscriptSegment[], query: string, type: string | null): TranscriptSegment[] => {
     if (!query.trim()) return segments;
@@ -265,6 +306,43 @@ export default function Transcript() {
     URL.revokeObjectURL(url);
   };
 
+  const summarizeTranscript = async () => {
+    if (!transcript || summarizing) return;
+    
+    setSummarizing(true);
+    
+    try {
+      const response = await fetch(`http://localhost:3001/api/transcripts/${transcript.id}/summarize`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchQuery: highlightQuery || null // Pass the search query for context
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to generate summary');
+      }
+      
+      const data = await response.json();
+      
+      setSummary(data.summary);
+      setSummaryCacheStatus(data.cached || false);
+      
+      const cacheStatus = data.cached ? ' (cached)' : '';
+      toast(`AI summary created for ${transcript.ticker} ${transcript.year} Q${transcript.quarter}${cacheStatus}`, 'success');
+      
+    } catch (error) {
+      console.error('Error generating summary:', error);
+      toast(error instanceof Error ? error.message : "Failed to generate summary.", 'error');
+    } finally {
+      setSummarizing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -310,6 +388,21 @@ export default function Transcript() {
         </div>
         
         <div className="flex gap-2">
+          <button
+            onClick={summarizeTranscript}
+            disabled={summarizing || !ollamaStatus.available}
+            className={`flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors duration-200 ${
+              summaryCacheStatus 
+                ? 'bg-green-100 hover:bg-green-200 text-green-800 border-green-300' 
+                : 'bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-300'
+            } disabled:opacity-50`}
+            title={summaryCacheStatus ? "AI summary (cached)" : "Generate AI summary"}
+          >
+            <span className="text-lg">
+              {summarizing ? '🤖...' : summaryCacheStatus ? '🤖💾' : '🤖'}
+            </span>
+            <span>AI Summary</span>
+          </button>
           <button
             onClick={copyToClipboard}
             className="flex items-center space-x-2 px-4 py-2 border rounded-lg hover:bg-gray-50"
@@ -359,6 +452,120 @@ export default function Transcript() {
             <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
               Highlighted terms are marked in yellow. Use Ctrl+F to find more instances.
             </p>
+          </div>
+        )}
+
+        {/* AI Summary */}
+        {summary && (
+          <div className="mb-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🤖</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">AI Summary</span>
+                </div>
+                <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full">
+                  Generated with Ollama
+                </span>
+                {summaryCacheStatus && (
+                  <span className="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
+                    💾 Cached
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-3 py-1 rounded-full font-medium">
+                  🎯 Positive Outliers
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-4 max-h-96 overflow-y-auto">
+              {(() => {
+                // Extract thinking process
+                const thinkMatch = summary.match(/<think>([\s\S]*?)<\/think>/);
+                const thinkingProcess = thinkMatch ? thinkMatch[1].trim() : null;
+                
+                // Extract structured sections
+                const sections = summary.split('##').filter(s => s.trim());
+                
+                return (
+                  <div className="space-y-4">
+                    {/* Thinking Process Section */}
+                    {thinkingProcess && (
+                      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                        <details className="group">
+                          <summary className="cursor-pointer flex items-center gap-2 font-semibold text-blue-800 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200">
+                            <span className="text-lg">🧠</span>
+                            <span>AI Analysis Process</span>
+                            <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full">
+                              Click to expand
+                            </span>
+                          </summary>
+                          <div className="mt-3 text-sm text-blue-700 dark:text-blue-200 leading-relaxed">
+                            {thinkingProcess.split('\n').map((line, index) => (
+                              <p key={index} className="mb-2">{line}</p>
+                            ))}
+                          </div>
+                        </details>
+                      </div>
+                    )}
+                    
+                    {/* Structured Sections */}
+                    {sections.map((section, index) => {
+                      const lines = section.trim().split('\n');
+                      const title = lines[0].trim();
+                      const content = lines.slice(1).filter(line => line.trim());
+                      
+                      // Skip empty sections
+                      if (!content.length) return null;
+                      
+                      // Special styling for Positive Outliers section
+                      const isOutliers = title.includes('POSITIVE OUTLIERS') || title.includes('SURPRISES');
+                      
+                      return (
+                        <div key={index} className={`rounded-lg p-3 ${
+                          isOutliers 
+                            ? 'bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800' 
+                            : 'bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600'
+                        }`}>
+                          <h4 className={`font-semibold mb-2 ${
+                            isOutliers 
+                              ? 'text-yellow-800 dark:text-yellow-300' 
+                              : 'text-gray-900 dark:text-white'
+                          }`}>
+                            {isOutliers ? '🎯 ' : ''}{title}
+                          </h4>
+                          <ul className="space-y-1">
+                            {content.map((item, itemIndex) => {
+                              const cleanItem = item.replace(/^-\s*/, '').trim();
+                              if (!cleanItem) return null;
+                              
+                              return (
+                                <li key={itemIndex} className={`text-sm flex items-start gap-2 ${
+                                  isOutliers 
+                                    ? 'text-yellow-700 dark:text-yellow-200' 
+                                    : 'text-gray-700 dark:text-gray-300'
+                                }`}>
+                                  <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                                    isOutliers 
+                                      ? 'bg-yellow-500' 
+                                      : 'bg-gray-400'
+                                  }`}></span>
+                                  <span>{cleanItem}</span>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
           </div>
         )}
 

@@ -27,6 +27,7 @@ import { ollamaService } from '@/services/ollamaService';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
+const SUMMARY_CACHE_FILE = path.join(__dirname, '../cache/summaries.json');
 
 // Ensure cache directory exists
 const cacheDir = path.dirname(CACHE_FILE);
@@ -230,8 +231,70 @@ const saveCacheToFile = (cache: Map<string, any>): void => {
   }
 };
 
+// Load summary cache from file
+function loadSummaryCacheFromFile(): Map<string, any> {
+  const cache = new Map();
+  
+  if (!fs.existsSync(SUMMARY_CACHE_FILE)) {
+    logger.info('Summary cache file does not exist, starting with empty cache', { file: SUMMARY_CACHE_FILE });
+    return cache;
+  }
+  
+  try {
+    const data = fs.readFileSync(SUMMARY_CACHE_FILE, 'utf8');
+    const cacheData = JSON.parse(data);
+    
+    for (const [key, value] of Object.entries(cacheData)) {
+      cache.set(key, value);
+    }
+    
+    logger.info('Summary cache loaded successfully', { 
+      entries: cache.size,
+      file: SUMMARY_CACHE_FILE 
+    });
+  } catch (error) {
+    logger.error('Failed to load summary cache from file', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      file: SUMMARY_CACHE_FILE 
+    });
+    
+    // Create backup of corrupted file
+    const backupFile = `${SUMMARY_CACHE_FILE}.backup.${Date.now()}`;
+    try {
+      fs.copyFileSync(SUMMARY_CACHE_FILE, backupFile);
+      logger.info('Created backup of corrupted summary cache file', { backupFile });
+    } catch (backupError) {
+      logger.warn('Failed to create backup', { error: backupError instanceof Error ? backupError.message : 'Unknown error' });
+    }
+    
+    logger.warn('Keeping original file but starting with empty summary cache');
+  }
+  
+  return cache;
+}
+
+// Save summary cache to file
+const saveSummaryCacheToFile = (cache: Map<string, any>): void => {
+  try {
+    // Convert Map to object for JSON serialization
+    const cacheData = Object.fromEntries(cache.entries());
+    fs.writeFileSync(SUMMARY_CACHE_FILE, JSON.stringify(cacheData, null, 2));
+    
+    logger.info('Summary cache saved to file', { 
+      entries: cache.size,
+      file: SUMMARY_CACHE_FILE 
+    });
+  } catch (error) {
+    logger.error('Failed to save summary cache to file', { 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      file: SUMMARY_CACHE_FILE 
+    });
+  }
+};
+
 // Initialize persistent cache
 const transcriptCache = loadCacheFromFile();
+const summaryCache = loadSummaryCacheFromFile();
 
 // Initialize job manager
 const jobManager = new JobManager(transcriptCache);
@@ -1156,6 +1219,32 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
   
   const transcript = transcriptCache.get(id);
   
+  // Create cache key for this summary
+  const summaryCacheKey = `${id}:${searchQuery || 'general'}`;
+  
+  // Check if summary already exists in cache
+  if (summaryCache.has(summaryCacheKey)) {
+    const cachedSummary = summaryCache.get(summaryCacheKey);
+    logger.info('Returning cached summary', {
+      id,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      searchQuery: searchQuery || 'none',
+      cacheKey: summaryCacheKey
+    });
+    
+    return res.json({
+      success: true,
+      summary: cachedSummary.summary,
+      model: cachedSummary.model,
+      ticker: transcript.ticker,
+      quarter: `${transcript.year}Q${transcript.quarter}`,
+      searchQuery: searchQuery || null,
+      cached: true
+    });
+  }
+  
   logger.info('Generating summary for transcript', {
     id,
     ticker: transcript.ticker,
@@ -1181,13 +1270,40 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
       searchQuery
     );
     
+    // Cache the summary
+    const summaryData = {
+      summary,
+      model: healthCheck.model,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      searchQuery: searchQuery || null,
+      createdAt: new Date().toISOString()
+    };
+    
+    summaryCache.set(summaryCacheKey, summaryData);
+    
+    // Save cache to file
+    saveSummaryCacheToFile(summaryCache);
+    
+    logger.info('Summary generated and cached', {
+      id,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      searchQuery: searchQuery || 'none',
+      cacheKey: summaryCacheKey,
+      summaryLength: summary.length
+    });
+    
     res.json({
       success: true,
       summary,
       model: healthCheck.model,
       ticker: transcript.ticker,
       quarter: `${transcript.year}Q${transcript.quarter}`,
-      searchQuery: searchQuery || null
+      searchQuery: searchQuery || null,
+      cached: false
     });
     
   } catch (error) {
@@ -1212,6 +1328,81 @@ app.get('/api/ollama/health', asyncHandler(async (req, res) => {
     model: healthCheck.model,
     error: healthCheck.error
   });
+}));
+
+// Get cached summaries for a transcript
+app.get('/api/transcripts/:id/summaries', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  
+  if (!transcriptCache.has(id)) {
+    return res.status(404).json({ error: 'Transcript not found' });
+  }
+  
+  const transcript = transcriptCache.get(id);
+  const summaries = [];
+  
+  // Find all cached summaries for this transcript
+  for (const [key, value] of summaryCache.entries()) {
+    if (key.startsWith(`${id}:`)) {
+      const searchQuery = key.split(':')[1];
+      summaries.push({
+        searchQuery: searchQuery === 'general' ? null : searchQuery,
+        summary: value.summary,
+        model: value.model,
+        createdAt: value.createdAt,
+        cached: true
+      });
+    }
+  }
+  
+  res.json({
+    success: true,
+    transcriptId: id,
+    ticker: transcript.ticker,
+    quarter: `${transcript.year}Q${transcript.quarter}`,
+    summaries
+  });
+}));
+
+// Clear summary cache for a specific transcript or all summaries
+app.delete('/api/summaries/cache', asyncHandler(async (req, res) => {
+  const { transcriptId } = req.query;
+  
+  if (transcriptId) {
+    // Clear summaries for specific transcript
+    const keysToDelete = [];
+    for (const key of summaryCache.keys()) {
+      if (key.startsWith(`${transcriptId}:`)) {
+        keysToDelete.push(key);
+      }
+    }
+    
+    keysToDelete.forEach(key => summaryCache.delete(key));
+    
+    logger.info('Cleared summary cache for transcript', {
+      transcriptId,
+      deletedCount: keysToDelete.length
+    });
+    
+    res.json({
+      success: true,
+      message: `Cleared ${keysToDelete.length} summaries for transcript ${transcriptId}`
+    });
+  } else {
+    // Clear all summaries
+    const count = summaryCache.size;
+    summaryCache.clear();
+    
+    logger.info('Cleared all summary cache', { count });
+    
+    res.json({
+      success: true,
+      message: `Cleared all ${count} cached summaries`
+    });
+  }
+  
+  // Save updated cache to file
+  saveSummaryCacheToFile(summaryCache);
 }));
 
 // Helper function to get last four quarters using generalized approach
@@ -1394,6 +1585,7 @@ const gracefulShutdown = (signal: string) => {
 
   // Save cache before shutdown
   saveCacheToFile(transcriptCache);
+  saveSummaryCacheToFile(summaryCache); // Save summary cache
   
   server.close(() => {
     logger.info('HTTP server closed');

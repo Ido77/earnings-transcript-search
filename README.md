@@ -107,8 +107,32 @@ The AI summaries focus on:
 - Key financial metrics and performance highlights
 - Strategic initiatives and business updates
 - Management's outlook and guidance
-- Important announcements or changes
+- **🎯 SURPRISES & POSITIVE OUTLIERS** (most important section)
+  - Unexpected positive results or outperformance
+  - Surprising strategic moves or partnerships
+  - Outlier metrics that beat expectations
+  - Positive surprises in guidance or outlook
+  - Unexpected market opportunities or tailwinds
 - Risk factors or challenges mentioned
+
+#### Features
+- **🧠 AI Analysis Process**: Collapsible section showing the AI's reasoning
+- **🎯 Positive Outliers**: Highlighted section for unexpected positive developments
+- **Structured Output**: Clean, organized summary with bullet points
+- **Search Context**: Summaries are generated with your search query in mind
+- **💾 Persistent Cache**: Summaries are automatically cached and persist across sessions
+- **Cache Indicators**: 
+  - 🤖💾 Green button = Cached summary available
+  - 🤖 Blue button = Generate new summary
+  - 💾 Cached badge in summary header
+
+#### Cache Management
+- **Automatic Caching**: Summaries are cached by transcript ID and search query
+- **Cache Location**: `backend/cache/summaries.json`
+- **Cache Endpoints**:
+  - `GET /api/transcripts/:id/summaries` - Get all cached summaries for a transcript
+  - `DELETE /api/summaries/cache?transcriptId=id` - Clear cache for specific transcript
+  - `DELETE /api/summaries/cache` - Clear all cached summaries
 
 ## 📊 Expected Performance
 - **Search Response**: <500ms for keyword searches

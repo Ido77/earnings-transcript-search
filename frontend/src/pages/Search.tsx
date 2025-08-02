@@ -50,6 +50,7 @@ const Search = () => {
   const [tickerSuggestions, setTickerSuggestions] = useState<Array<{ticker: string, companyName: string}>>([]);
   const [summarizing, setSummarizing] = useState<string | null>(null);
   const [summaries, setSummaries] = useState<{[key: string]: string}>({});
+  const [summaryCacheStatus, setSummaryCacheStatus] = useState<{[key: string]: boolean}>({});
   const [ollamaStatus, setOllamaStatus] = useState<{available: boolean, model?: string}>({available: false});
 
   // Save state to localStorage and update URL
@@ -84,9 +85,9 @@ const Search = () => {
         const response = await fetch('/us_tickers_enhanced.txt');
         const text = await response.text();
         const tickerList = text.trim().split('\n')
-          .map(line => line.trim())
-          .filter(line => line.length > 0)
-          .map(line => {
+          .map((line: string) => line.trim())
+          .filter((line: string) => line.length > 0)
+          .map((line: string) => {
             const parts = line.split('\t');
             return {
               ticker: parts[0],
@@ -180,6 +181,32 @@ const Search = () => {
     }
   };
 
+  // Load cached summaries for a transcript
+  const loadCachedSummaries = async (transcriptId: string) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/transcripts/${transcriptId}/summaries`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.summaries && data.summaries.length > 0) {
+          // Load the first cached summary (most recent or general)
+          const cachedSummary = data.summaries[0];
+          setSummaries(prev => ({
+            ...prev,
+            [transcriptId]: cachedSummary.summary
+          }));
+          setSummaryCacheStatus(prev => ({
+            ...prev,
+            [transcriptId]: true
+          }));
+          return true; // Found cached summary
+        }
+      }
+    } catch (error) {
+      console.error('Error loading cached summaries:', error);
+    }
+    return false; // No cached summary found
+  };
+
   const summarizeTranscript = async (transcriptId: string, ticker: string, year: number, quarter: number) => {
     if (summarizing === transcriptId) return; // Prevent double-clicking
     
@@ -208,7 +235,13 @@ const Search = () => {
         [transcriptId]: data.summary
       }));
       
-      toast(`AI summary created for ${ticker} ${year} Q${quarter}`, 'success');
+      setSummaryCacheStatus(prev => ({
+        ...prev,
+        [transcriptId]: data.cached || false
+      }));
+      
+      const cacheStatus = data.cached ? ' (cached)' : '';
+      toast(`AI summary created for ${ticker} ${year} Q${quarter}${cacheStatus}`, 'success');
       
     } catch (error) {
       console.error('Error generating summary:', error);
@@ -277,6 +310,13 @@ const Search = () => {
         const data = await response.json();
         setResults(data);
         setCurrentPage(1);
+        
+        // Load cached summaries for search results
+        if (data.results && data.results.length > 0) {
+          for (const result of data.results) {
+            await loadCachedSummaries(result.id);
+          }
+        }
         
         toast(
           `Found ${data.total} results in ${data.executionTime}ms`, 
@@ -759,11 +799,15 @@ const Search = () => {
                             e.stopPropagation();
                             summarizeTranscript(result.id, result.ticker, result.year, result.quarter);
                           }}
-                          disabled={summarizing === result.id}
-                          className="px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1 disabled:opacity-50"
-                          title="Generate AI summary"
+                          disabled={summarizing === result.id || !ollamaStatus.available}
+                          className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1 disabled:opacity-50 ${
+                            summaryCacheStatus[result.id] 
+                              ? 'bg-green-100 hover:bg-green-200 text-green-800' 
+                              : 'bg-blue-100 hover:bg-blue-200 text-blue-800'
+                          }`}
+                          title={summaryCacheStatus[result.id] ? "AI summary (cached)" : "Generate AI summary"}
                         >
-                          {summarizing === result.id ? '🤖...' : '🤖'}
+                          {summarizing === result.id ? '🤖...' : summaryCacheStatus[result.id] ? '🤖💾' : '🤖'}
                         </button>
                         {result.relevanceScore && (
                           <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
@@ -803,13 +847,116 @@ const Search = () => {
                     
                     {/* AI Summary */}
                     {summaries[result.id] && (
-                      <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-green-600 dark:text-green-400 font-medium">🤖 AI Summary</span>
-                          <span className="text-xs text-gray-500">Generated with Ollama</span>
+                      <div className="mt-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+                        {/* Header */}
+                        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20">
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
+                              <span className="text-2xl">🤖</span>
+                              <span className="font-semibold text-gray-900 dark:text-white">AI Summary</span>
+                            </div>
+                            <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full">
+                              Generated with Ollama
+                            </span>
+                            {summaryCacheStatus[result.id] && (
+                              <span className="text-xs bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-2 py-1 rounded-full">
+                                💾 Cached
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-3 py-1 rounded-full font-medium">
+                              🎯 Positive Outliers
+                            </span>
+                          </div>
                         </div>
-                        <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                          {summaries[result.id]}
+
+                        {/* Content */}
+                        <div className="p-4 max-h-96 overflow-y-auto">
+                          {(() => {
+                            const summary = summaries[result.id];
+                            
+                            // Extract thinking process
+                            const thinkMatch = summary.match(/<think>([\s\S]*?)<\/think>/);
+                            const thinkingProcess = thinkMatch ? thinkMatch[1].trim() : null;
+                            
+                            // Extract structured sections
+                            const sections = summary.split('##').filter(s => s.trim());
+                            
+                            return (
+                              <div className="space-y-4">
+                                {/* Thinking Process Section */}
+                                {thinkingProcess && (
+                                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                                    <details className="group">
+                                      <summary className="cursor-pointer flex items-center gap-2 font-semibold text-blue-800 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-200">
+                                        <span className="text-lg">🧠</span>
+                                        <span>AI Analysis Process</span>
+                                        <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-full">
+                                          Click to expand
+                                        </span>
+                                      </summary>
+                                      <div className="mt-3 text-sm text-blue-700 dark:text-blue-200 leading-relaxed">
+                                        {thinkingProcess.split('\n').map((line, index) => (
+                                          <p key={index} className="mb-2">{line}</p>
+                                        ))}
+                                      </div>
+                                    </details>
+                                  </div>
+                                )}
+                                
+                                {/* Structured Sections */}
+                                {sections.map((section, index) => {
+                                  const lines = section.trim().split('\n');
+                                  const title = lines[0].trim();
+                                  const content = lines.slice(1).filter(line => line.trim());
+                                  
+                                  // Skip empty sections
+                                  if (!content.length) return null;
+                                  
+                                  // Special styling for Positive Outliers section
+                                  const isOutliers = title.includes('POSITIVE OUTLIERS') || title.includes('SURPRISES');
+                                  
+                                  return (
+                                    <div key={index} className={`rounded-lg p-3 ${
+                                      isOutliers 
+                                        ? 'bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800' 
+                                        : 'bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600'
+                                    }`}>
+                                      <h4 className={`font-semibold mb-2 ${
+                                        isOutliers 
+                                          ? 'text-yellow-800 dark:text-yellow-300' 
+                                          : 'text-gray-900 dark:text-white'
+                                      }`}>
+                                        {isOutliers ? '🎯 ' : ''}{title}
+                                      </h4>
+                                      <ul className="space-y-1">
+                                        {content.map((item, itemIndex) => {
+                                          const cleanItem = item.replace(/^-\s*/, '').trim();
+                                          if (!cleanItem) return null;
+                                          
+                                          return (
+                                            <li key={itemIndex} className={`text-sm flex items-start gap-2 ${
+                                              isOutliers 
+                                                ? 'text-yellow-700 dark:text-yellow-200' 
+                                                : 'text-gray-700 dark:text-gray-300'
+                                            }`}>
+                                              <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                                                isOutliers 
+                                                  ? 'bg-yellow-500' 
+                                                  : 'bg-gray-400'
+                                              }`}></span>
+                                              <span>{cleanItem}</span>
+                                            </li>
+                                          );
+                                        })}
+                                      </ul>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                     )}
