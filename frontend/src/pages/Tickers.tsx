@@ -255,10 +255,10 @@ const Tickers = () => {
                 onChange={(e) => setQuarterCount(Number(e.target.value))}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value={1}>1 quarter</option>
+                <option value={1}>1 quarter (default)</option>
                 <option value={2}>2 quarters</option>
                 <option value={3}>3 quarters</option>
-                <option value={4}>4 quarters (default)</option>
+                <option value={4}>4 quarters</option>
                 <option value={6}>6 quarters</option>
                 <option value={8}>8 quarters</option>
               </select>
