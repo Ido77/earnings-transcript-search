@@ -434,11 +434,7 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
         try {
           // Smart quarter strategy - try multiple recent quarters in order of likelihood
           // Different companies have different fiscal year ends, so we need to try multiple quarters
-          const quartersToTry = [
-            { year: 2025, quarter: 1 },  // Q1 2025 (most recent, most likely to exist)
-            { year: 2024, quarter: 4 },  // Q4 2024 (previous quarter, very likely)
-            { year: 2024, quarter: 3 },  // Q3 2024 (fallback)
-          ];
+          const quartersToTry = getLastFourQuarters(ticker).slice(0, 3);
           // Process quarters sequentially to avoid rate limiting issues
           const fetchedTranscripts = [];
           for (const quarter of quartersToTry) {
@@ -1148,21 +1144,10 @@ app.get('/api/transcripts/:id', (req, res) => {
   }
 });
 
-// Helper function to get last four quarters
-const getLastFourQuarters = () => {
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
-  const currentQuarter = Math.floor(currentMonth / 3) + 1;
-  
-  const quarters = [];
-  for (let i = 0; i < 4; i++) {
-    const year = currentYear - Math.floor((currentQuarter - 1 - i) / 4);
-    const quarter = ((currentQuarter - 1 - i) % 4 + 4) % 4 + 1;
-    quarters.push({ year, quarter });
-  }
-  
-  return quarters;
+// Helper function to get last four quarters using generalized approach
+const getLastFourQuarters = (ticker?: string) => {
+  const { getQuartersToTryForTicker } = require('./services/quarterCalculator');
+  return getQuartersToTryForTicker(ticker || 'GENERAL', 4);
 };
 
 // Tickers API endpoints
@@ -1192,7 +1177,14 @@ app.get('/api/tickers/:ticker', asyncHandler(async (req, res) => {
     return res.status(404).json({ error: 'Ticker not found' });
   }
   
-  res.json(details);
+  // Add fiscal year information
+  const { getFiscalYearInfo } = require('./services/quarterCalculator');
+  const fiscalYearInfo = getFiscalYearInfo(tickerUpper);
+  
+  res.json({
+    ...details,
+    fiscalYear: fiscalYearInfo
+  });
 }));
 
 app.post('/api/tickers/:ticker/refresh', asyncHandler(async (req, res) => {
@@ -1204,7 +1196,7 @@ app.post('/api/tickers/:ticker/refresh', asyncHandler(async (req, res) => {
   }
   
   const tickerUpper = ticker.toUpperCase();
-  const quartersToRefresh = quarters || getLastFourQuarters();
+  const quartersToRefresh = quarters || getLastFourQuarters(tickerUpper);
   
   logger.info('Refreshing ticker transcripts', {
     ticker: tickerUpper,
@@ -1221,6 +1213,78 @@ app.post('/api/tickers/:ticker/refresh', asyncHandler(async (req, res) => {
     ticker: tickerUpper,
     results: results.results.filter(r => r.ticker === tickerUpper),
     summary: results.summary,
+  });
+}));
+
+// Get fiscal year information for a ticker
+app.get('/api/tickers/:ticker/fiscal-year', asyncHandler(async (req, res) => {
+  const { ticker } = req.params;
+  
+  if (!ticker || ticker.length > 10) {
+    return res.status(400).json({ error: 'Invalid ticker format' });
+  }
+  
+  const tickerUpper = ticker.toUpperCase();
+  const { getFiscalYearInfo, getLastFourQuarters, formatQuarter } = require('./services/quarterCalculator');
+  
+  const fiscalYearInfo = getFiscalYearInfo(tickerUpper);
+  const recentQuarters = getLastFourQuarters(new Date(), tickerUpper);
+  
+  res.json({
+    ticker: tickerUpper,
+    fiscalYear: fiscalYearInfo,
+    recentQuarters: recentQuarters.map((q: { year: number; quarter: number }) => ({
+      ...q,
+      formatted: formatQuarter(q.year, q.quarter, tickerUpper)
+    })),
+    example: {
+      currentQuarter: formatQuarter(recentQuarters[0].year, recentQuarters[0].quarter, tickerUpper),
+      previousQuarter: formatQuarter(recentQuarters[1].year, recentQuarters[1].quarter, tickerUpper)
+    }
+  });
+}));
+
+// Get fiscal year information using general pattern-based approach
+app.post('/api/fiscal-year/calculate', asyncHandler(async (req, res) => {
+  const { earningsCallDate, reportedQuarter, reportedYear } = req.body;
+  
+  if (!earningsCallDate || !reportedQuarter || !reportedYear) {
+    return res.status(400).json({ 
+      error: 'Missing required fields: earningsCallDate, reportedQuarter, reportedYear' 
+    });
+  }
+  
+  const { 
+    calculateFiscalYearFromEarningsDate, 
+    getFiscalYearOffsetFromPattern, 
+    getFiscalYearInfoFromPattern,
+    getLastFourQuarters,
+    formatQuarter
+  } = require('./services/quarterCalculator');
+  
+  const callDate = new Date(earningsCallDate);
+  const pattern = { callDate, reportedQuarter, reportedYear };
+  
+  const fiscalYearData = calculateFiscalYearFromEarningsDate(callDate, reportedQuarter, reportedYear);
+  const offset = getFiscalYearOffsetFromPattern(callDate, reportedQuarter, reportedYear);
+  const fiscalYearInfo = getFiscalYearInfoFromPattern(pattern);
+  const recentQuarters = getLastFourQuarters(new Date(), pattern);
+  
+  res.json({
+    earningsCallDate: callDate.toISOString(),
+    reportedQuarter,
+    reportedYear,
+    fiscalYearData,
+    offset,
+    fiscalYearInfo,
+    recentQuarters: recentQuarters.map((q: { year: number; quarter: number }) => ({
+      ...q,
+      formatted: formatQuarter(q.year, q.quarter, pattern)
+    })),
+    example: {
+      currentQuarter: formatQuarter(recentQuarters[0].year, recentQuarters[0].quarter, pattern),
+      previousQuarter: formatQuarter(recentQuarters[1].year, recentQuarters[1].quarter, pattern)
+    }
   });
 }));
 

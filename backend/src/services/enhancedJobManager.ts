@@ -62,35 +62,12 @@ export class EnhancedJobManager extends EventEmitter {
   }
 
   /**
-   * Get the last N quarters from current date, starting from 2 quarters ago
-   * This ensures we fetch quarters that are more likely to have transcripts available
-   * Most companies release earnings 1-2 months after quarter end, so we start from 2 quarters ago
+   * Get the last N quarters from current date using generalized approach
+   * This tries quarters in order of recency, just like the Python project
    */
-  private getLastNQuarters(quarterCount: number = 1): Array<{ year: number; quarter: number }> {
-    const quarters: Array<{ year: number; quarter: number }> = [];
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
-    
-    // Calculate current quarter (Q1: Jan-Mar, Q2: Apr-Jun, Q3: Jul-Sep, Q4: Oct-Dec)
-    const currentQuarter = Math.floor(currentMonth / 3) + 1;
-    
-    // Start from 2 quarters ago to ensure we fetch available transcripts
-    // Most companies haven't released Q2 2025 yet (we're in Q3 2025)
-    // Start from Q1 2025 and go backwards
-    for (let i = 2; i <= quarterCount + 1; i++) {
-      const quarterOffset = i;
-      const year = currentYear - Math.floor(quarterOffset / 4);
-      const quarter = currentQuarter - (quarterOffset % 4);
-      
-      if (quarter <= 0) {
-        quarters.push({ year: year - 1, quarter: quarter + 4 });
-      } else {
-        quarters.push({ year, quarter });
-      }
-    }
-    
-    return quarters;
+  private getLastNQuarters(quarterCount: number = 1, ticker?: string): Array<{ year: number; quarter: number }> {
+    const { getQuartersToTryForTicker } = require('./quarterCalculator');
+    return getQuartersToTryForTicker(ticker || 'GENERAL', quarterCount);
   }
 
   /**
@@ -98,7 +75,11 @@ export class EnhancedJobManager extends EventEmitter {
    */
   createBulkFetchJobFromFile(fileContent: string, quarterCount: number = 1): string {
     const tickers = this.parseTickerFile(fileContent);
-    const quarters = this.getLastNQuarters(quarterCount);
+    
+    // For now, we'll use the first ticker to determine fiscal year offset
+    // In a more sophisticated implementation, we could handle mixed fiscal years
+    const firstTicker = tickers.length > 0 ? tickers[0] : undefined;
+    const quarters = this.getLastNQuarters(quarterCount, firstTicker);
     
     if (tickers.length === 0) {
       throw new Error('No valid tickers found in file');
