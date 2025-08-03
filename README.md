@@ -92,11 +92,34 @@ npm run build         # Build for production
 - `GET /api/transcripts/:ticker` - Get all transcripts for ticker
 - `POST /api/transcripts/refresh` - Refresh specific transcripts
 - `POST /api/transcripts/:id/summarize` - Generate AI summary of transcript
-- `GET /api/ollama/health` - Check Ollama service status
+- `GET /api/google-ai/health` - Check Google AI service status
 - `GET /api/stats` - System statistics
 
-### AI Summarization with Ollama
-The system includes AI-powered transcript summarization using Ollama (local LLM):
+### AI Summarization with Google AI
+The system includes AI-powered transcript summarization using Google AI Studio (Gemini 1.5 Flash):
+
+#### Setup Google AI API
+1. **Get a free API key**:
+   - Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+   - Sign in with your Google account
+   - Create a new API key (free tier available)
+
+2. **Configure the API key**:
+   ```bash
+   # Add to your .env file
+   GOOGLE_AI_API_KEY="your_google_ai_api_key_here"
+   ```
+
+3. **Free Tier Limits**:
+   - 15 requests per minute
+   - 1M characters per month
+   - Perfect for development and testing
+
+#### Features
+- **Contrarian Analysis**: Identifies overlooked catalysts and hidden opportunities
+- **Specific Data Extraction**: Quotes exact dollar amounts and timelines
+- **Format Consistency**: Structured output with specific sections
+- **Caching**: Results are cached to avoid repeated API calls
 
 1. **Install Ollama**: Download from [ollama.ai](https://ollama.ai)
 2. **Pull a model**: `ollama pull deepseek-r1:latest`

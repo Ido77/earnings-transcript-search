@@ -23,7 +23,7 @@ import { JobManager } from '@/services/jobManager';
 import { EnhancedJobManager } from '@/services/enhancedJobManager';
 import tickersRouter from '@/routes/tickers';
 import { transcriptService } from '@/services/transcriptService';
-import { ollamaService } from '@/services/ollamaService';
+import { GoogleAIService } from '@/services/googleAIService';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
@@ -294,7 +294,13 @@ const saveSummaryCacheToFile = (cache: Map<string, any>): void => {
 
 // Initialize persistent cache
 const transcriptCache = loadCacheFromFile();
-const summaryCache = loadSummaryCacheFromFile();
+// Clear summary cache on startup
+const summaryCache = new Map();
+saveSummaryCacheToFile(summaryCache);
+logger.info('Summary cache cleared on startup');
+
+// Initialize Google AI service
+const googleAIService = new GoogleAIService();
 
 // Initialize job manager
 const jobManager = new JobManager(transcriptCache);
@@ -1255,7 +1261,7 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
   
   try {
     // Check if Ollama is available
-    const healthCheck = await ollamaService.healthCheck();
+    const healthCheck = await googleAIService.healthCheck();
     if (!healthCheck.available) {
       return res.status(503).json({
         error: 'Ollama service unavailable',
@@ -1263,7 +1269,7 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
       });
     }
     
-    const summary = await ollamaService.summarizeTranscript(
+          const summary = await googleAIService.summarizeTranscript(
       transcript.ticker,
       `${transcript.year}Q${transcript.quarter}`,
       transcript.fullTranscript,
@@ -1319,13 +1325,13 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
   }
 }));
 
-// Get Ollama health status
-app.get('/api/ollama/health', asyncHandler(async (req, res) => {
-  const healthCheck = await ollamaService.healthCheck();
-  
+// Get Google AI health status
+app.get('/api/google-ai/health', asyncHandler(async (req, res) => {
+  const healthCheck = await googleAIService.healthCheck();
+
   res.json({
     available: healthCheck.available,
-    model: healthCheck.model,
+          model: healthCheck.model || 'gemma-3-27b-it',
     error: healthCheck.error
   });
 }));

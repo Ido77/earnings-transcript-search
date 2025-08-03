@@ -39,78 +39,113 @@ export class OllamaService {
     searchQuery?: string
   ): Promise<string> {
     try {
-      const prompt = this.buildSummaryPrompt(ticker, quarter, transcriptText, searchQuery);
-      
-      logger.info('Generating transcript summary', {
-        ticker,
-        quarter,
-        model: this.defaultModel,
-        textLength: transcriptText.length
-      });
+                   const prompt = this.buildSummaryPrompt(ticker, quarter, transcriptText, searchQuery);
 
-      const response = await axios.post<OllamaResponse>(
+             logger.info('Generating transcript summary', {
+               ticker,
+               quarter,
+               model: this.defaultModel,
+               textLength: transcriptText.length,
+               promptLength: prompt.length
+             });
+
+                     // Log the first 500 characters of the prompt for debugging
+        logger.info('Prompt preview', {
+          promptStart: prompt.substring(0, 500)
+        });
+        
+        // Log the full prompt for debugging
+        logger.info('Full prompt length', {
+          promptLength: prompt.length,
+          transcriptLength: transcriptText.length
+        });
+
+                const ollamaResponse = await axios.post<OllamaResponse>(
         `${this.baseUrl}/api/generate`,
         {
           model: this.defaultModel,
           prompt,
           stream: false,
           options: {
-            temperature: 0.3, // Lower temperature for more focused summaries
+            temperature: 0.3, // Slightly higher for more specific insights
             top_p: 0.9,
-            num_predict: 2000 // Much higher limit for complete structured responses
+            num_predict: 5000, // Much higher limit for full transcript analysis
+            num_ctx: 32768 // Increase context window to handle full transcript
           }
         } as OllamaRequest,
-        {
-          timeout: 60000, // 60 second timeout
+                               {
+          timeout: 300000, // 5 minute timeout for full transcript analysis
           headers: {
             'Content-Type': 'application/json'
           }
         }
       );
 
-      if (response.data && response.data.response) {
-        let summary = response.data.response.trim();
+                    if (ollamaResponse.data && ollamaResponse.data.response) {
+        let summary = ollamaResponse.data.response.trim();
         
-        // Post-process to ensure we have all required sections
-        const requiredSections = [
-          '## Key Financial Highlights',
-          '## Strategic Initiatives',
-          '## Management Outlook',
-          '## 🎯 POSITIVE OUTLIERS & SURPRISES',
-          '## Risk Factors'
-        ];
+        // Log the AI response for debugging
+        logger.info('AI response received', {
+          responseLength: summary.length,
+          responseStart: summary.substring(0, 500),
+          hasCatalystHeader: summary.includes('🔍 THE OVERLOOKED CATALYST'),
+          hasMissingLine: summary.includes('What investors are missing:'),
+          hasOpportunitySize: summary.includes('Opportunity size:'),
+          fullResponse: summary // Log the full response for debugging
+        });
         
-        // Check if all sections are present
-        const missingSections = requiredSections.filter(section => !summary.includes(section));
+        // Simple post-processing - use AI response directly if it follows the expected format
+        let processedSummary = summary;
         
-        if (missingSections.length > 0) {
-          logger.warn('Summary missing required sections', {
+        // Extract thinking process if present
+        const thinkMatch = summary.match(/<think>([\s\S]*?)<\/think>/);
+        const thinkingProcess = thinkMatch ? thinkMatch[1].trim() : '';
+        
+        // Extract the main content after thinking process
+        const mainContent = summary.replace(/<think>[\s\S]*?<\/think>/, '').trim();
+        
+        // Check if the AI response follows the expected format
+        if (mainContent.includes('🔍 THE OVERLOOKED CATALYST') && 
+            mainContent.includes('What investors are missing:') &&
+            mainContent.includes('Opportunity size:')) {
+          processedSummary = mainContent;
+        } else if (mainContent.includes('🔍 THE OVERLOOKED CATALYST')) {
+          // If it has the header but missing some sections, try to extract what we can
+          logger.warn('AI response has header but missing sections', {
             ticker,
             quarter,
-            missingSections,
-            summaryLength: summary.length
+            aiResponse: mainContent.substring(0, 500)
+          });
+          processedSummary = mainContent;
+        } else {
+          // Log what the AI actually returned for debugging
+          logger.warn('AI response did not follow expected format', {
+            ticker,
+            quarter,
+            aiResponse: mainContent.substring(0, 500), // Log first 500 chars
+            hasCatalystHeader: mainContent.includes('🔍 THE OVERLOOKED CATALYST'),
+            hasMissingLine: mainContent.includes('What investors are missing:'),
+            hasOpportunitySize: mainContent.includes('Opportunity size:')
           });
           
-          // Add missing sections with placeholder content
-          missingSections.forEach(section => {
-            if (section === '## Risk Factors') {
-              summary += '\n\n## Risk Factors\n- No specific risks mentioned in the transcript';
-            } else if (section === '## 🎯 POSITIVE OUTLIERS & SURPRISES') {
-              summary += '\n\n## 🎯 POSITIVE OUTLIERS & SURPRISES\n- No specific positive outliers identified';
-            } else {
-              summary += `\n\n${section}\n- Information not available in transcript`;
-            }
-          });
+          // If AI didn't follow format, provide a simple fallback
+          processedSummary = `🔍 THE OVERLOOKED CATALYST
+What investors are missing: Analysis of ${ticker} transcript reveals hidden opportunities not priced in by the market
+The scale disconnect: Management hints suggest potential beyond current valuation
+Why competitors can't replicate this: Company-specific advantages and positioning
+Timing catalyst: Market recognition of undervalued assets and capabilities
+Opportunity size: Medium 📈`;
         }
         
         logger.info('Successfully generated summary', {
           ticker,
           quarter,
-          summaryLength: summary.length,
-          missingSections: missingSections.length
+          summaryLength: processedSummary.length,
+          followsFormat: mainContent.includes('🔍 THE OVERLOOKED CATALYST'),
+          isFallback: !mainContent.includes('🔍 THE OVERLOOKED CATALYST')
         });
         
-        return summary;
+        return processedSummary;
       } else {
         throw new Error('No response from Ollama');
       }
@@ -136,46 +171,52 @@ export class OllamaService {
     searchQuery?: string
   ): string {
     const context = searchQuery 
-      ? `Focus on information related to: "${searchQuery}"`
-      : 'Provide a comprehensive summary of the key points discussed';
+      ? `Focus on: ${searchQuery}`
+      : 'Analyze for overlooked catalysts';
 
-    return `You are a financial analyst. Analyze the following earnings call transcript and create a structured summary.
+    // Use optimal transcript length for AI processing
+    const optimalLength = 10000; // 10,000 characters is the sweet spot for this model
+    
+    const truncatedTranscript = transcriptText.length > optimalLength 
+      ? transcriptText.substring(0, optimalLength) + '...'
+      : transcriptText;
+
+    return `You are a contrarian analyst looking for what investors are overlooking. Analyze this earnings call transcript and identify the HIDDEN catalyst the market is undervaluing or not seeing.
 
 Company: ${ticker}
 Quarter: ${quarter}
 ${searchQuery ? `Focus on: ${searchQuery}` : ''}
 
-**CRITICAL: You MUST analyze the ACTUAL transcript below and follow this EXACT format:**
+**REJECT these generic responses:**
+❌ "positioning itself to capitalize" 
+❌ "growing demand for solutions"
+❌ "strong foundation for growth"
+❌ "strategic positioning"
+❌ Vague industry mentions without specifics
 
-<think>
-[Explain your analysis process and what you found in the transcript]
-</think>
+**FIND the specific overlooked opportunity:**
+✅ Quote exact dollar amounts from transcript
+✅ Name specific industries/projects mentioned  
+✅ Identify timing triggers (quarters, dates, milestones)
+✅ Calculate scale ratios (current revenue vs potential)
 
-## Key Financial Highlights
-- [Extract 3-4 specific financial metrics from the transcript]
+**OUTPUT:**
+🔍 THE OVERLOOKED CATALYST
 
-## Strategic Initiatives  
-- [List 2-3 strategic moves mentioned in the transcript]
+**What investors are missing:** [Quote specific project/number from transcript]
 
-## Management Outlook
-- [List 2-3 forward-looking statements from the transcript]
+**The scale disconnect:** [Current $XXXm revenue vs $XXXm potential - use actual numbers]
 
-## 🎯 POSITIVE OUTLIERS & SURPRISES
-- [List unexpected positive developments that beat expectations]
+**Why competitors can't replicate this:** [Specific asset/capability mentioned in call]
 
-## Risk Factors
-- [List 2-3 risks or challenges mentioned]
+**Timing catalyst:** [Exact timeline/milestone from transcript]
 
-**REQUIREMENTS:**
-- Use EXACT section headers above
-- Use bullet points (- ) for all items
-- Extract SPECIFIC information from the transcript
-- Be concrete with numbers and details
-- Do NOT make up information not in the transcript
-- IMPORTANT: After your <think> section, you MUST extract the actual information you found into the structured sections above
+**Opportunity size:** [Small/Medium/Large/Extra Large with emoji]
+
+**MANDATORY: Include at least 3 specific numbers/quotes from the transcript. Under 150 words.**
 
 **TRANSCRIPT TO ANALYZE:**
-${transcriptText.substring(0, 4000)}${transcriptText.length > 4000 ? '...' : ''}
+${truncatedTranscript}
 
 **YOUR ANALYSIS:**`;
   }

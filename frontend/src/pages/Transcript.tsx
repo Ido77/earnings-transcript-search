@@ -88,9 +88,9 @@ export default function Transcript() {
 
   // Check Ollama status and load cached summaries
   useEffect(() => {
-    const checkOllamaStatus = async () => {
+          const checkGoogleAIStatus = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/ollama/health');
+        const response = await fetch('http://localhost:3001/api/google-ai/health');
         if (response.ok) {
           const data = await response.json();
           setOllamaStatus(data);
@@ -119,7 +119,7 @@ export default function Transcript() {
       }
     };
 
-    checkOllamaStatus();
+            checkGoogleAIStatus();
     loadCachedSummary();
   }, [id]);
 
@@ -475,9 +475,9 @@ export default function Transcript() {
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 px-3 py-1 rounded-full font-medium">
-                  🎯 Positive Outliers
-                </span>
+                                            <span className="text-xs bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 px-3 py-1 rounded-full font-medium">
+                              🚀 Market Catalysts
+                            </span>
               </div>
             </div>
 
@@ -488,8 +488,8 @@ export default function Transcript() {
                 const thinkMatch = summary.match(/<think>([\s\S]*?)<\/think>/);
                 const thinkingProcess = thinkMatch ? thinkMatch[1].trim() : null;
                 
-                // Extract structured sections
-                const sections = summary.split('##').filter(s => s.trim());
+                // Extract catalyst content (everything after thinking process)
+                const catalystContent = summary.replace(/<think>[\s\S]*?<\/think>/, '').trim();
                 
                 return (
                   <div className="space-y-4">
@@ -513,55 +513,97 @@ export default function Transcript() {
                       </div>
                     )}
                     
-                    {/* Structured Sections */}
-                    {sections.map((section, index) => {
-                      const lines = section.trim().split('\n');
-                      const title = lines[0].trim();
-                      const content = lines.slice(1).filter(line => line.trim());
-                      
-                      // Skip empty sections
-                      if (!content.length) return null;
-                      
-                      // Special styling for Positive Outliers section
-                      const isOutliers = title.includes('POSITIVE OUTLIERS') || title.includes('SURPRISES');
-                      
-                      return (
-                        <div key={index} className={`rounded-lg p-3 ${
-                          isOutliers 
-                            ? 'bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800' 
-                            : 'bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600'
-                        }`}>
-                          <h4 className={`font-semibold mb-2 ${
-                            isOutliers 
-                              ? 'text-yellow-800 dark:text-yellow-300' 
-                              : 'text-gray-900 dark:text-white'
-                          }`}>
-                            {isOutliers ? '🎯 ' : ''}{title}
-                          </h4>
-                          <ul className="space-y-1">
-                            {content.map((item, itemIndex) => {
-                              const cleanItem = item.replace(/^-\s*/, '').trim();
-                              if (!cleanItem) return null;
-                              
-                              return (
-                                <li key={itemIndex} className={`text-sm flex items-start gap-2 ${
-                                  isOutliers 
-                                    ? 'text-yellow-700 dark:text-yellow-200' 
-                                    : 'text-gray-700 dark:text-gray-300'
-                                }`}>
-                                  <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                                    isOutliers 
-                                      ? 'bg-yellow-500' 
-                                      : 'bg-gray-400'
-                                  }`}></span>
-                                  <span>{cleanItem}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      );
-                    })}
+                    {/* Catalyst Content */}
+                    <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-2 border-orange-200 dark:border-orange-800 rounded-lg p-4">
+                      <div className="prose prose-sm max-w-none">
+                        {catalystContent.split('\n').map((line, index) => {
+                          const trimmedLine = line.trim();
+                          if (!trimmedLine) return null;
+                          
+                          if (trimmedLine.startsWith('🚀')) {
+                            return (
+                              <h3 key={index} className="text-lg font-bold text-orange-800 dark:text-orange-300 mb-3">
+                                {trimmedLine}
+                              </h3>
+                            );
+                          } else if (trimmedLine.startsWith('The Big Opportunity:')) {
+                            return (
+                              <div key={index} className="mb-3">
+                                <h4 className="font-semibold text-orange-700 dark:text-orange-200 mb-2">
+                                  The Big Opportunity:
+                                </h4>
+                                <p className="text-orange-600 dark:text-orange-300">
+                                  {trimmedLine.replace('The Big Opportunity:', '').trim()}
+                                </p>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('Why It Matters:')) {
+                            return (
+                              <div key={index} className="mb-3">
+                                <h4 className="font-semibold text-orange-700 dark:text-orange-200 mb-2">
+                                  Why It Matters:
+                                </h4>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('*')) {
+                            return (
+                              <li key={index} className="text-orange-600 dark:text-orange-300 ml-4">
+                                {trimmedLine.replace('*', '').trim()}
+                              </li>
+                            );
+                          } else if (trimmedLine.startsWith('Impact T-Shirt Sizing:')) {
+                            return (
+                              <div key={index} className="mb-3">
+                                <h4 className="font-semibold text-orange-700 dark:text-orange-200 mb-2">
+                                  Impact T-Shirt Sizing:
+                                </h4>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('🟢 Small')) {
+                            return (
+                              <div key={index} className="mb-2 p-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded">
+                                <p className="text-green-700 dark:text-green-300 text-sm">
+                                  {trimmedLine}
+                                </p>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('🟡 Medium')) {
+                            return (
+                              <div key={index} className="mb-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded">
+                                <p className="text-yellow-700 dark:text-yellow-300 text-sm">
+                                  {trimmedLine}
+                                </p>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('🔴 Large')) {
+                            return (
+                              <div key={index} className="mb-2 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                                <p className="text-red-700 dark:text-red-300 text-sm">
+                                  {trimmedLine}
+                                </p>
+                              </div>
+                            );
+                          } else if (trimmedLine.startsWith('Most Likely Scenario:')) {
+                            return (
+                              <div key={index} className="mb-3">
+                                <h4 className="font-semibold text-orange-700 dark:text-orange-200 mb-2">
+                                  Most Likely Scenario:
+                                </h4>
+                                <p className="text-orange-600 dark:text-orange-300">
+                                  {trimmedLine.replace('Most Likely Scenario:', '').trim()}
+                                </p>
+                              </div>
+                            );
+                          } else {
+                            return (
+                              <p key={index} className="text-orange-600 dark:text-orange-300">
+                                {trimmedLine}
+                              </p>
+                            );
+                          }
+                        })}
+                      </div>
+                    </div>
                   </div>
                 );
               })()}
