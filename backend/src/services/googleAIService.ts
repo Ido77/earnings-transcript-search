@@ -692,7 +692,7 @@ Note: This is a fallback response due to API call failure.`,
     const companyMatches = content.match(/\b[A-Z]{1,5}\b/g) || [];
     topics.push(...companyMatches.slice(0, 2));
     
-    return [...new Set(topics)].slice(0, 5); // Remove duplicates and limit to 5
+    return Array.from(new Set(topics)).slice(0, 5); // Remove duplicates and limit to 5
   }
 
   // Helper method to extract key words from AI response
@@ -707,7 +707,7 @@ Note: This is a fallback response due to API call failure.`,
     const businessTerms = content.match(/\b(?:sales|marketing|team|program|access|growth|revenue|market|customers|partners)\b/gi) || [];
     words.push(...businessTerms.slice(0, 3));
     
-    return [...new Set(words)].slice(0, 8); // Remove duplicates and limit to 8
+    return Array.from(new Set(words)).slice(0, 8); // Remove duplicates and limit to 8
   }
 
   async summarizeTranscript(

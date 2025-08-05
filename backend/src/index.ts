@@ -24,6 +24,7 @@ import { EnhancedJobManager } from '@/services/enhancedJobManager';
 import tickersRouter from '@/routes/tickers';
 import { transcriptService } from '@/services/transcriptService';
 import { GoogleAIService } from '@/services/googleAIService';
+import { BulkAIService } from '@/services/bulkAIService';
 
 // File-based persistent cache
 const CACHE_FILE = path.join(__dirname, '../cache/transcripts.json');
@@ -305,6 +306,9 @@ const googleAIService = new GoogleAIService();
 // Initialize job manager
 const jobManager = new JobManager(transcriptCache);
 const enhancedJobManager = new EnhancedJobManager(transcriptCache);
+
+// Initialize bulk AI service
+const bulkAIService = new BulkAIService(transcriptCache);
 
 // Listen for job progress events
 jobManager.on('progress', ({ jobId, job }) => {
@@ -1365,7 +1369,7 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
             callDate: transcriptFromCache.callDate,
             fullTranscript: transcriptFromCache.fullTranscript,
             transcriptJson: transcriptFromCache.transcriptJson,
-            transcriptSplit: null
+            transcriptSplit: undefined
           }
         });
         
@@ -1711,6 +1715,136 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   logger.error('Unhandled error', { error: err.message, stack: err.stack });
   res.status(500).json({ error: 'Internal server error' });
 });
+
+// =============================================================================
+// BULK AI PROCESSING ENDPOINTS
+// =============================================================================
+
+// Test endpoint for debugging
+app.get('/api/ai/test', asyncHandler(async (req, res) => {
+  res.json({ success: true, message: 'Bulk AI service is working' });
+}));
+
+// Start bulk AI processing
+app.post('/api/ai/bulk-process', asyncHandler(async (req, res) => {
+  const { transcriptIds, tickers, forceRefresh, analystTypes } = req.body;
+  
+  logger.info('Starting bulk AI processing', {
+    transcriptIds: transcriptIds?.length || 0,
+    tickers: tickers?.length || 0,
+    forceRefresh: forceRefresh || false,
+    analystTypes: analystTypes || ['Claude', 'Gemini', 'DeepSeek', 'Grok']
+  });
+
+  try {
+    const { jobId } = await bulkAIService.processBulkAI({
+      transcriptIds,
+      tickers,
+      forceRefresh,
+      analystTypes
+    });
+
+    res.json({
+      success: true,
+      jobId,
+      message: 'Bulk AI processing job started'
+    });
+  } catch (error) {
+    logger.error('Failed to start bulk AI processing', {
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to start bulk AI processing',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
+// Get bulk AI job status
+app.get('/api/ai/bulk-process/:jobId', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const job = bulkAIService.getJobStatus(jobId);
+  
+  if (!job) {
+    return res.status(404).json({
+      error: 'Job not found'
+    });
+  }
+
+  res.json({
+    success: true,
+    job: {
+      id: job.id,
+      status: job.status,
+      progress: job.progress,
+      results: job.results,
+      createdAt: job.createdAt,
+      startedAt: job.startedAt,
+      completedAt: job.completedAt,
+      estimatedTimeRemaining: job.estimatedTimeRemaining,
+      error: job.error
+    }
+  });
+}));
+
+// Get all bulk AI jobs
+app.get('/api/ai/bulk-process', asyncHandler(async (req, res) => {
+  const jobs = bulkAIService.getAllJobs();
+  
+  res.json({
+    success: true,
+    jobs: jobs.map(job => ({
+      id: job.id,
+      status: job.status,
+      progress: job.progress,
+      createdAt: job.createdAt,
+      startedAt: job.startedAt,
+      completedAt: job.completedAt,
+      estimatedTimeRemaining: job.estimatedTimeRemaining,
+      error: job.error
+    }))
+  });
+}));
+
+// Cancel bulk AI job
+app.post('/api/ai/bulk-process/:jobId/cancel', asyncHandler(async (req, res) => {
+  const { jobId } = req.params;
+  
+  const cancelled = bulkAIService.cancelJob(jobId);
+  
+  if (!cancelled) {
+    return res.status(404).json({
+      error: 'Job not found or cannot be cancelled'
+    });
+  }
+
+  res.json({
+    success: true,
+    message: 'Job cancelled successfully'
+  });
+}));
+
+// Get bulk AI processing statistics
+app.get('/api/ai/bulk-stats', asyncHandler(async (req, res) => {
+  const jobs = bulkAIService.getAllJobs();
+  
+  const stats = {
+    totalJobs: jobs.length,
+    activeJobs: jobs.filter(j => j.status === 'running').length,
+    pendingJobs: jobs.filter(j => j.status === 'pending').length,
+    completedJobs: jobs.filter(j => j.status === 'completed').length,
+    failedJobs: jobs.filter(j => j.status === 'failed').length,
+    totalTranscriptsProcessed: jobs.reduce((sum, j) => sum + j.progress.processed.length, 0),
+    totalSummariesGenerated: jobs.reduce((sum, j) => sum + j.results.reduce((s, r) => s + r.summariesGenerated, 0), 0)
+  };
+
+  res.json({
+    success: true,
+    stats
+  });
+}));
 
 // 404 handler
 app.use((req, res) => {
