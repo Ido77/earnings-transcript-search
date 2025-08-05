@@ -1328,7 +1328,7 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
 // Generate multiple AI summaries for a transcript
 app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { searchQuery } = req.body;
+  const { searchQuery, forceRefresh } = req.body;
   
   if (!transcriptCache.has(id)) {
     return res.status(404).json({ error: 'Transcript not found' });
@@ -1341,10 +1341,84 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
     ticker: transcript.ticker,
     year: transcript.year,
     quarter: transcript.quarter,
-    searchQuery: searchQuery || 'none'
+    searchQuery: searchQuery || 'none',
+    forceRefresh: forceRefresh || false
   });
   
   try {
+    // First, ensure the transcript exists in the database
+    const existingTranscript = await prisma.transcript.findUnique({
+      where: { id }
+    });
+
+    if (!existingTranscript) {
+      // Save transcript from memory cache to database
+      const transcriptFromCache = transcriptCache.get(id);
+      if (transcriptFromCache) {
+        await prisma.transcript.create({
+          data: {
+            id: transcriptFromCache.id,
+            ticker: transcriptFromCache.ticker,
+            companyName: transcriptFromCache.ticker, // Use ticker as fallback
+            year: transcriptFromCache.year,
+            quarter: transcriptFromCache.quarter,
+            callDate: transcriptFromCache.callDate,
+            fullTranscript: transcriptFromCache.fullTranscript,
+            transcriptJson: transcriptFromCache.transcriptJson,
+            transcriptSplit: null
+          }
+        });
+        
+        logger.info('Transcript saved to database from cache', {
+          id: transcriptFromCache.id,
+          ticker: transcriptFromCache.ticker,
+          year: transcriptFromCache.year,
+          quarter: transcriptFromCache.quarter
+        });
+      }
+    }
+
+    // Check if summaries already exist in database (unless force refresh)
+    if (!forceRefresh) {
+      const existingSummaries = await googleAIService.getAISummariesFromDatabase(id);
+      if (existingSummaries.length > 0) {
+        logger.info('Returning existing AI summaries from database', {
+          id,
+          ticker: transcript.ticker,
+          summariesCount: existingSummaries.length,
+          analystTypes: existingSummaries.map(s => s.analystType)
+        });
+
+        // Convert to format expected by frontend
+        const responses = existingSummaries.map((summary, index) => ({
+          id: index + 1,
+          timestamp: summary.createdAt.toISOString(),
+          content: summary.content,
+          processingTime: summary.processingTime,
+          hasHiddenGoldmine: summary.hasHiddenGoldmine,
+          hasBoringQuote: summary.hasBoringQuote,
+          hasSizePotential: summary.hasSizePotential,
+          analystType: summary.analystType
+        }));
+
+        return res.json({
+          success: true,
+          multipleSummaries: {
+            responses,
+            totalProcessingTime: existingSummaries.reduce((sum, s) => sum + s.processingTime, 0),
+            averageProcessingTime: existingSummaries.reduce((sum, s) => sum + s.processingTime, 0) / existingSummaries.length,
+            successCount: existingSummaries.length,
+            failureCount: 0
+          },
+          model: 'gemini-1.5-flash',
+          ticker: transcript.ticker,
+          quarter: `${transcript.year}Q${transcript.quarter}`,
+          searchQuery: searchQuery || null,
+          cached: true
+        });
+      }
+    }
+
     // Check if Google AI is available
     const healthCheck = await googleAIService.healthCheck();
     if (!healthCheck.available) {
@@ -1360,8 +1434,15 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
       transcript.fullTranscript,
       searchQuery
     );
+
+    // Save summaries to database
+    await googleAIService.saveAISummariesToDatabase(
+      id,
+      multipleSummaries.responses,
+      searchQuery
+    );
     
-    logger.info('Multiple AI summaries completed', {
+    logger.info('Multiple AI summaries completed and saved to database', {
       id,
       ticker: transcript.ticker,
       year: transcript.year,

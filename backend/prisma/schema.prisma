@@ -24,6 +24,9 @@ model Transcript {
   createdAt        DateTime @default(now()) @map("created_at")
   updatedAt        DateTime @updatedAt @map("updated_at")
 
+  // Relationships
+  aiSummaries      AISummary[] @relation
+
   // Ensure uniqueness per ticker/year/quarter combination
   @@unique([ticker, year, quarter])
   @@map("transcripts")
@@ -55,6 +58,27 @@ model SearchLog {
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@map("search_logs")
+}
+
+model AISummary {
+  id            String   @id @default(uuid())
+  transcriptId  String   @map("transcript_id")
+  analystType   String   @map("analyst_type") @db.VarChar(50) // 'Claude', 'Gemini', 'DeepSeek', 'Grok'
+  content       String   @db.Text
+  processingTime Int     @map("processing_time") // in milliseconds
+  hasHiddenGoldmine Boolean @default(false) @map("has_hidden_goldmine")
+  hasBoringQuote Boolean @default(false) @map("has_boring_quote")
+  hasSizePotential Boolean @default(false) @map("has_size_potential")
+  searchQuery   String?  @map("search_query") @db.Text // Optional search context
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relationship to transcript
+  transcript    Transcript @relation(fields: [transcriptId], references: [id], onDelete: Cascade)
+
+  // Ensure uniqueness per transcript/analyst combination
+  @@unique([transcriptId, analystType])
+  @@map("ai_summaries")
 }
 
 model FetchJob {

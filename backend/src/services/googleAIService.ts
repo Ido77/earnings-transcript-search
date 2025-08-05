@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { logger } from '../config/logger';
+import { prisma } from '../config/database';
+import { AISummaryData } from '../types';
 
 export interface GoogleAIResponse {
   candidates: Array<{
@@ -439,6 +441,109 @@ TRANSCRIPT: ${truncatedTranscript}`
         error: error instanceof Error ? error.message : 'Unknown error'
       });
       
+      throw error;
+    }
+  }
+
+  /**
+   * Save AI summaries to database
+   */
+  async saveAISummariesToDatabase(
+    transcriptId: string,
+    responses: MultipleAIResponse[],
+    searchQuery?: string
+  ): Promise<AISummaryData[]> {
+    try {
+      const savedSummaries: AISummaryData[] = [];
+
+      for (const response of responses) {
+        const summary = await prisma.aISummary.upsert({
+          where: {
+            transcriptId_analystType: {
+              transcriptId,
+              analystType: response.analystType
+            }
+          },
+          update: {
+            content: response.content,
+            processingTime: response.processingTime,
+            hasHiddenGoldmine: response.hasHiddenGoldmine,
+            hasBoringQuote: response.hasBoringQuote,
+            hasSizePotential: response.hasSizePotential,
+            searchQuery,
+            updatedAt: new Date()
+          },
+          create: {
+            transcriptId,
+            analystType: response.analystType,
+            content: response.content,
+            processingTime: response.processingTime,
+            hasHiddenGoldmine: response.hasHiddenGoldmine,
+            hasBoringQuote: response.hasBoringQuote,
+            hasSizePotential: response.hasSizePotential,
+            searchQuery
+          }
+        });
+
+        savedSummaries.push({
+          id: summary.id,
+          transcriptId: summary.transcriptId,
+          analystType: summary.analystType,
+          content: summary.content,
+          processingTime: summary.processingTime,
+          hasHiddenGoldmine: summary.hasHiddenGoldmine,
+          hasBoringQuote: summary.hasBoringQuote,
+          hasSizePotential: summary.hasSizePotential,
+          searchQuery: summary.searchQuery,
+          createdAt: summary.createdAt,
+          updatedAt: summary.updatedAt
+        });
+      }
+
+      logger.info('AI summaries saved to database', {
+        transcriptId,
+        summariesCount: savedSummaries.length,
+        analystTypes: savedSummaries.map(s => s.analystType)
+      });
+
+      return savedSummaries;
+    } catch (error) {
+      logger.error('Failed to save AI summaries to database', {
+        transcriptId,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Get AI summaries from database
+   */
+  async getAISummariesFromDatabase(transcriptId: string): Promise<AISummaryData[]> {
+    try {
+      const summaries = await prisma.aISummary.findMany({
+        where: { transcriptId },
+        orderBy: { analystType: 'asc' }
+      });
+
+      return summaries.map((summary: any) => ({
+        id: summary.id,
+        transcriptId: summary.transcriptId,
+        analystType: summary.analystType,
+        content: summary.content,
+        processingTime: summary.processingTime,
+        hasHiddenGoldmine: summary.hasHiddenGoldmine,
+        hasBoringQuote: summary.hasBoringQuote,
+        hasSizePotential: summary.hasSizePotential,
+        searchQuery: summary.searchQuery,
+        createdAt: summary.createdAt,
+        updatedAt: summary.updatedAt
+      }));
+    } catch (error) {
+      logger.error('Failed to get AI summaries from database', {
+        transcriptId,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
       throw error;
     }
   }

@@ -224,6 +224,51 @@ export class AppError extends Error {
   }
 }
 
+// AI Summary types
+export interface AISummaryData {
+  id: string;
+  transcriptId: string;
+  analystType: string;
+  content: string;
+  processingTime: number;
+  hasHiddenGoldmine: boolean;
+  hasBoringQuote: boolean;
+  hasSizePotential: boolean;
+  searchQuery: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface BulkAIProcessingRequest {
+  transcriptIds?: string[];
+  tickers?: string[];
+  forceRefresh?: boolean;
+  analystTypes?: string[]; // ['Claude', 'Gemini', 'DeepSeek', 'Grok']
+}
+
+export interface BulkAIProcessingResult {
+  transcriptId: string;
+  ticker: string;
+  year: number;
+  quarter: number;
+  status: 'success' | 'failed' | 'skipped';
+  summariesGenerated: number;
+  error?: string;
+  processingTime?: number;
+}
+
+export interface BulkAIProcessingResponse {
+  results: BulkAIProcessingResult[];
+  summary: {
+    total: number;
+    successful: number;
+    failed: number;
+    skipped: number;
+    totalSummariesGenerated: number;
+  };
+  executionTime: number;
+}
+
 // Express request extensions
 declare global {
   namespace Express {
