@@ -182,7 +182,7 @@ TRANSCRIPT: ${basePrompt.split('TRANSCRIPT: ')[1]}`
     
     const selectedPrompt = prompts[responseId - 1]; // Use different prompt for each response
     
-    const analystTypes = ['Claude', 'Risk Analyst', 'Value Investor', 'Operations Expert'];
+    const analystTypes = ['Claude', 'Gemini', 'DeepSeek', 'Grok'];
     const currentAnalystType = analystTypes[responseId - 1];
     
     logger.info(`Making AI call ${responseId}/4`, {
@@ -271,7 +271,7 @@ TRANSCRIPT: ${basePrompt.split('TRANSCRIPT: ')[1]}`
         throw new Error('Google AI API key not configured');
       }
 
-      logger.info('Generating intelligent multiple AI summaries', {
+      logger.info('Generating 4 AI summaries with unique model creators', {
         ticker,
         quarter,
         model: this.defaultModel,
@@ -285,115 +285,129 @@ TRANSCRIPT: ${basePrompt.split('TRANSCRIPT: ')[1]}`
       let successCount = 0;
       let failureCount = 0;
 
-      // STEP 1: Primary Discovery (Always Run)
-      logger.info('Step 1: Running primary discovery');
-      const primaryPrompt = `You are a smart earnings analyst. Find the BIGGEST opportunity that sounds SMALL in this call.
+      // Use our 4 different prompts with unique model creators
+      const prompts = [
+        // Claude - Deep Value Investor
+        `Analyze this earnings call transcript as a deep-value investor looking for underappreciated catalysts. Extract ONE hidden insight that could significantly change the business trajectory.
 
-**RULE #1: ONLY look at Q&A section, NEVER prepared remarks**
+What to Look For:
+Business model transformations: Shifts from low-margin to high-margin activities, recurring revenue changes, customer acquisition improvements
+Margin expansion catalysts: Cost structure changes, pricing power improvements, operational leverage inflection points
+Competitive positioning shifts: Market share gains, customer switching dynamics, competitive moat strengthening
+Portfolio optimization: Cross-selling opportunities, customer base monetization, asset utilization improvements
+Management conviction signals: Emotional language, confident predictions, "game-changer" type statements
 
-**RULE #2: BANNED WORDS - If you use these, you FAIL:**
-- "growth opportunities" 
-- "strategic positioning"
-- "capabilities" 
-- "diversification"
-- Any dollar amount already announced
+Enhanced Analysis Framework:
+Follow the money trail: Look for revenue/margin mix changes, customer lifetime value improvements, cost structure shifts
+Spot scattered data points: Numbers mentioned casually that have big implications when connected
+Read between the lines: Management tone, confidence levels, strategic emphasis shifts
+Find operational inflection points: Capacity utilization, automation benefits, process improvements scaling
+Identify customer behavior changes: Switching patterns, adoption rates, usage increases
+Look for flywheel effects: Where one improvement enables multiple other improvements
 
-**WHAT TO HUNT FOR:**
-✅ Casual mentions of new markets/industries
-✅ Boring operational details that reveal advantages
-✅ "We can..." statements about assets or abilities
-✅ Industry shifts mentioned in passing
+Red Flags for True Hidden Insights:
+✓ Mentioned briefly but not emphasized in headlines
+✓ Requires connecting multiple data points from different parts of call
+✓ Management shows unusual confidence/excitement about specific initiative
+✓ Represents fundamental shift in how business operates or competes
+✓ Has compounding/recurring benefits over time
+✓ Difficult for competitors to quickly replicate
 
-**FORMAT:**
-🎯 **THE HIDDEN GOLDMINE**
+Output Format:
+Hidden Insight: [One sentence describing the key insight]
+Why It's Hidden: [Specifically why analysts miss this - buried in details, requires connecting dots, understated by management, etc.]
+Business Impact: [Quantify the trajectory change - revenue growth acceleration, margin expansion, market share capture, competitive advantage, etc.]
+Supporting Evidence: [2-3 specific data points or quotes from transcript that support this insight]
+Bullish Rating: [SMALL/MEDIUM/LARGE/EXTRA LARGE/HUGE]
+SMALL: 5-15% potential impact on business value
+MEDIUM: 15-30% potential impact
+LARGE: 30-60% potential impact
+EXTRA LARGE: 60-100% potential impact
+HUGE: 100%+ potential impact
+Confidence Level: [HIGH/MEDIUM/LOW] based on management specificity, early results, and execution feasibility
+Time Horizon: [6-12 months/1-2 years/2-5 years]
+Catalyst Type: [Business Model Evolution/Operational Leverage/Market Expansion/Competitive Moat/Portfolio Optimization/Other]
 
-**The Boring Quote:** [Exact Q&A words]
-**Why It's Actually Massive:** [Market connection]
-**The Advantage:** [Competitive moat]
-**Size Potential:** Small/Medium/Large/Extra Large
+Focus on insights that represent fundamental shifts in business economics, not just quarterly performance variations.
+less than 300 words
 
-**FIND THE TREASURE BURIED IN CASUAL CONVERSATION. 75 WORDS MAX.**
+TRANSCRIPT: ${truncatedTranscript}`,
 
-TRANSCRIPT: ${truncatedTranscript}`;
+        // Gemini - Skeptical Investment Analyst
+        `Act as a seasoned, skeptical, and forward-looking investment analyst specializing in identifying under-the-radar catalysts. Your task is to analyze the provided earnings call transcript to uncover a single, non-obvious "hidden insight" that suggests a potential positive and fundamental change in the company's business trajectory.
 
-      try {
-        const primaryResponse = await this.makeAICall(primaryPrompt, 1, 0.7);
-        responses.push(primaryResponse);
-        successCount++;
-        logger.info('Primary discovery completed', { responseId: 1 });
-      } catch (error) {
-        failureCount++;
-        logger.error('Primary discovery failed', { error: error instanceof Error ? error.message : 'Unknown error' });
-        responses.push(this.createFallbackResponse(1, ticker, 'Primary Discovery'));
-      }
+What Constitutes a 'Hidden Insight':
+It is NOT the main headline: Disregard the top-line revenue/EPS figures and stated guidance unless they are direct evidence for the deeper insight.
+It connects disparate points: The insight often links a statement from the prepared remarks with a more detailed, unscripted answer in the Q&A section.
+It reveals a "Trojan Horse": The insight might identify a small product, acquisition, or partnership that is not yet material to revenue but provides a strategic entry point into a much larger market or ecosystem.
+It spots a subtle shift in language: Look for changes in management's tone or wording from previous quarters (e.g., from "exploring" to "implementing," from "hope" to "expect," or a sudden increase in specificity).
+It uncovers a second-order effect: The direct action is known (e.g., a customer win), but the hidden insight is the unforeseen positive consequence (e.g., that new customer is now marketing your product to its own partners, creating a free sales channel).
+It identifies a new capability unlock: The company may have acquired or developed a capability (e.g., a specific type of manufacturing, a unique software) that solves a critical bottleneck for an entire industry, a fact that may be buried in technical jargon.
 
-      // STEP 2: Content Assessment (Determines if more analysis needed)
-      logger.info('Step 2: Running content assessment');
-      const assessmentPrompt = `Scan this transcript and identify if ANY of these 4 opportunity types exist (beyond what was already found):
+Instructions:
+Read the entire transcript below.
+Identify the single most powerful "hidden insight" based on the criteria above.
+Structure your response in the following format ONLY:
+Hidden Insight: (A single, concise sentence summarizing the finding).
+Evidence & Reasoning: (Using 2-4 bullet points, provide direct evidence from the transcript, citing source numbers like. Explain why this insight is non-obvious and how the pieces of evidence connect to reveal a trajectory-changing potential that analysts might miss).
+Bullishness Score: (Classify the potential impact of this insight on the business trajectory. Choose one: Small, Medium, Large, Extra Large, Huge).
+Confidence Level: (Based on the evidence, rate your confidence in this insight materializing. Choose one: High, Medium, Low).
+less than 300 words
 
-**TYPE 1: OPERATIONAL EDGE** - Speed advantages, cost structures, process superiority
-**TYPE 2: MARKET ACCESS** - New segments, regulatory changes, reimbursement shifts  
-**TYPE 3: FINANCIAL LEVERAGE** - Balance sheet advantages, cash flow optimization, debt structure
-**TYPE 4: ASSET ARBITRAGE** - Undervalued resources, repurposing potential, hidden value
+TRANSCRIPT: ${truncatedTranscript}`,
 
-**RULES:**
-- IGNORE the primary discovery already found
-- ONLY mention types where you see genuine Q&A evidence
-- Provide 1 specific quote for each type you identify
-- If you find NONE, just say "NO ADDITIONAL OPPORTUNITIES"
+        // DeepSeek - Strategic Insight Analyst
+        `Analyze the earnings transcript and identify ONE non-obvious strategic insight that meets ALL criteria:
+1. Buried in management commentary (not headline numbers/guidance)
+2. Indicates potential for exponential growth/margin expansion
+3. Currently underappreciated by analysts
+4. Could materially alter business trajectory if executed well
 
-**FORMAT:**
-**FOUND OPPORTUNITY TYPES:**
-TYPE X: [1-sentence description with quote]
-TYPE Y: [1-sentence description with quote]
+Output JSON format:
+{
+"insight": "[concise description with supporting quote]",
+"impact_driver": "[revenue growth|market share|margin expansion|competitive moat]",
+"evidence": "[specific transcript excerpt with timestamp]",
+"bullish_scale": "[small|medium|large|extra large|huge]",
+"reasoning": "[1-sentence why this changes trajectory]"
+}
 
-**TOTAL ADDITIONAL TYPES FOUND:** [Number 0-4]
+less than 300 words
 
-TRANSCRIPT: ${truncatedTranscript}`;
+TRANSCRIPT: ${truncatedTranscript}`,
 
-      let assessmentResponse: string;
-      try {
-        const assessment = await this.makeAICall(assessmentPrompt, 2, 0.3);
-        assessmentResponse = assessment.content;
-        logger.info('Content assessment completed', { responseId: 2 });
-      } catch (error) {
-        logger.error('Content assessment failed', { error: error instanceof Error ? error.message : 'Unknown error' });
-        assessmentResponse = "NO ADDITIONAL OPPORTUNITIES";
-      }
+        // Grok - Expert Industry Analyst
+        `You are an expert investor with deep knowledge across industries. Analyze the provided earnings call transcript deeply, considering executive remarks, Q&A, forward-looking statements, and subtle implications. Focus on identifying ONE hidden insight that might be overlooked by most analysts (e.g., buried in casual mentions, contradictions, or indirect signals). This insight must be positive and likely to significantly change the business trajectory for the better (e.g., unlocking new growth, efficiencies, or competitive edges).
 
-      // Parse assessment to determine which deep dive prompts to run
-      const opportunityTypes = this.parseAssessmentResponse(assessmentResponse);
-      logger.info('Parsed opportunity types', { types: opportunityTypes });
+Explain the insight briefly (2-4 sentences), including why it's hidden and its potential impact.
+Rate its bullish potential on this scale: small (minor positive tweak), medium (notable improvement), large (strong growth driver), extra large (major revenue/market shift), huge (transformative for the company/industry). Base the rating on realism, evidence in the transcript, and long-term implications.
+less than 300 words
 
-      // STEP 3: Conditional Deep Dive Prompts (Only run if Step 2 finds opportunities)
-      let responseId = 3;
-      for (const opportunityType of opportunityTypes) {
+TRANSCRIPT: ${truncatedTranscript}`
+      ];
+
+      const analystTypes = ['Claude', 'Gemini', 'DeepSeek', 'Grok'];
+
+      // Generate all 4 AI summaries
+      for (let i = 0; i < 4; i++) {
         try {
-          await this.delay(1000); // Rate limiting
+          if (i > 0) {
+            await this.delay(1000); // Rate limiting between calls
+          }
 
-          const deepDivePrompt = this.buildDeepDivePrompt(opportunityType, truncatedTranscript);
-          const deepDiveResponse = await this.makeAICall(deepDivePrompt, responseId, 0.5);
-          
-          responses.push(deepDiveResponse);
+          const response = await this.makeAICall(prompts[i], i + 1, 0.9);
+          responses.push(response);
           successCount++;
           
-          logger.info(`Deep dive completed for ${opportunityType}`, { responseId });
-          responseId++;
+          logger.info(`AI summary ${i + 1}/4 completed (${analystTypes[i]})`, { responseId: i + 1 });
         } catch (error) {
           failureCount++;
-          logger.error(`Deep dive failed for ${opportunityType}`, { 
-            responseId, 
+          logger.error(`AI summary ${i + 1}/4 failed (${analystTypes[i]})`, { 
+            responseId: i + 1, 
             error: error instanceof Error ? error.message : 'Unknown error' 
           });
-          responses.push(this.createFallbackResponse(responseId, ticker, opportunityType));
-          responseId++;
+          responses.push(this.createFallbackResponse(i + 1, ticker, analystTypes[i]));
         }
-      }
-
-      // Fill remaining slots with fallback responses if needed
-      while (responses.length < 4) {
-        responses.push(this.createFallbackResponse(responseId, ticker, 'Additional Analysis'));
-        responseId++;
       }
 
       const totalProcessingTime = Date.now() - startTime;
@@ -407,20 +421,19 @@ TRANSCRIPT: ${truncatedTranscript}`;
         failureCount
       };
 
-      logger.info('Intelligent multiple AI summaries completed', {
+      logger.info('4 AI summaries completed', {
         ticker,
         quarter,
         totalProcessingTime,
         averageProcessingTime,
         successCount,
-        failureCount,
-        opportunityTypesFound: opportunityTypes.length
+        failureCount
       });
 
       return result;
 
     } catch (error) {
-      logger.error('Failed to generate intelligent multiple summaries', {
+      logger.error('Failed to generate 4 AI summaries', {
         ticker,
         quarter,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -531,7 +544,7 @@ TRANSCRIPT: ${transcript}`
 
   // Helper method to create fallback responses
   private createFallbackResponse(id: number, ticker: string, type: string): MultipleAIResponse {
-    const analystTypes = ['Claude', 'Risk Analyst', 'Value Investor', 'Operations Expert'];
+    const analystTypes = ['Claude', 'Gemini', 'DeepSeek', 'Grok'];
     const analystType = analystTypes[id - 1] || 'Additional Analysis';
     
     return {

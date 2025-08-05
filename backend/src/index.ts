@@ -1325,6 +1325,76 @@ app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
   }
 }));
 
+// Generate multiple AI summaries for a transcript
+app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { searchQuery } = req.body;
+  
+  if (!transcriptCache.has(id)) {
+    return res.status(404).json({ error: 'Transcript not found' });
+  }
+  
+  const transcript = transcriptCache.get(id);
+  
+  logger.info('Generating multiple AI summaries for transcript', {
+    id,
+    ticker: transcript.ticker,
+    year: transcript.year,
+    quarter: transcript.quarter,
+    searchQuery: searchQuery || 'none'
+  });
+  
+  try {
+    // Check if Google AI is available
+    const healthCheck = await googleAIService.healthCheck();
+    if (!healthCheck.available) {
+      return res.status(503).json({
+        error: 'Google AI service unavailable',
+        details: healthCheck.error
+      });
+    }
+    
+    const multipleSummaries = await googleAIService.generateMultipleSummaries(
+      transcript.ticker,
+      `${transcript.year}Q${transcript.quarter}`,
+      transcript.fullTranscript,
+      searchQuery
+    );
+    
+    logger.info('Multiple AI summaries completed', {
+      id,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      searchQuery: searchQuery || 'none',
+      totalProcessingTime: multipleSummaries.totalProcessingTime,
+      successCount: multipleSummaries.successCount,
+      failureCount: multipleSummaries.failureCount
+    });
+    
+    res.json({
+      success: true,
+      multipleSummaries,
+      model: healthCheck.model,
+      ticker: transcript.ticker,
+      quarter: `${transcript.year}Q${transcript.quarter}`,
+      searchQuery: searchQuery || null,
+      cached: false
+    });
+    
+  } catch (error) {
+    logger.error('Failed to generate multiple summaries', {
+      id,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to generate multiple summaries',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
 // Get Google AI health status
 app.get('/api/google-ai/health', asyncHandler(async (req, res) => {
   const healthCheck = await googleAIService.healthCheck();

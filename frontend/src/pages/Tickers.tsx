@@ -33,7 +33,7 @@ const Tickers = () => {
 
   const loadBackgroundJobs = async () => {
     try {
-      const response = await fetch('/api/jobs/enhanced');
+      const response = await fetch('http://localhost:3001/api/jobs/enhanced');
       if (response.ok) {
         const data = await response.json();
         setBackgroundJobs(data.jobs);
@@ -76,7 +76,7 @@ const Tickers = () => {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      const response = await fetch('/api/jobs/bulk-upload', {
+      const response = await fetch('http://localhost:3001/api/jobs/bulk-upload', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ const Tickers = () => {
     // Check progress every 2 seconds
     progressIntervalRef.current = setInterval(async () => {
       try {
-        const response = await fetch(`/api/jobs/${jobId}/progress`);
+        const response = await fetch(`http://localhost:3001/api/jobs/${jobId}/progress`);
         if (response.ok) {
           const progress = await response.json();
           setJobProgress(progress);
@@ -162,7 +162,7 @@ const Tickers = () => {
         .map(t => t.trim().toUpperCase())
         .filter(t => t.length > 0);
 
-      const response = await fetch('/api/tickers/bulk-fetch', {
+      const response = await fetch('http://localhost:3001/api/tickers/bulk-fetch', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ const Tickers = () => {
 
   const handleJobControl = async (jobId: string, action: 'pause' | 'resume' | 'cancel') => {
     try {
-      const response = await fetch(`/api/jobs/${jobId}/${action}`, {
+      const response = await fetch(`http://localhost:3001/api/jobs/${jobId}/${action}`, {
         method: 'POST',
       });
 

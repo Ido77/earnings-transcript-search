@@ -99,4 +99,90 @@
   @apply bg-yellow-200 dark:bg-yellow-900 font-medium;
   padding: 1px 2px;
   border-radius: 2px;
+}
+
+/* AI Summary Enhancements */
+.ai-summary-card {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.ai-summary-card:hover {
+  @apply shadow-xl transform -translate-y-1;
+}
+
+.goldmine-header {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.goldmine-header:hover {
+  @apply scale-105 shadow-2xl;
+}
+
+.summary-section {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.summary-section:hover {
+  @apply shadow-md transform scale-[1.02];
+}
+
+.quote-block {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.quote-block:hover {
+  @apply shadow-lg border-l-8;
+}
+
+/* Enhanced typography for AI summaries */
+.ai-summary-content h3 {
+  @apply text-2xl font-bold tracking-tight mb-4;
+}
+
+.ai-summary-content h4 {
+  @apply text-lg font-semibold mb-3;
+}
+
+.ai-summary-content p {
+  @apply leading-relaxed mb-3;
+}
+
+/* Gradient text effects */
+.gradient-text {
+  @apply bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent;
+}
+
+/* Animated status indicators */
+.status-indicator {
+  @apply animate-pulse;
+}
+
+/* Interactive elements */
+.interactive-element {
+  @apply cursor-pointer transition-all duration-200 ease-in-out;
+}
+
+.interactive-element:hover {
+  @apply transform scale-105;
+}
+
+/* Enhanced focus states */
+.focus-enhanced:focus {
+  @apply outline-none ring-2 ring-amber-500 ring-offset-2;
+}
+
+/* Custom animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
 } 
