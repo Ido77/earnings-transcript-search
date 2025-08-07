@@ -22,6 +22,8 @@ import { apiNinjasService } from '@/services/apiNinjas';
 import { JobManager } from '@/services/jobManager';
 import { EnhancedJobManager } from '@/services/enhancedJobManager';
 import tickersRouter from '@/routes/tickers';
+import searchRouter from '@/routes/search';
+import { searchService } from '@/services/searchService';
 import { transcriptService } from '@/services/transcriptService';
 import { GoogleAIService } from '@/services/googleAIService';
 import { BulkAIService } from '@/services/bulkAIService';
@@ -540,13 +542,31 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
             
             const cacheKey = `${transcript.ticker.toLowerCase()}-${transcript.year}-Q${transcript.quarter}`;
             
-            // Store in memory cache only (skip database for speed)
+            // Parse transcript date
+            let callDate: Date | null = null;
+            if (transcript.date) {
+              try {
+                callDate = new Date(transcript.date);
+              } catch (error) {
+                logger.warn('Invalid date format in transcript', {
+                  ticker,
+                  year: transcript.year,
+                  quarter: transcript.quarter,
+                  date: transcript.date,
+                });
+                callDate = new Date(`${transcript.year}-${transcript.quarter * 3}-15`);
+              }
+            } else {
+              callDate = new Date(`${transcript.year}-${transcript.quarter * 3}-15`);
+            }
+
+            // Store in memory cache
             transcriptCache.set(cacheKey, {
               id: cacheKey,
               ticker: transcript.ticker,
               year: transcript.year,
               quarter: transcript.quarter,
-              callDate: new Date(transcript.date || `${transcript.year}-${transcript.quarter * 3}-15`),
+              callDate: callDate,
               fullTranscript: transcript.transcript,
               transcriptJson: {
                 ticker: transcript.ticker,
@@ -557,6 +577,53 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
                 fetchedAt: new Date().toISOString(),
               },
             });
+
+            // Also save to database
+            let savedTranscriptId = cacheKey;
+            let storageLocation = 'memory';
+            
+            try {
+              const savedTranscript = await prisma.transcript.upsert({
+                where: {
+                  ticker_year_quarter: {
+                    ticker: transcript.ticker.toUpperCase(),
+                    year: transcript.year,
+                    quarter: transcript.quarter,
+                  },
+                },
+                update: {
+                  fullTranscript: transcript.transcript,
+                  callDate,
+                  updatedAt: new Date(),
+                },
+                create: {
+                  ticker: transcript.ticker.toUpperCase(),
+                  year: transcript.year,
+                  quarter: transcript.quarter,
+                  fullTranscript: transcript.transcript,
+                  callDate,
+                  transcriptJson: {},
+                },
+              });
+
+              savedTranscriptId = savedTranscript.id;
+              storageLocation = 'database';
+              
+              logger.info('Transcript saved to database from bulk fetch', {
+                ticker,
+                year: transcript.year,
+                quarter: transcript.quarter,
+                transcriptId: savedTranscript.id
+              });
+            } catch (dbError) {
+              logger.error('Failed to save transcript to database during bulk fetch', {
+                ticker,
+                year: transcript.year,
+                quarter: transcript.quarter,
+                error: dbError instanceof Error ? dbError.message : 'Unknown error'
+              });
+              // Continue with cache storage
+            }
             
             tickerResults.push({
               ticker: transcript.ticker,
@@ -564,8 +631,8 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
               quarter: transcript.quarter,
               status: 'success',
               transcriptLength: transcript.transcript.length,
-              transcriptId: cacheKey,
-              storage: 'memory',
+              transcriptId: savedTranscriptId,
+              storage: storageLocation,
             });
             
             logger.info('Transcript stored in memory cache', {
@@ -878,6 +945,57 @@ app.get('/api/jobs/enhanced', asyncHandler(async (req, res) => {
   });
 }));
 
+// Enhanced search endpoint that works with database (transcripts + AI summaries)
+app.post('/api/search/enhanced', asyncHandler(async (req, res) => {
+  const { query, type = 'keyword', source = 'transcripts', filters = {}, options = {} } = req.body;
+  
+  if (!query || typeof query !== 'string') {
+    return res.status(400).json({ error: 'Query is required' });
+  }
+
+  const searchFilters = {
+    tickers: filters.tickers,
+    years: filters.years,
+    quarters: filters.quarters,
+    dateFrom: filters.dateFrom,
+    dateTo: filters.dateTo,
+    limit: filters.limit || 20,
+    offset: filters.offset || 0,
+  };
+
+  const startTime = Date.now();
+  
+  let results;
+  
+  // Choose search method based on source parameter
+  switch (source) {
+    case 'ai_summaries':
+      results = await searchService.searchAISummaries(query, searchFilters, options.highlight ?? true);
+      break;
+    case 'both':
+      results = await searchService.searchCombined(query, searchFilters, options.highlight ?? true);
+      break;
+    default: // 'transcripts'
+      switch (type) {
+        case 'regex':
+          results = await searchService.searchRegex(query, searchFilters, options.highlight ?? true);
+          break;
+        case 'fuzzy':
+          results = await searchService.searchFuzzy(query, searchFilters, options);
+          break;
+        default:
+          results = await searchService.searchKeywords(query, searchFilters, options.highlight ?? true);
+      }
+  }
+
+  const executionTime = Date.now() - startTime;
+
+  res.json({
+    ...results,
+    executionTime,
+  });
+}));
+
 // Search endpoint that works with memory cache
 app.post('/api/search', async (req, res) => {
   try {
@@ -1160,6 +1278,131 @@ app.get('/api/transcripts/count', (req, res) => {
   res.json(cacheStats);
 });
 
+// Search transcripts by ticker - database first, then cache fallback
+app.get('/api/transcripts/ticker/:ticker', asyncHandler(async (req, res) => {
+  const { ticker } = req.params;
+  const { limit = 10, offset = 0, sortBy = 'callDate', sortOrder = 'desc' } = req.query;
+
+  if (!ticker || ticker.length === 0) {
+    return res.status(400).json({ error: 'Ticker is required' });
+  }
+
+  const tickerUpper = ticker.toUpperCase();
+  logger.info('Searching transcripts by ticker', { ticker: tickerUpper, limit, offset });
+
+  try {
+    // Search database first using the transcript service
+    const dbResults = await prisma.transcript.findMany({
+      where: {
+        ticker: {
+          equals: tickerUpper,
+          mode: 'insensitive'
+        }
+      },
+      orderBy: {
+        [sortBy as string]: sortOrder as 'asc' | 'desc'
+      },
+      take: Number(limit),
+      skip: Number(offset),
+      select: {
+        id: true,
+        ticker: true,
+        companyName: true,
+        year: true,
+        quarter: true,
+        callDate: true,
+        fullTranscript: true,
+        createdAt: true,
+        updatedAt: true
+      }
+    });
+
+    // Count total results for pagination
+    const totalCount = await prisma.transcript.count({
+      where: {
+        ticker: {
+          equals: tickerUpper,
+          mode: 'insensitive'
+        }
+      }
+    });
+
+    // If we found results in database, return them
+    if (dbResults.length > 0) {
+      const formattedResults = dbResults.map(transcript => ({
+        id: transcript.id,
+        ticker: transcript.ticker,
+        companyName: transcript.companyName,
+        year: transcript.year,
+        quarter: transcript.quarter,
+        callDate: transcript.callDate,
+        transcriptLength: transcript.fullTranscript?.length || 0,
+        createdAt: transcript.createdAt,
+        updatedAt: transcript.updatedAt,
+        source: 'database'
+      }));
+
+      return res.json({
+        ticker: tickerUpper,
+        transcripts: formattedResults,
+        total: totalCount,
+        page: Math.floor(Number(offset) / Number(limit)) + 1,
+        limit: Number(limit),
+        source: 'database'
+      });
+    }
+
+    // Fallback: search cache if nothing in database
+    const cacheResults = [];
+    for (const [cacheKey, transcript] of transcriptCache.entries()) {
+      if (transcript.ticker && transcript.ticker.toUpperCase() === tickerUpper) {
+        cacheResults.push({
+          id: cacheKey,
+          ticker: transcript.ticker.toUpperCase(),
+          companyName: transcript.companyName || null,
+          year: transcript.year,
+          quarter: transcript.quarter,
+          callDate: transcript.callDate,
+          transcriptLength: transcript.fullTranscript?.length || 0,
+          createdAt: null,
+          updatedAt: null,
+          source: 'cache'
+        });
+      }
+    }
+
+    // Sort cache results
+    cacheResults.sort((a, b) => {
+      if (sortBy === 'callDate') {
+        const dateA = new Date(a.callDate || 0);
+        const dateB = new Date(b.callDate || 0);
+        return sortOrder === 'desc' ? dateB.getTime() - dateA.getTime() : dateA.getTime() - dateB.getTime();
+      }
+      // Add other sorting options as needed
+      return 0;
+    });
+
+    // Apply pagination to cache results
+    const paginatedCacheResults = cacheResults.slice(Number(offset), Number(offset) + Number(limit));
+
+    res.json({
+      ticker: tickerUpper,
+      transcripts: paginatedCacheResults,
+      total: cacheResults.length,
+      page: Math.floor(Number(offset) / Number(limit)) + 1,
+      limit: Number(limit),
+      source: cacheResults.length > 0 ? 'cache' : 'none'
+    });
+
+  } catch (error) {
+    logger.error('Error searching transcripts by ticker', {
+      ticker: tickerUpper,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    res.status(500).json({ error: 'Failed to search transcripts' });
+  }
+}));
+
 // Force save cache to file
 app.post('/api/transcripts/save-cache', (req, res) => {
   try {
@@ -1181,34 +1424,81 @@ app.post('/api/transcripts/save-cache', (req, res) => {
   }
 });
 
-// Get individual transcript by ID
-app.get('/api/transcripts/:id', (req, res) => {
+// Get individual transcript by ID - database first, then cache fallback
+app.get('/api/transcripts/:id', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  
+  logger.info('Fetching transcript by ID', { id });
+  
   try {
-    const { id } = req.params;
-    
-    if (!transcriptCache.has(id)) {
-      return res.status(404).json({ error: 'Transcript not found' });
+    // First, try to find in database (for UUID IDs)
+    if (id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+      const dbTranscript = await prisma.transcript.findUnique({
+        where: { id },
+        select: {
+          id: true,
+          ticker: true,
+          companyName: true,
+          year: true,
+          quarter: true,
+          callDate: true,
+          fullTranscript: true,
+          createdAt: true,
+          updatedAt: true
+        }
+      });
+      
+      if (dbTranscript) {
+        logger.info('Transcript retrieved from database', {
+          id,
+          ticker: dbTranscript.ticker,
+          year: dbTranscript.year,
+          quarter: dbTranscript.quarter,
+          length: dbTranscript.fullTranscript?.length || 0,
+        });
+        
+        return res.json({
+          id: dbTranscript.id,
+          ticker: dbTranscript.ticker,
+          companyName: dbTranscript.companyName,
+          year: dbTranscript.year,
+          quarter: dbTranscript.quarter,
+          callDate: dbTranscript.callDate,
+          fullTranscript: dbTranscript.fullTranscript,
+          createdAt: dbTranscript.createdAt,
+          updatedAt: dbTranscript.updatedAt,
+          source: 'database'
+        });
+      }
     }
     
-    const transcript = transcriptCache.get(id);
+    // Fallback: try cache (for cache key format like "ftnt-2025-Q2")
+    if (transcriptCache.has(id)) {
+      const transcript = transcriptCache.get(id);
+      
+      logger.info('Transcript retrieved from cache', {
+        id,
+        ticker: transcript.ticker,
+        year: transcript.year,
+        quarter: transcript.quarter,
+        length: transcript.fullTranscript?.length || 0,
+      });
+      
+      return res.json({
+        id: transcript.id,
+        ticker: transcript.ticker,
+        companyName: transcript.companyName,
+        year: transcript.year,
+        quarter: transcript.quarter,
+        fullTranscript: transcript.fullTranscript,
+        callDate: transcript.callDate,
+        source: 'cache'
+      });
+    }
     
-    logger.info('Transcript retrieved for copy', {
-      id,
-      ticker: transcript.ticker,
-      year: transcript.year,
-      quarter: transcript.quarter,
-      length: transcript.fullTranscript.length,
-    });
+    // Not found in database or cache
+    return res.status(404).json({ error: 'Transcript not found' });
     
-    res.json({
-      id: transcript.id,
-      ticker: transcript.ticker,
-      year: transcript.year,
-      quarter: transcript.quarter,
-      fullTranscript: transcript.fullTranscript,
-      callDate: transcript.callDate,
-      length: transcript.fullTranscript.length,
-    });
   } catch (error) {
     logger.error('Error retrieving transcript', { 
       id: req.params.id,
@@ -1216,7 +1506,7 @@ app.get('/api/transcripts/:id', (req, res) => {
     });
     res.status(500).json({ error: 'Failed to retrieve transcript' });
   }
-});
+}));
 
 // Summarize transcript using Ollama
 app.post('/api/transcripts/:id/summarize', asyncHandler(async (req, res) => {
@@ -1334,11 +1624,32 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
   const { id } = req.params;
   const { searchQuery, forceRefresh } = req.body;
   
-  if (!transcriptCache.has(id)) {
+  // Retrieve transcript: try database first for UUIDs, then cache fallback
+  let transcript: any = null;
+  if (id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+    const dbTranscript = await prisma.transcript.findUnique({ where: { id } });
+    if (dbTranscript) {
+      transcript = {
+        id: dbTranscript.id,
+        ticker: dbTranscript.ticker,
+        year: dbTranscript.year,
+        quarter: dbTranscript.quarter,
+        callDate: dbTranscript.callDate,
+        fullTranscript: dbTranscript.fullTranscript,
+        transcriptJson: dbTranscript.transcriptJson,
+        source: 'database'
+      };
+    }
+  }
+
+  if (!transcript && transcriptCache.has(id)) {
+    const cached = transcriptCache.get(id);
+    transcript = { ...cached, source: 'cache' };
+  }
+
+  if (!transcript) {
     return res.status(404).json({ error: 'Transcript not found' });
   }
-  
-  const transcript = transcriptCache.get(id);
   
   logger.info('Generating multiple AI summaries for transcript', {
     id,

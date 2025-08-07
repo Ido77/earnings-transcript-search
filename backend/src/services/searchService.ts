@@ -367,6 +367,129 @@ export class SearchService {
     const sql = conditions.length > 0 ? ` AND ${conditions.join(' AND ')}` : '';
     return { sql, params };
   }
+
+  /**
+   * Search AI summaries using keyword search
+   */
+  async searchAISummaries(
+    query: string,
+    filters: SearchFilters,
+    highlight: boolean = true
+  ): Promise<SearchResponse> {
+    const startTime = Date.now();
+
+    // Build the WHERE clause for transcripts (since AI summaries are linked to transcripts)
+    const whereClause = this.buildWhereClause(filters);
+    
+    // Use PostgreSQL full-text search on AI summary content
+    const searchQuery = query.replace(/[^\w\s]/g, '').trim();
+    const tsQuery = searchQuery.split(/\s+/).join(' & ');
+
+    const sql = `
+      SELECT 
+        t.id,
+        t.ticker,
+        t.company_name as "companyName",
+        t.year,
+        t.quarter,
+        t.call_date as "callDate",
+        ai.analyst_type as "analystType",
+        ${highlight 
+          ? `ts_headline('english', ai.content, plainto_tsquery('english', $1), 'MaxWords=50, MinWords=20') as snippet,`
+          : `SUBSTRING(ai.content, 1, 200) as snippet,`
+        }
+        ts_rank(to_tsvector('english', ai.content), plainto_tsquery('english', $1)) as "relevanceScore",
+        (length(ai.content) - length(replace(lower(ai.content), lower($1), ''))) / length($1) as "matchCount",
+        'ai_summary' as "source_type",
+        ai.id as "ai_summary_id"
+      FROM ai_summaries ai
+      JOIN transcripts t ON ai.transcript_id = t.id
+      WHERE to_tsvector('english', ai.content) @@ plainto_tsquery('english', $1)
+      ${whereClause.sql}
+      ORDER BY "relevanceScore" DESC, t.call_date DESC
+      LIMIT $${whereClause.params.length + 2} OFFSET $${whereClause.params.length + 3}
+    `;
+
+    const countSql = `
+      SELECT COUNT(*) as total
+      FROM ai_summaries ai
+      JOIN transcripts t ON ai.transcript_id = t.id
+      WHERE to_tsvector('english', ai.content) @@ plainto_tsquery('english', $1)
+      ${whereClause.sql}
+    `;
+
+    const params = [searchQuery, ...whereClause.params, filters.limit, filters.offset];
+    const countParams = [searchQuery, ...whereClause.params];
+
+    try {
+      const [results, countResult] = await Promise.all([
+        prisma.$queryRawUnsafe(sql, ...params),
+        prisma.$queryRawUnsafe(countSql, ...countParams)
+      ]);
+
+      const total = Number((countResult as any)[0]?.total || 0);
+      const executionTime = Date.now() - startTime;
+
+      return {
+        results: results as SearchResult[],
+        total,
+        hasMore: total > filters.offset + filters.limit,
+        executionTime,
+        query,
+        filters,
+      };
+    } catch (error) {
+      logger.error('AI summary search failed', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        query,
+        filters,
+      });
+
+      throw error;
+    }
+  }
+
+  /**
+   * Search both transcripts and AI summaries combined
+   */
+  async searchCombined(
+    query: string,
+    filters: SearchFilters,
+    highlight: boolean = true
+  ): Promise<SearchResponse> {
+    const startTime = Date.now();
+
+    // Get results from both transcripts and AI summaries
+    const [transcriptResults, aiResults] = await Promise.all([
+      this.searchKeywords(query, filters, highlight),
+      this.searchAISummaries(query, filters, highlight)
+    ]);
+
+    // Combine and sort results by relevance
+    const combinedResults = [
+      ...transcriptResults.results.map(r => ({...r, source_type: 'transcript' as const})),
+      ...aiResults.results
+    ].sort((a, b) => ((b.relevanceScore || 0) as number) - ((a.relevanceScore || 0) as number));
+
+    // Apply limit and offset to combined results
+    const total = transcriptResults.total + aiResults.total;
+    const paginatedResults = combinedResults.slice(filters.offset, filters.offset + filters.limit);
+
+    const executionTime = Date.now() - startTime;
+
+    return {
+      results: paginatedResults,
+      total,
+      hasMore: total > filters.offset + filters.limit,
+      executionTime,
+      query,
+      filters,
+      breakdown: {
+        transcripts: transcriptResults.total,
+        aiSummaries: aiResults.total
+      }
+    };
+  }
 }
 
 // Export singleton instance

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
 import { logger } from '@/config/logger';
+import { prisma } from '@/config/database';
 import { apiNinjasService } from './apiNinjas';
 import { BulkFetchJob, BulkFetchResult, JobProgress } from '@/types';
 
@@ -134,6 +135,21 @@ export class EnhancedJobManager extends EventEmitter {
           );
 
           if (transcript && transcript.transcript) {
+            // Parse transcript date
+            let callDate: Date | null = null;
+            if (transcript.date) {
+              try {
+                callDate = new Date(transcript.date);
+              } catch (error) {
+                logger.warn('Invalid date format in transcript', {
+                  ticker,
+                  year: quarter.year,
+                  quarter: quarter.quarter,
+                  date: transcript.date,
+                });
+              }
+            }
+
             const transcriptData = {
               ticker,
               year: quarter.year,
@@ -143,7 +159,49 @@ export class EnhancedJobManager extends EventEmitter {
               companyName: `${ticker} Inc.`
             };
             
+            // Store in cache
             this.transcriptCache.set(cacheKey, transcriptData);
+
+            // Also save to database
+            try {
+              const savedTranscript = await prisma.transcript.upsert({
+                where: {
+                  ticker_year_quarter: {
+                    ticker: ticker.toUpperCase(),
+                    year: quarter.year,
+                    quarter: quarter.quarter,
+                  },
+                },
+                update: {
+                  fullTranscript: transcript.transcript,
+                  callDate,
+                  updatedAt: new Date(),
+                },
+                create: {
+                  ticker: ticker.toUpperCase(),
+                  year: quarter.year,
+                  quarter: quarter.quarter,
+                  fullTranscript: transcript.transcript,
+                  callDate,
+                  transcriptJson: {},
+                },
+              });
+
+              logger.info('Transcript saved to database from enhanced job manager', {
+                ticker,
+                year: quarter.year,
+                quarter: quarter.quarter,
+                transcriptId: savedTranscript.id
+              });
+            } catch (dbError) {
+              logger.error('Failed to save transcript to database', {
+                ticker,
+                year: quarter.year,
+                quarter: quarter.quarter,
+                error: dbError instanceof Error ? dbError.message : 'Unknown error'
+              });
+            }
+            
             const elapsedTime = (Date.now() - startTime) / 1000;
             
             return {

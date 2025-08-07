@@ -62,16 +62,24 @@ export interface SearchResult {
   snippet: string;
   relevanceScore?: number;
   matchCount: number;
+  source_type?: 'transcript' | 'ai_summary';
+  analystType?: string; // For AI summary results
+  ai_summary_id?: string; // For AI summary results
 }
 
 export interface SearchResponse {
   results: SearchResult[];
   total: number;
-  page: number;
-  limit: number;
+  page?: number;
+  limit?: number;
+  hasMore?: boolean;
   executionTime: number;
   query: string;
   filters: SearchFilters;
+  breakdown?: {
+    transcripts: number;
+    aiSummaries: number;
+  };
 }
 
 // Bulk fetch types

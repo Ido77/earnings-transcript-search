@@ -24,6 +24,11 @@ router.get(
       .isIn(['keyword', 'regex'])
       .withMessage('Search type must be "keyword" or "regex"'),
     
+    query('source')
+      .optional()
+      .isIn(['transcripts', 'ai_summaries', 'both'])
+      .withMessage('Search source must be "transcripts", "ai_summaries", or "both"'),
+    
     query('tickers')
       .optional()
       .customSanitizer((value) => {
@@ -88,6 +93,7 @@ router.get(
     const {
       q: query,
       type = 'keyword',
+      source = 'transcripts',
       tickers,
       years,
       quarters,
@@ -111,10 +117,21 @@ router.get(
     const startTime = Date.now();
     
     let results;
-    if (type === 'regex') {
-      results = await searchService.searchRegex(query as string, filters, highlight as boolean);
-    } else {
-      results = await searchService.searchKeywords(query as string, filters, highlight as boolean);
+    
+    // Choose search method based on source parameter
+    switch (source) {
+      case 'ai_summaries':
+        results = await searchService.searchAISummaries(query as string, filters, highlight as boolean);
+        break;
+      case 'both':
+        results = await searchService.searchCombined(query as string, filters, highlight as boolean);
+        break;
+      default: // 'transcripts'
+        if (type === 'regex') {
+          results = await searchService.searchRegex(query as string, filters, highlight as boolean);
+        } else {
+          results = await searchService.searchKeywords(query as string, filters, highlight as boolean);
+        }
     }
 
     const executionTime = Date.now() - startTime;
@@ -153,6 +170,11 @@ router.post(
       .isIn(['keyword', 'regex', 'fuzzy'])
       .withMessage('Search type must be "keyword", "regex", or "fuzzy"'),
     
+    body('source')
+      .optional()
+      .isIn(['transcripts', 'ai_summaries', 'both'])
+      .withMessage('Search source must be "transcripts", "ai_summaries", or "both"'),
+    
     body('filters')
       .optional()
       .isObject()
@@ -187,6 +209,7 @@ router.post(
     const {
       query,
       type = 'keyword',
+      source = 'transcripts',
       filters = {},
       options = {},
     } = req.body;
@@ -194,15 +217,26 @@ router.post(
     const startTime = Date.now();
     
     let results;
-    switch (type) {
-      case 'regex':
-        results = await searchService.searchRegex(query, filters, options.highlight ?? true);
+    
+    // Choose search method based on source parameter
+    switch (source) {
+      case 'ai_summaries':
+        results = await searchService.searchAISummaries(query, filters, options.highlight ?? true);
         break;
-      case 'fuzzy':
-        results = await searchService.searchFuzzy(query, filters, options);
+      case 'both':
+        results = await searchService.searchCombined(query, filters, options.highlight ?? true);
         break;
-      default:
-        results = await searchService.searchKeywords(query, filters, options.highlight ?? true);
+      default: // 'transcripts'
+        switch (type) {
+          case 'regex':
+            results = await searchService.searchRegex(query, filters, options.highlight ?? true);
+            break;
+          case 'fuzzy':
+            results = await searchService.searchFuzzy(query, filters, options);
+            break;
+          default:
+            results = await searchService.searchKeywords(query, filters, options.highlight ?? true);
+        }
     }
 
     const executionTime = Date.now() - startTime;

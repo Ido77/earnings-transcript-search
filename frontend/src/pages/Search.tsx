@@ -29,6 +29,11 @@ const Search = () => {
     const savedSort = localStorage.getItem('searchSortBy') as 'relevance' | 'date';
     return savedSort || 'relevance';
   });
+
+  const [searchSource, setSearchSource] = useState<'transcripts' | 'ai_summaries' | 'both'>(() => {
+    const savedSource = localStorage.getItem('searchSource') as 'transcripts' | 'ai_summaries' | 'both';
+    return savedSource || 'transcripts';
+  });
   
   const [currentPage, setCurrentPage] = useState(1);
   const [keywordRequirements, setKeywordRequirements] = useState<{[key: string]: boolean}>(() => {
@@ -54,11 +59,12 @@ const Search = () => {
   const [ollamaStatus, setOllamaStatus] = useState<{available: boolean, model?: string}>({available: false});
 
   // Save state to localStorage and update URL
-  const saveSearchState = (newQuery?: string, newResults?: any, newType?: string, newSort?: string, newFilters?: any, newKeywordReqs?: any) => {
+  const saveSearchState = (newQuery?: string, newResults?: any, newType?: string, newSort?: string, newSource?: string, newFilters?: any, newKeywordReqs?: any) => {
     const queryToSave = newQuery !== undefined ? newQuery : query;
     const resultsToSave = newResults !== undefined ? newResults : results;
     const typeToSave = newType !== undefined ? newType : searchType;
     const sortToSave = newSort !== undefined ? newSort : sortBy;
+    const sourceToSave = newSource !== undefined ? newSource : searchSource;
     const filtersToSave = newFilters !== undefined ? newFilters : filters;
     const keywordReqsToSave = newKeywordReqs !== undefined ? newKeywordReqs : keywordRequirements;
 
@@ -67,6 +73,7 @@ const Search = () => {
     localStorage.setItem('searchResults', JSON.stringify(resultsToSave));
     localStorage.setItem('searchType', typeToSave);
     localStorage.setItem('searchSortBy', sortToSave);
+    localStorage.setItem('searchSource', sourceToSave);
     localStorage.setItem('searchFilters', JSON.stringify(filtersToSave));
     localStorage.setItem('searchKeywordRequirements', JSON.stringify(keywordReqsToSave));
 
@@ -75,6 +82,7 @@ const Search = () => {
     if (queryToSave) newSearchParams.set('q', queryToSave);
     if (typeToSave !== 'keyword') newSearchParams.set('type', typeToSave);
     if (sortToSave !== 'relevance') newSearchParams.set('sort', sortToSave);
+    if (sourceToSave !== 'transcripts') newSearchParams.set('source', sourceToSave);
     setSearchParams(newSearchParams);
   };
 
@@ -136,7 +144,7 @@ const Search = () => {
 
   // Filter ticker suggestions based on input
   const handleTickerInputChange = (value: string) => {
-    setFilters(prev => ({ ...prev, tickers: value }));
+    setFilters((prev: any) => ({ ...prev, tickers: value }));
     
     if (value.trim()) {
       const searchTerm = value.toLowerCase();
@@ -156,6 +164,72 @@ const Search = () => {
   const getCompanyName = (ticker: string) => {
     const tickerData = availableTickers.find(item => item.ticker === ticker.toUpperCase());
     return tickerData?.companyName || null;
+  };
+
+  // Quick ticker search handler
+  const handleQuickTickerSearch = async (ticker: string) => {
+    if (!ticker) return;
+    
+    setLoading(true);
+    setResults(null);
+    setCurrentPage(1);
+    
+    // Clear the search query and set the ticker filter
+    setQuery('');
+    setFilters((prev: any) => ({ ...prev, tickers: ticker }));
+    
+    try {
+      const response = await fetch(`http://localhost:3001/api/transcripts/ticker/${ticker.toUpperCase()}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to search for ticker: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      // Transform the ticker search results to match the expected format
+      const transformedResults = {
+        results: data.transcripts.map((transcript: any) => ({
+          id: transcript.id,
+          ticker: transcript.ticker,
+          companyName: transcript.companyName || getCompanyName(transcript.ticker),
+          year: transcript.year,
+          quarter: transcript.quarter,
+          callDate: transcript.callDate,
+          snippet: `${transcript.ticker} ${transcript.year} Q${transcript.quarter} earnings call transcript`,
+          relevance_score: 1,
+          match_count: 1,
+          source: transcript.source
+        })),
+        total: data.total,
+        page: data.page,
+        limit: data.limit,
+        executionTime: 0
+      };
+      
+      setResults(transformedResults);
+      
+      // Save to localStorage for persistence
+      localStorage.setItem('searchResults', JSON.stringify(transformedResults));
+      localStorage.setItem('searchQuery', '');
+      localStorage.setItem('searchFilters', JSON.stringify({ ...filters, tickers: ticker }));
+      
+      // Update URL with the ticker
+      setSearchParams({ ticker: ticker.toUpperCase() });
+      
+      if (transformedResults.results.length === 0) {
+        toast(`No transcripts found for ${ticker.toUpperCase()}`, 'info');
+      } else {
+        const companyName = getCompanyName(ticker);
+        toast(`Found ${transformedResults.total} transcript${transformedResults.total !== 1 ? 's' : ''} for ${ticker.toUpperCase()}${companyName ? ` (${companyName})` : ''}`, 'success');
+      }
+      
+    } catch (error) {
+      console.error('Quick ticker search error:', error);
+      toast(`Failed to search for ${ticker.toUpperCase()}: ${error instanceof Error ? error.message : 'Unknown error'}`, 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const copyToClipboard = async (transcriptId: string, ticker: string, year: number, quarter: number) => {
@@ -289,17 +363,20 @@ const Search = () => {
           searchFilters.dateTo = filters.dateTo;
         }
 
-        const response = await fetch('http://localhost:3001/api/search', {
+        const response = await fetch('http://localhost:3001/api/search/enhanced', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             query: phraseQuery,
-            searchType: 'phrase',
+            type: 'keyword',
+            source: searchSource,
             filters: searchFilters,
-            highlight: true,
-            sortBy,
+            options: {
+              highlight: true,
+              sortBy,
+            },
           }),
         });
 
@@ -349,25 +426,21 @@ const Search = () => {
         searchFilters.dateTo = filters.dateTo;
       }
 
-      // Determine search endpoint
-      let endpoint = 'http://localhost:3001/api/search';
-      if (searchType === 'regex') {
-        endpoint += '/regex';
-      } else if (searchType === 'fuzzy') {
-        endpoint += '/fuzzy';
-      }
-
-      const response = await fetch(endpoint, {
+      // Use enhanced search endpoint for all search types
+      const response = await fetch('http://localhost:3001/api/search/enhanced', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           query: keywords.join(' '),
-          searchType,
+          type: searchType,
+          source: searchSource,
           filters: searchFilters,
-          highlight: true,
-          sortBy,
+          options: {
+            highlight: true,
+            sortBy,
+          },
         }),
       });
 
@@ -380,7 +453,7 @@ const Search = () => {
       setCurrentPage(1); // Reset page to 1 after new search
       
       // Save search state
-      saveSearchState(query, data, searchType, sortBy, filters, keywordRequirements);
+      saveSearchState(query, data, searchType, sortBy, searchSource, filters, keywordRequirements);
       
       toast(
         `Found ${data.total} results in ${data.executionTime}ms`, 
@@ -607,6 +680,21 @@ const Search = () => {
             
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-1">
+                Search Source
+              </label>
+              <select
+                value={searchSource}
+                onChange={(e) => setSearchSource(e.target.value as 'transcripts' | 'ai_summaries' | 'both')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="transcripts">📄 Transcripts Only</option>
+                <option value="ai_summaries">🤖 AI Summaries Only</option>
+                <option value="both">🔍 Both Transcripts & AI</option>
+              </select>
+            </div>
+            
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Sort By
               </label>
               <select
@@ -645,6 +733,43 @@ const Search = () => {
                 {ollamaStatus.available ? `AI Summary (${ollamaStatus.model})` : 'AI Summary (Unavailable)'}
               </span>
             </div>
+          </div>
+        </div>
+
+        {/* Quick Ticker Search */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200">Quick Ticker Search</h3>
+            <span className="text-sm text-blue-600 dark:text-blue-400">Search all transcripts for a specific company</span>
+          </div>
+          <div className="flex gap-3">
+            <input
+              type="text"
+              placeholder="Enter ticker symbol (e.g., AAPL, FTNT, MSFT)"
+              className="flex-1 px-3 py-2 border border-blue-300 dark:border-blue-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800"
+              disabled={loading || loadingMore}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const ticker = (e.target as HTMLInputElement).value.trim().toUpperCase();
+                  if (ticker) {
+                    handleQuickTickerSearch(ticker);
+                  }
+                }
+              }}
+            />
+            <button
+              onClick={() => {
+                const input = document.querySelector('input[placeholder*="Enter ticker symbol"]') as HTMLInputElement;
+                const ticker = input?.value?.trim()?.toUpperCase();
+                if (ticker) {
+                  handleQuickTickerSearch(ticker);
+                }
+              }}
+              disabled={loading || loadingMore}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Search Ticker
+            </button>
           </div>
         </div>
 
@@ -757,6 +882,11 @@ const Search = () => {
                 <h3 className="text-lg font-semibold">Search Results</h3>
                 <div className="text-sm text-muted-foreground">
                   {results.total} results in {results.executionTime}ms
+                  {results.breakdown && (
+                    <span className="ml-2 text-xs">
+                      (📄 {results.breakdown.transcripts} transcripts, 🤖 {results.breakdown.aiSummaries} AI summaries)
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -769,9 +899,21 @@ const Search = () => {
                   >
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h4 className="font-semibold text-lg">
-                          {result.ticker} - {result.year} Q{result.quarter}
-                        </h4>
+                        <div className="flex items-center gap-2 mb-1">
+                          <h4 className="font-semibold text-lg">
+                            {result.ticker} - {result.year} Q{result.quarter}
+                          </h4>
+                          {result.source_type === 'ai_summary' && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                              🤖 {result.analystType} AI
+                            </span>
+                          )}
+                          {result.source_type === 'transcript' && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                              📄 Transcript
+                            </span>
+                          )}
+                        </div>
                         {(result.companyName || getCompanyName(result.ticker)) && (
                           <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">
                             {result.companyName || getCompanyName(result.ticker)}

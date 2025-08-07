@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
 import path from 'path';
 import { logger } from '@/config/logger';
+import { prisma } from '@/config/database';
 import { apiNinjasService } from './apiNinjas';
 import { BulkFetchJob, BulkFetchResult, JobProgress } from '@/types';
 
@@ -167,6 +168,21 @@ export class JobManager extends EventEmitter {
               if (transcript) {
                 fetchedTranscripts.push(transcript);
 
+                // Parse transcript date
+                let callDate: Date | null = null;
+                if (transcript.date) {
+                  try {
+                    callDate = new Date(transcript.date);
+                  } catch (error) {
+                    logger.warn('Invalid date format in transcript', {
+                      ticker,
+                      year: transcript.year,
+                      quarter: transcript.quarter,
+                      date: transcript.date,
+                    });
+                  }
+                }
+
                 // Store in cache
                 this.transcriptCache.set(cacheKey, {
                   id: cacheKey,
@@ -179,23 +195,69 @@ export class JobManager extends EventEmitter {
                   transcriptJson: transcript,
                 });
 
-                job.results.push({
-                  ticker: transcript.ticker,
-                  year: transcript.year,
-                  quarter: transcript.quarter,
-                  status: 'success',
-                  transcriptLength: transcript.transcript.length,
-                  transcriptId: cacheKey,
-                  storage: 'memory',
-                });
+                // Also save to database
+                try {
+                  const savedTranscript = await prisma.transcript.upsert({
+                    where: {
+                      ticker_year_quarter: {
+                        ticker: transcript.ticker.toUpperCase(),
+                        year: transcript.year,
+                        quarter: transcript.quarter,
+                      },
+                    },
+                    update: {
+                      fullTranscript: transcript.transcript,
+                      callDate,
+                      updatedAt: new Date(),
+                    },
+                    create: {
+                      ticker: transcript.ticker.toUpperCase(),
+                      year: transcript.year,
+                      quarter: transcript.quarter,
+                      fullTranscript: transcript.transcript,
+                      callDate,
+                      transcriptJson: {},
+                    },
+                  });
 
-                logger.info('Transcript fetched in background', {
-                  jobId,
-                  ticker,
-                  year: transcript.year,
-                  quarter: transcript.quarter,
-                  length: transcript.transcript.length
-                });
+                  job.results.push({
+                    ticker: transcript.ticker,
+                    year: transcript.year,
+                    quarter: transcript.quarter,
+                    status: 'success',
+                    transcriptLength: transcript.transcript.length,
+                    transcriptId: savedTranscript.id,
+                    storage: 'database',
+                  });
+
+                  logger.info('Transcript fetched and saved to database', {
+                    jobId,
+                    ticker,
+                    year: transcript.year,
+                    quarter: transcript.quarter,
+                    length: transcript.transcript.length,
+                    transcriptId: savedTranscript.id
+                  });
+                } catch (dbError) {
+                  logger.error('Failed to save transcript to database', {
+                    jobId,
+                    ticker,
+                    year: transcript.year,
+                    quarter: transcript.quarter,
+                    error: dbError instanceof Error ? dbError.message : 'Unknown error'
+                  });
+
+                  // Still record the result as successful since it's in cache
+                  job.results.push({
+                    ticker: transcript.ticker,
+                    year: transcript.year,
+                    quarter: transcript.quarter,
+                    status: 'success',
+                    transcriptLength: transcript.transcript.length,
+                    transcriptId: cacheKey,
+                    storage: 'memory',
+                  });
+                }
               }
             } catch (error) {
               logger.debug('Quarter fetch failed in background job', {
