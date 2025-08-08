@@ -1754,7 +1754,8 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
     await googleAIService.saveAISummariesToDatabase(
       id,
       multipleSummaries.responses,
-      searchQuery
+      searchQuery,
+      multipleSummaries.synthesizedThesis
     );
     
     logger.info('Multiple AI summaries completed and saved to database', {
@@ -2155,6 +2156,235 @@ app.get('/api/ai/bulk-stats', asyncHandler(async (req, res) => {
     success: true,
     stats
   });
+}));
+
+// Investment Ideas endpoints for Tinder-like interface
+
+// Get all unified investment theses for swiping
+app.get('/api/investment-ideas', asyncHandler(async (req, res) => {
+  const { limit = 20, offset = 0, excludeBookmarked = false } = req.query;
+  
+  try {
+    logger.info('Fetching investment ideas for swiping interface', {
+      limit: Number(limit),
+      offset: Number(offset),
+      excludeBookmarked
+    });
+
+    // Get transcripts that have AI summaries with synthesized thesis
+    const transcriptsWithThesis = await prisma.transcript.findMany({
+      where: {
+        aiSummaries: {
+          some: {
+            analystType: 'synthesized_thesis'
+          }
+        }
+      },
+      include: {
+        aiSummaries: {
+          where: {
+            analystType: 'synthesized_thesis'
+          }
+        }
+      },
+      orderBy: {
+        callDate: 'desc'
+      },
+      skip: Number(offset),
+      take: Number(limit)
+    });
+
+    // Get bookmark status for each transcript
+    const bookmarkedIdeas = await prisma.bookmarkedIdea.findMany({
+      where: {
+        transcriptId: {
+          in: transcriptsWithThesis.map(t => t.id)
+        }
+      }
+    });
+
+    const bookmarkMap = new Map(bookmarkedIdeas.map(b => [b.transcriptId, true]));
+
+    const investmentIdeas = transcriptsWithThesis.map(transcript => ({
+      id: transcript.id,
+      ticker: transcript.ticker,
+      companyName: transcript.companyName,
+      year: transcript.year,
+      quarter: transcript.quarter,
+      callDate: transcript.callDate,
+      synthesizedThesis: transcript.aiSummaries[0]?.content || null,
+      isBookmarked: bookmarkMap.has(transcript.id)
+    }));
+
+    res.json({
+      success: true,
+      ideas: investmentIdeas,
+      hasMore: investmentIdeas.length === Number(limit),
+      total: investmentIdeas.length
+    });
+
+  } catch (error) {
+    logger.error('Failed to fetch investment ideas', {
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to fetch investment ideas',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
+// Bookmark/unbookmark an investment idea
+app.post('/api/investment-ideas/:transcriptId/bookmark', asyncHandler(async (req, res) => {
+  const { transcriptId } = req.params;
+  const { bookmarked } = req.body;
+  
+  try {
+    logger.info('Updating bookmark status', {
+      transcriptId,
+      bookmarked: Boolean(bookmarked)
+    });
+
+    // Get the transcript with its synthesized thesis
+    const transcript = await prisma.transcript.findUnique({
+      where: { id: transcriptId },
+      include: {
+        aiSummaries: {
+          where: { analystType: 'synthesized_thesis' }
+        }
+      }
+    });
+
+    if (!transcript) {
+      return res.status(404).json({ error: 'Transcript not found' });
+    }
+
+    const synthesizedThesis = transcript.aiSummaries[0]?.content;
+    if (!synthesizedThesis) {
+      return res.status(400).json({ error: 'No synthesized thesis found for this transcript' });
+    }
+
+    if (bookmarked) {
+      // Create bookmark
+      await prisma.bookmarkedIdea.upsert({
+        where: {
+          ticker_year_quarter: {
+            ticker: transcript.ticker,
+            year: transcript.year,
+            quarter: transcript.quarter
+          }
+        },
+        update: {
+          thesis: synthesizedThesis,
+          updatedAt: new Date()
+        },
+        create: {
+          ticker: transcript.ticker,
+          companyName: transcript.companyName,
+          year: transcript.year,
+          quarter: transcript.quarter,
+          quarterDate: transcript.callDate,
+          thesis: synthesizedThesis,
+          transcriptId: transcript.id
+        }
+      });
+      
+      logger.info('Investment idea bookmarked', {
+        ticker: transcript.ticker,
+        year: transcript.year,
+        quarter: transcript.quarter
+      });
+    } else {
+      // Remove bookmark
+      await prisma.bookmarkedIdea.deleteMany({
+        where: {
+          ticker: transcript.ticker,
+          year: transcript.year,
+          quarter: transcript.quarter
+        }
+      });
+      
+      logger.info('Investment idea bookmark removed', {
+        ticker: transcript.ticker,
+        year: transcript.year,
+        quarter: transcript.quarter
+      });
+    }
+    
+    res.json({
+      success: true,
+      transcriptId,
+      bookmarked: Boolean(bookmarked)
+    });
+
+  } catch (error) {
+    logger.error('Failed to update bookmark', {
+      transcriptId,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to update bookmark',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+}));
+
+// Get all bookmarked investment ideas
+app.get('/api/bookmarked-ideas', asyncHandler(async (req, res) => {
+  const { limit = 50, offset = 0, sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
+  
+  try {
+    logger.info('Fetching bookmarked investment ideas', {
+      limit: Number(limit),
+      offset: Number(offset),
+      sortBy,
+      sortOrder
+    });
+
+    const bookmarkedIdeas = await prisma.bookmarkedIdea.findMany({
+      orderBy: {
+        [sortBy as string]: sortOrder
+      },
+      skip: Number(offset),
+      take: Number(limit),
+      include: {
+        transcript: true
+      }
+    });
+
+    const totalCount = await prisma.bookmarkedIdea.count();
+
+    const formattedIdeas = bookmarkedIdeas.map(bookmark => ({
+      id: bookmark.id,
+      ticker: bookmark.ticker,
+      companyName: bookmark.companyName,
+      year: bookmark.year,
+      quarter: bookmark.quarter,
+      quarterDate: bookmark.quarterDate,
+      thesis: bookmark.thesis,
+      transcriptId: bookmark.transcriptId,
+      bookmarkedAt: bookmark.createdAt
+    }));
+
+    res.json({
+      success: true,
+      bookmarkedIdeas: formattedIdeas,
+      total: totalCount,
+      hasMore: bookmarkedIdeas.length === Number(limit)
+    });
+
+  } catch (error) {
+    logger.error('Failed to fetch bookmarked ideas', {
+      error: error instanceof Error ? error.message : 'Unknown error'
+    });
+    
+    res.status(500).json({
+      error: 'Failed to fetch bookmarked ideas',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
 }));
 
 // 404 handler

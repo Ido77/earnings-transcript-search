@@ -40,6 +40,7 @@ export interface MultipleAIResponse {
 
 export interface MultipleAIResponses {
   responses: MultipleAIResponse[];
+  synthesizedThesis?: string;
   totalProcessingTime: number;
   averageProcessingTime: number;
   successCount: number;
@@ -262,6 +263,69 @@ TRANSCRIPT: ${basePrompt.split('TRANSCRIPT: ')[1]}`
     }
   }
 
+  // Simple AI call for custom prompts (like thesis synthesis)
+  private async makeSimpleAICall(
+    prompt: string,
+    temperature: number = 0.7
+  ): Promise<string> {
+    const startTime = Date.now();
+    
+    const requestBody: GoogleAIRequest = {
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt
+            }
+          ]
+        }
+      ],
+      generationConfig: {
+        temperature,
+        topP: 1.0,
+        topK: 40,
+        maxOutputTokens: 1024
+      }
+    };
+
+    try {
+      const response = await axios.post<GoogleAIResponse>(
+        `${this.baseUrl}/${this.defaultModel}:generateContent?key=${this.apiKey}`,
+        requestBody,
+        {
+          timeout: 300000, // 5 minute timeout
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      const processingTime = Date.now() - startTime;
+      
+      if (response.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+        const content = response.data.candidates[0].content.parts[0].text.trim();
+        
+        logger.info('Simple AI call completed', {
+          processingTime,
+          responseLength: content.length,
+          responseStart: content.substring(0, 100)
+        });
+
+        return content;
+      } else {
+        throw new Error('No response content from Google AI');
+      }
+    } catch (error) {
+      const processingTime = Date.now() - startTime;
+      logger.error('Simple AI call failed', {
+        processingTime,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+      
+      throw error;
+    }
+  }
+
   async generateMultipleSummaries(
     ticker: string,
     quarter: string,
@@ -390,26 +454,75 @@ TRANSCRIPT: ${truncatedTranscript}`
 
       const analystTypes = ['Claude', 'Gemini', 'DeepSeek', 'Grok'];
 
-      // Generate all 4 AI summaries
-      for (let i = 0; i < 4; i++) {
+      // Generate all 4 AI summaries in parallel
+      const aiPromises = prompts.map(async (prompt, i) => {
         try {
-          if (i > 0) {
-            await this.delay(1000); // Rate limiting between calls
-          }
-
-          const response = await this.makeAICall(prompts[i], i + 1, 0.9);
-          responses.push(response);
-          successCount++;
-          
+          const response = await this.makeAICall(prompt, i + 1, 0.9);
           logger.info(`AI summary ${i + 1}/4 completed (${analystTypes[i]})`, { responseId: i + 1 });
+          return { success: true, response, index: i };
         } catch (error) {
-          failureCount++;
           logger.error(`AI summary ${i + 1}/4 failed (${analystTypes[i]})`, { 
             responseId: i + 1, 
             error: error instanceof Error ? error.message : 'Unknown error' 
           });
-          responses.push(this.createFallbackResponse(i + 1, ticker, analystTypes[i]));
+          return { success: false, error, index: i };
         }
+      });
+
+      const results = await Promise.allSettled(aiPromises);
+      
+      // Process results in order
+      for (let i = 0; i < results.length; i++) {
+        if (results[i].status === 'fulfilled') {
+          const result = (results[i] as PromiseFulfilledResult<any>).value;
+          if (result.success) {
+            responses.push(result.response);
+            successCount++;
+          } else {
+            responses.push(this.createFallbackResponse(i + 1, ticker, analystTypes[i]));
+            failureCount++;
+          }
+        } else {
+          responses.push(this.createFallbackResponse(i + 1, ticker, analystTypes[i]));
+          failureCount++;
+        }
+      }
+
+      // Generate synthesized thesis from all perspectives
+      let synthesizedThesis: string | undefined;
+      try {
+        logger.info('Generating synthesized thesis from all perspectives');
+        
+        const allPerspectives = responses.map((resp, i) => 
+          `${analystTypes[i]} Perspective:\n${resp.content}`
+        ).join('\n\n---\n\n');
+
+        const thesisPrompt = `You are a master investor synthesizing insights from 4 different analyst perspectives on the same earnings call. Your task is to create ONE unified investment thesis paragraph that captures the most compelling elements from all perspectives.
+
+INPUT - 4 Different Analyst Perspectives:
+${allPerspectives}
+
+INSTRUCTIONS:
+1. Identify the common threads and complementary insights across all 4 perspectives
+2. Synthesize them into a single, coherent investment thesis (1 paragraph, 3-5 sentences)
+3. Focus on the most compelling unified narrative that emerges
+4. Include the strongest evidence/catalysts mentioned across perspectives
+5. Provide a consolidated view of the opportunity's magnitude and timeline
+
+OUTPUT FORMAT:
+Write a single paragraph investment thesis that weaves together the best insights from all perspectives. Start with "The unified investment thesis suggests..." and make it compelling yet balanced.
+
+Limit: 150 words maximum.`;
+
+        const thesisResponse = await this.makeSimpleAICall(thesisPrompt, 0.7);
+        synthesizedThesis = thesisResponse;
+        
+        logger.info('Synthesized thesis generated successfully');
+      } catch (error) {
+        logger.error('Failed to generate synthesized thesis', { 
+          error: error instanceof Error ? error.message : 'Unknown error' 
+        });
+        // Continue without thesis if it fails
       }
 
       const totalProcessingTime = Date.now() - startTime;
@@ -417,19 +530,21 @@ TRANSCRIPT: ${truncatedTranscript}`
 
       const result: MultipleAIResponses = {
         responses: responses.slice(0, 4), // Ensure exactly 4 responses
+        synthesizedThesis,
         totalProcessingTime,
         averageProcessingTime,
         successCount,
         failureCount
       };
 
-      logger.info('4 AI summaries completed', {
+      logger.info('4 AI summaries and thesis synthesis completed', {
         ticker,
         quarter,
         totalProcessingTime,
         averageProcessingTime,
         successCount,
-        failureCount
+        failureCount,
+        hasSynthesizedThesis: !!synthesizedThesis
       });
 
       return result;
@@ -451,7 +566,8 @@ TRANSCRIPT: ${truncatedTranscript}`
   async saveAISummariesToDatabase(
     transcriptId: string,
     responses: MultipleAIResponse[],
-    searchQuery?: string
+    searchQuery?: string,
+    synthesizedThesis?: string
   ): Promise<AISummaryData[]> {
     try {
       const savedSummaries: AISummaryData[] = [];
@@ -497,6 +613,51 @@ TRANSCRIPT: ${truncatedTranscript}`
           searchQuery: summary.searchQuery,
           createdAt: summary.createdAt,
           updatedAt: summary.updatedAt
+        });
+      }
+
+      // Save synthesized thesis if provided
+      if (synthesizedThesis) {
+        const thesisSummary = await prisma.aISummary.upsert({
+          where: {
+            transcriptId_analystType: {
+              transcriptId,
+              analystType: 'synthesized_thesis'
+            }
+          },
+          update: {
+            content: synthesizedThesis,
+            processingTime: 0, // No specific processing time for thesis
+            hasHiddenGoldmine: false,
+            hasBoringQuote: false,
+            hasSizePotential: false,
+            searchQuery,
+            updatedAt: new Date()
+          },
+          create: {
+            transcriptId,
+            analystType: 'synthesized_thesis',
+            content: synthesizedThesis,
+            processingTime: 0,
+            hasHiddenGoldmine: false,
+            hasBoringQuote: false,
+            hasSizePotential: false,
+            searchQuery
+          }
+        });
+
+        savedSummaries.push({
+          id: thesisSummary.id,
+          transcriptId: thesisSummary.transcriptId,
+          analystType: thesisSummary.analystType,
+          content: thesisSummary.content,
+          processingTime: thesisSummary.processingTime,
+          hasHiddenGoldmine: thesisSummary.hasHiddenGoldmine,
+          hasBoringQuote: thesisSummary.hasBoringQuote,
+          hasSizePotential: thesisSummary.hasSizePotential,
+          searchQuery: thesisSummary.searchQuery,
+          createdAt: thesisSummary.createdAt,
+          updatedAt: thesisSummary.updatedAt
         });
       }
 

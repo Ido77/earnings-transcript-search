@@ -9,6 +9,8 @@ import Transcript from '@/pages/Transcript'
 import Analytics from '@/pages/Analytics'
 import Settings from '@/pages/Settings'
 import BulkAI from '@/pages/BulkAI'
+import InvestmentIdeas from '@/pages/InvestmentIdeas'
+import BookmarkedIdeas from '@/pages/BookmarkedIdeas'
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/tickers" element={<Tickers />} />
           <Route path="/transcript/:id" element={<Transcript />} />
+          <Route path="/investment-ideas" element={<InvestmentIdeas />} />
+          <Route path="/bookmarked-ideas" element={<BookmarkedIdeas />} />
           <Route path="/analytics" element={<Analytics />} />
-                          <Route path="/bulk-ai" element={<BulkAI />} />
+          <Route path="/bulk-ai" element={<BulkAI />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </Layout>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Search, BarChart3, Settings, FileText, Home, Moon, Sun, Brain } from 'lucide-react'
+import { Search, BarChart3, Settings, FileText, Home, Moon, Sun, Brain, TrendingUp, Bookmark } from 'lucide-react'
 import { useTheme } from '@/components/theme/theme-provider'
 
 interface LayoutProps {
@@ -15,6 +15,8 @@ export default function Layout({ children }: LayoutProps) {
     { name: 'Home', href: '/', icon: Home },
     { name: 'Search', href: '/search', icon: Search },
     { name: 'Tickers', href: '/tickers', icon: FileText },
+    { name: 'Investment Ideas', href: '/investment-ideas', icon: TrendingUp },
+    { name: 'Bookmarked Ideas', href: '/bookmarked-ideas', icon: Bookmark },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Bulk AI', href: '/bulk-ai', icon: Brain },
     { name: 'Settings', href: '/settings', icon: Settings },

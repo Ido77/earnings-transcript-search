@@ -26,6 +26,7 @@ model Transcript {
 
   // Relationships
   aiSummaries      AISummary[] @relation
+  bookmarkedIdeas  BookmarkedIdea[] @relation
 
   // Ensure uniqueness per ticker/year/quarter combination
   @@unique([ticker, year, quarter])
@@ -98,6 +99,26 @@ model FetchJob {
 
   @@unique([ticker, year, quarter])
   @@map("fetch_jobs")
+}
+
+model BookmarkedIdea {
+  id           String   @id @default(uuid())
+  ticker       String   @db.VarChar(10)
+  companyName  String?  @map("company_name") @db.VarChar(255)
+  year         Int
+  quarter      Int
+  quarterDate  DateTime? @map("quarter_date") @db.Date
+  thesis       String   @db.Text
+  transcriptId String   @map("transcript_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relationship to transcript
+  transcript   Transcript @relation(fields: [transcriptId], references: [id], onDelete: Cascade)
+
+  // Ensure uniqueness per ticker/year/quarter combination
+  @@unique([ticker, year, quarter])
+  @@map("bookmarked_ideas")
 }
 
 enum JobStatus {

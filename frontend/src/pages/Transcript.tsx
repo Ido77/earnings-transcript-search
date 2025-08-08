@@ -888,11 +888,21 @@ export default function Transcript() {
                       </div>
                       <button
                         onClick={() => {
+                          let exportText = '';
+                          
+                          // Add synthesized thesis if available
+                          if (multipleSummaries.synthesizedThesis) {
+                            exportText += `╔═══ UNIFIED INVESTMENT THESIS ═══╗\n\n${multipleSummaries.synthesizedThesis}\n\n╚${'═'.repeat(50)}╝\n\n\n`;
+                          }
+                          
+                          // Add individual analyst reports
                           const allResponses = multipleSummaries.responses.map((r: any) => 
                             `╔═══ ${r.analystType?.toUpperCase() || 'AI ANALYST'} REPORT ═══╗\n\n${r.content}\n\n╚${'═'.repeat(40)}╝\n\n`
                           ).join('');
-                          navigator.clipboard.writeText(allResponses);
-                          toast('📋 Complete AI analysis suite exported to clipboard!', 'success');
+                          
+                          exportText += allResponses;
+                          navigator.clipboard.writeText(exportText);
+                          toast('📋 Complete AI analysis suite with thesis exported to clipboard!', 'success');
                         }}
                         className="bg-white/10 hover:bg-white/20 backdrop-blur-xl border border-white/20 hover:border-white/40 px-6 py-4 rounded-2xl transition-all duration-300 group shadow-lg hover:shadow-xl"
                         title="Export Complete Analysis"
@@ -910,6 +920,32 @@ export default function Transcript() {
                 </div>
               </div>
             </div>
+
+            {/* Synthesized Investment Thesis */}
+            {multipleSummaries.synthesizedThesis && (
+              <div className="mb-16">
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-2 border-amber-200 dark:border-amber-800 rounded-3xl p-8 shadow-lg">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl shadow-lg">
+                      <span className="text-2xl">💡</span>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-amber-900 dark:text-amber-100">
+                        Unified Investment Thesis
+                      </h3>
+                      <p className="text-amber-700 dark:text-amber-300 font-medium">
+                        Synthesized from all 4 analyst perspectives
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm rounded-2xl p-6 border border-amber-200/50 dark:border-amber-700/50">
+                    <div className="text-gray-800 dark:text-gray-200 leading-relaxed text-lg font-medium">
+                      {multipleSummaries.synthesizedThesis}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* AI Analyst Reports - Clean & Minimal */}
             <div className="space-y-16">
