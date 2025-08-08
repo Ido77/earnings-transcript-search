@@ -25,7 +25,7 @@ export default function InvestmentIdeas() {
   const fetchInvestmentIdeas = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3001/api/investment-ideas?limit=50');
+      const response = await fetch('http://localhost:3001/api/investment-ideas?limit=50&excludeBookmarked=true');
       const data = await response.json();
       
       if (data.success) {

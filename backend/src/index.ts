@@ -1696,7 +1696,28 @@ app.post('/api/transcripts/:id/multiple-summaries', asyncHandler(async (req, res
     // Check if summaries already exist in database (unless force refresh)
     if (!forceRefresh) {
       const existingSummaries = await googleAIService.getAISummariesFromDatabase(id);
-      if (existingSummaries.length > 0) {
+      if (existingSummaries.length >= 4) {
+        logger.info('Found existing AI summaries, asking for confirmation', {
+          id,
+          ticker: transcript.ticker,
+          summariesCount: existingSummaries.length,
+          analystTypes: existingSummaries.map(s => s.analystType)
+        });
+
+        return res.status(409).json({
+          success: false,
+          error: 'summaries_exist',
+          message: 'AI summaries already exist for this transcript. Would you like to regenerate them?',
+          ticker: transcript.ticker,
+          quarter: `${transcript.year}Q${transcript.quarter}`,
+          existingSummaries: existingSummaries.map(s => ({
+            analystType: s.analystType,
+            createdAt: s.createdAt.toISOString(),
+            updatedAt: s.updatedAt.toISOString()
+          })),
+          existingCount: existingSummaries.length
+        });
+      } else if (existingSummaries.length > 0) {
         logger.info('Returning existing AI summaries from database', {
           id,
           ticker: transcript.ticker,
@@ -2178,7 +2199,13 @@ app.get('/api/investment-ideas', asyncHandler(async (req, res) => {
           some: {
             analystType: 'synthesized_thesis'
           }
-        }
+        },
+        // Exclude already bookmarked ideas unless explicitly requested
+        ...(excludeBookmarked === 'true' || excludeBookmarked === true ? {
+          bookmarkedIdeas: {
+            none: {}
+          }
+        } : {})
       },
       include: {
         aiSummaries: {
@@ -2194,16 +2221,18 @@ app.get('/api/investment-ideas', asyncHandler(async (req, res) => {
       take: Number(limit)
     });
 
-    // Get bookmark status for each transcript
-    const bookmarkedIdeas = await prisma.bookmarkedIdea.findMany({
-      where: {
-        transcriptId: {
-          in: transcriptsWithThesis.map(t => t.id)
+    // Get bookmark status for each transcript (only if not excluding bookmarked)
+    let bookmarkMap = new Map();
+    if (excludeBookmarked !== 'true' && excludeBookmarked !== true) {
+      const bookmarkedIdeas = await prisma.bookmarkedIdea.findMany({
+        where: {
+          transcriptId: {
+            in: transcriptsWithThesis.map(t => t.id)
+          }
         }
-      }
-    });
-
-    const bookmarkMap = new Map(bookmarkedIdeas.map(b => [b.transcriptId, true]));
+      });
+      bookmarkMap = new Map(bookmarkedIdeas.map(b => [b.transcriptId, true]));
+    }
 
     const investmentIdeas = transcriptsWithThesis.map(transcript => ({
       id: transcript.id,

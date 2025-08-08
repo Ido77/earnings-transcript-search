@@ -430,8 +430,11 @@ export default function Transcript() {
     }
   };
 
-  const generateMultipleSummaries = async () => {
+  const generateMultipleSummaries = async (forceRefresh = false) => {
     if (!transcript || generatingMultiple) return;
+    
+    // Ensure forceRefresh is a boolean (in case an event object is accidentally passed)
+    const isForceRefresh = typeof forceRefresh === 'boolean' ? forceRefresh : false;
     
     setGeneratingMultiple(true);
     
@@ -442,9 +445,37 @@ export default function Transcript() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          searchQuery: highlightQuery || null // Pass the search query for context
+          searchQuery: highlightQuery || null,
+          forceRefresh: isForceRefresh
         })
       });
+      
+      if (response.status === 409) {
+        // Summaries already exist, ask for confirmation
+        const errorData = await response.json();
+        console.log('Confirmation dialog data:', errorData);
+        
+        if (errorData.error === 'summaries_exist') {
+          const createdDate = errorData.existingSummaries?.[0]?.createdAt 
+            ? new Date(errorData.existingSummaries[0].createdAt).toLocaleDateString()
+            : 'unknown date';
+            
+          const confirmRegenerate = window.confirm(
+            `AI summaries already exist for ${errorData.ticker} ${errorData.quarter}.\n\n` +
+            `Existing summaries were created on ${createdDate}.\n\n` +
+            `Would you like to regenerate them? This will replace the existing summaries.`
+          );
+          
+          if (confirmRegenerate) {
+            // Retry with forceRefresh = true
+            setGeneratingMultiple(false);
+            return generateMultipleSummaries(true);
+          } else {
+            setGeneratingMultiple(false);
+            return;
+          }
+        }
+      }
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -455,7 +486,11 @@ export default function Transcript() {
       
       setMultipleSummaries(data.multipleSummaries);
       
-      toast(`Generated ${data.multipleSummaries.successCount}/4 AI perspectives for ${transcript.ticker} ${transcript.year} Q${transcript.quarter}`, 'success');
+      if (forceRefresh) {
+        toast(`Regenerated ${data.multipleSummaries.successCount}/4 AI perspectives for ${transcript.ticker} ${transcript.year} Q${transcript.quarter}`, 'success');
+      } else {
+        toast(`Generated ${data.multipleSummaries.successCount}/4 AI perspectives for ${transcript.ticker} ${transcript.year} Q${transcript.quarter}`, 'success');
+      }
       
     } catch (error) {
       console.error('Error generating multiple summaries:', error);
@@ -526,7 +561,7 @@ export default function Transcript() {
             <span>AI Summary</span>
           </button>
           <button
-            onClick={generateMultipleSummaries}
+            onClick={() => generateMultipleSummaries()}
             disabled={generatingMultiple || !ollamaStatus.available}
             className="flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors duration-200 bg-purple-100 hover:bg-purple-200 text-purple-800 border-purple-300 disabled:opacity-50"
             title="Generate 5 AI perspectives"
