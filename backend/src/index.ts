@@ -2394,6 +2394,50 @@ app.post('/api/investment-ideas/:transcriptId/bookmark', asyncHandler(async (req
   }
 }));
 
+// AI Query endpoint: free-text question answered by Gemma using transcript context
+app.post('/api/transcripts/:id/ai-query', asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { query } = req.body as { query?: string };
+  if (!query || typeof query !== 'string' || query.trim().length === 0) {
+    return res.status(400).json({ error: 'Query text is required' });
+  }
+
+  // Fetch transcript (db first, then cache)
+  let transcript = await prisma.transcript.findUnique({ where: { id } });
+  if (!transcript) {
+    const cached = transcriptCache.get(id);
+    if (cached) transcript = cached;
+  }
+  if (!transcript) {
+    return res.status(404).json({ error: 'Transcript not found' });
+  }
+
+  try {
+    const googleService = new GoogleAIService();
+    const prompt = `You are a helpful financial research assistant. Answer the user's question using ONLY the transcript below. Keep structure and tone similar to the transcript style (concise paragraphs, no markdown headings).
+
+Question: ${query}
+
+TRANSCRIPT: ${transcript.fullTranscript}`;
+
+    // Reuse the simpler call that returns content (makeSimpleAICall)
+    // Fallback to makeAICall-like single-shot if helper is private; implement inline request
+    const requestBody = {
+      contents: [ { parts: [ { text: prompt } ] } ],
+      generationConfig: { temperature: 0.4, topP: 1.0, topK: 40, maxOutputTokens: 1024 }
+    };
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemma-3-27b-it:generateContent?key=${process.env.GOOGLE_AI_API_KEY || ''}`;
+    const axios = (await import('axios')).default;
+    const r = await axios.post(url, requestBody);
+    const text = r.data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    return res.json({ success: true, answer: text });
+  } catch (error) {
+    logger.error('AI query failed', { id, error: error instanceof Error ? error.message : 'Unknown error' });
+    return res.status(500).json({ error: 'AI query failed' });
+  }
+}));
+
 // Pass an investment idea (persist decision)
 app.post('/api/investment-ideas/:transcriptId/pass', asyncHandler(async (req, res) => {
   const { transcriptId } = req.params;

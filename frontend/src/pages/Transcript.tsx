@@ -546,30 +546,54 @@ export default function Transcript() {
         
         <div className="flex gap-2">
           <button
-            onClick={summarizeTranscript}
+            onClick={async () => {
+              if (!transcript) return;
+              const query = window.prompt('AI Query: Ask anything about this transcript (Gemma)', highlightQuery || '');
+              if (query == null) return;
+              setSummarizing(true);
+              try {
+                const resp = await fetch(`http://localhost:3001/api/transcripts/${transcript.id}/ai-query`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ query })
+                });
+                if (!resp.ok) {
+                  const err = await resp.json();
+                  throw new Error(err.error || 'Failed to run AI query');
+                }
+                const data = await resp.json();
+                setSummary(data.answer);
+                setSummaryCacheStatus(false);
+                toast('AI query completed', 'success');
+              } catch (e) {
+                toast(e instanceof Error ? e.message : 'Failed to run AI query', 'error');
+              } finally {
+                setSummarizing(false);
+              }
+            }}
             disabled={summarizing || !ollamaStatus.available}
             className={`flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors duration-200 ${
               summaryCacheStatus 
                 ? 'bg-green-100 hover:bg-green-200 text-green-800 border-green-300' 
                 : 'bg-blue-100 hover:bg-blue-200 text-blue-800 border-blue-300'
             } disabled:opacity-50`}
-            title={summaryCacheStatus ? "AI summary (cached)" : "Generate AI summary"}
+            title={summaryCacheStatus ? "AI Query (cached)" : "Run AI Query on transcript"}
           >
             <span className="text-lg">
               {summarizing ? '🤖...' : summaryCacheStatus ? '🤖💾' : '🤖'}
             </span>
-            <span>AI Summary</span>
+            <span>AI Query</span>
           </button>
           <button
             onClick={() => generateMultipleSummaries()}
             disabled={generatingMultiple || !ollamaStatus.available}
             className="flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors duration-200 bg-purple-100 hover:bg-purple-200 text-purple-800 border-purple-300 disabled:opacity-50"
-            title="Generate 5 AI perspectives"
+            title="Generate AI perspectives"
           >
             <span className="text-lg">
               {generatingMultiple ? '🔄...' : '🎯'}
             </span>
-            <span>5 Perspectives</span>
+            <span>AI Perspectives</span>
           </button>
           <button
             onClick={copyToClipboard}
