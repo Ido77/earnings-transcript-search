@@ -139,7 +139,25 @@ const Tickers = () => {
               clearInterval(progressIntervalRef.current);
               progressIntervalRef.current = null;
             }
-            alert(`Job ${progress.status}! Processed: ${progress.progress.processed.length}, Failed: ${progress.progress.failed.length}, Skipped: ${progress.progress.skipped.length}`);
+            
+            // Show detailed completion message
+            let message = `Job ${progress.status}!\n\n`;
+            message += `✅ Processed: ${progress.progress.processed.length}\n`;
+            message += `❌ Failed: ${progress.progress.failed.length}\n`;
+            message += `⏭️ Skipped: ${progress.progress.skipped.length}\n`;
+            
+            if (progress.progress.failed.length > 0) {
+              message += `\nFailed tickers:\n`;
+              if (progress.progress.failedDetails && progress.progress.failedDetails.length > 0) {
+                progress.progress.failedDetails.forEach((failure: any) => {
+                  message += `  • ${failure.ticker}: ${failure.reason}\n`;
+                });
+              } else {
+                message += `  ${progress.progress.failed.join(', ')}`;
+              }
+            }
+            
+            alert(message);
             loadBackgroundJobs(); // Refresh job list
           }
         }
@@ -162,26 +180,57 @@ const Tickers = () => {
         .map(t => t.trim().toUpperCase())
         .filter(t => t.length > 0);
 
-      const response = await fetch('http://localhost:3001/api/tickers/bulk-fetch', {
+      // Use the background job API for progress tracking
+      const response = await fetch('http://localhost:3001/api/jobs/bulk-fetch', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ tickers: tickerList }),
+        body: JSON.stringify({ 
+          tickers: tickerList,
+          quarterCount: quarterCount 
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        setResults(data);
-        alert(`Bulk fetch completed! ${data.summary.successful} successful, ${data.summary.failed} failed`);
+        alert(`Bulk fetch job started! Job ID: ${data.jobId}. Check the "Background Jobs" section below for progress.`);
+        
+        // Start monitoring progress for this job
+        startProgressMonitoring(data.jobId);
+        
+        // Refresh the background jobs list
+        loadBackgroundJobs();
+        
+        // Clear the tickers input
+        setTickers('');
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || errorData.message}`);
+      }
+    } catch (error) {
+      alert(`Failed to start bulk fetch: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearCompletedJobs = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/jobs/completed', {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Cleared ${data.clearedCount} completed jobs. You can now start new bulk fetch jobs.`);
+        loadBackgroundJobs(); // Refresh job list
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.error}`);
       }
     } catch (error) {
-      alert(`Failed to fetch transcripts: ${error}`);
-    } finally {
-      setLoading(false);
+      alert(`Failed to clear completed jobs: ${error}`);
     }
   };
 
@@ -307,9 +356,21 @@ const Tickers = () => {
         </div>
 
         {/* Background Jobs Section */}
-        {backgroundJobs.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
-            <h2 className="text-xl font-semibold mb-4">🔄 Background Jobs</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">🔄 Background Jobs</h2>
+            <button
+              onClick={clearCompletedJobs}
+              className="bg-gray-500 hover:bg-gray-600 text-white text-sm py-1 px-3 rounded"
+              title="Clear completed jobs to free up job queue"
+            >
+              🧹 Clear Completed
+            </button>
+          </div>
+          
+          {backgroundJobs.length === 0 ? (
+            <p className="text-gray-600">No background jobs. Start a bulk fetch to see jobs here.</p>
+          ) : (
             <div className="space-y-4">
               {backgroundJobs.map((job) => (
                 <div key={job.id} className="border border-gray-200 rounded-lg p-4">
@@ -382,8 +443,8 @@ const Tickers = () => {
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Current Job Progress */}
         {jobProgress && (
@@ -416,6 +477,46 @@ const Tickers = () => {
                 <div className="flex justify-between">
                   <span>Current:</span>
                   <span className="font-mono">{jobProgress.progress.currentTicker}</span>
+                </div>
+              )}
+              
+              {/* Show failed tickers with details */}
+              {jobProgress.progress.failed.length > 0 && (
+                <div className="mt-4 border-t pt-4">
+                  <h3 className="text-sm font-semibold text-red-600 mb-2">❌ Failed Tickers:</h3>
+                  <div className="max-h-32 overflow-y-auto">
+                    <div className="text-sm text-gray-600">
+                      {jobProgress.progress.failedDetails && jobProgress.progress.failedDetails.length > 0 ? (
+                        jobProgress.progress.failedDetails.map((failure: any, index: number) => (
+                          <div key={index} className="mb-1">
+                            <span className="font-mono font-semibold text-red-600">{failure.ticker}:</span>
+                            <span className="ml-2 text-gray-600">{failure.reason}</span>
+                          </div>
+                        ))
+                      ) : (
+                        jobProgress.progress.failed.map((ticker: string, index: number) => (
+                          <div key={index} className="font-mono">{ticker}</div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Show processed tickers */}
+              {jobProgress.progress.processed.length > 0 && jobProgress.status === 'completed' && (
+                <div className="mt-4 border-t pt-4">
+                  <h3 className="text-sm font-semibold text-green-600 mb-2">✅ Successfully Processed:</h3>
+                  <div className="max-h-32 overflow-y-auto">
+                    <div className="text-sm text-gray-600">
+                      {jobProgress.progress.processed.slice(0, 20).map((ticker: string, index: number) => (
+                        <span key={index} className="font-mono mr-2">{ticker}</span>
+                      ))}
+                      {jobProgress.progress.processed.length > 20 && (
+                        <span className="text-gray-500">... and {jobProgress.progress.processed.length - 20} more</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

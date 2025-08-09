@@ -47,23 +47,23 @@ export default function InvestmentIdeas() {
     const currentIdea = ideas[currentIndex];
     const isBookmark = action === 'bookmark';
     
-    // Update bookmark status
+    // Persist bookmark or pass
     try {
-      await fetch(`http://localhost:3001/api/investment-ideas/${currentIdea.id}/bookmark`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ bookmarked: isBookmark })
-      });
-      
       if (isBookmark) {
+        await fetch(`http://localhost:3001/api/investment-ideas/${currentIdea.id}/bookmark`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookmarked: true })
+        });
         toast(`💡 ${currentIdea.ticker} idea bookmarked!`, 'success');
       } else {
+        await fetch(`http://localhost:3001/api/investment-ideas/${currentIdea.id}/pass`, {
+          method: 'POST'
+        });
         toast(`👋 ${currentIdea.ticker} idea passed`, 'info');
       }
     } catch (error) {
-      console.error('Error updating bookmark:', error);
+      console.error('Error updating idea:', error);
     }
     
     // Move to next idea

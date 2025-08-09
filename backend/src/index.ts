@@ -726,15 +726,21 @@ app.post('/api/tickers/bulk-fetch', async (req, res) => {
 
 // Create background job endpoint
 app.post('/api/jobs/bulk-fetch', asyncHandler(async (req, res) => {
-  const { tickers: rawTickers } = req.body;
+  const { tickers: rawTickers, quarterCount = 4 } = req.body;
   const tickers = Array.isArray(rawTickers) ? rawTickers.map((t: string) => t.trim().toLowerCase()).filter(Boolean) : [];
 
   if (tickers.length === 0) {
     return res.status(400).json({ error: 'No tickers provided' });
   }
 
+  if (quarterCount && (typeof quarterCount !== 'number' || quarterCount < 1 || quarterCount > 16)) {
+    return res.status(400).json({ error: 'Quarter count must be between 1 and 16' });
+  }
+
   try {
-    const jobId = jobManager.createBulkFetchJob(tickers);
+    // Convert tickers array to file content for enhanced job manager
+    const fileContent = tickers.join('\n');
+    const jobId = enhancedJobManager.createBulkFetchJobFromFile(fileContent, quarterCount);
 
     res.json({
       message: 'Background job created successfully',
@@ -1424,6 +1430,24 @@ app.post('/api/transcripts/save-cache', (req, res) => {
   }
 });
 
+// Get transcript count for bulk processing info (must be before :id route)
+app.get('/api/transcripts/db-count', asyncHandler(async (req, res) => {
+  const totalTranscripts = await prisma.transcript.count();
+  const transcriptsWithoutAI = await prisma.transcript.count({
+    where: {
+      aiSummaries: {
+        none: {}
+      }
+    }
+  });
+  
+  res.json({
+    total: totalTranscripts,
+    withoutAI: transcriptsWithoutAI,
+    withAI: totalTranscripts - transcriptsWithoutAI
+  });
+}));
+
 // Get individual transcript by ID - database first, then cache fallback
 app.get('/api/transcripts/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -2058,13 +2082,16 @@ app.get('/api/ai/test', asyncHandler(async (req, res) => {
   res.json({ success: true, message: 'Bulk AI service is working' });
 }));
 
+
+
 // Start bulk AI processing
 app.post('/api/ai/bulk-process', asyncHandler(async (req, res) => {
-  const { transcriptIds, tickers, forceRefresh, analystTypes } = req.body;
+  const { transcriptIds, tickers, processAllTranscripts, forceRefresh, analystTypes } = req.body;
   
   logger.info('Starting bulk AI processing', {
     transcriptIds: transcriptIds?.length || 0,
     tickers: tickers?.length || 0,
+    processAllTranscripts: processAllTranscripts || false,
     forceRefresh: forceRefresh || false,
     analystTypes: analystTypes || ['Claude', 'Gemini', 'DeepSeek', 'Grok']
   });
@@ -2073,6 +2100,7 @@ app.post('/api/ai/bulk-process', asyncHandler(async (req, res) => {
     const { jobId } = await bulkAIService.processBulkAI({
       transcriptIds,
       tickers,
+      processAllTranscripts,
       forceRefresh,
       analystTypes
     });
@@ -2183,7 +2211,7 @@ app.get('/api/ai/bulk-stats', asyncHandler(async (req, res) => {
 
 // Get all unified investment theses for swiping
 app.get('/api/investment-ideas', asyncHandler(async (req, res) => {
-  const { limit = 20, offset = 0, excludeBookmarked = false } = req.query;
+  const { limit = 20, offset = 0, excludeBookmarked = false, excludePassed = true } = req.query;
   
   try {
     logger.info('Fetching investment ideas for swiping interface', {
@@ -2203,6 +2231,12 @@ app.get('/api/investment-ideas', asyncHandler(async (req, res) => {
         // Exclude already bookmarked ideas unless explicitly requested
         ...(excludeBookmarked === 'true' || excludeBookmarked === true ? {
           bookmarkedIdeas: {
+            none: {}
+          }
+        } : {}),
+        // Exclude passed ideas by default
+        ...(excludePassed === 'true' || excludePassed === true ? {
+          passedIdeas: {
             none: {}
           }
         } : {})
@@ -2357,6 +2391,49 @@ app.post('/api/investment-ideas/:transcriptId/bookmark', asyncHandler(async (req
       error: 'Failed to update bookmark',
       details: error instanceof Error ? error.message : 'Unknown error'
     });
+  }
+}));
+
+// Pass an investment idea (persist decision)
+app.post('/api/investment-ideas/:transcriptId/pass', asyncHandler(async (req, res) => {
+  const { transcriptId } = req.params;
+
+  try {
+    const transcript = await prisma.transcript.findUnique({ where: { id: transcriptId } });
+    if (!transcript) {
+      return res.status(404).json({ error: 'Transcript not found' });
+    }
+
+    await prisma.passedIdea.upsert({
+      where: {
+        ticker_year_quarter: {
+          ticker: transcript.ticker,
+          year: transcript.year,
+          quarter: transcript.quarter
+        }
+      },
+      update: { updatedAt: new Date() },
+      create: {
+        ticker: transcript.ticker,
+        companyName: transcript.companyName,
+        year: transcript.year,
+        quarter: transcript.quarter,
+        quarterDate: transcript.callDate,
+        transcriptId: transcript.id
+      }
+    });
+
+    logger.info('Investment idea passed (hidden from feed)', {
+      transcriptId,
+      ticker: transcript.ticker,
+      year: transcript.year,
+      quarter: transcript.quarter
+    });
+
+    res.json({ success: true, transcriptId, passed: true });
+  } catch (error) {
+    logger.error('Failed to pass idea', { transcriptId, error: error instanceof Error ? error.message : 'Unknown error' });
+    res.status(500).json({ error: 'Failed to mark idea as passed' });
   }
 }));
 

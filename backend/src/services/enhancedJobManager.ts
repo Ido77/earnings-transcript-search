@@ -96,151 +96,114 @@ export class EnhancedJobManager extends EventEmitter {
     const startTime = Date.now();
     const { getQuarterAtIndex } = require('./quarterCalculator');
     
-    // Try quarters one at a time until we find a transcript or run out of quarters
-    for (let quarterIndex = 0; quarterIndex < maxQuartersToTry; quarterIndex++) {
-      const quarter = getQuarterAtIndex(quarterIndex);
-      if (!quarter) {
-        break; // No more quarters available
-      }
-      
-      const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
-      
-      // Check if already in cache
-      if (this.transcriptCache.has(cacheKey)) {
-        const elapsedTime = (Date.now() - startTime) / 1000;
-        return {
-          success: true,
-          message: `Found in cache (took ${elapsedTime.toFixed(2)}s)`,
-          transcript: this.transcriptCache.get(cacheKey),
-          quarter
-        };
-      }
+    // Helper to try a contiguous range of quarter indices [from, to)
+    const tryQuarterRange = async (fromIndex: number, toIndex: number): Promise<{ success: boolean; message: string; transcript?: any; quarter?: any } | null> => {
+      for (let quarterIndex = fromIndex; quarterIndex < toIndex; quarterIndex++) {
+        const quarter = getQuarterAtIndex(quarterIndex);
+        if (!quarter) {
+          break; // No more quarters available
+        }
+        
+        const cacheKey = `${ticker}-${quarter.year}-Q${quarter.quarter}`;
+        
+        // Check if already in cache
+        if (this.transcriptCache.has(cacheKey)) {
+          const elapsedTime = (Date.now() - startTime) / 1000;
+          return {
+            success: true,
+            message: `Found in cache (took ${elapsedTime.toFixed(2)}s)`,
+            transcript: this.transcriptCache.get(cacheKey),
+            quarter
+          };
+        }
 
-      // Retry logic with exponential backoff (like Python project)
-      for (let attempt = 0; attempt < maxRetries; attempt++) {
-        try {
-          // Add delay between attempts and between API calls
-          if (attempt > 0) {
-            const backoffTime = Math.pow(2, attempt) * 1000; // Exponential backoff
-            await new Promise(resolve => setTimeout(resolve, backoffTime));
-          } else {
-            // Add delay between API calls to avoid rate limiting
-            await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
-          }
-
-          const transcript = await apiNinjasService.fetchTranscript(
-            ticker,
-            quarter.year,
-            quarter.quarter
-          );
-
-          if (transcript && transcript.transcript) {
-            // Parse transcript date
-            let callDate: Date | null = null;
-            if (transcript.date) {
-              try {
-                callDate = new Date(transcript.date);
-              } catch (error) {
-                logger.warn('Invalid date format in transcript', {
-                  ticker,
-                  year: quarter.year,
-                  quarter: quarter.quarter,
-                  date: transcript.date,
-                });
-              }
+        // Retry logic with exponential backoff
+        for (let attempt = 0; attempt < maxRetries; attempt++) {
+          try {
+            if (attempt > 0) {
+              const backoffTime = Math.pow(2, attempt) * 1000;
+              await new Promise(resolve => setTimeout(resolve, backoffTime));
+            } else {
+              await new Promise(resolve => setTimeout(resolve, 2000));
             }
 
-            const transcriptData = {
+            const transcript = await apiNinjasService.fetchTranscript(
               ticker,
-              year: quarter.year,
-              quarter: quarter.quarter,
-              callDate: transcript.date,
-              fullTranscript: transcript.transcript,
-              companyName: `${ticker} Inc.`
-            };
-            
-            // Store in cache
-            this.transcriptCache.set(cacheKey, transcriptData);
+              quarter.year,
+              quarter.quarter
+            );
 
-            // Also save to database
-            try {
-              const savedTranscript = await prisma.transcript.upsert({
-                where: {
-                  ticker_year_quarter: {
-                    ticker: ticker.toUpperCase(),
-                    year: quarter.year,
-                    quarter: quarter.quarter,
-                  },
-                },
-                update: {
-                  fullTranscript: transcript.transcript,
-                  callDate,
-                  updatedAt: new Date(),
-                },
-                create: {
-                  ticker: ticker.toUpperCase(),
-                  year: quarter.year,
-                  quarter: quarter.quarter,
-                  fullTranscript: transcript.transcript,
-                  callDate,
-                  transcriptJson: {},
-                },
-              });
+            if (transcript && transcript.transcript) {
+              // Parse transcript date
+              let callDate: Date | null = null;
+              if (transcript.date) {
+                try {
+                  callDate = new Date(transcript.date);
+                } catch (error) {
+                  logger.warn('Invalid date format in transcript', { ticker, year: quarter.year, quarter: quarter.quarter, date: transcript.date });
+                }
+              }
 
-              logger.info('Transcript saved to database from enhanced job manager', {
+              const transcriptData = {
                 ticker,
                 year: quarter.year,
                 quarter: quarter.quarter,
-                transcriptId: savedTranscript.id
-              });
-            } catch (dbError) {
-              logger.error('Failed to save transcript to database', {
-                ticker,
-                year: quarter.year,
-                quarter: quarter.quarter,
-                error: dbError instanceof Error ? dbError.message : 'Unknown error'
-              });
+                callDate: transcript.date,
+                fullTranscript: transcript.transcript,
+                companyName: `${ticker} Inc.`
+              };
+
+              // Cache and persist
+              this.transcriptCache.set(cacheKey, transcriptData);
+              try {
+                const savedTranscript = await prisma.transcript.upsert({
+                  where: { ticker_year_quarter: { ticker: ticker.toUpperCase(), year: quarter.year, quarter: quarter.quarter } },
+                  update: { fullTranscript: transcript.transcript, callDate, updatedAt: new Date() },
+                  create: { ticker: ticker.toUpperCase(), year: quarter.year, quarter: quarter.quarter, fullTranscript: transcript.transcript, callDate, transcriptJson: {} }
+                });
+                logger.info('Transcript saved to database from enhanced job manager', { ticker, year: quarter.year, quarter: quarter.quarter, transcriptId: savedTranscript.id });
+              } catch (dbError) {
+                logger.error('Failed to save transcript to database', { ticker, year: quarter.year, quarter: quarter.quarter, error: dbError instanceof Error ? dbError.message : 'Unknown error' });
+              }
+
+              const elapsedTime = (Date.now() - startTime) / 1000;
+              return {
+                success: true,
+                message: `Successfully fetched ${quarter.year}Q${quarter.quarter} (took ${elapsedTime.toFixed(2)}s)`,
+                transcript: transcriptData,
+                quarter
+              };
             }
-            
-            const elapsedTime = (Date.now() - startTime) / 1000;
-            
-            return {
-              success: true,
-              message: `Successfully fetched ${quarter.year}Q${quarter.quarter} (took ${elapsedTime.toFixed(2)}s)`,
-              transcript: transcriptData,
-              quarter
-            };
-          }
-          
-          // No transcript for this quarter, try next quarter
-          break;
-          
-        } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-          
-          // Handle rate limiting specifically
-          if (errorMessage.includes('rate limit') || errorMessage.includes('429')) {
-            logger.warn(`Rate limit for ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}`);
-            if (attempt < maxRetries - 1) {
-              continue; // Retry with backoff
-            }
-          }
-          
-          logger.debug(`Failed to fetch ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}:`, errorMessage);
-          
-          if (attempt === maxRetries - 1) {
-            // Last attempt failed, try next quarter
+
+            // No transcript for this quarter, try next one
             break;
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            if (errorMessage.includes('rate limit') || errorMessage.includes('429')) {
+              logger.warn(`Rate limit for ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}`);
+              if (attempt < maxRetries - 1) continue;
+            }
+            logger.debug(`Failed to fetch ${ticker} ${quarter.year}Q${quarter.quarter}, attempt ${attempt + 1}/${maxRetries}:`, errorMessage);
+            if (attempt === maxRetries - 1) break;
           }
         }
       }
-    }
-    
-    const elapsedTime = (Date.now() - startTime) / 1000;
-    return {
-      success: false,
-      message: `No transcript found for any quarter (took ${elapsedTime.toFixed(2)}s)`
+      return null;
     };
+
+    // First: respect requested limit
+    const firstPass = await tryQuarterRange(0, maxQuartersToTry);
+    if (firstPass) return firstPass;
+
+    // Fallback: expand search up to 16 quarters for this ticker only
+    const FALLBACK_MAX = 16;
+    if (maxQuartersToTry < FALLBACK_MAX) {
+      const secondPass = await tryQuarterRange(maxQuartersToTry, FALLBACK_MAX);
+      if (secondPass) return secondPass;
+    }
+
+    const elapsedTime = (Date.now() - startTime) / 1000;
+    return { success: false, message: `No transcript found for any quarter (took ${elapsedTime.toFixed(2)}s)` };
   }
 
   /**
@@ -296,6 +259,7 @@ export class EnhancedJobManager extends EventEmitter {
       id: jobId,
       tickers,
       quarters: [], // No longer needed, but keeping for backward compatibility
+      quarterCount: quarterCount, // Store the quarterCount properly
       status: 'pending',
       createdAt: new Date(),
       progress: {
@@ -356,7 +320,7 @@ export class EnhancedJobManager extends EventEmitter {
       this.emit('progress', { jobId, job });
 
       const totalTickers = job.tickers.length;
-      const quarterCount = job.quarters?.length || 16; // Default to 16 if no quarters specified
+      const quarterCount = job.quarterCount || job.quarters?.length || 4; // Use stored quarterCount, fallback to quarters array, then default to 4
 
       // Process all tickers (simplified without checkpoint for now)
       const remainingTickers = job.tickers;
@@ -376,9 +340,14 @@ export class EnhancedJobManager extends EventEmitter {
         
         // Update progress after each batch
         const currentProcessed = allResults.filter(r => r.success).map(r => r.ticker);
+        const failedResults = allResults.filter(r => !r.success);
         job.progress.processed = currentProcessed;
-        job.progress.failed = allResults.filter(r => !r.success).map(r => r.ticker);
+        job.progress.failed = failedResults.map(r => r.ticker);
         job.progress.skipped = allResults.filter(r => r.message.includes('Found in cache')).map(r => r.ticker);
+        job.progress.failedDetails = failedResults.map(r => ({ 
+          ticker: r.ticker, 
+          reason: r.message 
+        }));
         job.progress.current = currentProcessed.length;
         job.progress.total = totalTickers;
         

@@ -17,8 +17,10 @@ export function getQuartersToTry(count: number = 4): Quarter[] {
   const currentYear = currentDate.getFullYear();
   
   // Define all possible quarters in order of recency (most recent first)
+  // Include future quarters as companies may use different fiscal years
   const allQuarters = [
-    // 2025 quarters
+    // Future quarters (fiscal years can extend into next calendar year)
+    { year: 2026, quarter: 1 }, // Some companies' Q1 2026 reported in early 2025
     { year: 2025, quarter: 4 },
     { year: 2025, quarter: 3 },
     { year: 2025, quarter: 2 },
@@ -50,7 +52,8 @@ export function getQuartersToTry(count: number = 4): Quarter[] {
  */
 export function getQuarterAtIndex(index: number): Quarter | null {
   const allQuarters = [
-    // 2025 quarters
+    // Future quarters (fiscal years can extend into next calendar year)
+    { year: 2026, quarter: 1 }, // Some companies' Q1 2026 reported in early 2025
     { year: 2025, quarter: 4 },
     { year: 2025, quarter: 3 },
     { year: 2025, quarter: 2 },

@@ -48,7 +48,26 @@ export class BulkAIService extends EventEmitter {
     // Get transcript IDs to process
     let transcriptIds: string[] = [];
     
-    if (request.transcriptIds && request.transcriptIds.length > 0) {
+    if (request.processAllTranscripts) {
+      // Process ALL transcripts in the database
+      const allTranscripts = await prisma.transcript.findMany({
+        select: { id: true, ticker: true, year: true, quarter: true },
+        orderBy: [
+          { ticker: 'asc' },
+          { year: 'desc' },
+          { quarter: 'desc' }
+        ]
+      });
+      
+      transcriptIds = allTranscripts.map(t => t.id);
+      
+      logger.info('Processing ALL transcripts from database', {
+        jobId,
+        totalTranscripts: transcriptIds.length,
+        analystTypes: request.analystTypes
+      });
+      
+    } else if (request.transcriptIds && request.transcriptIds.length > 0) {
       transcriptIds = request.transcriptIds;
     } else if (request.tickers && request.tickers.length > 0) {
       // Get transcript IDs from tickers - check database first, then cache
@@ -294,35 +313,81 @@ export class BulkAIService extends EventEmitter {
   }
 
   /**
-   * Process a single job
+   * Process a single job with parallel execution and batching
    */
   private async processJob(job: BulkAIJob): Promise<void> {
     const startTime = Date.now();
+    const concurrency = 3; // Number of parallel operations
+    const batchSize = 10; // Process in batches for memory efficiency
     
-    for (let i = 0; i < job.transcriptIds.length; i++) {
+    logger.info('Starting parallel AI processing', {
+      jobId: job.id,
+      totalTranscripts: job.transcriptIds.length,
+      concurrency,
+      batchSize
+    });
+    
+    // Process transcripts in batches
+    for (let batchStart = 0; batchStart < job.transcriptIds.length; batchStart += batchSize) {
       if (job.status === 'cancelled') {
         logger.info('Job cancelled, stopping processing', { jobId: job.id });
         break;
       }
 
-      const transcriptId = job.transcriptIds[i];
-      job.progress.current = i + 1;
-      job.progress.currentTranscript = transcriptId;
-
-      // Calculate estimated time remaining
-      if (i > 0) {
-        const elapsed = Date.now() - startTime;
-        const avgTimePerTranscript = elapsed / i;
-        const remaining = (job.transcriptIds.length - i) * avgTimePerTranscript;
-        job.estimatedTimeRemaining = Math.round(remaining / 1000); // seconds
+      const batchEnd = Math.min(batchStart + batchSize, job.transcriptIds.length);
+      const batchTranscripts = job.transcriptIds.slice(batchStart, batchEnd);
+      
+      logger.info(`Processing batch ${Math.floor(batchStart / batchSize) + 1}/${Math.ceil(job.transcriptIds.length / batchSize)}`, {
+        jobId: job.id,
+        batchSize: batchTranscripts.length,
+        progress: `${batchStart}/${job.transcriptIds.length}`
+      });
+      
+      // Process batch with limited concurrency
+      await this.processBatchParallel(job, batchTranscripts, concurrency, startTime);
+      
+      // Small delay between batches to prevent overwhelming the AI services
+      if (batchEnd < job.transcriptIds.length) {
+        await new Promise(resolve => setTimeout(resolve, 3000)); // 3 second delay between batches
       }
-
-      this.emit('jobProgress', job.id, job.progress);
-
+    }
+  }
+  
+  /**
+   * Process a batch of transcripts in parallel with controlled concurrency
+   */
+  private async processBatchParallel(
+    job: BulkAIJob, 
+    transcriptIds: string[], 
+    concurrency: number,
+    startTime: number
+  ): Promise<void> {
+    // Create a semaphore for concurrency control
+    let activePromises = 0;
+    const results: Array<{ transcriptId: string; result?: any; error?: string }> = [];
+    
+    const processTranscript = async (transcriptId: string): Promise<void> => {
+      activePromises++;
+      
       try {
+        // Update current transcript for progress tracking
+        job.progress.currentTranscript = transcriptId;
+        this.emit('jobProgress', job.id, job.progress);
+        
         const result = await this.processTranscriptAI(transcriptId, job.analystTypes, job.forceRefresh);
+        
+        results.push({ transcriptId, result });
         job.results.push(result);
         job.progress.processed.push(transcriptId);
+        job.progress.current = job.progress.processed.length;
+
+        // Calculate estimated time remaining
+        if (job.progress.current > 0) {
+          const elapsed = Date.now() - startTime;
+          const avgTimePerTranscript = elapsed / job.progress.current;
+          const remaining = (job.transcriptIds.length - job.progress.current) * avgTimePerTranscript;
+          job.estimatedTimeRemaining = Math.round(remaining / 1000); // seconds
+        }
 
         logger.info('Transcript AI processing completed', {
           jobId: job.id,
@@ -334,6 +399,8 @@ export class BulkAIService extends EventEmitter {
 
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
+        results.push({ transcriptId, error: errorMessage });
         job.results.push({
           transcriptId,
           ticker: '', // Will be filled in processTranscriptAI
@@ -344,19 +411,37 @@ export class BulkAIService extends EventEmitter {
           error: errorMessage
         });
         job.progress.failed.push(transcriptId);
+        job.progress.current = job.progress.processed.length;
 
         logger.error('Transcript AI processing failed', {
           jobId: job.id,
           transcriptId,
           error: errorMessage
         });
+      } finally {
+        activePromises--;
       }
-
-      // Rate limiting - small delay between transcripts
-      if (i < job.transcriptIds.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+    };
+    
+    // Process with controlled concurrency
+    const promises: Promise<void>[] = [];
+    
+    for (const transcriptId of transcriptIds) {
+      if (job.status === 'cancelled') break;
+      
+      // Wait if we've reached max concurrency
+      while (activePromises >= concurrency) {
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
+      
+      promises.push(processTranscript(transcriptId));
     }
+    
+    // Wait for all promises in this batch to complete
+    await Promise.allSettled(promises);
+    
+    // Emit progress update for the batch
+    this.emit('jobProgress', job.id, job.progress);
   }
 
   /**

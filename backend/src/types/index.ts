@@ -123,6 +123,7 @@ export interface BulkFetchJob {
   status: 'pending' | 'running' | 'completed' | 'failed' | 'paused' | 'cancelled';
   tickers: string[];
   quarters?: Array<{ year: number; quarter: number }>;
+  quarterCount?: number; // Number of quarters to try for each ticker
   progress: {
     current: number;
     total: number;
@@ -130,6 +131,7 @@ export interface BulkFetchJob {
     processed: string[];
     failed: string[];
     skipped: string[];
+    failedDetails?: Array<{ ticker: string; reason: string }>;
   };
   results: BulkFetchResult[];
   createdAt: Date;
@@ -250,6 +252,7 @@ export interface AISummaryData {
 export interface BulkAIProcessingRequest {
   transcriptIds?: string[];
   tickers?: string[];
+  processAllTranscripts?: boolean; // Process ALL transcripts in database
   forceRefresh?: boolean;
   analystTypes?: string[]; // ['Claude', 'Gemini', 'DeepSeek', 'Grok']
 }

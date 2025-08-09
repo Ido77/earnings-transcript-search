@@ -46,6 +46,8 @@ export default function BulkAI() {
   
   // Form state
   const [selectedTickers, setSelectedTickers] = useState<string>('');
+  const [processAllTranscripts, setProcessAllTranscripts] = useState(false);
+  const [transcriptCounts, setTranscriptCounts] = useState<{ total: number; withoutAI: number; withAI: number } | null>(null);
   const [forceRefresh, setForceRefresh] = useState(false);
   const [selectedAnalysts, setSelectedAnalysts] = useState({
     Claude: true,
@@ -80,32 +82,54 @@ export default function BulkAI() {
     }
   }, []);
 
+  const fetchTranscriptCounts = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/transcripts/db-count');
+      const data = await response.json();
+      setTranscriptCounts(data);
+    } catch (error) {
+      console.error('Failed to fetch transcript counts:', error);
+    }
+  }, []);
+
   // Initial fetch on mount
   useEffect(() => {
     fetchJobs();
     fetchStats();
-  }, [fetchJobs, fetchStats]);
+    fetchTranscriptCounts();
+  }, [fetchJobs, fetchStats, fetchTranscriptCounts]);
 
   const startBulkProcessing = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const tickers = selectedTickers
-        .split(',')
-        .map(t => t.trim().toUpperCase())
-        .filter(t => t.length > 0);
-
       const analystTypes = Object.entries(selectedAnalysts)
         .filter(([_, selected]) => selected)
         .map(([analyst, _]) => analyst);
 
-      if (tickers.length === 0) {
-        throw new Error('Please enter at least one ticker');
-      }
-
       if (analystTypes.length === 0) {
         throw new Error('Please select at least one analyst type');
+      }
+
+      let requestBody: any = {
+        analystTypes,
+        forceRefresh
+      };
+
+      if (processAllTranscripts) {
+        requestBody.processAllTranscripts = true;
+      } else {
+        const tickers = selectedTickers
+          .split(',')
+          .map(t => t.trim().toUpperCase())
+          .filter(t => t.length > 0);
+
+        if (tickers.length === 0) {
+          throw new Error('Please enter at least one ticker or select "Process All Transcripts"');
+        }
+
+        requestBody.tickers = tickers;
       }
 
       const response = await fetch('http://localhost:3001/api/ai/bulk-process', {
@@ -113,11 +137,7 @@ export default function BulkAI() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          tickers,
-          analystTypes,
-          forceRefresh
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       const data = await response.json();
@@ -140,7 +160,8 @@ export default function BulkAI() {
     <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-gray-900 mb-2">🧠 Bulk AI Processing</h1>
       <p className="text-gray-600 mb-8">
-        Process multiple transcripts with AI analysis in parallel. Generate summaries from Claude, Gemini, DeepSeek, and Grok.
+        Process multiple transcripts with AI analysis in parallel. Generate summaries from Claude, Gemini, DeepSeek, and Grok. 
+        <span className="text-purple-600 font-medium">⚡ High Performance Mode available for processing ALL transcripts with 3x concurrency.</span>
       </p>
 
       {/* Stats Overview */}
@@ -172,15 +193,77 @@ export default function BulkAI() {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tickers (comma-separated)
+              Target Selection
             </label>
-            <input
-              type="text"
-              value={selectedTickers}
-              onChange={(e) => setSelectedTickers(e.target.value)}
-              placeholder="e.g., AAPL, MSFT, GOOGL, BAX"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+            
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="processAllTranscripts"
+                  checked={processAllTranscripts}
+                  onChange={(e) => {
+                    setProcessAllTranscripts(e.target.checked);
+                    if (e.target.checked) {
+                      setSelectedTickers(''); // Clear tickers if processing all
+                    }
+                  }}
+                  className="rounded"
+                />
+                <label htmlFor="processAllTranscripts" className="text-sm font-medium text-purple-700">
+                  🚀 Process ALL Transcripts in Database (High Performance Mode)
+                </label>
+              </div>
+              
+              {!processAllTranscripts && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1">
+                    Or specify tickers (comma-separated)
+                  </label>
+                  <input
+                    type="text"
+                    value={selectedTickers}
+                    onChange={(e) => setSelectedTickers(e.target.value)}
+                    placeholder="e.g., AAPL, MSFT, GOOGL, BAX"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              )}
+              
+              {processAllTranscripts && (
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-purple-600">⚡</span>
+                    <span className="text-sm text-purple-700 font-medium">
+                      High Performance Mode Enabled
+                    </span>
+                  </div>
+                  {transcriptCounts && (
+                    <div className="bg-white rounded-md p-2 mt-2 border border-purple-100">
+                      <div className="text-xs text-purple-800 space-y-1">
+                        <div className="flex justify-between">
+                          <span>📊 Total Transcripts:</span>
+                          <span className="font-bold">{transcriptCounts.total.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>🤖 Already Processed:</span>
+                          <span className="font-bold text-green-600">{transcriptCounts.withAI.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>⏳ Pending Processing:</span>
+                          <span className="font-bold text-orange-600">{transcriptCounts.withoutAI.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <ul className="text-xs text-purple-600 mt-2 ml-6 space-y-1">
+                    <li>• Parallel processing with 3x concurrency</li>
+                    <li>• Batch processing for memory efficiency</li>
+                    <li>• Optimized for large-scale operations</li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
 
           <div>
